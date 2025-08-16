@@ -26,23 +26,36 @@ export function SocialList({ className }: { className?: string }) {
         staggerChildren: 0.1,
       }}
     >
-      {hero.socials.map((social) => (
-        <motion.li key={social.name} variants={itemVariants}>
-          <a
-            className="relative size-9 text-white text-xl flex justify-center items-center group"
-            href={social.url}
-            title={social.name}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span
-              className="absolute inset-0 -z-1 rounded-full group-hover:scale-105 transition"
-              style={{ backgroundColor: social.color }}
-            ></span>
-            <i className={clsx('iconfont', social.icon)} />
-          </a>
-        </motion.li>
-      ))}
+      {hero.socials.map((social) => {
+        const isClassIcon =
+          typeof social.icon === 'string' && social.icon.startsWith('icon-')
+        return (
+          <motion.li key={social.name} variants={itemVariants}>
+            <a
+              className="relative size-9 text-white text-xl flex justify-center items-center group"
+              href={social.url}
+              title={social.name}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span
+                className="absolute inset-0 -z-1 rounded-full group-hover:scale-105 transition"
+                style={{ backgroundColor: social.color }}
+              ></span>
+              {isClassIcon ? (
+                <i className={clsx('iconfont', social.icon)} />
+              ) : (
+                <img
+                  src={String(social.icon)}
+                  alt={social.name}
+                  loading="lazy"
+                  className="size-5 object-contain"
+                />
+              )}
+            </a>
+          </motion.li>
+        )
+      })}
     </motion.ul>
   )
 }
