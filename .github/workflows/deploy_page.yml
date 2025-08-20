@@ -57,7 +57,7 @@ jobs:
           cache: pnpm
       # 5、安装依赖
       - name: Install dependencies
-        run: pnpm i --frozen-lockfile
+        run: pnpm i
       # 6、打包
       - name: Build
         run: |
@@ -69,5 +69,3 @@ jobs:
         with:
           branch: gh-pages
           folder: dist
-          clean: true
-          single-commit: true
