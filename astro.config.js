@@ -22,6 +22,7 @@ import swup from '@swup/astro'
 export default defineConfig({
   output: 'static',
   build: {
+    format: 'file',
     assets: '_astro',
   },
   site: site.url,
@@ -54,6 +55,7 @@ export default defineConfig({
   },
   vite: {
     build: {
+      assetsInlineLimit: 0,
       rollupOptions: {
         external: ['/pagefind/pagefind.js'],
       },
