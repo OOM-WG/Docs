@@ -2,8 +2,8 @@
 title: SukiSU Ultra 源码里的逆天操作
 date: 2025-06-30
 summary: SukiSU Ultra 究竟是一个什么样的项目？
-category: SukiSU Ultra
-tags: [白彩恋]
+category: 白彩恋
+tags: [root, SukiSU Ultra]
 ---
 
 # SukiSU Ultra 源码里的逆天操作
