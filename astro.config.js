@@ -20,6 +20,10 @@ import swup from '@swup/astro'
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'static',
+  build: {
+    assets: '_astro',
+  },
   site: site.url,
   integrations: [
     tailwind(),
