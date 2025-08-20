@@ -23,7 +23,7 @@ export default defineConfig({
   output: 'static',
   build: {
     format: 'file',
-    assets: '_astro',
+    assets: 'assets',
   },
   site: site.url,
   base: '/',
