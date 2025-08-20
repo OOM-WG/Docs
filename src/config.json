@@ -15,8 +15,8 @@
   },
   "hero": {
     "name": "O.O.M. W.G.",
-    "bio": "Do we have so many memories.",
-    "description": "Memory overflow working group.",
+    "bio": "我们的美好回忆溢到你身上了吗？",
+    "description": "Out Of Memories Work Group",
     "socials": [
       {
         "name": "Github",
@@ -81,21 +81,26 @@
       "icon": "icon-flask"
     },
     {
+      "name": "成员",
+      "link": "/developers",
+      "icon": "icon-hearts"
+    },
+    {
+      "name": "加入",
+      "link": "/join",
+      "icon": "icon-share"
+    },
+    {
       "name": "关于",
       "link": "/about",
       "icon": "icon-ghost"
-    },
-    {
-      "name": "成员",
-      "link": "/friends",
-      "icon": "icon-hearts"
     }
   ],
   "posts": {
     "perPage": 10
   },
   "footer": {
-    "startTime": "2023-04-14T00:00:00Z"
+    "startTime": "2023-02-06T14:44:40Z"
   },
   "waline": {
     "serverURL": ""

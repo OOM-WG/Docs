@@ -3,8 +3,8 @@ import fs from 'fs'
 import path from 'path'
 import { isFileNameSafe } from './utils.js'
 
-function getFriendFullPath(fileName) {
-  return path.join('./src/content/friends', `${fileName}.yaml`)
+function getDeveloperFullPath(fileName) {
+  return path.join('./src/content/developers', `${fileName}.yaml`)
 }
 
 const fileName = await input({
@@ -13,7 +13,7 @@ const fileName = await input({
     if (!isFileNameSafe(value)) {
       return '文件名只能包含字母、数字和连字符'
     }
-    const fullPath = getFriendFullPath(value)
+    const fullPath = getDeveloperFullPath(value)
     if (fs.existsSync(fullPath)) {
       return `${fullPath} 已存在`
     }
@@ -40,6 +40,6 @@ link: ${link}
 avatar: ${avatar}
 `
 
-const fullPath = getFriendFullPath(fileName)
+const fullPath = getDeveloperFullPath(fileName)
 fs.writeFileSync(fullPath, content)
 console.log(`${fullPath} 创建成功`)

@@ -39,7 +39,7 @@ function splitWords(text: string) {
 export default function HeroText() {
   const [showSocial, setShowSocial] = useState(false)
 
-  const line1 = ["Hi", "I'm"]
+  const line1 = ["欢迎光临"]
   const name = hero.name
   const bioWords = splitWords(hero.bio)
 

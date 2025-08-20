@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "prettier --write .",
-    "new-friend": "node scripts/new-friend.js",
+    "new-developer": "node scripts/new-developer.js",
     "new-post": "node scripts/new-post.js",
     "new-project": "node scripts/new-project.js"
   },

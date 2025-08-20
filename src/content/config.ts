@@ -35,7 +35,7 @@ const specCollection = defineCollection({
   }),
 })
 
-const friendsCollection = defineCollection({
+const developersCollection = defineCollection({
   type: 'data',
   schema: z.object({
     title: z.string(),
@@ -49,5 +49,5 @@ export const collections = {
   posts: postsCollection,
   projects: projectsCollection,
   spec: specCollection,
-  friends: friendsCollection,
+  developers: developersCollection,
 }

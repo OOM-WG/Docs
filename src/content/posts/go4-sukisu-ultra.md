@@ -1,16 +1,16 @@
 ---
 title: SukiSU Ultra 源码里的逆天操作
 date: 2025-06-30
-summary: SukiSU Ultra，一个名字抽象、包名抽象、作者抽象、
+summary: SukiSU Ultra 究竟是一个什么样的项目？
 category: SukiSU Ultra
-tags: [SukiSU Ultra]
+tags: [白彩恋]
 ---
 
 # SukiSU Ultra 源码里的逆天操作
 
 SukiSU Ultra，一个名字抽象、包名抽象、作者抽象、用户抽象的在GitHub上有超过2K Stars的KernelSU Fork抽象项目，其中的代码质量更是抽象到极致。
 
-让人很难接受，居然是”Suki“ ”SU“，这分明就是要害了root，给KernelSU这个巧克力蛋糕上浇💩。
+让人很难接受，居然是“Suki” “SU”，这分明就是要害了root，给KernelSU这个巧克力蛋糕上浇💩。
 
 ## 抽象源码大合集
 

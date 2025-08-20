@@ -1,12 +1,10 @@
 ---
 title: ShiroSU 内核提权部分讲解
-date: 2024-07-15
-summary: ShiroSU 内核部分 是一个针对 Android 内核的提权与 Selinux 处理的部分
+date: 2025-07-04
+summary: ShiroSU 内核部分原理
 category: kernel
-tags: [OOM.WG.]
+tags: [Linso]
 ---
-
-# ShiroSU 内核提权部分讲解
 
 ## 1. 概述
 
