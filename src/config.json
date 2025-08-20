@@ -3,18 +3,18 @@
     "url": "https://oom-wg.dev",
     "title": "OOM.WG.",
     "description": "我们的回忆这么多吗？居然溢出啦WOK！",
-    "keywords": "OOM.WG.,Dev,回忆溢出工作组 ",
+    "keywords": "回忆溢出工作组, Out Of Memories Work Group, OOM WG",
     "lang": "zh-CN",
     "favicon": "/favicon.ico",
-    "appleTouchIcon": "/oom-wg.jpg"
+    "appleTouchIcon": "/oom.webp"
   },
   "author": {
-    "name": "OOM.WG.",
+    "name": "回忆溢出工作组",
     "twitterId": "",
-    "avatar": "/oom-wg.jpg"
+    "avatar": "/oom.webp"
   },
   "hero": {
-    "name": "OOM.WG.",
+    "name": "O.O.M. W.G.",
     "bio": "Do we have so many memories.",
     "description": "Memory overflow working group.",
     "socials": [
