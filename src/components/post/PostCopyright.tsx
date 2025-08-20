@@ -51,11 +51,11 @@ export function PostCopyright({
           本文采用
           <a
             className="hover:underline hover:text-accent underline-offset-2"
-            href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"
+            href="https://license.fileto.download"
             target="_blank"
             rel="noopener noreferrer"
           >
-            CC BY-NC-SA 4.0
+            File to Download Public Resources License
           </a>
           进行许可。
         </p>
