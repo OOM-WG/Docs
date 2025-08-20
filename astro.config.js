@@ -26,6 +26,7 @@ export default defineConfig({
     assets: '_astro',
   },
   site: site.url,
+  base: '/',
   integrations: [
     tailwind(),
     react(),
