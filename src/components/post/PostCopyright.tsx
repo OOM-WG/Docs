@@ -34,9 +34,9 @@ export function PostCopyright({
       <p>文章标题：{title}</p>
       <p>文章作者：{author.name}</p>
       <p>
-        <span>文章链接：{url}</span>
+        <span>文章链接：{url}  </span>
         <span role="button" className="hover:underline hover:text-accent underline-offset-2" onClick={handleCopyUrl}>
-          &nbsp;&nbsp;[复制]
+          [复制]
         </span>
       </p>
       <p>写作时间：{lastModStr}</p>
