@@ -431,6 +431,43 @@ list.filter { /*...*/ }.map { /*...*/ }
 list.asSequence().filter { /*...*/ }.map { /*...*/ }.toList()
 ```
 
+#### 转换 List
+
+当遇到非标准 List 时，可以将其转为 List 再使用
+
+```kotlin
+// 通过 for 使用
+for (idx in 0 until /*size*/) {
+    val it = list[idx]
+    // ...
+}
+
+// 转换为正常 List 后再使用
+list.run { List(/*size*/) { this[it] } }.forEach {
+    // ...
+}
+```
+
+#### 善用 firstNotNullOfOrNull
+
+`firstNotNullOfOrNull` 是一个比较长的拓展函数，用于返回第一个符合条件的内容，没有符合条件的内容时将返回 `null`，符合条件的要求是传入的 Lambda 中的返回内容不为 `null`
+
+其返回的内容是传入的 Lambda 中的返回内容，因此可以直接在传入的 Lambda 中直接返回值中需要的内容或者值本身
+
+```kotlin
+// 获取列表里面可 null 值中第一个非 null 的
+list.firstNotNullOfOrNull { it?.obj }?.let {
+    // 在此直接使用 obj
+    // ...
+}
+
+// 获取列表里面第一个符合条件的
+list.firstNotNullOfOrNull { it.takeIf { /*...*/ } }?.let {
+    // 在此使用值
+    // ...
+}
+```
+
 ##### 包名
 
 在开发回忆溢出的项目时，应当以作用而使用不同的包名
