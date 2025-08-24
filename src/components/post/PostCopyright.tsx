@@ -36,7 +36,7 @@ export function PostCopyright({
       <p>
         <span>文章链接：{url}</span>
         <span role="button" className="cursor-pointer select-none" onClick={handleCopyUrl}>
-          [复制]
+          &nbsp;&nbsp;[复制]
         </span>
       </p>
       <p>最后修改时间：{lastModStr}</p>
@@ -46,7 +46,7 @@ export function PostCopyright({
           <AnimatedSignature />
         </div>
         <p>
-          商业转载请联系站长获得授权，非商业转载请注明本文出处及文章链接，您可以自由地在任何媒体以任何形式复制和分发作品，也可以修改和创作，但是分发衍生作品时必须采用相同的许可协议。
+          商业转载请联系作者获得授权，非商业转载请注明本文出处及文章链接，您可以自由地在任何媒体以任何形式复制和分发作品，也可以修改和创作，但是分发衍生作品时必须采用相同的许可协议。
           <br />
           本文采用
           <a
