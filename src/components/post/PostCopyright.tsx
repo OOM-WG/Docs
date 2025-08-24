@@ -35,11 +35,11 @@ export function PostCopyright({
       <p>文章作者：{author.name}</p>
       <p>
         <span>文章链接：{url}</span>
-        <span role="button" className="cursor-pointer select-none" onClick={handleCopyUrl}>
+        <span role="button" className="cursor-pointer" onClick={handleCopyUrl}>
           &nbsp;&nbsp;[复制]
         </span>
       </p>
-      <p>最后修改时间：{lastModStr}</p>
+      <p>写作时间：{lastModStr}</p>
       <hr className="my-3 border-primary" />
       <div>
         <div className="float-right ml-4 my-2">
