@@ -3,7 +3,7 @@ title: ShiroSU 内核提权部分讲解
 date: 2025-07-04
 summary: ShiroSU 内核部分原理
 category: Linso
-tags: [root, 内核, ShiroSU]
+tags: [ShiroSU, root, 内核, C/C++]
 ---
 
 ## 1. 概述

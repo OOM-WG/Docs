@@ -3,7 +3,7 @@ title: 如何挽救被侵犯的存储空间？
 date: 2025-05-23
 summary: 苏柚是如何解决存储空间所面临的困境的？
 category: 白彩恋
-tags: [adb, root, 存储空间, 苏柚]
+tags: [苏柚, adb, root, 存储空间]
 ---
 
 ## 前言

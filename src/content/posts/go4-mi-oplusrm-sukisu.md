@@ -3,7 +3,7 @@ title: 此地三两事
 date: 2025-07-28
 summary: 这里究竟发生了什么？
 category: 白彩恋
-tags: [root]
+tags: [AI, root, 模块, SukiSU Ultra, Shell]
 ---
 
 ## 纷争的种子早已埋下。直到某个天外来物的降临，让这片土地的暗流涌动得更加汹涌...

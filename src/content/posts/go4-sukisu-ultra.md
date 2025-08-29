@@ -3,18 +3,20 @@ title: SukiSU Ultra 源码里的逆天操作
 date: 2025-06-30
 summary: SukiSU Ultra 究竟是一个什么样的项目？
 category: 白彩恋
-tags: [root, SukiSU Ultra]
+tags: [SukiSU Ultra, root, 开发, Kotlin, Shell]
 ---
 
-# SukiSU Ultra 源码里的逆天操作
+> [二周目请见此处](go4-sukisu-ultra-2)
 
-SukiSU Ultra，一个名字抽象、包名抽象、作者抽象、用户抽象的在GitHub上有超过2K Stars的KernelSU Fork抽象项目，其中的代码质量更是抽象到极致。
+## 前言
 
-让人很难接受，居然是“Suki” “SU”，这分明就是要害了root，给KernelSU这个巧克力蛋糕上浇💩。
+SukiSU Ultra，一个名字抽象、包名抽象、作者抽象、用户抽象的在 GitHub 上有超过 **2K Stars** 的 KernelSU Fork 抽象项目，其中的代码质量更是抽象到极致。
+
+让人很难接受，居然是 “Suki” “SU”，这分明就是要害了 root，给 KernelSU 这个巧克力蛋糕上浇💩。
 
 ## 抽象源码大合集
 
-SukiSU Ultra的包名已经很抽象了，`com.sukisu.ultra`、`io.sukisu.ultra`以及`zako.zako.zako`，图标还是个表情包，看来写SukiSU Ultra的和用SukiSU Ultra的都是纯贬低意的”杂鱼“
+SukiSU Ultra 的包名已经很抽象了，`com.sukisu.ultra`、`io.sukisu.ultra`以及`zako.zako.zako`，图标还是个表情包，看来写 SukiSU Ultra 的和用 SukiSU Ultra 的都是纯贬低意的”杂鱼“
 
 ```kotlin
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/KsuCli.kt
@@ -542,6 +544,117 @@ private fun reboot() {
 要是说`${'$'}`是我见过的最抽象的kotlin写法，那么`> /proc/self/fd/1`就是我见过的最抽象的shell写法。
 
 能想到`> /proc/self/fd/1`的已经离人非常远了，可能会想到`&>1`，但是要不想想默认输出走的是哪呢？
+
+```kotlin
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/KsuCli.kt
+
+fun getSuSFS(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} support")
+    return result
+}
+
+fun getSuSFSVersion(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} version")
+    return result
+}
+
+fun getSuSFSVariant(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} variant")
+    return result
+}
+
+fun getSuSFSFeatures(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} features")
+    return result
+}
+
+fun susfsSUS_SU_0(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} sus_su 0")
+    return result
+}
+
+fun susfsSUS_SU_2(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} sus_su 2")
+    return result
+}
+
+fun susfsSUS_SU_Mode(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} sus_su mode")
+    return result
+}
+
+fun loadKpmModule(path: String, args: String? = null): String {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} load $path ${args ?: ""}"
+    return ShellUtils.fastCmd(shell, cmd)
+}
+
+fun unloadKpmModule(name: String): String {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} unload $name"
+    return ShellUtils.fastCmd(shell, cmd)
+}
+
+fun getKpmModuleCount(): Int {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} num"
+    val result = ShellUtils.fastCmd(shell, cmd)
+    return result.trim().toIntOrNull() ?: 0
+}
+
+fun runCmd(shell: Shell, cmd: String): String {
+    return shell.newJob()
+        .add(cmd)
+        .to(mutableListOf<String>(), null)
+        .exec().out
+        .joinToString("\n")
+}
+
+fun listKpmModules(): String {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} list"
+    return try {
+        runCmd(shell, cmd).trim()
+    } catch (e: Exception) {
+        Log.e(TAG, "Failed to list KPM modules", e)
+        ""
+    }
+}
+
+fun getKpmModuleInfo(name: String): String {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} info $name"
+    return try {
+        runCmd(shell, cmd).trim()
+    } catch (e: Exception) {
+        Log.e(TAG, "Failed to get KPM module info: $name", e)
+        ""
+    }
+}
+
+fun controlKpmModule(name: String, args: String? = null): Int {
+    val shell = getRootShell()
+    val cmd = """${getKpmmgrPath()} control $name "${args ?: ""}"""//" // 由于代码块解析出错，这里忽略掉一个双引号
+    val result = runCmd(shell, cmd)
+    return result.trim().toIntOrNull() ?: -1
+}
+
+fun getKpmVersion(): String {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} version"
+    val result = ShellUtils.fastCmd(shell, cmd)
+    return result.trim()
+}
+```
+
+封装得莫名其妙，重复封装并且一点 Kotlin 语法也不会用，虽然质疑很多次了都是我还是想质疑一下这到底是个什么水平
 
 ## 总结
 
