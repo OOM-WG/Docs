@@ -1,9 +1,9 @@
 ---
-title: 二周目: SukiSU Ultra 项目中的逆天操作
+title: '二周目: SukiSU Ultra 项目中的逆天操作'
 date: 2025-08-29
 summary: SukiSU Ultra 为何如此千疮百孔？
 category: 白彩恋
-tags: [SukiSU Ultra, root, 开发, C/C++]
+tags: [SukiSU Ultra, root, 开发, C-C++]
 ---
 
 > [一周目请见此处](go4-sukisu-ultra)
