@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import type {Variants} from 'framer-motion'
 import { hero } from '@/config.json'
 import { SocialList } from './SocialList'
 
@@ -13,7 +14,7 @@ const Highlight = ({ children, className = '' }: { children: React.ReactNode; cl
   </span>
 )
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -22,7 +23,7 @@ const containerVariants = {
   },
 }
 
-const wordVariants = {
+const wordVariants: Variants = {
   hidden: { opacity: 0, y: 14, scale: 0.98 },
   visible: {
     opacity: 1,
