@@ -8,7 +8,7 @@ comments: false
 
 ### 主要群组
 
-- [伊甸园](https://qm.qq.com/q/pKuFysMZs4) - 活跃用户群 (PS: [答案](https://www.yuanshen.com/#/)，不讨论任何玩机内容)
+- [伊甸园](https://qm.qq.com/q/pKuFysMZs4) - 活跃用户群 (PS: 黑白圣堂血天使 天剑 <**验证答案**> 阿修罗)
 - [帮助](https://qm.qq.com/q/5MHCYXQQZG) - 疑问解答群
 
 ### 其他平台
