@@ -22,7 +22,7 @@ libzakosign.so: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dyn
 
 > 虽然在此处并没有涉及，但是还是要稍微提一下
 >
-> 部分对 C/C++ 一无所知的“开发者”往往会构建出 **未剥离符号**、**依赖C++共享库** 的“神仙”产物，归根结底是因为“开发者”连构建都不知道怎么构建导致的
+> 部分对 C/C++ 一无所知的“开发者”往往会构建出 **未剥离符号**、**依赖 C++共享库** 的“神仙”产物，归根结底是因为“开发者”连构建都不知道怎么构建导致的
 
 没有具体说明，一开始也没有找到源码，还能怎么办呢？只能逆向一下了
 
@@ -40,7 +40,7 @@ libzakosign.so: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dyn
 
 ## 模块验证具体内容
 
-> 以下代码均为逆向出的**伪代码**，**不等同于源码**，但**与源码较为相似**
+> 以下代码均为逆向出的**伪代码**，**不等同于源码**，但**与源码较为相似**，因为逆向后才找到源码，故伪代码也同样保留
 
 把这个 arm64 的 `libzakosign.so` 逆向后，真的非常令人感到莫名其妙，一直用莫名其妙这个词是因为这些东西真的令人非常疑惑，下面就大概看看吧
 
@@ -449,10 +449,16 @@ __hide long zako_syscall6(long n, long a1, long a2, long a3, long a4, long a5, l
     return ret;
 }
 
+// POSIX
 bool zako_sys_file_exist(char* path) {
     return access(path, F_OK) == 0;
 }
+// Windows NT
+bool zako_sys_file_exist(char* path) {
+    return PathFileExistsA(path);
+}
 
+// POSIX
 file_handle_t zako_sys_file_open(char* path) {
     int fd = open(path, O_RDONLY);
     if (fd == -1) {
@@ -462,39 +468,177 @@ file_handle_t zako_sys_file_open(char* path) {
 
     return fd;
 }
+// Windows NT
+file_handle_t zako_sys_file_open(char* path) {
+    HANDLE handle = CreateFileA(path, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_APPEND_DATA, NULL);
+    if (GetLastError() == ERROR_FILE_NOT_FOUND) {
+        ConsoleWriteFAIL("Failed to open %s because file does not exist!", path);
+    }
 
+    return handle;
+}
+
+// POSIX (?)
+file_handle_t zako_sys_file_opencopy(char* path, char* new, bool overwrite) {
+    if (access(new, F_OK) == 0) {
+        if (overwrite) {
+            if (remove(new) == -1) {
+                ConsoleWriteFAIL("File %s exists! (Failed to overwrite: %i)", new, errno);
+                return -1;
+            }
+        } else {
+            ConsoleWriteFAIL("File %s exists!", new);
+            return -1;
+        }
+    }
+
+    /* Reference: https://man7.org/linux/man-pages/man2/copy_file_range.2.html#EXAMPLES */
+
+    int          fd_in, fd_out;
+    off_t        size, ret;
+    struct stat  stat;
+
+    fd_in = open(path, O_RDONLY);
+    if (fd_in == -1) {
+        ConsoleWriteFAIL("Failed to open %s", path);
+        return -1;
+    }
+
+    if (fstat(fd_in, &stat) == -1) {
+        ConsoleWriteFAIL("Failed to get file stats of %s (%s)", path, strerror(errno));
+
+        close(fd_in);
+        return -1;
+    }
+
+    size = stat.st_size;
+
+    fd_out = open(new, O_CREAT | O_RDWR | O_TRUNC, 0644);
+    if (fd_out == -1) {
+        ConsoleWriteFAIL("Failed to open %s", new);
+        return -1;
+    }
+
+    do {
+        /* For some reason, copy_file_range is not defined in unistd...
+           For some reason, syscall is not defined in unistd either....
+
+           .... I am very confused ...
+
+           In order to not copy from kernel to userspace and vise versa multiple times
+           we are going to manually do a syscall. Yay! */
+        ret = zako_syscall6(__NR_copy_file_range, fd_in, (long) NULL, fd_out, (long) NULL, size, 0);
+        if (ret == -1) {
+            ConsoleWriteFAIL("Failed copy %s to %s", path, new);
+            return -1;
+        }
+
+        size -= ret;
+    } while (size > 0 && ret > 0);
+
+    close(fd_in);
+
+    return fd_out;
+}
+// Windows NT
+file_handle_t zako_sys_file_opencopy(char* path, char* new, bool overwrite) {
+    if (!CopyFileA(path, new, !overwrite)) {
+        ConsoleWriteFAIL("Failed to open a copy of %s at %s", path, new);
+
+        return NULL;
+    }
+
+    return zako_sys_file_open(new);
+}
+
+// POSIX
 void zako_sys_file_append_end(file_handle_t file, uint8_t* data, size_t sz) {
     write(file, (void*) data, sz);
 }
+// Windows NT
+void zako_sys_file_append_end(file_handle_t file, uint8_t* data, size_t sz) {
+    WriteFile(file, data, sz, 0, NULL);
+}
 
+// POSIX
 void zako_sys_file_close(file_handle_t fd) {
     close(fd);
 }
+// Windows NT
+void zako_sys_file_close(file_handle_t file) {
+    CloseHandle(file);
+}
 
+// POSIX
 size_t zako_sys_file_sz(file_handle_t file) {
     struct stat st;
     fstat(file, &st);
 
     return (size_t) st.st_size;
 }
+// Windows NT
+size_t zako_sys_file_sz(file_handle_t file) {
+    LARGE_INTEGER li;
+    GetFileSizeEx(file, &li);
 
+    if (li.HighPart != 0) {
+        ConsoleWriteFAIL("Error: File too big");
+        return 0;
+    }
+
+    return li.LowPart;
+}
+
+// POSIX
 size_t zako_sys_file_szatpath(char* path) {
     struct stat st;
     stat(path, &st);
 
     return (size_t) st.st_size;
 }
+// Windows NT
+size_t zako_sys_file_szatpath(char* path) {
+    WIN32_FILE_ATTRIBUTE_DATA data;
+    GetFileAttributesExA(path, GetFileExInfoStandard, &data);
 
+    if (data.nFileSizeHigh != 0) {
+        ConsoleWriteFAIL("Error: File %s is too big", path);
+        return 0;
+    }
+
+    return data.nFileSizeLow;
+}
+
+// POSIX
 void* zako_sys_file_map(file_handle_t file, size_t sz) {
     return mmap(NULL, sz, PROT_READ, MAP_SHARED, file, 0);
 }
+// Windows NT
+void* zako_sys_file_map(file_handle_t file, size_t sz) {
+    HANDLE hMapFile = CreateFileMappingA(file, NULL, PAGE_READONLY, 0, 0, NULL);
+    return MapViewOfFile(hMapFile, FILE_MAP_READ, 0, 0, 0);
+}
 
+// POSIX
 void* zako_sys_file_map_rw(file_handle_t file, size_t sz) {
     return mmap(NULL, sz, PROT_READ | PROT_WRITE, MAP_SHARED, file, 0);
 }
+// Windows NT
+void* zako_sys_file_map_rw(file_handle_t file, size_t sz) {
+    HANDLE hMapFile = CreateFileMappingA(file, NULL, PAGE_READWRITE, 0, 0, NULL);
+    return MapViewOfFile(hMapFile, FILE_MAP_WRITE, 0, 0, 0);
+}
 
+// POSIX
 void zako_sys_file_unmap(void* ptr, size_t sz) {
     munmap(ptr, sz);
+}
+// Windows NT
+void zako_sys_file_unmap(void* ptr, size_t sz) {
+    UnmapViewOfFile(ptr);
+
+    /* lets leak this for convenient purpose
+    CloseHandle(); */
 }
 
 void zako_esign_set_publickey(struct zako_esign_context* ctx, EVP_PKEY* key) {
@@ -708,6 +852,8 @@ X509_STORE **zako_trustchain_new()
 
 一个还在**测试**的东西却被直接添加到了**正式版**中，而且还**没有任何说明**，也不知道作者脑子里是怎么想的
 
+> 没有任何一个地方标注是测试。测试？Releases？这两个东西是可以出现在一起的吗？
+
 ## 深入
 
 深度分析源码后，zakosign 究竟想要干什么已经呼之欲出了，一些行为已经“**貌似合理**”了
@@ -728,4 +874,4 @@ zakosign 通过一个平台写一套代码并且还写了一堆莫名其妙的�
 
 > “击沉俾斯麦号！”
 
-一个不知道定位不知道具体用途的东西（_实际上就是为了自立门户_）就这么稀里糊涂地被端上来了，想标新立异还不如先把自己的问题一个一个都修好，然后把开发文档维护好，那么抽象的东西还要靠我们帮你修
+一个不知道定位不知道具体用途的东西（_实际上就是为了自立门户_）就这么稀里糊涂地被端上来了，想标新立异还不如先把自己的问题一个一个都修好，然后把开发文档维护好，那么抽象的东西还要靠我们帮你修，很难想象这群敢做不敢当的人脑子里想的都是什么

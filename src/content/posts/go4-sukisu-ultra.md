@@ -12,9 +12,11 @@ tags: [SukiSU Ultra, root, 开发, Kotlin, Shell]
 
 SukiSU Ultra，一个名字抽象、包名抽象、作者抽象、用户抽象的在 GitHub 上有超过 **2K Stars** 的 KernelSU Fork 抽象项目，其中的代码质量更是抽象到极致。
 
-让人很难接受，居然是 “Suki” “SU”，这分明就是要害了 root，给 KernelSU 这个巧克力蛋糕上浇💩。
+让人很难接受，居然是 “Suki” “SU”，还要加 “Ultra” 这么个莫名其妙的后缀，这分明就是要害了 root，给 KernelSU 这个巧克力蛋糕上浇💩。
 
 ## 抽象源码大合集
+
+> 部分问题已被回忆溢出修复，但是 SukiSU Ultra 的根病无法治愈
 
 SukiSU Ultra 的包名已经很抽象了，`com.sukisu.ultra`、`io.sukisu.ultra`以及`zako.zako.zako`，图标还是个表情包，看来写 SukiSU Ultra 的和用 SukiSU Ultra 的都是纯贬低意的”杂鱼“
 
@@ -107,7 +109,7 @@ private fun rootAvailable(): Boolean {
 }
 ```
 
-这些代码纯纯就是闲的没事干，源码里有大量的`ProcessBuilder()`和`Runtime.getRuntime().exec()`滥用，并且还用`su -c id`检测是否有root，你一个root管理器不应该在进去软件的时候就知道自己有没有root的吗？而且还用`su -c id`然后检测返回值？`su -c true`不行吗？
+这些代码纯纯就是闲的没事干，源码里有大量的`ProcessBuilder()`和`Runtime.getRuntime().exec()`滥用，并且还用`su -c id`检测是否有 root，你一个 root 管理器不应该在进去软件的时候就知道自己有没有 root 的吗？而且还用`su -c id`然后检测返回值？`su -c true`不行吗？
 
 ```java
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/io/sukisu/ultra/UltraShellHelper.java
@@ -121,9 +123,9 @@ public static void CopyFileTo(String path, String target) {
 }
 ```
 
-SukiSU Ultra在不断刷新我对低劣代码的认知，我是真的第一次遇到检测文件存在用`file`然后判断有没有报错`No such file or directory`的。
+SukiSU Ultra 在不断刷新我对低劣代码的认知，我是真的第一次遇到检测文件存在用`file`然后判断有没有报错`No such file or directory`的。
 
-都是root管理器了，还在用shell来检测文件复制文件，还是通过这种莫名其妙的方法，很难想象是怎么写出来的，我怎么写也想不到用`file`来检测，顶多想到`test -f`、`[ -f ]、`[[-f]]`这些东西。
+都是 root 管理器了，还在用 shell 来检测文件复制文件，还是通过这种莫名其妙的方法，很难想象是怎么写出来的，我怎么写也想不到用`file`来检测，顶多想到`test -f ...`、`[ -f ... ]`、`[[ -f ... ]]`这些东西。
 
 ```java
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/io/sukisu/ultra/UltraToolInstall.java
@@ -144,17 +146,7 @@ public static void tryToInstall() {
 }
 ```
 
-硬编码+shell调用，没什么好说的。
-
-```kotlin
-// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/Natives.kt
-
-init {
-    System.loadLibrary("zako")
-}
-```
-
-纯纯杂鱼。
+硬编码 + shell 调用，没什么好说的。
 
 ```kotlin
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/SuSFSModuleScripts.kt
@@ -249,13 +241,15 @@ private fun StringBuilder.generateCleanupResidueSection() {
 
 让人难以理解的是`listOf()`的大小也要硬编码，你但凡调用一下它的属性呢？
 
-还写个残留清理功能，纯属没活硬整，连DNA都删上了，而且还删cgroup节点，完全就是没有任何Android内核相关常识。
+还写个残留清理功能，纯属没活硬整，连 DNA 都删上了，而且还删 cgroup 节点，完全就是没有任何 Android 内核相关常识。
 
 让人最难以理解的是`${'$'}`，看到这个东西的时候我脑子都要炸掉了，整个脑子里都是骂人的话，这个东西究竟是不是人类写出来的？我感觉连类人生物都算不上。
 
 说他不好吧，他还知道用单引号包裹，只取`Char`类型。
 
-但是呢，`${'$'}`这种写法到底是什么神人写法，实用性为0而且纯纯给代码凑字数，而且`${'$'}`和`\$`混用，写这么多转义就不能用一下`$$`吗？
+但是呢，`${'$'}`这种写法到底是什么神人写法，实用性为 0 而且纯纯给代码凑字数，而且`${'$'}`和`\$`混用，写这么多转义就不能用一下`$$`吗？
+
+> 更让人难评的是这么多 shell 代码就非得塞在 kotlin 代码里面，搞个单独的文件很难吗？跟某位模块作者一样难评
 
 ```kotlin
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/SuSFSManager.kt
@@ -334,11 +328,11 @@ private suspend fun removeMagiskModule(): Boolean = withContext(Dispatchers.IO) 
 }
 ```
 
-真就是演都不演了，在KernelSU里面整上Magisk了。
+真就是演都不演了，在 KernelSU 里面整上 Magisk 了。
 
 首当其冲的仍然是硬编码。
 
-而且已经把kotlin当shell辅助工具玩了，干脆改名成ShellSU得了。
+而且已经把 kotlin 当 shell 辅助工具玩了，干脆改名成 ShellSU 得了。
 
 ```kotlin
 suspend fun backupModules(context: Context, snackBarHost: SnackbarHostState, uri: Uri) {
@@ -539,9 +533,9 @@ private fun reboot() {
 }
 ```
 
-真就是演都不演了，硬编码、`Runtime.getRuntime().exec()`滥用、`su -c`滥用、shell滥用轮着来。
+真就是演都不演了，硬编码、`Runtime.getRuntime().exec()`滥用、`su -c`滥用、shell 滥用轮着来。
 
-要是说`${'$'}`是我见过的最抽象的kotlin写法，那么`> /proc/self/fd/1`就是我见过的最抽象的shell写法。
+要是说`${'$'}`是我见过的最抽象的 kotlin 写法，那么`> /proc/self/fd/1`就是我见过的最抽象的 shell 写法。
 
 能想到`> /proc/self/fd/1`的已经离人非常远了，可能会想到`&>1`，但是要不想想默认输出走的是哪呢？
 
@@ -658,4 +652,4 @@ fun getKpmVersion(): String {
 
 ## 总结
 
-SukiSU Ultra到处都充斥着各种抽象滥用行为，甚至README都能把大小写写错，这种抽象的项目真的有人能用得下去吗？
+SukiSU Ultra 到处都充斥着各种抽象滥用行为，甚至 README 都能把大小写写错，这种抽象的项目真的有人能用得下去吗？

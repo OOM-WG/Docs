@@ -522,9 +522,9 @@ done
 . shell.sh
 ```
 
-#### 只写 POSIX，避免 Bash
+#### 多写 POSIX，避免 Bash
 
-BusyBox 的 ash 并不支持 Bash 语法，应当避免任何 Bash 语法，以免出现兼容性问题
+`BusyBox` 的 `Ash` 并不支持 `Bash` 语法，应当避免任何 `Bash` 语法，以免出现兼容性问题，但是可以写一写 `Mksh` 语法
 
 ## Git 提交
 

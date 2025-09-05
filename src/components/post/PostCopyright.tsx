@@ -31,15 +31,15 @@ export function PostCopyright({
 
   return (
     <section className="text-xs leading-loose text-secondary">
-      <p>文章标题：{title}</p>
-      <p>文章作者：{author.name}</p>
+      <p>文章标题: {title}</p>
+      <p>文章作者: {author.name}</p>
       <p>
-        <span>文章链接：{url}  </span>
+        <span>文章链接: {url}  </span>
         <span role="button" className="hover:underline hover:text-accent underline-offset-2" onClick={handleCopyUrl}>
           [复制]
         </span>
       </p>
-      <p>写作时间：{lastModStr}</p>
+      <p>写作时间: {lastModStr}</p>
       <hr className="my-3 border-primary" />
       <div>
         <div className="float-right ml-4 my-2">
