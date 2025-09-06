@@ -47,7 +47,7 @@ export default function HeroText() {
   const words = [
     ...line1,
     name,
-    '👋',
+    '💓',
     '|BREAK|',
     ...bioWords,
   ]
