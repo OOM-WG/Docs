@@ -19,20 +19,20 @@
     "description": "Out Of Memories Work Group",
     "socials": [
       {
-        "name": "Github",
+        "name": "GitHub",
         "icon": "icon-github",
         "url": "https://github.com/OOM-WG",
         "color": "rgb(24, 23, 23)"
       },
       {
-        "name": "Gitcode",
+        "name": "GitCode",
         "icon": "/socialist/gitcode.svg",
         "url": "https://gitcode.com/OOM-WG",
         "color": "#d81e06"
       },
       {
-        "name": "Email",
-        "icon": "icon-mail",
+        "name": "🫂",
+        "icon": "icon-contacts-book",
         "url": "https://oom-wg.dev/join",
         "color": "rgb(212, 70, 56)"
       }
