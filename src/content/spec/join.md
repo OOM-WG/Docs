@@ -14,4 +14,4 @@ comments: false
 ### 其他平台
 
 - [Discord](https://discord.gg/RQBBVhSCa5)
-- [QQ频道](https://pd.qq.com/s/91t3v4mr3)
+- [QQ 频道](https://pd.qq.com/s/91t3v4mr3)

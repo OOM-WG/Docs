@@ -1,12 +1,12 @@
 ---
 interface Props {
-  title: string
+	title: string
 }
 
-const { title } = Astro.props
+const {title} = Astro.props
 ---
 
 <section>
-  <div class="mb-8 font-bold uppercase tracking-widest text-accent">{title}</div>
-  <slot />
+	<div class="mb-8 font-bold uppercase tracking-widest text-accent">{title}</div>
+	<slot />
 </section>

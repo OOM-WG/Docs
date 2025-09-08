@@ -1,1 +1,1 @@
-export { HeadGradient } from './HeadGradient'
+export {HeadGradient} from './HeadGradient'

@@ -1,0 +1,16 @@
+printWidth: 106
+useTabs: true
+semi: false
+singleQuote: true
+trailingComma: none
+bracketSpacing: false
+bracketSameLine: true
+arrowParens: avoid
+astroAllowShorthand: true
+plugins:
+  - prettier-plugin-astro
+  - prettier-plugin-lint-md
+overrides:
+  - files: '*.astro'
+    options:
+      parser: astro

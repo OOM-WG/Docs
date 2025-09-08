@@ -1,13 +1,13 @@
 ---
-import { site, author } from '@/config.json'
+import {site, author} from '@/config.json'
 
 interface Props {
-  title?: string
-  description?: string
-  image?: string
+	title?: string
+	description?: string
+	image?: string
 }
 
-const { title = site.title, description = site.description, image } = Astro.props
+const {title = site.title, description = site.description, image} = Astro.props
 
 const titleWithSiteSuffix = title === site.title ? title : `${title} - ${site.title}`
 ---
@@ -40,8 +40,8 @@ const titleWithSiteSuffix = title === site.title ? title : `${title} - ${site.ti
 <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
-  rel="alternate"
-  type="application/rss+xml"
-  title={site.title}
-  href={new URL('/rss.xml', Astro.url)}
+	rel="alternate"
+	type="application/rss+xml"
+	title={site.title}
+	href={new URL('/rss.xml', Astro.url)}
 />

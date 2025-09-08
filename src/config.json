@@ -1,124 +1,124 @@
 {
-  "site": {
-    "url": "https://oom-wg.dev",
-    "title": "O.O.M. W.G.",
-    "description": "我们的回忆这么多吗？居然溢出啦WOK！",
-    "keywords": "回忆溢出工作组, Out Of Memories Work Group, OOM WG",
-    "lang": "zh-CN",
-    "favicon": "/favicon.ico",
-    "appleTouchIcon": "/oom.webp"
-  },
-  "author": {
-    "name": "回忆溢出工作组",
-    "twitterId": "",
-    "avatar": "/oom.webp"
-  },
-  "hero": {
-    "name": "O.O.M. W.G.",
-    "bio": "我们的美好回忆溢到你身上了吗？",
-    "description": "Out Of Memories Work Group",
-    "socials": [
-      {
-        "name": "GitHub",
-        "icon": "icon-github",
-        "url": "https://github.com/OOM-WG",
-        "color": "rgb(24, 23, 23)"
-      },
-      {
-        "name": "GitCode",
-        "icon": "/fonts/gitcode.svg",
-        "url": "https://gitcode.com/OOM-WG",
-        "color": "#d81e06"
-      },
-      {
-        "name": "🫂",
-        "icon": "icon-contacts-book",
-        "url": "https://oom-wg.dev/join",
-        "color": "rgb(212, 70, 56)"
-      }
-    ],
-    "yiyan": "当我们决定开始时，我们前方的路就未曾中断，在茫茫众生中散播美好回忆是我们的使命，我们未曾停下也不会停下"
-  },
-  "color": {
-    "accent": [
-      { "light": "#F55555", "dark": "#FCCF31" },
-      { "light": "#0396FF", "dark": "#ABDCFF" },
-      { "light": "#fb7287", "dark": "#99D8CF" },
-      { "light": "#F072B6", "dark": "#FFF886" },
-      { "light": "#9F44D3", "dark": "#E2B0FF" },
-      { "light": "#FF6666", "dark": "#A1CCD1" },
-      { "light": "#F6416C", "dark": "#838BC6" },
-      { "light": "#32CCBC", "dark": "#90F7EC" },
-      { "light": "#33A6B8", "dark": "#79F1A4" },
-      { "light": "#F55555", "dark": "#FCCF31" }
-    ],
-    "bg": {
-      "primary": { "light": "#ffffff", "dark": "#1c1c1e" },
-      "secondary": { "light": "#f4f4f5", "dark": "#27272a" }
-    },
-    "text": {
-      "primary": { "light": "#373a3c", "dark": "#ffffff" },
-      "secondary": { "light": "#71717a", "dark": "#d1d5db" }
-    },
-    "border": {
-      "primary": { "light": "#e4e4e7", "dark": "#3f3f46" }
-    }
-  },
-  "menus": [
-    {
-      "name": "首页",
-      "link": "/",
-      "icon": "icon-pantone"
-    },
-    {
-      "name": "归档",
-      "link": "/archives",
-      "icon": "icon-archive"
-    },
-    {
-      "name": "项目",
-      "link": "/projects",
-      "icon": "icon-flask"
-    },
-    {
-      "name": "成员",
-      "link": "/developers",
-      "icon": "icon-hearts"
-    },
-    {
-      "name": "加入",
-      "link": "/join",
-      "icon": "icon-share"
-    },
-    {
-      "name": "关于",
-      "link": "/about",
-      "icon": "icon-ghost"
-    }
-  ],
-  "posts": {
-    "perPage": 10
-  },
-  "footer": {
-    "startTime": "2023-02-06T14:44:40Z"
-  },
-  "waline": {
-    "serverURL": ""
-  },
-  "sponsor": {
-    "wechat": ""
-  },
-  "analytics": {
-    "enable": false,
-    "google": {
-      "measurementId": ""
-    },
-    "umami": {
-      "serverUrl": "",
-      "websiteId": ""
-    },
-    "microsoftClarity": {
-      "projectId": ""
-    }
-  }
+	"site": {
+		"url": "https://oom-wg.dev",
+		"title": "O.O.M. W.G.",
+		"description": "我们的回忆这么多吗？居然溢出啦WOK！",
+		"keywords": "回忆溢出工作组, Out Of Memories Work Group, OOM WG",
+		"lang": "zh-CN",
+		"favicon": "/favicon.ico",
+		"appleTouchIcon": "/oom.webp"
+	},
+	"author": {
+		"name": "回忆溢出工作组",
+		"twitterId": "",
+		"avatar": "/oom.webp"
+	},
+	"hero": {
+		"name": "O.O.M. W.G.",
+		"bio": "我们的美好回忆溢到你身上了吗？",
+		"description": "Out Of Memories Work Group",
+		"socials": [
+			{
+				"name": "GitHub",
+				"icon": "icon-github",
+				"url": "https://github.com/OOM-WG",
+				"color": "rgb(24, 23, 23)"
+			},
+			{
+				"name": "GitCode",
+				"icon": "/fonts/gitcode.svg",
+				"url": "https://gitcode.com/OOM-WG",
+				"color": "#d81e06"
+			},
+			{
+				"name": "🫂",
+				"icon": "icon-contacts-book",
+				"url": "https://oom-wg.dev/join",
+				"color": "rgb(212, 70, 56)"
+			}
+		],
+		"yiyan": "当我们决定开始时，我们前方的路就未曾中断，在茫茫众生中散播美好回忆是我们的使命，我们未曾停下也不会停下"
+	},
+	"color": {
+		"accent": [
+			{"light": "#F55555", "dark": "#FCCF31"},
+			{"light": "#0396FF", "dark": "#ABDCFF"},
+			{"light": "#fb7287", "dark": "#99D8CF"},
+			{"light": "#F072B6", "dark": "#FFF886"},
+			{"light": "#9F44D3", "dark": "#E2B0FF"},
+			{"light": "#FF6666", "dark": "#A1CCD1"},
+			{"light": "#F6416C", "dark": "#838BC6"},
+			{"light": "#32CCBC", "dark": "#90F7EC"},
+			{"light": "#33A6B8", "dark": "#79F1A4"},
+			{"light": "#F55555", "dark": "#FCCF31"}
+		],
+		"bg": {
+			"primary": {"light": "#ffffff", "dark": "#1c1c1e"},
+			"secondary": {"light": "#f4f4f5", "dark": "#27272a"}
+		},
+		"text": {
+			"primary": {"light": "#373a3c", "dark": "#ffffff"},
+			"secondary": {"light": "#71717a", "dark": "#d1d5db"}
+		},
+		"border": {
+			"primary": {"light": "#e4e4e7", "dark": "#3f3f46"}
+		}
+	},
+	"menus": [
+		{
+			"name": "首页",
+			"link": "/",
+			"icon": "icon-pantone"
+		},
+		{
+			"name": "归档",
+			"link": "/archives",
+			"icon": "icon-archive"
+		},
+		{
+			"name": "项目",
+			"link": "/projects",
+			"icon": "icon-flask"
+		},
+		{
+			"name": "成员",
+			"link": "/developers",
+			"icon": "icon-hearts"
+		},
+		{
+			"name": "加入",
+			"link": "/join",
+			"icon": "icon-share"
+		},
+		{
+			"name": "关于",
+			"link": "/about",
+			"icon": "icon-ghost"
+		}
+	],
+	"posts": {
+		"perPage": 10
+	},
+	"footer": {
+		"startTime": "2023-02-06T14:44:40Z"
+	},
+	"waline": {
+		"serverURL": ""
+	},
+	"sponsor": {
+		"wechat": ""
+	},
+	"analytics": {
+		"enable": false,
+		"google": {
+			"measurementId": ""
+		},
+		"umami": {
+			"serverUrl": "",
+			"websiteId": ""
+		},
+		"microsoftClarity": {
+			"projectId": ""
+		}
+	}
 }

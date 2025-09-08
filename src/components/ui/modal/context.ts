@@ -1,5 +1,5 @@
-import { createContext } from 'react'
+import {createContext} from 'react'
 
 export const CurrentModalContext = createContext<{
-  dismiss: () => void
+	dismiss: () => void
 }>(null as any)
