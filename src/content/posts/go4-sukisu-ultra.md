@@ -142,7 +142,7 @@ public static void tryToInstall() {
     if (UltraShellHelper.isPathExists(OUTSIDE_SUSFSD_PATH)) {
         UltraShellHelper.CopyFileTo(SuSFSDaemonPath, OUTSIDE_SUSFSD_PATH);
         UltraShellHelper.runCmd("chmod a+rx " + OUTSIDE_SUSFSD_PATH);
-        }
+    }
 }
 ```
 
