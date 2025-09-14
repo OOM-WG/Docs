@@ -43,15 +43,15 @@ export function PostCopyright({title, slug, lastMod}: {title: string; slug: stri
 				<p>
 					商业转载请联系作者获得授权，非商业转载请注明本文出处及文章链接，您可以自由地在任何媒体以任何形式复制和分发作品，也可以修改和创作，但是分发衍生作品时必须采用相同的许可协议。
 					<br />
-					本文采用
+					本文采用&nbsp;
 					<a
 						className="hover:underline hover:text-accent underline-offset-2"
 						href="https://license.fileto.download"
 						target="_blank"
 						rel="noopener noreferrer">
-						&nbsp;File to Download Public Resources License&nbsp;
+						File to Download Public Resources License
 					</a>
-					进行许可。
+					&nbsp;进行许可。
 				</p>
 			</div>
 		</section>
