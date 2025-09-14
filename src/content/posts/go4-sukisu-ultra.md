@@ -149,6 +149,22 @@ public static void tryToInstall() {
 硬编码 + shell 调用，没什么好说的。
 
 ```kotlin
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/Kernels.kt
+
+data class KernelVersion(val major: Int, val patchLevel: Int, val subLevel: Int) {
+    override fun toString(): String = "$major.$patchLevel.$subLevel"
+    fun isGKI(): Boolean = when {
+        major > 5 -> true
+        major == 5 && patchLevel >= 10 -> true
+        else -> false
+    }
+    fun isGKI1(): Boolean = (major == 4 && patchLevel >= 19) || (major == 5 && patchLevel < 10)
+}
+```
+
+反正就是怎么莫名其妙怎么来，原本只有 `isGKI`，多写了个 `isGKI1` 也不知道给原来的多加个 `2`
+
+```kotlin
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/SuSFSModuleScripts.kt
 
 private const val LOG_DIR = "/data/adb/ksu/log"
