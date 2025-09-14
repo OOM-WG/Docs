@@ -49,7 +49,7 @@ export function PostCopyright({title, slug, lastMod}: {title: string; slug: stri
 						href="https://license.fileto.download"
 						target="_blank"
 						rel="noopener noreferrer">
-						File to Download Public Resources License
+						&nbsp;File to Download Public Resources License&nbsp;
 					</a>
 					进行许可。
 				</p>
