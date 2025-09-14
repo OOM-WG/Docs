@@ -3,7 +3,7 @@ title: ShiroSU 内核提权部分讲解
 date: 2025-07-04
 summary: ShiroSU 内核部分原理
 category: Linso
-tags: [ShiroSU, root, 内核, C-C++]
+tags: [回忆溢出, ShiroSU, root, 内核, C-C++]
 ---
 
 > SSU 内核是 SSU 的一部分，但其并非 SSU 的主要定位，其将会作为可选内容而存在
