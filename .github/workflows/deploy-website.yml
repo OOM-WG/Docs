@@ -12,11 +12,11 @@ on:
 
 # 确保同时只有一个部署在运行
 concurrency:
-  group: website-builder
+  group: website-deployer
   cancel-in-progress: true
 
 jobs:
-  # 任务1: 构建和部署 GitHub Pages
+  # 任务1: 构建
   build-website:
     runs-on: ubuntu-latest
     steps:
@@ -61,6 +61,7 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
+  # 任务2: 部署 Pages
   deploy-website:
     environment:
       name: github-pages
