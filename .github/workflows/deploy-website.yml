@@ -1,4 +1,4 @@
-name: Build Website
+name: Deploy Website
 
 on:
   # 推送时执行
