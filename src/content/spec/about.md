@@ -1,7 +1,6 @@
 ---
 title: 自述
 description: 这是一份回忆溢出工作组的介绍
-comments: false
 ---
 
 ## 回忆溢出工作组

@@ -1,7 +1,6 @@
 ---
 title: 加入
 description: 加入回忆溢出工作组的群聊
-comments: false
 ---
 
 ## 群组导航

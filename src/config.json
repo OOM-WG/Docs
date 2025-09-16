@@ -102,23 +102,7 @@
 	"footer": {
 		"startTime": "2023-02-06T14:44:40Z"
 	},
-	"waline": {
-		"serverURL": ""
-	},
 	"sponsor": {
 		"wechat": ""
-	},
-	"analytics": {
-		"enable": false,
-		"google": {
-			"measurementId": ""
-		},
-		"umami": {
-			"serverUrl": "",
-			"websiteId": ""
-		},
-		"microsoftClarity": {
-			"projectId": ""
-		}
 	}
 }

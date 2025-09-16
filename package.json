@@ -1,7 +1,10 @@
 {
-	"name": "astro-gyoza",
+	"name": "oom-wg",
+	"description": "O.O.M. W.G.",
+	"author": "O.O.M. W.G.",
+	"license": "F2DLPRL",
+	"private": true,
 	"type": "module",
-	"version": "0.0.1",
 	"scripts": {
 		"prepare": "pnpm exec simple-git-hooks",
 		"dev": "astro dev",
@@ -27,7 +30,6 @@
 		"@types/lodash-es": "^4.17.12",
 		"@types/react": "^19.1.13",
 		"@types/react-dom": "^19.1.9",
-		"@waline/client": "^3.6.0",
 		"astro": "^5.13.7",
 		"chroma-js": "^3.1.2",
 		"clsx": "^2.1.1",

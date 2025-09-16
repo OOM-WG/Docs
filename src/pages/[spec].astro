@@ -11,7 +11,6 @@ import DeveloperList from '@/components/DeveloperList.astro'
 import ProjectList from '@/components/ProjectList.astro'
 import {ReadingProgress} from '@/components/post/ReadingProgress'
 import {PostToc} from '@/components/post/PostToc'
-import {Comments} from '@/components/comment'
 
 export const getStaticPaths = (async () => {
 	const specList = await getCollection('spec')
@@ -53,7 +52,6 @@ const isMdContentEmpty = (md.body ?? '').trim().length === 0
 						<Content />
 					</MarkdownWrapper>
 				)}
-				{md.data.comments && <Comments />}
 			</div>
 		</PageLayout>
 	) : (
@@ -88,7 +86,6 @@ const isMdContentEmpty = (md.body ?? '').trim().length === 0
 						</SectionBlock>
 					</aside>
 				</div>
-				{md.data.comments && <Comments />}
 			</div>
 		</MarkdownLayout>
 	)
