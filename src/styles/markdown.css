@@ -43,6 +43,7 @@
 	font-family: 'iconfont';
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+
 	@apply not-italic text-accent/80;
 }
 

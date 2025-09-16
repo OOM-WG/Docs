@@ -1,5 +1,6 @@
 @font-face {
 	font-family: 'iconfont';
+
 	/* Project id 4528205 */
 	src:
 		url('/fonts/iconfont.woff2?t=1716210197380') format('woff2'),
@@ -14,246 +15,246 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-alert:before {
+.icon-alert::before {
 	content: '\e83a';
 }
 
-.icon-check:before {
+.icon-check::before {
 	content: '\e847';
 }
 
-.icon-error:before {
+.icon-error::before {
 	content: '\e854';
 }
 
-.icon-info:before {
+.icon-info::before {
 	content: '\e85f';
 }
 
-.icon-close:before {
+.icon-close::before {
 	content: '\e84a';
 }
 
-.icon-user-heart:before {
+.icon-user-heart::before {
 	content: '\e88c';
 }
 
-.icon-wechat:before {
+.icon-wechat::before {
 	content: '\e7e3';
 }
 
-.icon-codepen:before {
+.icon-codepen::before {
 	content: '\e7cd';
 }
 
-.icon-instagram:before {
+.icon-instagram::before {
 	content: '\e7d3';
 }
 
-.icon-playstation:before {
+.icon-playstation::before {
 	content: '\e7d9';
 }
 
-.icon-qq:before {
+.icon-qq::before {
 	content: '\e7da';
 }
 
-.icon-steam:before {
+.icon-steam::before {
 	content: '\e7e2';
 }
 
-.icon-switch:before {
+.icon-switch::before {
 	content: '\e7e5';
 }
 
-.icon-telegram:before {
+.icon-telegram::before {
 	content: '\e7e6';
 }
 
-.icon-twitch:before {
+.icon-twitch::before {
 	content: '\e7e7';
 }
 
-.icon-weibo:before {
+.icon-weibo::before {
 	content: '\e7e8';
 }
 
-.icon-xbox:before {
+.icon-xbox::before {
 	content: '\e7e9';
 }
 
-.icon-github:before {
+.icon-github::before {
 	content: '\e7d2';
 }
 
-.icon-down:before {
+.icon-down::before {
 	content: '\e83d';
 }
 
-.icon-map:before {
+.icon-map::before {
 	content: '\e7fa';
 }
 
-.icon-more:before {
+.icon-more::before {
 	content: '\e877';
 }
 
-.icon-left:before {
+.icon-left::before {
 	content: '\e844';
 }
 
-.icon-right:before {
+.icon-right::before {
 	content: '\e845';
 }
 
-.icon-rss:before {
+.icon-rss::before {
 	content: '\e74b';
 }
 
-.icon-ghost:before {
+.icon-ghost::before {
 	content: '\e882';
 }
 
-.icon-contacts-book:before {
+.icon-contacts-book::before {
 	content: '\e760';
 }
 
-.icon-x:before {
+.icon-x::before {
 	content: '\eced';
 }
 
-.icon-pen:before {
+.icon-pen::before {
 	content: '\e720';
 }
 
-.icon-t-box:before {
+.icon-t-box::before {
 	content: '\e727';
 }
 
-.icon-hearts:before {
+.icon-hearts::before {
 	content: '\e7c1';
 }
 
-.icon-text:before {
+.icon-text::before {
 	content: '\e7a8';
 }
 
-.icon-netease-cloud-music:before {
+.icon-netease-cloud-music::before {
 	content: '\e7d7';
 }
 
-.icon-pushpin:before {
+.icon-pushpin::before {
 	content: '\e7f1';
 }
 
-.icon-arrow-left-up:before {
+.icon-arrow-left-up::before {
 	content: '\e842';
 }
 
-.icon-computer:before {
+.icon-computer::before {
 	content: '\e73a';
 }
 
-.icon-file-list:before {
+.icon-file-list::before {
 	content: '\e76d';
 }
 
-.icon-link:before {
+.icon-link::before {
 	content: '\e79b';
 }
 
-.icon-flask:before {
+.icon-flask::before {
 	content: '\e7bd';
 }
 
-.icon-douban:before {
+.icon-douban::before {
 	content: '\e7cc';
 }
 
-.icon-folder:before {
+.icon-folder::before {
 	content: '\e784';
 }
 
-.icon-hashtag:before {
+.icon-hashtag::before {
 	content: '\e798';
 }
 
-.icon-archive:before {
+.icon-archive::before {
 	content: '\e6be';
 }
 
-.icon-calendar:before {
+.icon-calendar::before {
 	content: '\e6c9';
 }
 
-.icon-mail:before {
+.icon-mail::before {
 	content: '\e6da';
 }
 
-.icon-pantone:before {
+.icon-pantone::before {
 	content: '\e71d';
 }
 
-.icon-quotes-l:before {
+.icon-quotes-l::before {
 	content: '\e793';
 }
 
-.icon-quotes-r:before {
+.icon-quotes-r::before {
 	content: '\e794';
 }
 
-.icon-heart:before {
+.icon-heart::before {
 	content: '\e7bf';
 }
 
-.icon-bilibili:before {
+.icon-bilibili::before {
 	content: '\e7c8';
 }
 
-.icon-zhihu:before {
+.icon-zhihu::before {
 	content: '\e7e4';
 }
 
-.icon-rocket:before {
+.icon-rocket::before {
 	content: '\e7f3';
 }
 
-.icon-arrow-left:before {
+.icon-arrow-left::before {
 	content: '\e841';
 }
 
-.icon-arrow-right:before {
+.icon-arrow-right::before {
 	content: '\e843';
 }
 
-.icon-external-link:before {
+.icon-external-link::before {
 	content: '\e853';
 }
 
-.icon-loader:before {
+.icon-loader::before {
 	content: '\e85d';
 }
 
-.icon-menu:before {
+.icon-menu::before {
 	content: '\e864';
 }
 
-.icon-search:before {
+.icon-search::before {
 	content: '\e86e';
 }
 
-.icon-share:before {
+.icon-share::before {
 	content: '\e874';
 }
 
-.icon-timer:before {
+.icon-timer::before {
 	content: '\e87c';
 }
 
-.icon-moon:before {
+.icon-moon::before {
 	content: '\e89c';
 }
 
-.icon-sun:before {
+.icon-sun::before {
 	content: '\e89e';
 }
