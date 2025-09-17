@@ -1,5 +1,5 @@
 @font-face {
-	font-family: 'iconfont';
+	font-family: iconfont;
 
 	/* Project id 4528205 */
 	src:
@@ -9,7 +9,7 @@
 }
 
 .iconfont {
-	font-family: 'iconfont';
+	font-family: iconfont;
 	font-style: normal;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;

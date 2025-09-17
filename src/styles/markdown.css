@@ -40,7 +40,7 @@
 
 .markdown blockquote::before {
 	content: '\e793';
-	font-family: 'iconfont';
+	font-family: iconfont;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 

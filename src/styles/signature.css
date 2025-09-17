@@ -23,7 +23,7 @@
 	}
 
 	90%,
-	to {
+	100% {
 		stroke-dashoffset: 2400;
 		fill: transparent;
 	}
