@@ -17,6 +17,7 @@ import {site} from './src/config.json'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import swup from '@swup/astro'
+import autoprefixer from 'autoprefixer'
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,6 +25,13 @@ export default defineConfig({
 	build: {
 		format: 'file',
 		assets: 'assets'
+	},
+	vite: {
+		css: {
+			postcss: {
+				plugins: [autoprefixer()]
+			}
+		}
 	},
 	site: site.url,
 	base: '/',

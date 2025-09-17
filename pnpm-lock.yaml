@@ -120,12 +120,18 @@ importers:
       '@inquirer/prompts':
         specifier: ^5.5.0
         version: 5.5.0
+      autoprefixer:
+        specifier: ^10.4.21
+        version: 10.4.21(postcss@8.5.6)
       lint-staged:
         specifier: ^15.5.2
         version: 15.5.2
       micromark-util-symbol:
         specifier: ^2.0.1
         version: 2.0.1
+      postcss:
+        specifier: ^8.5.6
+        version: 8.5.6
       postcss-html:
         specifier: ^1.8.0
         version: 1.8.0
