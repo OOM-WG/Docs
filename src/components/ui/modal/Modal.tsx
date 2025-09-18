@@ -25,7 +25,7 @@ export function Modal({children, index, id}: {index: number; children: React.Rea
 			<Dialog.Portal>
 				<Dialog.Overlay asChild>
 					<motion.div
-						className="fixed inset-0 bg-gray-800/40"
+						className='fixed inset-0 bg-gray-800/40'
 						style={{zIndex: overlayZIndex}}
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
@@ -33,14 +33,16 @@ export function Modal({children, index, id}: {index: number; children: React.Rea
 				</Dialog.Overlay>
 
 				<Dialog.Content
-					className="fixed inset-0 flex items-center justify-center"
+					className='fixed inset-0 flex items-center justify-center'
 					style={{zIndex: contentZIndex}}
 					onClick={e => {
 						if (e.target === e.currentTarget) {
 							close()
 						}
 					}}>
-					<CurrentModalContext.Provider value={{dismiss: close}}>{children}</CurrentModalContext.Provider>
+					<CurrentModalContext.Provider value={{dismiss: close}}>
+						{children}
+					</CurrentModalContext.Provider>
 				</Dialog.Content>
 			</Dialog.Portal>
 		</Dialog.Root>

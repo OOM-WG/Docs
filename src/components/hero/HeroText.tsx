@@ -6,8 +6,11 @@ import {SocialList} from './SocialList'
 
 const Highlight = ({children, className = ''}: {children: React.ReactNode; className?: string}) => (
 	<span className={`relative inline-block ${className}`}>
-		<span aria-hidden className="absolute -z-1 top-[30%] left-0 w-full h-[40%] bg-accent/30 -rotate-3" />
-		<span className="relative">{children}</span>
+		<span
+			aria-hidden
+			className='absolute -z-1 top-[30%] left-0 w-full h-[40%] bg-accent/30 -rotate-3'
+		/>
+		<span className='relative'>{children}</span>
 	</span>
 )
 
@@ -46,24 +49,27 @@ export default function HeroText() {
 	return (
 		<div>
 			<motion.h1
-				className="text-xl lg:text-3xl xl:text-[36px] leading-[1.2] tracking-[-0.01em] text-center lg:text-left text-balance"
+				className='text-xl lg:text-3xl xl:text-[36px] leading-[1.2] tracking-[-0.01em] text-center lg:text-left text-balance'
 				variants={containerVariants}
-				initial="hidden"
-				animate="visible"
+				initial='hidden'
+				animate='visible'
 				onAnimationComplete={() => setShowSocial(true)}>
 				{words.map((w, i) =>
 					w === '|BREAK|' ? (
 						<br key={`br-${i}`} />
 					) : (
-						<motion.span key={`${w}-${i}`} variants={wordVariants} className="inline-block mr-2">
-							{w === name ? <Highlight className="font-medium">{w}</Highlight> : w}
+						<motion.span
+							key={`${w}-${i}`}
+							variants={wordVariants}
+							className='inline-block mr-2'>
+							{w === name ? <Highlight className='font-medium'>{w}</Highlight> : w}
 						</motion.span>
 					)
 				)}
 			</motion.h1>
 
 			<motion.div
-				className="text-sm text-secondary mt-3 text-center lg:text-left"
+				className='text-sm text-secondary mt-3 text-center lg:text-left'
 				initial={{opacity: 0, y: 10}}
 				animate={{opacity: 1, y: 0}}
 				transition={{duration: 0.35, ease: 'easeOut', delay: 0.15}}>
@@ -71,7 +77,7 @@ export default function HeroText() {
 			</motion.div>
 
 			{/* 始终保留占位，避免社交图标出现时顶起上方文字（适当加大以适配移动端） */}
-			<div className="mt-10 min-h-[52px]">
+			<div className='mt-10 min-h-[52px]'>
 				{showSocial && (
 					<motion.div
 						initial={{opacity: 0, y: 16}}

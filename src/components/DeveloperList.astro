@@ -4,23 +4,25 @@ import {getCollection} from 'astro:content'
 const developers = await getCollection('developers')
 ---
 
-<ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8">
+<ul class='grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8'>
 	{
 		developers.map(developer => (
 			<li>
-				<a href={developer.data.link} target="_blank" rel="noopener noreferrer external">
-					<div class="p-4 flex gap-2 bg-accent/10 rounded-lg group">
+				<a href={developer.data.link} target='_blank' rel='noopener noreferrer external'>
+					<div class='p-4 flex gap-2 bg-accent/10 rounded-lg group'>
 						<img
-							class="shrink-0 size-16 object-contain rounded-full"
+							class='shrink-0 size-16 object-contain rounded-full'
 							src={developer.data.avatar}
 							alt={`Developer avatar: ${developer.data.title}`}
-							loading="lazy"
+							loading='lazy'
 						/>
-						<div class="min-w-0 grow">
-							<div class="truncate font-bold text-xl group-hover:text-accent">{developer.data.title}</div>
-							<div class="text-sm line-clamp-2">{developer.data.description}</div>
+						<div class='min-w-0 grow'>
+							<div class='truncate font-bold text-xl group-hover:text-accent'>
+								{developer.data.title}
+							</div>
+							<div class='text-sm line-clamp-2'>{developer.data.description}</div>
 						</div>
-						<i class="shrink-0 iconfont icon-external-link group-hover:text-accent" />
+						<i class='shrink-0 iconfont icon-external-link group-hover:text-accent' />
 					</div>
 				</a>
 			</li>

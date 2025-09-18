@@ -41,37 +41,40 @@ const allTags = await getAllTags()
 const allCategories = await getAllCategories()
 
 const getPageUrl = (page: number) => {
-	if (page === 1) return '/'
-	return `/page/${page}`
+	return page === 1 ? '/' : `/page/${page}`
 }
 ---
 
 <PageLayout>
 	<div>
 		{currentPage === 1 && <Hero />}
-		<div class="max-w-[1100px] px-4 md:px-8 py-20 mx-auto grid lg:grid-cols-[auto_300px] gap-10">
-			<div class="min-w-0">
-				<SectionBlock title="最新发布">
+		<div class='max-w-[1100px] px-4 md:px-8 py-20 mx-auto grid lg:grid-cols-[auto_300px] gap-10'>
+			<div class='min-w-0'>
+				<SectionBlock title='最新发布'>
 					<PostList posts={data} />
 					{
 						totalPage > 1 && (
-							<PostPagination current={currentPage} total={totalPage} getPageUrl={getPageUrl} />
+							<PostPagination
+								current={currentPage}
+								total={totalPage}
+								getPageUrl={getPageUrl}
+							/>
 						)
 					}
 				</SectionBlock>
 			</div>
 			<div>
-				<aside class="md:sticky md:top-20 space-y-10">
-					<SectionBlock title="分类">
+				<aside class='md:sticky md:top-20 space-y-10'>
+					<SectionBlock title='分类'>
 						<CategoryList categories={allCategories} />
 					</SectionBlock>
-					<SectionBlock title="热门标签">
+					<SectionBlock title='热门标签'>
 						<TagList tags={hotTags} />
 						{
 							allTags.length > hotTags.length && (
-								<div class="mt-2 text-right">
-									<a class="text-sm text-secondary hover:text-accent" href="/tags">
-										更多标签 <i class="iconfont icon-arrow-right" />
+								<div class='mt-2 text-right'>
+									<a class='text-sm text-secondary hover:text-accent' href='/tags'>
+										更多标签 <i class='iconfont icon-arrow-right' />
 									</a>
 								</div>
 							)

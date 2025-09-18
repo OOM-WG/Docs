@@ -35,7 +35,7 @@ const shareList = [
 export function ActionAside() {
 	return (
 		<div
-			className="absolute left-0 bottom-0 flex flex-col gap-4"
+			className='absolute left-0 bottom-0 flex flex-col gap-4'
 			style={{
 				transform: 'translateY(calc(100% + 24px))'
 			}}>
@@ -61,11 +61,11 @@ function ShareButton() {
 
 	return (
 		<button
-			type="button"
-			aria-label="Share this post"
-			className="size-6 text-xl leading-none hover:text-accent"
+			type='button'
+			aria-label='Share this post'
+			className='size-6 text-xl leading-none hover:text-accent'
 			onClick={() => openModal()}>
-			<i className="iconfont icon-share"></i>
+			<i className='iconfont icon-share'></i>
 		</button>
 	)
 }
@@ -73,23 +73,23 @@ function ShareButton() {
 function ShareModal({url, text}: {url: string; text: string}) {
 	return (
 		<motion.div
-			className="bg-primary rounded-lg p-2 min-w-[420px] border border-primary flex flex-col"
+			className='bg-primary rounded-lg p-2 min-w-[420px] border border-primary flex flex-col'
 			initial={{opacity: 0, scale: 0.8}}
 			animate={{opacity: 1, scale: 1}}
 			exit={{opacity: 0, scale: 0.8}}>
-			<h2 className="px-3 py-1 font-bold">分享此内容</h2>
-			<hr className="my-2 border-primary" />
-			<div className="px-3 py-2 grid grid-cols-[180px_auto] gap-3">
+			<h2 className='px-3 py-1 font-bold'>分享此内容</h2>
+			<hr className='my-2 border-primary' />
+			<div className='px-3 py-2 grid grid-cols-[180px_auto] gap-3'>
 				<QR.QRCodeSVG value={url} size={180} />
-				<div className="flex flex-col gap-2">
-					<div className="text-sm">分享到...</div>
-					<ul className="flex flex-col gap-2">
+				<div className='flex flex-col gap-2'>
+					<div className='text-sm'>分享到...</div>
+					<ul className='flex flex-col gap-2'>
 						{shareList.map(item => (
 							<li
-								className="px-2 py-1 flex gap-2 cursor-pointer rounded-md hover:bg-secondary"
+								className='px-2 py-1 flex gap-2 cursor-pointer rounded-md hover:bg-secondary'
 								key={item.name}
 								onClick={() => item.onClick({url, text})}
-								role="button"
+								role='button'
 								aria-label={`Share to ${item.name}`}>
 								<i className={clsx('iconfont text-accent', item.icon)}></i>
 								<span>{item.name}</span>
@@ -113,11 +113,11 @@ function DonateButton() {
 
 	return (
 		<button
-			type="button"
-			aria-label="Donate to author"
-			className="size-6 text-xl leading-none hover:text-accent"
+			type='button'
+			aria-label='Donate to author'
+			className='size-6 text-xl leading-none hover:text-accent'
 			onClick={() => openDonate()}>
-			<i className="iconfont icon-user-heart"></i>
+			<i className='iconfont icon-user-heart'></i>
 		</button>
 	)
 }
@@ -125,16 +125,16 @@ function DonateButton() {
 function DonateContent() {
 	return (
 		<motion.div initial={{y: 20, opacity: 0}} animate={{y: 0, opacity: 1}} exit={{y: 20, opacity: 0}}>
-			<h2 className="text-center mb-5">感谢您的支持，这将成为我前进的最大动力。</h2>
-			<div className="flex flex-wrap gap-4 justify-center">
+			<h2 className='text-center mb-5'>感谢您的支持，这将成为我前进的最大动力。</h2>
+			<div className='flex flex-wrap gap-4 justify-center'>
 				<img
-					className="object-cover"
+					className='object-cover'
 					width={300}
 					height={300}
 					src={sponsor.wechat}
-					alt="微信赞赏码"
-					loading="lazy"
-					decoding="async"
+					alt='微信赞赏码'
+					loading='lazy'
+					decoding='async'
 				/>
 			</div>
 		</motion.div>

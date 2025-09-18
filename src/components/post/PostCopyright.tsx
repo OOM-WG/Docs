@@ -22,22 +22,22 @@ export function PostCopyright({title, slug, lastMod}: {title: string; slug: stri
 	}, [lastMod])
 
 	return (
-		<section className="text-xs leading-loose text-secondary">
+		<section className='text-xs leading-loose text-secondary'>
 			<p>文章标题: {title}</p>
 			<p>文章作者: {author.name}</p>
 			<p>
 				<span>文章链接: {url} </span>
 				<span
-					role="button"
-					className="hover:underline hover:text-accent underline-offset-2"
+					role='button'
+					className='hover:underline hover:text-accent underline-offset-2'
 					onClick={handleCopyUrl}>
 					[复制]
 				</span>
 			</p>
 			<p>写作时间: {lastModStr}</p>
-			<hr className="my-3 border-primary" />
+			<hr className='my-3 border-primary' />
 			<div>
-				<div className="float-right ml-4 my-2">
+				<div className='float-right ml-4 my-2'>
 					<AnimatedSignature />
 				</div>
 				<p>
@@ -45,10 +45,10 @@ export function PostCopyright({title, slug, lastMod}: {title: string; slug: stri
 					<br />
 					本文采用&nbsp;
 					<a
-						className="hover:underline hover:text-accent underline-offset-2"
-						href="https://license.fileto.download"
-						target="_blank"
-						rel="noopener noreferrer">
+						className='hover:underline hover:text-accent underline-offset-2'
+						href='https://license.fileto.download'
+						target='_blank'
+						rel='noopener noreferrer'>
 						File to Download Public Resources License
 					</a>
 					&nbsp;进行许可。

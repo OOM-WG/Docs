@@ -24,9 +24,7 @@ function buildImage(node) {
 
 function buildFigure(node) {
 	let imgTitle = node.properties.title
-	if (imgTitle) {
-		imgTitle = imgTitle.trim()
-	}
+	if (imgTitle) imgTitle = imgTitle.trim()
 
 	return h('figure', null, [buildImage(node), imgTitle ? h('figcaption', imgTitle) : null])
 }

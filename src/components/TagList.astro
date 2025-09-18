@@ -12,15 +12,15 @@ const {tags} = Astro.props
 
 {
 	tags.length === 0 ? (
-		<div class="text-center text-sm">作者没有准备标签😦</div>
+		<div class='text-center text-sm'>作者没有准备标签😦</div>
 	) : (
-		<div class="flex flex-wrap gap-2.5">
+		<div class='flex flex-wrap gap-2.5'>
 			{tags.map(tag => (
-				<a class="relative block group" href={`/tags/${tag.slug}`}>
-					<div class="absolute -z-1 inset-0 rounded-lg bg-accent/10 group-hover:transition group-hover:bg-accent/20 group-hover:scale-105" />
-					<div class="px-2.5 py-2 text-sm flex items-baseline gap-1 select-none">
+				<a class='relative block group' href={`/tags/${tag.slug}`}>
+					<div class='absolute -z-1 inset-0 rounded-lg bg-accent/10 group-hover:transition group-hover:bg-accent/20 group-hover:scale-105' />
+					<div class='px-2.5 py-2 text-sm flex items-baseline gap-1 select-none'>
 						<span>{tag.name}</span>
-						{tag.count && <span class="text-xs">({tag.count})</span>}
+						{tag.count && <span class='text-xs'>({tag.count})</span>}
 					</div>
 				</a>
 			))}

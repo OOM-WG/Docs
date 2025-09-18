@@ -31,7 +31,7 @@ export function Flashlight() {
 
 	return (
 		<div
-			className="fixed inset-0 z-50 pointer-events-none"
+			className='fixed inset-0 z-50 pointer-events-none'
 			style={{
 				backgroundImage,
 				display: isMobile ? 'none' : 'block'

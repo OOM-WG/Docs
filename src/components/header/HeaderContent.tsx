@@ -42,7 +42,7 @@ function AccessibleMenu() {
 			<AnimatePresence>
 				{shouldShow && (
 					<motion.div
-						className="fixed z-10 top-12 inset-x-0 flex justify-center pointer-events-none"
+						className='fixed z-10 top-12 inset-x-0 flex justify-center pointer-events-none'
 						initial={{y: -20}}
 						animate={{y: 0}}
 						exit={{y: -20, opacity: 0}}>
@@ -77,10 +77,10 @@ function HeaderMenu({isBgShow}: {isBgShow: boolean}) {
 			})}
 			onMouseMove={handleMouseMove}>
 			<div
-				className="absolute -z-1 -inset-px rounded-full opacity-0 group-hover:opacity-100 duration-500"
+				className='absolute -z-1 -inset-px rounded-full opacity-0 group-hover:opacity-100 duration-500'
 				style={{background}}
 				aria-hidden></div>
-			<div className="text-sm px-4 flex">
+			<div className='text-sm px-4 flex'>
 				{menus.map(menu => (
 					<HeaderMenuItem
 						key={menu.name}
@@ -110,7 +110,7 @@ function HeaderMenuItem({
 		<a
 			className={clsx('relative block px-4 py-1.5', isActive ? 'text-accent' : 'hover:text-accent')}
 			href={href}>
-			<div className="flex space-x-2">
+			<div className='flex space-x-2'>
 				{isActive && (
 					<motion.i
 						className={clsx('iconfont', icon)}
@@ -120,7 +120,7 @@ function HeaderMenuItem({
 				<span>{title}</span>
 			</div>
 			{isActive && (
-				<div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/70 to-transparent"></div>
+				<div className='absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/70 to-transparent'></div>
 			)}
 		</a>
 	)

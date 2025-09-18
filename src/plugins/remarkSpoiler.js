@@ -12,11 +12,7 @@ export function remarkSpoiler() {
 }
 
 function spoilerSyntax() {
-	return {
-		text: {
-			[codes.verticalBar]: spoilerConstruct
-		}
-	}
+	return {text: {[codes.verticalBar]: spoilerConstruct}}
 }
 
 const spoilerConstruct = {name: 'spoiler', tokenize: spoilerTokenize}
@@ -29,9 +25,7 @@ function spoilerTokenize(effects, ok, nok) {
 	}
 
 	function contentStart() {
-		effects.enter(types.chunkText, {
-			contentType: constants.contentTypeText
-		})
+		effects.enter(types.chunkText, {contentType: constants.contentTypeText})
 		return content
 	}
 
@@ -40,9 +34,7 @@ function spoilerTokenize(effects, ok, nok) {
 	}
 
 	function consumeData(code) {
-		if (code === codes.eof || code < codes.horizontalTab) {
-			return nok
-		}
+		if (code === codes.eof || code < codes.horizontalTab) return nok
 		effects.consume(code)
 		return content
 	}
@@ -65,25 +57,19 @@ function markerTokenize(effects, ok, nok) {
 	let markSize = 0
 
 	function start() {
-		if (previous === codes.verticalBar) {
-			return nok
-		}
+		if (previous === codes.verticalBar) return nok
 		effects.enter('spoilerMarker')
 		return marker
 	}
 
 	function marker(code) {
 		if (code === codes.verticalBar) {
-			if (markSize > 1) {
-				return nok
-			}
+			if (markSize > 1) return nok
 			effects.consume(code)
 			markSize++
 			return marker
 		}
-		if (markSize < 2) {
-			return nok
-		}
+		if (markSize < 2) return nok
 		effects.exit('spoilerMarker')
 		return ok
 	}
@@ -93,13 +79,7 @@ function markerTokenize(effects, ok, nok) {
 
 function spoilerFromMarkdown() {
 	function enterHandler(token) {
-		this.enter(
-			{
-				type: 'spoiler',
-				children: []
-			},
-			token
-		)
+		this.enter({type: 'spoiler', children: []}, token)
 	}
 
 	function exitHandler(token) {
@@ -116,11 +96,7 @@ function spoilerFromMarkdown() {
 	}
 
 	return {
-		enter: {
-			spoiler: enterHandler
-		},
-		exit: {
-			spoiler: exitHandler
-		}
+		enter: {spoiler: enterHandler},
+		exit: {spoiler: exitHandler}
 	}
 }

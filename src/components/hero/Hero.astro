@@ -3,24 +3,24 @@ import {hero, author} from '@/config.json'
 import HeroText from './HeroText'
 ---
 
-<div class="lg:-mt-16 lg:h-dvh lg:min-h-[720px]">
+<div class='lg:-mt-16 lg:h-dvh lg:min-h-[720px]'>
 	<div
-		class="relative max-w-[1300px] mx-auto h-full px-6 md:px-10 lg:px-12 xl:px-16 grid lg:grid-cols-[minmax(600px,1fr)_420px] items-center justify-items-center lg:justify-items-stretch lg:gap-x-12 xl:gap-x-14">
-		<div class="mt-[120px] lg:mt-0 max-w-[640px] w-full lg:justify-self-end">
+		class='relative max-w-[1300px] mx-auto h-full px-6 md:px-10 lg:px-12 xl:px-16 grid lg:grid-cols-[minmax(600px,1fr)_420px] items-center justify-items-center lg:justify-items-stretch lg:gap-x-12 xl:gap-x-14'>
+		<div class='mt-[120px] lg:mt-0 max-w-[640px] w-full lg:justify-self-end'>
 			<HeroText client:load />
 		</div>
-		<div class="mt-20 lg:mt-0 lg:justify-self-start">
+		<div class='mt-20 lg:mt-0 lg:justify-self-start'>
 			<div
-				class="size-[200px] lg:size-[300px] rounded-full overflow-hidden border border-primary bg-zinc-100 dark:bg-zinc-800">
-				<img class="size-full" src={author.avatar} alt="Site owner avatar" loading="lazy" />
+				class='size-[200px] lg:size-[300px] rounded-full overflow-hidden border border-primary bg-zinc-100 dark:bg-zinc-800'>
+				<img class='size-full' src={author.avatar} alt='Site owner avatar' loading='lazy' />
 			</div>
 		</div>
-		<div class="mt-10 lg:mt-0 lg:absolute inset-x-0 bottom-0 flex flex-col items-center">
-			<p class="text-xs text-center text-balance text-secondary">
+		<div class='mt-10 lg:mt-0 lg:absolute inset-x-0 bottom-0 flex flex-col items-center'>
+			<p class='text-xs text-center text-balance text-secondary'>
 				{hero.yiyan}
 			</p>
-			<div class="mt-7 text-xl animate-bounce">
-				<i class="iconfont icon-down"></i>
+			<div class='mt-7 text-xl animate-bounce'>
+				<i class='iconfont icon-down'></i>
 			</div>
 		</div>
 	</div>

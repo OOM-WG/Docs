@@ -35,7 +35,7 @@ export function PostToc({headings}: {headings: MarkdownHeading[]}) {
 
 	return (
 		<ul
-			className="relative overflow-y-auto space-y-2 group text-sm"
+			className='relative overflow-y-auto space-y-2 group text-sm'
 			style={{
 				maxHeight: 'min(380px, calc(100vh - 250px))',
 				scrollbarWidth: 'none'
@@ -92,7 +92,7 @@ export function TocItem({
 	}, [isActive])
 
 	return (
-		<li className="relative" ref={itemRef}>
+		<li className='relative' ref={itemRef}>
 			<span
 				className={clsx(
 					'absolute left-0 top-2 h-1 rounded-full',

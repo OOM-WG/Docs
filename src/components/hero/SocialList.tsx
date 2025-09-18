@@ -16,9 +16,12 @@ const itemVariants = {
 export function SocialList({className}: {className?: string}) {
 	return (
 		<motion.ul
-			className={clsx('flex gap-4 flex-wrap items-center justify-center lg:justify-start', className)}
-			initial="hidden"
-			animate="visible"
+			className={clsx(
+				'flex gap-4 flex-wrap items-center justify-center lg:justify-start',
+				className
+			)}
+			initial='hidden'
+			animate='visible'
 			transition={{
 				staggerChildren: 0.1
 			}}>
@@ -27,13 +30,13 @@ export function SocialList({className}: {className?: string}) {
 				return (
 					<motion.li key={social.name} variants={itemVariants}>
 						<a
-							className="relative size-9 text-white text-xl flex justify-center items-center group"
+							className='relative size-9 text-white text-xl flex justify-center items-center group'
 							href={social.url}
 							title={social.name}
-							target="_blank"
-							rel="noopener noreferrer">
+							target='_blank'
+							rel='noopener noreferrer'>
 							<span
-								className="absolute inset-0 -z-1 rounded-full group-hover:scale-105 transition"
+								className='absolute inset-0 -z-1 rounded-full group-hover:scale-105 transition'
 								style={{backgroundColor: social.color}}></span>
 							{isClassIcon ? (
 								<i className={clsx('iconfont', social.icon)} />
@@ -41,8 +44,8 @@ export function SocialList({className}: {className?: string}) {
 								<img
 									src={String(social.icon)}
 									alt={social.name}
-									loading="lazy"
-									className="size-5 object-contain"
+									loading='lazy'
+									className='size-5 object-contain'
 								/>
 							)}
 						</a>

@@ -51,7 +51,7 @@ export function HeaderDrawer({zIndex = 999}: {zIndex?: number}) {
 					<Dialog.Portal forceMount>
 						<Dialog.Overlay asChild>
 							<motion.div
-								className="fixed inset-0 bg-gray-800/40"
+								className='fixed inset-0 bg-gray-800/40'
 								style={{zIndex: overlayZIndex}}
 								initial={{opacity: 0}}
 								animate={{opacity: 1}}
@@ -60,12 +60,12 @@ export function HeaderDrawer({zIndex = 999}: {zIndex?: number}) {
 
 						<Dialog.Content asChild>
 							<motion.div
-								className="fixed left-0 inset-y-0 h-full bg-primary rounded-r-lg p-4 flex flex-col justify-center w-[260px] max-w-[80%]"
+								className='fixed left-0 inset-y-0 h-full bg-primary rounded-r-lg p-4 flex flex-col justify-center w-[260px] max-w-[80%]'
 								style={{zIndex: contentZIndex}}
 								variants={contentVariants}
-								initial="hidden"
-								animate="visible"
-								exit="hidden">
+								initial='hidden'
+								animate='visible'
+								exit='hidden'>
 								<DrawerContext.Provider
 									value={{
 										dismiss() {
@@ -87,11 +87,11 @@ const TriggerButton = forwardRef<HTMLButtonElement>((props, ref) => {
 	return (
 		<button
 			ref={ref}
-			className="size-9 rounded-full shadow-lg shadow-zinc-800/5 border border-primary bg-white/50 dark:bg-zinc-800/50 backdrop-blur"
-			type="button"
-			aria-label="Open menu"
+			className='size-9 rounded-full shadow-lg shadow-zinc-800/5 border border-primary bg-white/50 dark:bg-zinc-800/50 backdrop-blur'
+			type='button'
+			aria-label='Open menu'
 			{...props}>
-			<i className="iconfont icon-menu"></i>
+			<i className='iconfont icon-menu'></i>
 		</button>
 	)
 })
@@ -100,10 +100,10 @@ function DrawerContentImpl() {
 	const {dismiss} = useContext(DrawerContext)
 
 	return (
-		<ul className="mt-8 pb-8 overflow-y-auto overflow-x-hidden min-h-0">
+		<ul className='mt-8 pb-8 overflow-y-auto overflow-x-hidden min-h-0'>
 			{menus.map(menu => (
 				<motion.li key={menu.name} variants={menuItemVariants}>
-					<a className="inline-flex p-2 space-x-4" href={menu.link} onClick={dismiss}>
+					<a className='inline-flex p-2 space-x-4' href={menu.link} onClick={dismiss}>
 						<i className={clsx('iconfont', menu.icon)}></i>
 						<span>{menu.name}</span>
 					</a>
