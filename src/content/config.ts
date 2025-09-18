@@ -8,7 +8,7 @@ const postsCollection = defineCollection({
 		lastMod: z.date().optional(),
 		summary: z.string().optional(),
 		cover: z.string().optional(),
-		category: z.string().optional(),
+		author: z.string().optional(),
 		tags: z.array(z.string()).default([]),
 		draft: z.boolean().default(false),
 		sticky: z.number().default(0)

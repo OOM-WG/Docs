@@ -26,15 +26,11 @@ export default defineConfig({
 		format: 'file',
 		assets: 'assets'
 	},
-	vite: {
-		css: {
-			postcss: {
-				plugins: [autoprefixer()]
-			}
-		}
-	},
 	site: site.url,
 	base: '/',
+	redirects: {
+		'/posts': '/archives'
+	},
 	integrations: [
 		tailwind(),
 		react(),
@@ -63,6 +59,11 @@ export default defineConfig({
 		remarkRehype: {footnoteLabel: '参考', footnoteBackLabel: '返回正文'}
 	},
 	vite: {
+		css: {
+			postcss: {
+				plugins: [autoprefixer()]
+			}
+		},
 		build: {
 			assetsInlineLimit: 0,
 			rollupOptions: {

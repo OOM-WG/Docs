@@ -3,20 +3,19 @@
 		"url": "https://oom-wg.dev",
 		"title": "O.O.M. W.G.",
 		"description": "我们的回忆这么多吗？居然溢出啦WOK！",
-		"keywords": "回忆溢出工作组, Out Of Memories Work Group, OOM WG",
+		"keywords": "回忆溢出工作组, 世界之外工作组, Out Of Memories Work Group, Out Of World Work Group, OOM WG, OOW WG",
 		"lang": "zh-CN",
 		"favicon": "/favicon.ico",
 		"appleTouchIcon": "/oom.webp"
 	},
-	"author": {
+	"org": {
 		"name": "回忆溢出工作组",
-		"twitterId": "",
 		"avatar": "/oom.webp"
 	},
 	"hero": {
 		"name": "O.O.M. W.G.",
 		"bio": "我们的美好回忆溢到你身上了吗？",
-		"description": "Out Of Memories Work Group",
+		"description": "Out Of Memories/World Work Group",
 		"socials": [
 			{
 				"name": "GitHub",
@@ -71,7 +70,7 @@
 			"icon": "icon-pantone"
 		},
 		{
-			"name": "归档",
+			"name": "篇章",
 			"link": "/archives",
 			"icon": "icon-archive"
 		},
@@ -101,8 +100,5 @@
 	},
 	"footer": {
 		"startTime": "2023-02-06T14:44:40Z"
-	},
-	"sponsor": {
-		"wechat": ""
 	}
 }

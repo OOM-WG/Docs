@@ -2,7 +2,7 @@
 title: ShiroSU 内核提权部分讲解
 date: 2025-07-04
 summary: ShiroSU 内核部分原理
-category: Linso
+author: Linso
 tags: [回忆溢出, ShiroSU, root, 内核, C-C++]
 ---
 

@@ -2,7 +2,7 @@
 title: SukiSU Ultra 源码里的逆天操作
 date: 2025-06-30
 summary: SukiSU Ultra 究竟是一个什么样的项目？
-category: 白彩恋
+author: 白彩恋
 tags: [SukiSU Ultra, root, 开发, Kotlin, Shell]
 ---
 

@@ -14,5 +14,5 @@ export function RunningDays() {
 		return <span>Ops! 网站还没有发布</span>
 	}
 
-	return <span>已经运行了 {days} 天</span>
+	return <span>已经建立了 {days} 天</span>
 }

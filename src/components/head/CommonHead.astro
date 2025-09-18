@@ -1,5 +1,5 @@
 ---
-import {site, author} from '@/config.json'
+import {site, org} from '@/config.json'
 
 interface Props {
 	title?: string
@@ -17,10 +17,10 @@ const titleWithSiteSuffix = title === site.title ? title : `${title} - ${site.ti
 
 <link rel='apple-touch-icon' sizes='180x180' href={site.appleTouchIcon} />
 <link rel='icon' href={site.favicon} />
-<!-- L'Internationale, 
+<!-- L'Internationale,
   Sera le genre humain. -->
 <title>{titleWithSiteSuffix}</title>
-<meta name='author' content={author.name} />
+<meta name='author' content={org.name} />
 <meta name='description' content={description} />
 <meta name='keywords' content={site.keywords} />
 <meta name='generator' content={Astro.generator} />
@@ -34,7 +34,6 @@ const titleWithSiteSuffix = title === site.title ? title : `${title} - ${site.ti
 <meta property='twitter:card' content='summary_large_image' />
 <meta property='twitter:title' content={title} />
 <meta property='twitter:description' content={description} />
-{author.twitterId && <meta property='twitter:site' content={author.twitterId} />}
 {image && <meta property='twitter:image' content={new URL(image, Astro.url)} />}
 
 <link rel='canonical' href={new URL(Astro.url.pathname, Astro.site)} />

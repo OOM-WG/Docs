@@ -51,13 +51,13 @@ export function slugify(text: string) {
 	return text.replace(/\./g, '').replace(/\s/g, '-').toLowerCase()
 }
 
-// 获取所有分类
-export async function getAllCategories() {
+// 获取所有作者
+export async function getAllAuthors() {
 	return (await getNewestPosts()).reduce<{slug: string; name: string; count: number}[]>((acc, cur) => {
-		if (cur.data.category) {
-			const slug = slugify(cur.data.category)
-			const index = acc.findIndex(category => category.slug === slug)
-			if (index === -1) acc.push({slug, name: cur.data.category, count: 1})
+		if (cur.data.author) {
+			const slug = slugify(cur.data.author)
+			const index = acc.findIndex(author => author.slug === slug)
+			if (index === -1) acc.push({slug, name: cur.data.author, count: 1})
 			else acc[index].count += 1
 		}
 		return acc

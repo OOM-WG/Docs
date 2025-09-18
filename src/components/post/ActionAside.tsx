@@ -1,4 +1,4 @@
-import {sponsor, site} from '@/config.json'
+import {site} from '@/config.json'
 import {motion} from 'framer-motion'
 import * as QR from 'qrcode.react'
 import {useAtomValue} from 'jotai'
@@ -13,15 +13,6 @@ interface ShareData {
 }
 
 const shareList = [
-	{
-		name: 'Twitter',
-		icon: 'icon-x',
-		onClick: (data: ShareData) => {
-			window.open(
-				`https://twitter.com/intent/tweet?url=${encodeURIComponent(data.url)}&text=${encodeURIComponent(data.text)}&via=${encodeURIComponent(site.title)}`
-			)
-		}
-	},
 	{
 		name: '复制链接',
 		icon: 'icon-link',
@@ -40,7 +31,7 @@ export function ActionAside() {
 				transform: 'translateY(calc(100% + 24px))'
 			}}>
 			<ShareButton />
-			<DonateButton />
+			<JoinButton />
 		</div>
 	)
 }
@@ -82,7 +73,6 @@ function ShareModal({url, text}: {url: string; text: string}) {
 			<div className='px-3 py-2 grid grid-cols-[180px_auto] gap-3'>
 				<QR.QRCodeSVG value={url} size={180} />
 				<div className='flex flex-col gap-2'>
-					<div className='text-sm'>分享到...</div>
 					<ul className='flex flex-col gap-2'>
 						{shareList.map(item => (
 							<li
@@ -102,41 +92,18 @@ function ShareModal({url, text}: {url: string; text: string}) {
 	)
 }
 
-function DonateButton() {
-	const {present} = useModal()
-
-	const openDonate = () => {
-		present({
-			content: <DonateContent />
-		})
+function JoinButton() {
+	const openJoin = () => {
+		window.open('/join', '_blank')
 	}
 
 	return (
 		<button
 			type='button'
-			aria-label='Donate to author'
+			aria-label='Join group'
 			className='size-6 text-xl leading-none hover:text-accent'
-			onClick={() => openDonate()}>
+			onClick={() => openJoin()}>
 			<i className='iconfont icon-user-heart'></i>
 		</button>
-	)
-}
-
-function DonateContent() {
-	return (
-		<motion.div initial={{y: 20, opacity: 0}} animate={{y: 0, opacity: 1}} exit={{y: 20, opacity: 0}}>
-			<h2 className='text-center mb-5'>感谢您的支持，这将成为我前进的最大动力。</h2>
-			<div className='flex flex-wrap gap-4 justify-center'>
-				<img
-					className='object-cover'
-					width={300}
-					height={300}
-					src={sponsor.wechat}
-					alt='微信赞赏码'
-					loading='lazy'
-					decoding='async'
-				/>
-			</div>
-		</motion.div>
 	)
 }

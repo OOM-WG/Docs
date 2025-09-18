@@ -3,22 +3,22 @@ import {slugify} from '@/utils/content'
 
 interface Props {
 	tags: string[]
-	category?: string
+	author?: string
 	class?: string
 }
 
-const {tags, category, class: className} = Astro.props
+const {tags, author, class: className} = Astro.props
 ---
 
 <div class='flex flex-wrap gap-2 text-sm text-secondary' class:list={[className]}>
 	{
-		category && (
+		author && (
 			<div>
-				<i class='iconfont icon-folder' />
+				<i class='iconfont icon-rocket' />
 				<a
 					class='hover:text-accent hover:underline underline-offset-2 decoration-dashed'
-					href={`/categories/${slugify(category)}`}>
-					{category}
+					href={`/authors/${slugify(author)}`}>
+					{author}
 				</a>
 			</div>
 		)

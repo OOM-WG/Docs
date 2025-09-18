@@ -2,7 +2,7 @@
 title: AI 在一个项目的实际开发中究竟应该起什么样的作用？
 date: 2025-07-29
 summary: 很多人已经离不开 AI 了，但是 AI 到底应该有何地位？
-category: 白彩恋
+author: 白彩恋
 tags: [AI, root, 模块, 开发]
 ---
 
