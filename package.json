@@ -21,7 +21,7 @@
 		"commit-msg": "pnpm exec commitlint --edit $1"
 	},
 	"lint-staged": {
-		"*.{js,mjs,jsx,ts,mts,tsx,astro,vue,md,mdx,css,scss,html,htm,yml,yaml,json,jsonc}": "prettier --write"
+		"*.{js,mjs,jsx,ts,mts,tsx,astro,vue,md,mkd,mdx,css,scss,html,htm,yml,yaml,json,jsonc}": "prettier --write"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.4",
