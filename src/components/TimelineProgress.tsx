@@ -1,5 +1,6 @@
-import {useEffect, useRef, useState} from 'react'
 import {animate} from 'framer-motion'
+import {useEffect, useRef, useState} from 'react'
+
 import {getDaysInYear, getDiffInDays, getStartOfDay, getStartOfYear} from '@/utils/date'
 
 export function TimelineProgress() {

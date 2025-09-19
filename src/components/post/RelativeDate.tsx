@@ -1,5 +1,6 @@
-import {getRelativeTime, getFormattedDate} from '@/utils/date'
 import {useEffect, useState} from 'react'
+
+import {getFormattedDate, getRelativeTime} from '@/utils/date'
 
 export function RelativeDate({date}: {date: Date}) {
 	const [dateStr, setDateStr] = useState(getFormattedDate(date))

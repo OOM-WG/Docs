@@ -1,6 +1,7 @@
 import clsx from 'clsx'
-import {hero} from '@/config.json'
 import {motion} from 'framer-motion'
+
+import {hero} from '@/config.json'
 
 const itemVariants = {
 	hidden: {

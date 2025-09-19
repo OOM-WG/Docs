@@ -1,6 +1,8 @@
-import {useContext, useId, useRef} from 'react'
 import {useSetAtom} from 'jotai'
+import {useContext, useId, useRef} from 'react'
+
 import {modalStackAtom} from '@/store/modalStack'
+
 import {CurrentModalContext} from './context'
 
 type ModalProps = {

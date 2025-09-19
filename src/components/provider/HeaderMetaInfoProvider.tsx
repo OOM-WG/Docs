@@ -1,6 +1,7 @@
 import {useSetAtom} from 'jotai'
 import {useEffect} from 'react'
-import {pathNameAtom, metaTitleAtom, metaDescriptionAtom, metaSlugAtom} from '@/store/metaInfo'
+
+import {metaDescriptionAtom, metaSlugAtom, metaTitleAtom, pathNameAtom} from '@/store/metaInfo'
 
 export function HeaderMetaInfoProvider({
 	pathName,

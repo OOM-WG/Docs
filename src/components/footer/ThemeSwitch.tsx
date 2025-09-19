@@ -1,5 +1,6 @@
-import {themeAtom} from '@/store/theme'
 import {useAtom} from 'jotai'
+
+import {themeAtom} from '@/store/theme'
 
 export function ThemeSwitch() {
 	const [theme, setTheme] = useAtom(themeAtom)

@@ -1,14 +1,15 @@
 import {useAtomValue} from 'jotai'
+import {floor} from 'lodash-es'
+
 import {
-	pathNameAtom,
-	metaTitleAtom,
+	hasMetaInfoAtom,
 	metaDescriptionAtom,
 	metaSlugAtom,
-	hasMetaInfoAtom
+	metaTitleAtom,
+	pathNameAtom
 } from '@/store/metaInfo'
-import {pageScrollLocationAtom, pageScrollDirectionAtom} from '@/store/scrollInfo'
+import {pageScrollDirectionAtom, pageScrollLocationAtom} from '@/store/scrollInfo'
 import {isMobileAtom} from '@/store/viewport'
-import {floor} from 'lodash-es'
 
 const threshold = 60
 

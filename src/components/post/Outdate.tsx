@@ -1,6 +1,7 @@
+import {AnimatePresence, motion} from 'framer-motion'
 import {useEffect, useState} from 'react'
+
 import {getDiffInDays, getFormattedDate} from '@/utils/date'
-import {motion, AnimatePresence} from 'framer-motion'
 
 export function Outdate({lastMod}: {lastMod: Date}) {
 	const [isShow, setIsShow] = useState(false)

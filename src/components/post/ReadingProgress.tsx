@@ -1,7 +1,8 @@
-import {useEffect, useState} from 'react'
 import {useAtomValue} from 'jotai'
-import {pageScrollLocationAtom} from '@/store/scrollInfo'
 import {floor} from 'lodash-es'
+import {useEffect, useState} from 'react'
+
+import {pageScrollLocationAtom} from '@/store/scrollInfo'
 
 export function ReadingProgress() {
 	const [percent, setPercent] = useState(0)

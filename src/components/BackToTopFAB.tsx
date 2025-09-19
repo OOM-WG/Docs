@@ -1,6 +1,7 @@
-import {useAtomValue} from 'jotai'
-import {pageScrollLocationAtom} from '@/store/scrollInfo'
 import {AnimatePresence, motion} from 'framer-motion'
+import {useAtomValue} from 'jotai'
+
+import {pageScrollLocationAtom} from '@/store/scrollInfo'
 
 export function BackToTopFAB() {
 	const scrollY = useAtomValue(pageScrollLocationAtom)

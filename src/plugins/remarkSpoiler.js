@@ -1,4 +1,4 @@
-import {codes, types, constants} from 'micromark-util-symbol'
+import {codes, constants, types} from 'micromark-util-symbol'
 
 export function remarkSpoiler() {
 	const self = this

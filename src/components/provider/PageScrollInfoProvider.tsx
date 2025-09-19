@@ -1,7 +1,8 @@
-import {useLayoutEffect, useRef} from 'react'
-import {throttle} from 'lodash-es'
 import {useSetAtom} from 'jotai'
-import {pageScrollLocationAtom, pageScrollDirectionAtom} from '@/store/scrollInfo'
+import {throttle} from 'lodash-es'
+import {useLayoutEffect, useRef} from 'react'
+
+import {pageScrollDirectionAtom, pageScrollLocationAtom} from '@/store/scrollInfo'
 
 export function PageScrollInfoProvider() {
 	const setScrollLocation = useSetAtom(pageScrollLocationAtom)

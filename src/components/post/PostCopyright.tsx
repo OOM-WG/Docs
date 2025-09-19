@@ -1,8 +1,10 @@
-import {site} from '@/config.json'
-import {getFormattedDateTime} from '@/utils/date'
-import {AnimatedSignature} from '../AnimatedSignature'
 import {useEffect, useState} from 'react'
 import {toast} from 'react-toastify'
+
+import {site} from '@/config.json'
+import {getFormattedDateTime} from '@/utils/date'
+
+import {AnimatedSignature} from '../AnimatedSignature'
 
 function getPostUrl(slug: string) {
 	return new URL(slug, site.url).href

@@ -1,7 +1,8 @@
 import type {APIContext} from 'astro'
-import rss from '@astrojs/rss'
+
 import {site} from '@/config.json'
 import {getSortedPosts} from '@/utils/content'
+import rss from '@astrojs/rss'
 
 export async function GET(context: APIContext) {
 	const sortedPosts = await getSortedPosts()

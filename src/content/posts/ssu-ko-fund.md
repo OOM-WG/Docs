@@ -30,9 +30,7 @@ SSU 内核部分是一个针对 Android 内核的提权与权能限制处理的�
 | kretprobe | cap_capable                     | 绕过 Linux 能力检查      |
 | kretprobe | avc_denied                      | 绕过 SELinux 访问控制    |
 
-#### 探针注册流程
-
-<div align="center">
+### 探针注册流程
 
 ```mermaid
 flowchart TD
@@ -41,8 +39,6 @@ flowchart TD
     C --> D[注册 avc_denied kretprobe]
     D --> E[监控/劫持敏感操作]
 ```
-
-</div>
 
 ---
 

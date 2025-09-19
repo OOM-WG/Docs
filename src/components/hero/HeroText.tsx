@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
 import {motion} from 'framer-motion'
 import type {Variants} from 'framer-motion'
+import React, {useState} from 'react'
+
 import {hero} from '@/config.json'
+
 import {SocialList} from './SocialList'
 
 const Highlight = ({children, className = ''}: {children: React.ReactNode; className?: string}) => (

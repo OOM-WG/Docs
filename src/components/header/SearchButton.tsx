@@ -1,6 +1,7 @@
 import {motion} from 'framer-motion'
-import {useCurrentModal, useModal} from '@/components/ui/modal'
 import {useEffect, useState} from 'react'
+
+import {useCurrentModal, useModal} from '@/components/ui/modal'
 import {useDebounceValue} from '@/hooks/useDebounceValue'
 
 let pagefind: any = null

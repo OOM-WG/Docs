@@ -1,5 +1,6 @@
 import {useSetAtom} from 'jotai'
 import {useEffect} from 'react'
+
 import {isMobileAtom} from '@/store/viewport'
 
 export function ViewportProvider() {

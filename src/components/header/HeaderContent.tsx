@@ -1,14 +1,16 @@
-import {useState} from 'react'
-import {menus} from '@/config.json'
 import {clsx} from 'clsx'
 import {AnimatePresence, motion} from 'framer-motion'
+import {useState} from 'react'
+
+import {RootPortal} from '@/components/RootPortal'
+import {menus} from '@/config.json'
+
 import {
 	usePathName,
 	useShouldAccessibleMenuShow,
 	useShouldHeaderMenuBgShow,
 	useShouldHeaderMetaShow
 } from './hooks'
-import {RootPortal} from '@/components/RootPortal'
 
 export function HeaderContent() {
 	return (

@@ -1,6 +1,8 @@
-import {input} from '@inquirer/prompts'
 import fs from 'fs'
 import path from 'path'
+
+import {input} from '@inquirer/prompts'
+
 import {isFileNameSafe} from './utils.js'
 
 function getProjectFullPath(fileName) {

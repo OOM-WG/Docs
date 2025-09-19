@@ -1,11 +1,12 @@
-import {site} from '@/config.json'
-import {motion} from 'framer-motion'
 import * as QR from 'qrcode.react'
-import {useAtomValue} from 'jotai'
-import {metaSlugAtom, metaTitleAtom} from '@/store/metaInfo'
 import clsx from 'clsx'
+import {motion} from 'framer-motion'
+import {useAtomValue} from 'jotai'
 import {toast} from 'react-toastify'
+
 import {useModal} from '@/components/ui/modal'
+import {site} from '@/config.json'
+import {metaSlugAtom, metaTitleAtom} from '@/store/metaInfo'
 
 interface ShareData {
 	url: string

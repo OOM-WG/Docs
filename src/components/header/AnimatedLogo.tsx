@@ -1,6 +1,8 @@
 import {AnimatePresence, motion} from 'framer-motion'
-import {useShouldHeaderMetaShow, useIsMobile} from './hooks'
+
 import {org} from '@/config.json'
+
+import {useIsMobile, useShouldHeaderMetaShow} from './hooks'
 
 export function AnimatedLogo() {
 	const isMobile = useIsMobile()

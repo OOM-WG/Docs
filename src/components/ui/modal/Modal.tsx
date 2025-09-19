@@ -1,7 +1,9 @@
-import {modalStackAtom} from '@/store/modalStack'
-import {useSetAtom} from 'jotai'
-import * as Dialog from '@radix-ui/react-dialog'
 import {motion} from 'framer-motion'
+import {useSetAtom} from 'jotai'
+
+import * as Dialog from '@radix-ui/react-dialog'
+import {modalStackAtom} from '@/store/modalStack'
+
 import {CurrentModalContext} from './context'
 
 export function Modal({children, index, id}: {index: number; children: React.ReactNode; id: string}) {

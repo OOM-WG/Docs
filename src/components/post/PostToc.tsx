@@ -1,8 +1,9 @@
-import {pageScrollLocationAtom, pageScrollDirectionAtom} from '@/store/scrollInfo'
 import type {MarkdownHeading} from 'astro'
 import clsx from 'clsx'
 import {useAtomValue} from 'jotai'
 import {startTransition, useEffect, useRef, useState} from 'react'
+
+import {pageScrollDirectionAtom, pageScrollLocationAtom} from '@/store/scrollInfo'
 
 function useActiveItem() {
 	const [activeItem, setActiveItem] = useState('')
