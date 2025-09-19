@@ -55,7 +55,7 @@ function AccessibleMenu() {
 }
 
 function HeaderMenu({isBgShow}: {isBgShow: boolean}) {
-	const pathName = usePathName()
+	const pathName = usePathName().replace(/\.html$/, '')
 	const [mouseX, setMouseX] = useState(0)
 	const [mouseY, setMouseY] = useState(0)
 	const [radius, setRadius] = useState(0)
