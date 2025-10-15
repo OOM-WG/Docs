@@ -30,6 +30,12 @@
 				"color": "#d81e06"
 			},
 			{
+				"name": "Telegram",
+				"icon": "icon-telegram",
+				"url": "https://t.me/OOM_WG",
+				"color": "#0088CC"
+			},
+			{
 				"name": "🫂",
 				"icon": "icon-contacts-book",
 				"url": "https://oom-wg.dev/join",

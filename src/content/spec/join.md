@@ -5,10 +5,11 @@ description: 加入回忆溢出工作组的群聊
 
 ## 群组导航
 
-### 主要群组
+### QQ 群组
 
-- [伊甸园](https://qm.qq.com/q/pKuFysMZs4) - 活跃用户群 <mark>(需要验证)</mark>
-- [帮助](https://qm.qq.com/q/5MHCYXQQZG) - 疑问解答群
+- [伊甸园 (816708963)](https://qm.qq.com/q/pKuFysMZs4) - 活跃用户群 <mark>(需要验证)</mark>
+- [帮助 (345867222)](https://qm.qq.com/q/5MHCYXQQZG) - 疑问解答群
+- [QQ 频道](https://pd.qq.com/s/91t3v4mr3)
 
 #### 入群验证答案
 
@@ -23,9 +24,6 @@ description: 加入回忆溢出工作组的群聊
 > 鼠标悬浮或者点击查看答案，如不在群组内活跃发言
 > 勿加，会定期清理潜水人员，长期潜水请加下面群组
 
-### 其他平台
+### [Telegram 群组](https://t.me/OOM_Group)
 
-- [Discord](https://discord.gg/RQBBVhSCa5)
-- [QQ 频道](https://pd.qq.com/s/91t3v4mr3)
-- [YumeYuka Telegram 频道](https://t.me/YumeYuka_official)
-- [Telegram 群组](https://t.me/+49CgAUQ7Vm0wZGI1)
+### [Discord 频道](https://discord.gg/RQBBVhSCa5)
