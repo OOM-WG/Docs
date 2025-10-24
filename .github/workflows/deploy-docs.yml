@@ -3,16 +3,10 @@ name: Deploy Docs
 on:
   # 文档推送时执行
   push:
-    branches: [ nga ]
-    paths:
-      - "docs/**"
-      - ".github/**"
+    branches: [ oom ]
   # 文档 PR 时执行
   pull_request:
-    branches: [ nga ]
-    paths:
-      - "docs/**"
-      - ".github/**"
+    branches: [ oom ]
   # 可手动执行
   workflow_dispatch:
 
