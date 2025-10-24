@@ -132,7 +132,7 @@ export default defineConfig({
                     {
                         name: 'YumeYuka',
                         username: 'YumeYuka',
-                        mapByEmailAliases: ['yumeyuka@oom-wg.dev']
+                        mapByEmailAliases: ['yumeyuka@oom-wg.dev', 'Miao@YumeYuka.plus']
                     },
                     {
                         name: '白彩恋',
