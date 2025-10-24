@@ -1,0 +1,428 @@
+/*!
+ * Copyright (c) YumeYuka 2025.
+ */
+
+// 彩虹动画
+@keyframes rainbow {
+  0% {
+    --rainbow-prev: #0088ff;
+    --rainbow-next: #b040ff;
+  }
+
+  1.25% {
+    --rainbow-prev: #0080ff;
+    --rainbow-next: #c040ff;
+  }
+
+  2.5% {
+    --rainbow-prev: #0878ff;
+    --rainbow-next: #d040ff;
+  }
+
+  3.75% {
+    --rainbow-prev: #1070ff;
+    --rainbow-next: #e040ff;
+  }
+
+  5% {
+    --rainbow-prev: #2068ff;
+    --rainbow-next: #f040ff;
+  }
+
+  6.25% {
+    --rainbow-prev: #3060ff;
+    --rainbow-next: #ff40f0;
+  }
+
+  7.5% {
+    --rainbow-prev: #4058ff;
+    --rainbow-next: #ff40e0;
+  }
+
+  8.75% {
+    --rainbow-prev: #5050ff;
+    --rainbow-next: #ff40d0;
+  }
+
+  10% {
+    --rainbow-prev: #6048ff;
+    --rainbow-next: #ff40c0;
+  }
+
+  11.25% {
+    --rainbow-prev: #7040ff;
+    --rainbow-next: #ff40b0;
+  }
+
+  12.5% {
+    --rainbow-prev: #8040ff;
+    --rainbow-next: #ff40a0;
+  }
+
+  13.75% {
+    --rainbow-prev: #9040ff;
+    --rainbow-next: #ff4090;
+  }
+
+  15% {
+    --rainbow-prev: #a040ff;
+    --rainbow-next: #ff4888;
+  }
+
+  16.25% {
+    --rainbow-prev: #b040ff;
+    --rainbow-next: #ff5080;
+  }
+
+  17.5% {
+    --rainbow-prev: #c040ff;
+    --rainbow-next: #ff5878;
+  }
+
+  18.75% {
+    --rainbow-prev: #d040ff;
+    --rainbow-next: #ff6070;
+  }
+
+  20% {
+    --rainbow-prev: #e040ff;
+    --rainbow-next: #ff6868;
+  }
+
+  21.25% {
+    --rainbow-prev: #f040ff;
+    --rainbow-next: #ff7060;
+  }
+
+  22.5% {
+    --rainbow-prev: #ff40f0;
+    --rainbow-next: #ff7858;
+  }
+
+  23.75% {
+    --rainbow-prev: #ff40e0;
+    --rainbow-next: #ff8050;
+  }
+
+  25% {
+    --rainbow-prev: #ff40d0;
+    --rainbow-next: #ff8848;
+  }
+
+  26.25% {
+    --rainbow-prev: #ff40c0;
+    --rainbow-next: #ff9040;
+  }
+
+  27.5% {
+    --rainbow-prev: #ff40b0;
+    --rainbow-next: #ff9838;
+  }
+
+  28.75% {
+    --rainbow-prev: #ff40a0;
+    --rainbow-next: #ffa030;
+  }
+
+  30% {
+    --rainbow-prev: #ff4090;
+    --rainbow-next: #ffa828;
+  }
+
+  31.25% {
+    --rainbow-prev: #ff4080;
+    --rainbow-next: #ffb020;
+  }
+
+  32.5% {
+    --rainbow-prev: #ff4878;
+    --rainbow-next: #c8a848;
+  }
+
+  33.75% {
+    --rainbow-prev: #ff5070;
+    --rainbow-next: #b8a860;
+  }
+
+  35% {
+    --rainbow-prev: #ff5868;
+    --rainbow-next: #a8a878;
+  }
+
+  36.25% {
+    --rainbow-prev: #ff6060;
+    --rainbow-next: #98a888;
+  }
+
+  37.5% {
+    --rainbow-prev: #ff6858;
+    --rainbow-next: #88a898;
+  }
+
+  38.75% {
+    --rainbow-prev: #ff7050;
+    --rainbow-next: #78a8a8;
+  }
+
+  40% {
+    --rainbow-prev: #ff7848;
+    --rainbow-next: #68a8b8;
+  }
+
+  41.25% {
+    --rainbow-prev: #ff8040;
+    --rainbow-next: #58a8c8;
+  }
+
+  42.5% {
+    --rainbow-prev: #ff8838;
+    --rainbow-next: #48a8d8;
+  }
+
+  43.75% {
+    --rainbow-prev: #ff9030;
+    --rainbow-next: #50a0c8;
+  }
+
+  45% {
+    --rainbow-prev: #ff9828;
+    --rainbow-next: #5898b8;
+  }
+
+  46.25% {
+    --rainbow-prev: #ffa020;
+    --rainbow-next: #6090a8;
+  }
+
+  47.5% {
+    --rainbow-prev: #ffa818;
+    --rainbow-next: #688898;
+  }
+
+  48.75% {
+    --rainbow-prev: #ffb010;
+    --rainbow-next: #708088;
+  }
+
+  50% {
+    --rainbow-prev: #e0a840;
+    --rainbow-next: #788888;
+  }
+
+  51.25% {
+    --rainbow-prev: #c8a050;
+    --rainbow-next: #708890;
+  }
+
+  52.5% {
+    --rainbow-prev: #b09860;
+    --rainbow-next: #689098;
+  }
+
+  53.75% {
+    --rainbow-prev: #989070;
+    --rainbow-next: #6098a0;
+  }
+
+  55% {
+    --rainbow-prev: #808880;
+    --rainbow-next: #58a0a8;
+  }
+
+  56.25% {
+    --rainbow-prev: #708888;
+    --rainbow-next: #50a8b0;
+  }
+
+  57.5% {
+    --rainbow-prev: #608890;
+    --rainbow-next: #48b0b8;
+  }
+
+  58.75% {
+    --rainbow-prev: #508898;
+    --rainbow-next: #40b8c0;
+  }
+
+  60% {
+    --rainbow-prev: #4090a0;
+    --rainbow-next: #40c0c0;
+  }
+
+  61.25% {
+    --rainbow-prev: #4098a8;
+    --rainbow-next: #40c8c0;
+  }
+
+  62.5% {
+    --rainbow-prev: #40a0b0;
+    --rainbow-next: #40d0c0;
+  }
+
+  63.75% {
+    --rainbow-prev: #40a8b8;
+    --rainbow-next: #48d0b8;
+  }
+
+  65% {
+    --rainbow-prev: #40b0c0;
+    --rainbow-next: #50d0b0;
+  }
+
+  66.25% {
+    --rainbow-prev: #40b8c8;
+    --rainbow-next: #58d0a8;
+  }
+
+  67.5% {
+    --rainbow-prev: #40c0d0;
+    --rainbow-next: #60d0a0;
+  }
+
+  68.75% {
+    --rainbow-prev: #40c8d8;
+    --rainbow-next: #68d098;
+  }
+
+  70% {
+    --rainbow-prev: #40d0e0;
+    --rainbow-next: #70d090;
+  }
+
+  71.25% {
+    --rainbow-prev: #40d8e8;
+    --rainbow-next: #78d088;
+  }
+
+  72.5% {
+    --rainbow-prev: #40e0f0;
+    --rainbow-next: #80d080;
+  }
+
+  73.75% {
+    --rainbow-prev: #40e8f8;
+    --rainbow-next: #80c888;
+  }
+
+  75% {
+    --rainbow-prev: #40f0ff;
+    --rainbow-next: #80c090;
+  }
+
+  76.25% {
+    --rainbow-prev: #40e8ff;
+    --rainbow-next: #80b898;
+  }
+
+  77.5% {
+    --rainbow-prev: #40e0ff;
+    --rainbow-next: #80b0a0;
+  }
+
+  78.75% {
+    --rainbow-prev: #40d8ff;
+    --rainbow-next: #80a8a8;
+  }
+
+  80% {
+    --rainbow-prev: #40d0ff;
+    --rainbow-next: #80a0b0;
+  }
+
+  81.25% {
+    --rainbow-prev: #40c8ff;
+    --rainbow-next: #8098b8;
+  }
+
+  82.5% {
+    --rainbow-prev: #40c0ff;
+    --rainbow-next: #8090c0;
+  }
+
+  83.75% {
+    --rainbow-prev: #40b8ff;
+    --rainbow-next: #8088c8;
+  }
+
+  85% {
+    --rainbow-prev: #40b0ff;
+    --rainbow-next: #8080d0;
+  }
+
+  86.25% {
+    --rainbow-prev: #40a8ff;
+    --rainbow-next: #8080d8;
+  }
+
+  87.5% {
+    --rainbow-prev: #40a0ff;
+    --rainbow-next: #8880e0;
+  }
+
+  88.75% {
+    --rainbow-prev: #4098ff;
+    --rainbow-next: #9080e8;
+  }
+
+  90% {
+    --rainbow-prev: #4090ff;
+    --rainbow-next: #9880f0;
+  }
+
+  91.25% {
+    --rainbow-prev: #3088ff;
+    --rainbow-next: #a080f8;
+  }
+
+  92.5% {
+    --rainbow-prev: #2080ff;
+    --rainbow-next: #a880ff;
+  }
+
+  93.75% {
+    --rainbow-prev: #1088ff;
+    --rainbow-next: #b080ff;
+  }
+
+  95% {
+    --rainbow-prev: #0890ff;
+    --rainbow-next: #b078ff;
+  }
+
+  96.25% {
+    --rainbow-prev: #0090ff;
+    --rainbow-next: #b070ff;
+  }
+
+  97.5% {
+    --rainbow-prev: #008cff;
+    --rainbow-next: #b060ff;
+  }
+
+  98.75% {
+    --rainbow-prev: #0088ff;
+    --rainbow-next: #b050ff;
+  }
+
+  100% {
+    --rainbow-prev: #0088ff;
+    --rainbow-next: #b040ff;
+  }
+}
+
+:root {
+  --rainbow-prev: #0088ff;
+  --rainbow-next: #b040ff;
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, var(--rainbow-prev) 30%, var(--rainbow-next));
+
+  --vp-c-brand-1: var(--rainbow-prev);
+  --vp-c-brand-light: #fcbfc7;
+  --vp-c-brand-lighter: #fcbfc7;
+  --vp-c-brand-dark: #7c3aed;
+  --vp-c-brand-darker: #4c1d95;
+  --vp-c-brand-next: var(--rainbow-next);
+
+  animation: rainbow 40s linear infinite;
+}

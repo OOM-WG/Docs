@@ -1,0 +1,68 @@
+name: Deploy Docs
+
+on:
+  # 文档推送时执行
+  push:
+    branches: [ nga ]
+    paths:
+      - "docs/**"
+      - ".github/**"
+  # 文档 PR 时执行
+  pull_request:
+    branches: [ nga ]
+    paths:
+      - "docs/**"
+      - ".github/**"
+  # 可手动执行
+  workflow_dispatch:
+
+# 确保同时只有一个部署在运行
+concurrency:
+  group: docs-deployer
+  cancel-in-progress: true
+
+jobs:
+  # 任务: 部署 Pages
+  deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      # 1、检出源码
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          # 默认只拉取分支最近一次的 commit，可能会导致一些文章的 GitInfo 变量无法获取，设为 0 代表拉取所有分支所有提交
+          fetch-depth: 0
+          submodules: recursive
+      - name: Git Configuration
+        run: |
+          git config --global core.quotePath false
+          git config --global core.autocrlf false
+          git config --global core.safecrlf true
+          git config --global core.ignorecase false
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: latest
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+
+      - name: Install Dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Build
+        run: |
+          pnpm build:prod
+
+      - name: Deploy Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: docs-pages
+          folder: docs/output
+          clean: true
+          single-commit: true

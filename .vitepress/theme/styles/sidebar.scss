@@ -1,0 +1,21 @@
+/*!
+ * Copyright (c) YumeYuka 2025.
+ */
+
+.VPSidebar {
+  background-color: var(--vp-c-bg) !important;
+  border: none !important;
+}
+
+.dark .VPSidebar {
+  background-color: var(--vp-c-bg) !important;
+}
+
+.group + .group {
+  border-top: none !important;
+  padding-top: 10px;
+}
+
+.curtain {
+  background-color: var(--vp-c-bg) !important;
+}

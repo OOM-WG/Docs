@@ -1,0 +1,35 @@
+/*!
+ * Copyright (c) YumeYuka 2025.
+ */
+
+:root {
+  @media (min-width: 960px) {
+    .VPNavBarTitle.has-sidebar .title {
+      border-bottom-color: transparent;
+    }
+  }
+
+  .VPFooter {
+    border-top: none;
+  }
+
+  .VPNavBar.screen-open {
+    border-bottom: none;
+  }
+
+  .VPNavScreenMenuLink {
+    border-bottom: none;
+  }
+
+  .VPNavScreenMenuGroup {
+    border-bottom: none;
+  }
+
+  .VPLocalNav {
+    border-bottom: none;
+  }
+}
+
+.divider {
+  display: none;
+}
