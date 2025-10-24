@@ -33,10 +33,10 @@ export const head: HeadConfig[] = [
     // --- Open Graph (OG) 协议元数据 (用于社交媒体分享) ---
     ['meta', {property: 'og:type', content: 'website'}],
     ['meta', {property: 'og:locale', content: 'zh_CN'}],
-    ['meta', {property: 'og:title', content: 'SSU'}],
+    ['meta', {property: 'og:title', content: 'OOM.WG. 回忆溢出工作组'}],
     ['meta', {property: 'og:description', content: '回忆溢出工作组 · 综合文档'}],
     ['meta', {property: 'og:url', content: 'https://ssu.oom-wg.dev'}],
-    ['meta', {property: 'og:site_name', content: 'SSU'}],
+    ['meta', {property: 'og:site_name', content: 'OOM.WG.'}],
     [
         'meta',
         {
