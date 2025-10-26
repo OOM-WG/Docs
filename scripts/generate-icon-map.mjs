@@ -13,15 +13,15 @@ const files = globSync('src/**/*.md')
 const icons = new Set()
 
 files.forEach(file => {
-    try {
-        const content = readFileSync(file, 'utf-8')
-        const { data } = matter(content)
-        if (data.icon) {
-            icons.add(data.icon)
-        }
-    } catch (error) {
-        console.warn(`Warning: Failed to parse ${file}:`, error.message)
+  try {
+    const content = readFileSync(file, 'utf-8')
+    const { data } = matter(content)
+    if (data.icon) {
+      icons.add(data.icon)
     }
+  } catch (error) {
+    console.warn(`Warning: Failed to parse ${file}:`, error.message)
+  }
 })
 
 console.log(`Found ${icons.size} unique icons`)
@@ -30,13 +30,13 @@ const importStatements = []
 const mapEntries = []
 
 icons.forEach(icon => {
-    const pascalCase = icon
-        .split(/[-_]/)
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join('')
+  const pascalCase = icon
+    .split(/[-_]/)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('')
 
-    importStatements.push(pascalCase)
-    mapEntries.push(`  '${icon}': ${pascalCase}`)
+  importStatements.push(pascalCase)
+  mapEntries.push(`  '${icon}': ${pascalCase}`)
 })
 
 const code = `/*
