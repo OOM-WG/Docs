@@ -6,14 +6,14 @@
   "author": "回忆溢出工作组 (O.O.M. W.G.)",
   "type": "module",
   "scripts": {
-    "build": "vitepress build",
+    "build": "node scripts/generate-icon-map.mjs && vitepress build",
     "build:prod": "pnpm build && pnpm minify",
     "clean": "rimraf .vitepress/.temp .vitepress/cache node_modules/.cache dist .temp",
-    "dev": "vitepress dev --port 25527 --host",
+    "dev": "node scripts/generate-icon-map.mjs && vitepress dev --port 25527 --host",
     "lint": "prettier --write .",
     "minify": "node minify.mjs",
     "preview": "vitepress preview",
-    "termux:dev": "vitepress dev --port 25527"
+    "termux:dev": "node scripts/generate-icon-map.mjs && vitepress dev --port 25527"
   },
   "dependencies": {
     "@mdit/plugin-container": "^0.22.2",

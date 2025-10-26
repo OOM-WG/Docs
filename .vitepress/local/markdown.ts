@@ -14,8 +14,8 @@ import {InlineLinkPreviewElementTransform} from '@nolebase/vitepress-plugin-inli
 export const markdown: MarkdownOptions = {
     // Shiki主题, 所有主题参见: https://github.com/shikijs/shiki/blob/main/docs/themes.md
     theme: {
-        light: 'github-light',
-        dark: 'github-dark-dimmed'
+        light: 'kanagawa-lotus',
+        dark: 'kanagawa-wave'
     },
     image: {
         // 默认禁用；设置为 true 可为所有图片启用懒加载。

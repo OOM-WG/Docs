@@ -4,7 +4,7 @@
 
 import type {DefaultTheme} from "vitepress";
 
-import footer from "./footer";
+import {footer} from "./footer";
 import {nav} from "./nav";
 import {searchOptions} from "./search";
 import {sidebarSsu, sidebarSuu} from "./sidebar";

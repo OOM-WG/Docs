@@ -41,26 +41,23 @@ import {NolebaseUnlazyImg} from "@nolebase/vitepress-plugin-thumbnail-hash/clien
 import "@nolebase/vitepress-plugin-thumbnail-hash/client/style.css";
 import "@theojs/lumen";
 
-import Downloaded from "./attached/Downloaded.vue";
-import MyLayout from "./attached/MyLayout.vue";
-import ArticleMetadata from "./components/ArticleMetadata.vue";
-import ArticleShare from "./components/ArticleShare.vue";
-import AsideCommunity from "./components/AsideCommunity.vue";
-import Confetti from "./components/Confetti.vue";
-import RainbowAnimationSwitcher from "./components/RainbowAnimationSwitcher.vue";
-import SakuraLinkCard from "./components/SakuraLinkCard.vue";
-import Update from "./components/Update.vue";
-import UnderConstructionBanner from "./components/Width.vue";
+import Downloaded from "./components/layout/Downloaded.vue";
+import MyLayout from "./components/layout/MyLayout.vue";
+import ArticleMetadata from "./components/article/ArticleMetadata.vue";
+import ArticleShare from "./components/article/ArticleShare.vue";
+import Update from "./components/article/Update.vue";
+import AsideCommunity from "./components/navigation/AsideCommunity.vue";
+import Confetti from "./components/common/Confetti.vue";
+import UnderConstructionBanner from "./components/common/Width.vue";
+import RainbowAnimationSwitcher from "./components/theme/RainbowAnimationSwitcher.vue";
+import Linkcard from "./components/card/Linkcard.vue";
+import SakuraLinkCard from "./components/card/SakuraLinkCard.vue";
 import WalletApp from "./home/WalletApp.vue";
-import Linkcard from "./components/Linkcard.vue";
 
 import "./styles/main.scss";
 
-// 进度条样式
-
 let homePageStyle: HTMLStyleElement | undefined;
 
-// CssRenderStyle 组件：用于 SSR 时注入 css-render 生成的样式。
 const CssRenderStyle = defineComponent({
     setup() {
         const collect = inject("css-render-collect") as (() => string) | undefined;
@@ -71,7 +68,6 @@ const CssRenderStyle = defineComponent({
     },
 });
 
-// VitepressPath 组件：用于 SSR 时输出当前路由路径。
 const VitepressPath = defineComponent({
     setup() {
         const route = useRoute();
@@ -88,35 +84,12 @@ export default {
             {abstract: true, inlineThemeDisabled: true},
             {
                 default: () => [
-                    // 使用自定义MyLayout
                     h(MyLayout, null, {
-                        "layout-top": () => [
-                            h(UnderConstructionBanner),
-                            // h(
-                            //     defineAsyncComponent(
-                            //         () => import("./components/Banner.vue"),
-                            //     ),
-                            // ),
-                            h(NolebaseHighlightTargetedHeading),
-                            // h(Mouse),
-                        ],
-                        // "doc-footer-before": () => h(backtotop),
-                        // 在导航栏内容后面添加增强可读性菜单
+                        "layout-top": () => [h(UnderConstructionBanner), h(NolebaseHighlightTargetedHeading)],
                         "nav-bar-content-after": () => [h(NolebaseEnhancedReadabilitiesMenu)],
-                        // 在屏幕导航内容后面添加增强可读性菜单
                         "nav-screen-content-after": () => h(NolebaseEnhancedReadabilitiesScreenMenu),
-                        // 在侧边栏导航前面添加鼠标切换
-                        // "sidebar-nav-before": () => h(MouseToggle),
-                        // 在侧边栏下方添加分享按钮（使用包装组件解决 SSR 问题）
-                        // "aside-outline-after": () => h(ArticleShare),
-
-                        // 在布局顶部添加其他组件
-                        // "page-top": () => h(Banner),
-                        // "aside-top": () => [h(ArticleShare)],
                         "aside-outline-after": () => [h(AsideCommunity), h(ArticleShare)],
                     }),
-
-                    // SSR 相关组件
                     import.meta.env.SSR ? [h(CssRenderStyle), h(VitepressPath)] : null,
                 ],
             }
@@ -129,7 +102,6 @@ export default {
             app.provide("css-render-collect", collect);
         }
 
-        // 注册所有第三方库和插件
         app.use(ElementPlus);
         app.use(NolebaseGitChangelogPlugin);
         app.use(NolebaseInlineLinkPreviewPlugin);
@@ -142,7 +114,6 @@ export default {
             },
         });
 
-        // 注册所有自定义全局组件
         app.component("WalletApp", WalletApp);
         app.component("Linkcard", Linkcard);
         app.component("RainbowAnimationSwitcher", RainbowAnimationSwitcher);
@@ -156,7 +127,6 @@ export default {
         app.component("NolebasePagePropertiesEditor", NolebasePagePropertiesEditor);
         app.component("NolebasePageProperties", NolebasePageProperties);
 
-        // 客户端逻辑
         if (typeof window !== "undefined") {
             watch(
                 () => router.route.data.relativePath,
@@ -164,7 +134,6 @@ export default {
                 {immediate: true}
             );
 
-            // 处理路由变化时的动画重置
             watch(
                 () => router.route.path,
                 () => {
@@ -175,14 +144,13 @@ export default {
                 {flush: "post"}
             );
 
-            // 页面进度条与访问统计
             if (inBrowser) {
                 NProgress.configure({showSpinner: false});
                 router.onBeforeRouteChange = () => {
-                    NProgress.start(); // 开始进度条
+                    NProgress.start();
                 };
                 router.onAfterRouteChange = () => {
-                    NProgress.done(); // 停止进度条
+                    NProgress.done();
                 };
             }
         }

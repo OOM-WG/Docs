@@ -6,7 +6,7 @@
 import {useData} from "vitepress";
 import {computed, onMounted, ref} from "vue";
 
-import {countWord} from "../utils/functions";
+import {countWord} from "../../utils/functions";
 
 const {page} = useData();
 const date = computed(() => new Date(page.value.lastUpdated!));
@@ -21,13 +21,11 @@ const wordTime = computed(() => {
 const imageTime = computed(() => {
   const n = imageCount.value;
   if (imageCount.value <= 10) {
-    // 等差数列求和
     return n * 13 + (n * (n - 1)) / 2;
   }
   return 175 + (n - 10) * 3;
 });
 
-// 阅读时间
 const readTime = computed(() => {
   return Math.ceil((wordTime.value + imageTime.value) / 60);
 });
@@ -42,7 +40,6 @@ function analyze() {
 }
 
 onMounted(() => {
-  // 初始化时执行一次
   analyze();
 });
 </script>
@@ -50,7 +47,6 @@ onMounted(() => {
 <template>
   <div class="article-metadata">
     <div class="metadata-content">
-      <!-- 左侧：字数和时长 -->
       <div class="metadata-left">
 				<span class="metadata-item">
 					<svg
@@ -89,7 +85,6 @@ onMounted(() => {
 				</span>
       </div>
 
-      <!-- 右侧：更新时间 -->
       <div class="metadata-right">
 				<span class="metadata-item">
 					<svg
@@ -111,7 +106,6 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- 分割线 -->
     <div class="metadata-divider"></div>
   </div>
 </template>
@@ -167,7 +161,6 @@ onMounted(() => {
   margin-top: 8px;
 }
 
-/* 响应式：移动端垂直排列 */
 @media (max-width: 768px) {
   .metadata-content {
     flex-direction: column;

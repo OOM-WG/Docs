@@ -343,6 +343,7 @@ const resetForm = () => {
   transition: all 0.3s ease;
   white-space: nowrap;
   min-width: 120px;
+  flex: 1;
 }
 
 .capsule-option.active {
@@ -545,9 +546,9 @@ const resetForm = () => {
   }
 
   .capsule-option {
-    padding: 8px 16px;
+    padding: 8px 12px;
     font-size: 13px;
-    min-width: 100px;
+    min-width: 0;
     gap: 6px;
   }
 

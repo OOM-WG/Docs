@@ -8,9 +8,9 @@ import {computed, h} from "vue";
 // @ts-ignore - VitePress 内部路径
 import {useSidebarItemControl} from "vitepress/dist/client/theme-default/composables/sidebar";
 import VPLink from "vitepress/dist/client/theme-default/components/VPLink.vue";
-import * as LucideIcons from "lucide-vue-next";
+import {getIconComponent} from "../../icons-map";
 // @ts-ignore - VitePress Data Loader 在运行时提供 data 导出
-import {data as iconsMap} from "../icons.data";
+import {data as iconsMap} from "../../icons.data";
 
 const props = defineProps<{
   item: DefaultTheme.SidebarItem;
@@ -51,7 +51,7 @@ function onCaretClick() {
   props.item.link && toggle();
 }
 
-// 获取侧边栏项的图标
+// 获取侧边栏项的图标（优化版本）
 const pageIcon = computed(() => {
   if (!props.item.link) return null;
 
@@ -59,17 +59,8 @@ const pageIcon = computed(() => {
   const normalizedPath = props.item.link.replace(/\.html$/, "").replace(/\/$/, "");
   const iconName = iconsMap[normalizedPath];
 
-  if (!iconName) return null;
-
-  // 将 kebab-case 或 snake_case 转换为 PascalCase
-  // 例如: help-circle -> HelpCircle, home -> Home
-  const pascalCase = iconName
-      .split(/[-_]/)
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join("");
-
-  // @ts-ignore - 动态访问图标
-  return LucideIcons[pascalCase];
+  // 使用优化的图标获取函数（带缓存）
+  return getIconComponent(iconName);
 });
 </script>
 

@@ -9,7 +9,7 @@ import {useData} from "vitepress";
 import DefaultTheme from "vitepress/theme";
 import {nextTick, onMounted, provide, ref} from "vue";
 
-import backtotop from "../components/backtotop.vue";
+import BackToTop from "../common/BackToTop.vue";
 
 const {isDark} = useData();
 
@@ -34,7 +34,7 @@ provide("toggle-appearance", async ({clientX: x, clientY: y}: MouseEvent) => {
     </template>
     <template #doc-footer-before>
       <slot name="doc-footer-before"></slot>
-      <backtotop/>
+      <BackToTop/>
     </template>
     <template #nav-bar-content-after>
       <slot name="nav-bar-content-after"></slot>

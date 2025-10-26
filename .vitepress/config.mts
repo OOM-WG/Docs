@@ -17,60 +17,21 @@ import {head} from "./local";
 import {markdown} from "./local";
 import {themeConfig} from "./local";
 
-// const baseUrl = "https://ssu.oom-wg.dev";
-// const RSS: RSSOptions = {
-//     title: "ShiroSU",
-//     baseUrl,
-//     copyright: "Copyright © 2023-present SSU Developers (O.O.M. W.G.)",
-// };
-
-// Teek 主题配置
-// const teekConfig = defineTeekConfig({});
-
-// VitePress 配置
 export default defineConfig({
-    // export default defineConfig({
-    // extends: teekConfig,
     title: "OOM-WG",
     lang: "zh-Hans",
     description: "回忆溢出工作组综合文档",
-
-    // base: "/",
     lastUpdated: true,
     ignoreDeadLinks: true,
-
     srcDir: "src",
     outDir: "./dist",
     srcExclude: [],
     scrollOffset: "header",
     cleanUrls: true,
-
     rewrites: {
         "zh/:rest*": ":rest*",
     },
     metaChunk: true,
-
-    // 多语言配置
-    // locales: {
-    //     // 默认简中
-    //     root: {
-    //         label: '简体中文',
-    //         lang: 'zh-Hans',
-    //         ...zhConfig
-    //     } /*,
-    // 	en: {
-    // 		label: 'English',
-    // 		lang: 'en',
-    // 		link: '/en/',
-    // 		...enConfig
-    // 	},
-    // 	ja: {
-    // 		label: '日本語',
-    // 		lang: 'ja',
-    // 		link: '/ja/',
-    // 		...jaConfig
-    // 	}*/
-    // },
 
     sitemap: {
         hostname: "https://ssu.oom-wg.dev",
@@ -82,28 +43,12 @@ export default defineConfig({
     transformPageData(pageData, context) {
         generateBreadcrumbsData(pageData, context);
     },
-    // transformHtml(code, id, { pageData }) {
-    //     if (process.env.NODE_ENV !== "production") return;
-    //
-    //     const newCode = code.replace(
-    //         /(?<!<a\b[^>]*)(src|href)=["']\/([^"']+)["']/gi,
-    //         (_, attr, path) =>
-    //             `${attr}="https://ssu.noidx.sawahara.host/${path}"`,
-    //     );
-    //
-    //     return newCode;
-    // },
     vite: {
         css: {
             postcss: {
                 plugins: [autoprefixer()],
             },
         },
-        // experimental: {
-        //     renderBuiltUrl(filename, { hostType, type, hostId }) {
-        //         return "https://ssu.noidx.sawahara.host/" + filename;
-        //     },
-        // },
         define: {
             __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: "true",
         },
@@ -111,7 +56,7 @@ export default defineConfig({
             alias: [
                 {
                     find: /^.*\/VPFooter\.vue$/,
-                    replacement: fileURLToPath(new URL("./theme/components/Footer.vue", import.meta.url)),
+                    replacement: fileURLToPath(new URL("./theme/components/navigation/Footer.vue", import.meta.url)),
                 },
                 {
                     find: /^.*\/VPHome\.vue$/,
@@ -119,11 +64,11 @@ export default defineConfig({
                 },
                 {
                     find: /^.*\/VPSidebarItem\.vue$/,
-                    replacement: fileURLToPath(new URL("./theme/components/VPSidebarItem.vue", import.meta.url)),
+                    replacement: fileURLToPath(new URL("./theme/components/navigation/VPSidebarItem.vue", import.meta.url)),
                 },
                 {
                     find: /^.*\/VPSidebarGroup\.vue$/,
-                    replacement: fileURLToPath(new URL("./theme/components/VPSidebarGroup.vue", import.meta.url)),
+                    replacement: fileURLToPath(new URL("./theme/components/navigation/VPSidebarGroup.vue", import.meta.url)),
                 },
             ],
         },
@@ -132,7 +77,6 @@ export default defineConfig({
         },
         plugins: [
             groupIconVitePlugin(),
-            // RssPlugin(RSS),
             ThumbnailHashImages(),
             GitChangelog({
                 repoURL: () => "https://github.com/OOM-WG/ShiroSU",

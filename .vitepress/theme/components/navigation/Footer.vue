@@ -8,7 +8,7 @@ import {ref} from "vue";
 
 import {useQRCode} from "@vueuse/integrations/useQRCode";
 
-import {socialList} from "./config/socialList";
+import {socialList} from "../../config/socialList";
 
 const {frontmatter, theme} = useData();
 const customFooter = theme.value.customFooter;
@@ -114,7 +114,7 @@ const isExpanded = (title: string) => {
 
 .footer:first-child {
   padding-top: 2.5rem;
-  display: block; /* 移动端改为块级布局，确保垂直排列 */
+  display: block;
 }
 
 .footer:last-child {
@@ -125,7 +125,6 @@ const isExpanded = (title: string) => {
   width: 100%;
   padding-top: 12px;
   padding-bottom: 12px;
-  // 移除透明背景设置
 }
 
 .footer {
@@ -138,8 +137,8 @@ const isExpanded = (title: string) => {
   font-family: var(--vp-font-family-base);
   line-height: 1.25rem;
   margin: 0 auto;
-  grid-template-columns: 1fr; /* 移动端强制单列布局 */
-  gap: 0; /* 移动端移除间距，让边框连续 */
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
 .footer > * {
@@ -316,13 +315,12 @@ const isExpanded = (title: string) => {
     grid-auto-flow: column;
     place-items: self-start;
     row-gap: 2.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 桌面端自适应列布局 */
-    gap: 1rem; /* 桌面端恢复间距 */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
   }
 
   .footer:last-child {
-    border-top: 1px solid var(--vp-c-divider); // 恢复原始边框
-    // 移除透明背景设置
+    border-top: 1px solid var(--vp-c-divider);
   }
 
   .footer-navigation:first-child {
@@ -332,19 +330,18 @@ const isExpanded = (title: string) => {
     place-items: self-start;
     border: none;
     flex: 1;
-    /* 让导航占据可用空间 */
 
     .footer-links {
-      max-height: none !important; // 桌面端禁用高度限制
-      height: auto !important; // 确保在大屏幕上链接始终可见
+      max-height: none !important;
+      height: auto !important;
       overflow: visible !important;
-      opacity: 1 !important; // 桌面端始终可见
-      transition: none !important; // 桌面端禁用动画
+      opacity: 1 !important;
+      transition: none !important;
 
       li {
-        transform: none !important; // 桌面端禁用位移
-        opacity: 1 !important; // 桌面端始终可见
-        transition: none !important; // 桌面端禁用动画
+        transform: none !important;
+        opacity: 1 !important;
+        transition: none !important;
       }
     }
 
@@ -362,11 +359,9 @@ const isExpanded = (title: string) => {
   }
   .footer:first-child {
     padding-bottom: 2.5rem;
-    display: flex; /* 桌面端恢复为flex布局 */
+    display: flex;
     flex-direction: row;
-    /* 确保水平排列 */
     align-items: flex-start;
-    /* 顶部对齐 */
     justify-content: space-between;
   }
 
@@ -374,7 +369,7 @@ const isExpanded = (title: string) => {
     cursor: default;
 
     .footer-toggle {
-      display: none; // 桌面端隐藏折叠图标
+      display: none;
     }
   }
 }
@@ -382,14 +377,12 @@ const isExpanded = (title: string) => {
 .footer-bottom {
   display: flex;
   justify-content: space-between;
-  /* 左右两侧对齐 */
   align-items: center;
   width: 100%;
   padding: 12px 0;
   border-top: 1px solid var(--vp-c-divider);
   margin: 0 auto;
   max-width: 1152px;
-  /* 限制最大宽度与内容区域一致 */
 }
 
 .license-container {

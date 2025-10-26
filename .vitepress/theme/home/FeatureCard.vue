@@ -56,17 +56,14 @@ const handleMouseLeave = () => {
   height: 100%;
 }
 
-/* 左侧卡片（大） */
 .feature-card-large {
   padding: 40px;
 }
 
-/* 右侧卡片（小） */
 .feature-card-small {
   padding: 40px;
 }
 
-/* 探照灯光晕背景层 - 跟随鼠标的颜色区域 */
 .card-border {
   position: absolute;
   inset: 0;
@@ -87,7 +84,6 @@ const handleMouseLeave = () => {
   opacity: 1;
 }
 
-/* 边框高亮层 - 只在探照灯范围内显示品牌色边框 */
 .card-border-highlight {
   position: absolute;
   inset: 0;
@@ -97,15 +93,11 @@ const handleMouseLeave = () => {
   z-index: 1;
   opacity: 0;
   transition: opacity 0.3s ease;
-
-  /* 创建渐变边框：只在探照灯区域内显示品牌色 */
   background: radial-gradient(
       150px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
       var(--vp-c-brand-1),
       transparent 100%
   );
-
-  /* 使用 mask 只显示边框（内部裁剪掉） */
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -163,7 +155,6 @@ const handleMouseLeave = () => {
   flex-shrink: 0;
 }
 
-/* 左侧卡片的图片 - 居中显示 */
 .card-image-centered {
   display: flex;
   align-items: center;
@@ -184,13 +175,11 @@ const handleMouseLeave = () => {
   padding: 0;
 }
 
-/* 大卡片的图片 - 放大填充并裁剪 */
 .feature-card-large .card-image-centered img {
   object-fit: cover;
   object-position: top center;
 }
 
-/* 响应式 */
 @media (max-width: 768px) {
   .feature-card {
     padding: 32px 24px;
