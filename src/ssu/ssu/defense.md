@@ -1,5 +1,6 @@
 ---
 layout: doc
+icon: shield
 footer: true
 ---
 

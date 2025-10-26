@@ -1,5 +1,6 @@
 ---
 layout: doc
+icon: sparkles
 title: 项目起源
 description: 了解 ShiroSU 项目的诞生背景、发展历程和设计理念
 outline: deep

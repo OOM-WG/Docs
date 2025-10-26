@@ -1,5 +1,6 @@
 ---
 layout: doc
+icon: box
 title: 内核接口开发
 description: 了解如何适配 ShiroSU 的内核接口
 outline: deep

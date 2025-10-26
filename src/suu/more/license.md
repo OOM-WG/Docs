@@ -1,5 +1,6 @@
 ---
 title: 分发协议
+icon: scale
 ---
 
 # **File to Download 公共资源许可证 (F2DLPRL 或 F2DLPR 许可证)**

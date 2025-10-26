@@ -1,5 +1,6 @@
 ---
 layout: doc
+icon: code
 title: 模块开发
 description: 学习如何为 ShiroSU 开发和构建自定义模块
 outline: deep

@@ -1,6 +1,7 @@
 ---
 title: 路径对照
 titleTemplate: 苏柚 Android
+icon: folder-tree
 ---
 
 | 变量               | 单用户                       | 多用户                       | 需要 root |

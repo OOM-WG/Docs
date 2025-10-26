@@ -1,6 +1,7 @@
 ---
 title: C&C清理
 titleTemplate: 苏柚 Android
+icon: radio
 ---
 
 ::: tip

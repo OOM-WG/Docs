@@ -55,7 +55,7 @@ interface Author {
 const cards: CardData[] = [
   {
     title: '使用 <span class="highlight">C/C++ Kotlin ...</span> 多种语言开发',
-    description: '多语言协作，让工具具备更高的灵活性与可扩展性',
+    description: "多语言协作，让工具具备更高的灵活性与可扩展性",
     imageSrc: "/assets/img/kotlin.png",
     imageAlt: "VitePress Logo",
     size: "small",
@@ -89,9 +89,7 @@ const authors: Author[] = [
     name: "悠栾",
     avatar: "https://oom-wg.dev/developers/ark.webp",
     role: "摸鱼人",
-    socials: [
-      {type: "github", url: "https://github.com/NuoFang6"},
-    ],
+    socials: [{type: "github", url: "https://github.com/NuoFang6"}],
   },
   {
     name: "Linso",
@@ -126,7 +124,7 @@ const authors: Author[] = [
     role: "泠熙子",
     socials: [
       {type: "github", url: "https://github.com/YumeYuka"},
-      {type: "website", url: "https://www.yumeyuka.plus"}
+      {type: "website", url: "https://www.yumeyuka.plus"},
     ],
   },
 ];
@@ -138,6 +136,13 @@ const authors: Author[] = [
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 48px;
+}
+
+/* 移动端减小边距 */
+@media (max-width: 768px) {
+  .vp-home {
+    padding: 0 24px;
+  }
 }
 
 /* 响应式 */

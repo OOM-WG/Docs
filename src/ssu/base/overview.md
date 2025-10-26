@@ -1,5 +1,6 @@
 ---
 layout: doc
+icon: house
 title: 什么是 ShiroSU？
 description: 了解 ShiroSU - 致力于畅享 root 的先进工具
 showPageStats: true

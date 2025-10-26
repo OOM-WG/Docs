@@ -1,6 +1,7 @@
 ---
 title: modify.my.id
 titleTemplate: 苏柚 Android
+icon: fingerprint
 ---
 
 ::: tip

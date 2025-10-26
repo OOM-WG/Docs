@@ -1,6 +1,7 @@
 ---
 title: 模式对照
 titleTemplate: 苏柚 Android
+icon: layers
 ---
 
 | 名称   | 实际权限       | 需要 root |

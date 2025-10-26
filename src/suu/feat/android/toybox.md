@@ -1,6 +1,7 @@
 ---
 title: Toybox玩具箱
 titleTemplate: 苏柚 Android
+icon: box
 ---
 
 ## 震震震

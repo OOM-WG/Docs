@@ -1,6 +1,7 @@
 ---
 title: GBB优质存储
 titleTemplate: 苏柚 Android
+icon: shield-check
 ---
 
 ::: tip

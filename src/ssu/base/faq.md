@@ -2,6 +2,7 @@
 layout: doc
 title: 常见问题
 description: ShiroSU 项目的常见问题解答
+icon: help-circle
 showPageStats: false
 outline: deep
 footer: true

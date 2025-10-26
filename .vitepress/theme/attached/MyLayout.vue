@@ -54,6 +54,13 @@ provide("toggle-appearance", async ({clientX: x, clientY: y}: MouseEvent) => {
     <template #aside-top>
       <slot name="aside-top"></slot>
     </template>
+    <template #aside-bottom>
+      <slot name="aside-bottom"></slot>
+    </template>
+    <template #aside-outline-before>
+      <slot name="aside-outline-before"></slot>
+    </template>
+
     <template #layout-bottom>
       <bsz/>
     </template>

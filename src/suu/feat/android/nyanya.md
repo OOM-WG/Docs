@@ -1,6 +1,7 @@
 ---
 title: Nyanya整理
 titleTemplate: 苏柚 Android
+icon: cat
 ---
 
 ::: tip

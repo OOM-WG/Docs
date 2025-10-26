@@ -1,5 +1,6 @@
 ---
 layout: doc
+icon: package
 title: 模块构建工具
 description: 了解如何使用 ShiroSU 的模块构建工具
 outline: deep

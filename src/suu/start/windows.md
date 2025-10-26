@@ -1,6 +1,7 @@
 ---
 title: 开始使用
 titleTemplate: 苏柚 Windows
+icon: monitor
 ---
 
 ## 下载

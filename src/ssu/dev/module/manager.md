@@ -1,5 +1,6 @@
 ---
 layout: doc
+icon: settings
 title: 管理器特性开发
 description: 了解如何开发适配 ShiroSU 管理器的模块
 outline: deep

@@ -1,6 +1,7 @@
 ---
 title: Xposed功能
 titleTemplate: 苏柚 Android
+icon: wrench
 ---
 
 ## 支持范围

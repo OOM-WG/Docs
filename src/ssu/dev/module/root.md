@@ -1,5 +1,6 @@
 ---
 layout: doc
+icon: cpu
 title: 原生特性开发
 description: 了解如何开发适配 ShiroSU 原生 root 的模块
 outline: deep

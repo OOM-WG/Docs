@@ -1,5 +1,6 @@
 ---
 layout: doc
+icon: cog
 title: ShiroSU 内核原理
 footer: true
 ---

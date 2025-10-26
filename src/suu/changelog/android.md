@@ -1,6 +1,7 @@
 ---
 title: 更新日志
 titleTemplate: 苏柚 Android
+icon: scroll-text
 ---
 
 <div align="center">

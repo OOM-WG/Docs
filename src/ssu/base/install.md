@@ -1,5 +1,6 @@
 ---
 layout: doc
+icon: download
 title: 安装指南
 description: ShiroSU 的安装步骤和配置说明
 outline: deep

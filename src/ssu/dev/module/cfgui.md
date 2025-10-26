@@ -1,5 +1,6 @@
 ---
 layout: doc
+icon: layout-dashboard
 title: ConfigUI 模块开发
 description: 了解如何开发具有配置界面的 ShiroSU 模块
 outline: deep

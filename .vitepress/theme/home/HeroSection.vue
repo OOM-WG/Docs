@@ -134,11 +134,9 @@
 
   .cta-primary,
   .cta-secondary {
-    flex: 1;
     justify-content: center;
     font-size: 14px;
     padding: 10px 20px;
   }
 }
 </style>
-
