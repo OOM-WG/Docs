@@ -1,12 +1,10 @@
+#!/usr/bin/env node
 /*
  * Copyright (c) YumeYuka 2025.
  */
 
-#!/usr/
-bin / env
-node
-import {readFileSync, writeFileSync} from 'fs'
-import {globSync} from 'glob'
+import { readFileSync, writeFileSync } from 'fs'
+import { globSync } from 'glob'
 import matter from 'gray-matter'
 
 console.log('Scanning markdown files for icons...')
@@ -17,7 +15,7 @@ const icons = new Set()
 files.forEach(file => {
     try {
         const content = readFileSync(file, 'utf-8')
-        const {data} = matter(content)
+        const { data } = matter(content)
         if (data.icon) {
             icons.add(data.icon)
         }
@@ -73,4 +71,3 @@ export function getIconComponent(iconName: string | undefined): any {
 writeFileSync('.vitepress/theme/icons-map.ts', code, 'utf-8')
 console.log(`Generated .vitepress/theme/icons-map.ts with ${icons.size} icons`)
 console.log('Icons:', Array.from(icons).sort().join(', '))
-
