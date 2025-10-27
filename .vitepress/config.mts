@@ -79,7 +79,7 @@ export default defineConfig({
 			groupIconVitePlugin(),
 			ThumbnailHashImages(),
 			GitChangelog({
-				repoURL: () => "https://github.com/OOM-WG/ShiroSU",
+                repoURL: () => "https://github.com/OOM-WG/Docs",
 				mapAuthors: [
 					{
 						name: "YumeYuka",
