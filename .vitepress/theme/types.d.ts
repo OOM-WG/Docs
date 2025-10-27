@@ -1,5 +1,9 @@
 /*
  * Copyright (c) YumeYuka 2025.
+ *
+ * This work is free. You can redistribute it and/or modify it under the
+ * terms of the Do What The Fuck You Want To Public License, Version 2,
+ * as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
  */
 
 // 扩展 VitePress 的 DefaultTheme 接口以包含我们的自定义属性

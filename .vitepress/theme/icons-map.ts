@@ -1,5 +1,9 @@
 /*
  * Copyright (c) YumeYuka 2025.
+ *
+ * This work is free. You can redistribute it and/or modify it under the
+ * terms of the Do What The Fuck You Want To Public License, Version 2,
+ * as published by Sam Hocevar. See http://www.wtfpl.net/ for more details.
  */
 
 import { Monitor, Smartphone, Lock, Scale, FileCheck, Wrench, Box, Cat, Fingerprint, ShieldCheck, Radio, FileText, ScrollText, Lightbulb, FolderTree, Layers, Cog, Sparkles, Shield, Puzzle, Heart, Link, Globe, Cpu, Settings, Code, LayoutDashboard, Package, House, Download, HelpCircle } from 'lucide-vue-next'
