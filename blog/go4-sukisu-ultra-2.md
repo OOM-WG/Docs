@@ -1,0 +1,885 @@
+---
+title: "二周目: SukiSU Ultra 项目中的逆天操作"
+sidebarTitle: 二周目：SukiSU Ultra 的逆天操作
+date: 2025-08-29
+description: SukiSU Ultra 为何如此千疮百孔？
+author: 白彩恋
+tags: [SukiSU Ultra, root, 开发, C-C++]
+---
+
+import {Avatar} from "/snippets/avatar.jsx"
+
+<Avatar
+name="白彩恋"
+role="全栈开发者"
+avatar="/images/avatar/shiro.webp"
+date="25 年 8 月 29 日 星期五"
+/>
+
+<Tip>[一周目请见此处](go4-sukisu-ultra)</Tip>
+
+## 前言
+
+SukiSU Ultra 在 [v3.1.9 的一次提交](https://github.com/SukiSU-Ultra/SukiSU-Ultra/commit/48d7a130283ade2b671565e49bf4485906a1cc26)中添加了让人感到莫名其妙的**模块签名验证**，验证了什么在**提交**里面没写，在**仓库**里面也没写，在**发布**里面也没写，在**文档**里面更没有写
+
+就这么一个莫名其妙的验证，添加进去了也**没有任何说明**，细翻了一下源码也**没有在主仓库或组织开源**，只有一个 10MB 大小的共享库文件，这种大小一看就是没有剥离符号的（或者是真的代码量巨大的，但是 SukiSU Ultra 可能吗？），不过在构建正式版的时候会被自动剥离成 1.5MB 的共享库了
+
+一个可以说是团队项目的东西还要放到[个人仓库](https://github.com/Lama3L9R/zakosign)，也不知道是怎么想的，在哪都没有写哪来的，非得让人自己找？
+
+```plaintext
+libzakosign.so: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dynamically linked, with debug_info, not stripped
+```
+
+<Tip>虽然在此处并没有涉及，但是还是要稍微提一下<br />部分对 C/C++ 一无所知的"开发者"往往会构建出 **未剥离符号**、**依赖 C++共享库** 的"神仙"产物，归根结底是因为"开发者"连构建都不知道怎么构建导致的</Tip>
+
+没有具体说明，一开始也没有找到源码，还能怎么办呢？只能逆向一下了
+
+在翻的过程中，SukiSU Ultra 的“**杂鱼文学**”真的让人震惊，v3.1.9 的安装包里面有五个以 `zako` 命名的共享库文件（其中部分实际上是可执行文件），它们具体都是什么呢？
+
+- `libzako.so`: KernelSU 的 JNI 共享库（原本是 `libkernelsu.so`）
+- `libzakoboot.so`: Magisk 的 boot 工具可执行（原本是 `libmagiskboot.so`/`magiskboot`）
+- `libzakosign.so`: 本期主角，SukiSU Ultra 自己的莫名其妙的模块验证共享库
+- `libzakozako.so`: KernelSU 的 CLI 可执行（原本是 `libksud.so`/`libksud_magic.so`/`ksud`）
+- `libzakozakozako.so`: SuSFS 的 CLI 可执行（原本是 `libsusfsd.so`/`susfsd`）
+
+把自己的和第三方的都命名成这么莫名其妙的毫无意义的名字，生怕别人知道某个文件是干什么的吗？再与 `zako` 一词有些许绑定也不是能这样做作的啊？
+
+自己的东西这么命名，不是自己的东西也这么命名，而且命名成完全没有可读性的名字，这能是找个理由就能搪塞过去的吗？
+
+## 模块验证具体内容
+
+<Tip>以下代码均为逆向出的<strong>伪代码</strong>，<strong>不等同于源码</strong>，但<strong>与源码较为相似</strong>，因为逆向后才找到源码，故伪代码也同样保留</Tip>
+
+把这个 arm64 的 `libzakosign.so` 逆向后，真的非常令人感到莫名其妙，一直用莫名其妙这个词是因为这些东西真的令人非常疑惑，下面就大概看看吧
+
+```c
+void *zako_allocate_safe(size_t size)
+{
+  return calloc(1uLL, size);
+}
+
+int64_t zako_syscall0(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
+{
+  return linux_eabi_syscall((int64_t)a1, a1, a2, a3, a4, a5, a6, a7);
+}
+
+int64_t zako_syscall1(int64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
+{
+  return linux_eabi_syscall(a1, a2, a2, a3, a4, a5, a6, a7);
+}
+
+int64_t zako_syscall2(int64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
+{
+  return linux_eabi_syscall(a1, a2, a3, a3, a4, a5, a6, a7);
+}
+
+int64_t zako_syscall3(int64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
+{
+  return linux_eabi_syscall(a1, a2, a3, a4, a4, a5, a6, a7);
+}
+
+int64_t zako_syscall4(int64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
+{
+  return linux_eabi_syscall(a1, a2, a3, a4, a5, a5, a6, a7);
+}
+
+int64_t zako_syscall5(int64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
+{
+  return linux_eabi_syscall(a1, a2, a3, a4, a5, a6, a6, a7);
+}
+
+int64_t zako_syscall6(int64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
+{
+  return linux_eabi_syscall(a1, a2, a3, a4, a5, a6, a7, a7);
+}
+
+bool zako_sys_file_exist(const char *a1)
+{
+  return access(a1, 0) == 0;
+}
+
+int64_t zako_sys_file_open(const char *a1)
+{
+  int64_t result;
+
+  result = open(a1, 0);
+  if ( (uint32_t)result == -1 )
+  {
+    printf("[-] ");
+    printf("Failed to open %s", a1);
+    putchar(10);
+    return 0xFFFFFFFFLL;
+  }
+  return result;
+}
+
+ssize_t zako_sys_file_append_end(int fd, const void *buf, size_t n)
+{
+  return write(fd, buf, n);
+}
+
+int64_t zako_sys_file_close(int fd)
+{
+  return close(fd);
+}
+
+off_t zako_sys_file_sz(int a1)
+{
+  struct stat _0;
+
+  fstat(a1, &_0);
+  return _0.st_size;
+}
+
+off_t zako_sys_file_szatpath(const char *a1)
+{
+  struct stat _0;
+
+  stat(a1, &_0);
+  return _0.st_size;
+}
+
+void *zako_sys_file_map(int fd, size_t a2)
+{
+  return mmap(0LL, a2, 1, 1, fd, 0LL);
+}
+
+void *zako_sys_file_map_rw(int fd, size_t a2)
+{
+  return mmap(0LL, a2, 3, 1, fd, 0LL);
+}
+
+int64_t zako_sys_file_unmap(void *addr, size_t len)
+{
+  return munmap(addr, len);
+}
+
+bool zako_esign_set_publickey(int64_t a1, const EVP_PKEY *a2)
+{
+  return zako_get_public_raw(a2, (uint8_t *)(a1 + 3680));
+}
+
+char *zako_esign_verrcidx2str(uint8_t a1)
+{
+  if ( a1 <= 0x1Eu )
+    return error_messages[a1];
+  else
+    return 0LL;
+}
+
+EVP_PKEY *zako_load_private(const uint8_t *a1, void *a2)
+{
+  return zako_load_anykey(a1, a2);
+}
+
+EVP_PKEY *zako_parse_private(const char *a1, void *a2)
+{
+  return zako_parse_anykey(a1, a2);
+}
+
+int64_t zako_load_public(int64_t a1)
+{
+  return zako_load_anykey(a1, 0LL);
+}
+
+int64_t zako_parse_public(int64_t a1)
+{
+  return zako_parse_anykey(a1, 0LL);
+}
+
+EVP_PKEY *zako_parse_public_raw(const uint8_t *a1)
+{
+  return EVP_PKEY_new_raw_public_key(949, 0LL, a1, 0x20uLL);
+}
+
+bool zako_get_public_raw(const EVP_PKEY *a1, uint8_t *a2)
+{
+  size_t out_len;
+
+  out_len = 32LL;
+  return EVP_PKEY_get_raw_public_key(a1, a2, &out_len) != 0;
+}
+
+int64_t zako_trustchain_add_intermediate_str(int64_t a1, int64_t a2)
+{
+  OPENSSL_STACK *v2;
+  void *v3;
+
+  v2 = *(OPENSSL_STACK **)(a1 + 8);
+  v3 = (void *)zako_x509_parse_pem(a2);
+  OPENSSL_sk_push(v2, v3);
+  return 1LL;
+}
+
+int64_t zako_trustchain_add_intermediate_der(int64_t a1, int64_t a2, int64_t a3)
+{
+  OPENSSL_STACK *v3;
+  void *v4;
+
+  v3 = *(OPENSSL_STACK **)(a1 + 8);
+  v4 = (void *)zako_x509_parse_der(a2, a3);
+  OPENSSL_sk_push(v3, v4);
+  return 1LL;
+}
+
+int64_t zako_trustchain_add_intermediate(int64_t a1, void *a2)
+{
+  OPENSSL_sk_push(*(OPENSSL_STACK **)(a1 + 8), a2);
+  return 1LL;
+}
+
+int64_t zako_trustchain_set_leaf_str(int64_t a1, int64_t a2)
+{
+  int64_t v3;
+  int64_t result;
+
+  v3 = zako_x509_parse_pem(a2);
+  result = 1LL;
+  *(uint64_t *)(a1 + 16) = v3;
+  return result;
+}
+
+int64_t zako_trustchain_set_leaf_der(int64_t a1, int64_t a2, int64_t a3)
+{
+  int64_t v4;
+  int64_t result;
+
+  v4 = zako_x509_parse_der(a2, a3);
+  result = 1LL;
+  *(uint64_t *)(a1 + 16) = v4;
+  return result;
+}
+
+int64_t zako_trustchain_set_leaf(int64_t a1, int64_t a2)
+{
+  int64_t result;
+
+  result = 1LL;
+  *(uint64_t *)(a1 + 16) = a2;
+  return result;
+}
+```
+
+与之对应的源码是
+
+```c
+__hide uint8_t* zako_allocate_safe(size_t len) {
+    uint8_t* buff = (uint8_t*) malloc(len);
+
+    if (buff == NULL) {
+        return NULL;
+    }
+
+    memset(buff, 0, len);
+
+    return buff;
+}
+
+__hide long zako_syscall0(long n) {
+    long ret;
+
+#if defined(__aarch64__)
+    register long syscall_number __asm__("x8") = n;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number) : "memory");
+#elif defined(__arm__)
+    register long syscall_number __asm__("r7") = n;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number) : "memory");
+#else
+    register long syscall_number __asm__("rax") = n;
+    asm volatile ("syscall" : "=a"(ret) : "a"(syscall_number) : "memory");
+#endif
+
+    return ret;
+}
+
+__hide long zako_syscall1(long n, long a1) {
+    long ret;
+
+#if defined(__aarch64__)
+    register long syscall_number __asm__("x8") = n;
+    register long arg1 __asm__("x0") = a1;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1) : "memory");
+#elif defined(__arm__)
+    register long syscall_number __asm__("r7") = n;
+    register long arg1 __asm__("r0") = a1;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1) : "memory");
+#else
+    register long syscall_number __asm__("rax") = n;
+    register long arg1 __asm__("rdi") = a1;
+    asm volatile ("syscall" : "=a"(ret) : "a"(syscall_number), "D"(arg1) : "memory");
+#endif
+
+    return ret;
+}
+
+__hide long zako_syscall2(long n, long a1, long a2) {
+    long ret;
+
+#if defined(__aarch64__)
+    register long syscall_number __asm__("x8") = n;
+    register long arg1 __asm__("x0") = a1;
+    register long arg2 __asm__("x1") = a2;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1), "r"(arg2) : "memory");
+#elif defined(__arm__)
+    register long syscall_number __asm__("r7") = n;
+    register long arg1 __asm__("r0") = a1;
+    register long arg2 __asm__("r1") = a2;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1), "r"(arg2) : "memory");
+#else
+    register long syscall_number __asm__("rax") = n;
+    register long arg1 __asm__("rdi") = a1;
+    register long arg2 __asm__("rsi") = a2;
+    asm volatile ("syscall" : "=a"(ret) : "a"(syscall_number), "D"(arg1), "S"(arg2) : "memory");
+#endif
+
+    return ret;
+}
+
+__hide long zako_syscall3(long n, long a1, long a2, long a3) {
+    long ret;
+
+#if defined(__aarch64__)
+    register long syscall_number __asm__("x8") = n;
+    register long arg1 __asm__("x0") = a1;
+    register long arg2 __asm__("x1") = a2;
+    register long arg3 __asm__("x2") = a3;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1), "r"(arg2), "r"(arg3) : "memory");
+#elif defined(__arm__)
+    register long syscall_number __asm__("r7") = n;
+    register long arg1 __asm__("r0") = a1;
+    register long arg2 __asm__("r1") = a2;
+    register long arg3 __asm__("r2") = a3;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1), "r"(arg2), "r"(arg3) : "memory");
+#else
+    register long syscall_number __asm__("rax") = n;
+    register long arg1 __asm__("rdi") = a1;
+    register long arg2 __asm__("rsi") = a2;
+    register long arg3 __asm__("rdx") = a3;
+    asm volatile ("syscall" : "=a"(ret) : "a"(syscall_number), "D"(arg1), "S"(arg2), "d"(arg3) : "memory");
+#endif
+
+    return ret;
+}
+
+__hide long zako_syscall4(long n, long a1, long a2, long a3, long a4) {
+    long ret;
+
+#if defined(__aarch64__)
+    register long syscall_number __asm__("x8") = n;
+    register long arg1 __asm__("x0") = a1;
+    register long arg2 __asm__("x1") = a2;
+    register long arg3 __asm__("x2") = a3;
+    register long arg4 __asm__("x3") = a4;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1), "r"(arg2), "r"(arg3), "r"(arg4) : "memory");
+#elif defined(__arm__)
+    register long syscall_number __asm__("r7") = n;
+    register long arg1 __asm__("r0") = a1;
+    register long arg2 __asm__("r1") = a2;
+    register long arg3 __asm__("r2") = a3;
+    register long arg4 __asm__("r3") = a4;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1), "r"(arg2), "r"(arg3), "r"(arg4) : "memory");
+#else
+    register long syscall_number __asm__("rax") = n;
+    register long arg1 __asm__("rdi") = a1;
+    register long arg2 __asm__("rsi") = a2;
+    register long arg3 __asm__("rdx") = a3;
+    register long arg4 __asm__("r10") = a4;
+    asm volatile ("syscall" : "=a"(ret) : "a"(syscall_number), "D"(arg1), "S"(arg2), "d"(arg3), "r"(arg4) : "memory");
+#endif
+
+    return ret;
+}
+
+__hide long zako_syscall5(long n, long a1, long a2, long a3, long a4, long a5) {
+    long ret;
+
+#if defined(__aarch64__)
+    register long syscall_number __asm__("x8") = n;
+    register long arg1 __asm__("x0") = a1;
+    register long arg2 __asm__("x1") = a2;
+    register long arg3 __asm__("x2") = a3;
+    register long arg4 __asm__("x3") = a4;
+    register long arg5 __asm__("x4") = a5;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1), "r"(arg2), "r"(arg3), "r"(arg4), "r"(arg5) : "memory");
+#elif defined(__arm__)
+    register long syscall_number __asm__("r7") = n;
+    register long arg1 __asm__("r0") = a1;
+    register long arg2 __asm__("r1") = a2;
+    register long arg3 __asm__("r2") = a3;
+    register long arg4 __asm__("r3") = a4;
+    register long arg5 __asm__("r4") = a5;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1), "r"(arg2), "r"(arg3), "r"(arg4), "r"(arg5) : "memory");
+#else
+    register long syscall_number __asm__("rax") = n;
+    register long arg1 __asm__("rdi") = a1;
+    register long arg2 __asm__("rsi") = a2;
+    register long arg3 __asm__("rdx") = a3;
+    register long arg4 __asm__("r10") = a4;
+    register long arg5 __asm__("r8") = a5;
+    asm volatile ("syscall" : "=a"(ret) : "a"(syscall_number), "D"(arg1), "S"(arg2), "d"(arg3), "r"(arg4), "r"(arg5) : "memory");
+#endif
+
+    return ret;
+}
+
+__hide long zako_syscall6(long n, long a1, long a2, long a3, long a4, long a5, long a6) {
+    long ret;
+
+#if defined(__aarch64__)
+    register long syscall_number __asm__("x8") = n;
+    register long arg1 __asm__("x0") = a1;
+    register long arg2 __asm__("x1") = a2;
+    register long arg3 __asm__("x2") = a3;
+    register long arg4 __asm__("x3") = a4;
+    register long arg5 __asm__("x4") = a5;
+    register long arg6 __asm__("x5") = a6;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1), "r"(arg2), "r"(arg3), "r"(arg4), "r"(arg5), "r"(arg6) : "memory");
+#elif defined(__arm__)
+    register long syscall_number __asm__("r7") = n;
+    register long arg1 __asm__("r0") = a1;
+    register long arg2 __asm__("r1") = a2;
+    register long arg3 __asm__("r2") = a3;
+    register long arg4 __asm__("r3") = a4;
+    register long arg5 __asm__("r4") = a5;
+    register long arg6 __asm__("r5") = a6;
+    asm volatile ("svc #0" : "=r"(ret) : "r"(syscall_number), "r"(arg1), "r"(arg2), "r"(arg3), "r"(arg4), "r"(arg5), "r"(arg6) : "memory");
+#else
+    register long syscall_number __asm__("rax") = n;
+    register long arg1 __asm__("rdi") = a1;
+    register long arg2 __asm__("rsi") = a2;
+    register long arg3 __asm__("rdx") = a3;
+    register long arg4 __asm__("r10") = a4;
+    register long arg5 __asm__("r8") = a5;
+    register long arg6 __asm__("r9") = a6;
+    asm volatile ("syscall" : "=a"(ret) : "a"(syscall_number), "D"(arg1), "S"(arg2), "d"(arg3), "r"(arg4), "r"(arg5), "r"(arg6) : "memory");
+#endif
+
+    return ret;
+}
+
+// POSIX
+bool zako_sys_file_exist(char* path) {
+    return access(path, F_OK) == 0;
+}
+// Windows NT
+bool zako_sys_file_exist(char* path) {
+    return PathFileExistsA(path);
+}
+
+// POSIX
+file_handle_t zako_sys_file_open(char* path) {
+    int fd = open(path, O_RDONLY);
+    if (fd == -1) {
+        ConsoleWriteFAIL("Failed to open %s", path);
+        return -1;
+    }
+
+    return fd;
+}
+// Windows NT
+file_handle_t zako_sys_file_open(char* path) {
+    HANDLE handle = CreateFileA(path, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_APPEND_DATA, NULL);
+    if (GetLastError() == ERROR_FILE_NOT_FOUND) {
+        ConsoleWriteFAIL("Failed to open %s because file does not exist!", path);
+    }
+
+    return handle;
+}
+
+// POSIX (?)
+file_handle_t zako_sys_file_opencopy(char* path, char* new, bool overwrite) {
+    if (access(new, F_OK) == 0) {
+        if (overwrite) {
+            if (remove(new) == -1) {
+                ConsoleWriteFAIL("File %s exists! (Failed to overwrite: %i)", new, errno);
+                return -1;
+            }
+        } else {
+            ConsoleWriteFAIL("File %s exists!", new);
+            return -1;
+        }
+    }
+
+    /* Reference: https://man7.org/linux/man-pages/man2/copy_file_range.2.html#EXAMPLES */
+
+    int          fd_in, fd_out;
+    off_t        size, ret;
+    struct stat  stat;
+
+    fd_in = open(path, O_RDONLY);
+    if (fd_in == -1) {
+        ConsoleWriteFAIL("Failed to open %s", path);
+        return -1;
+    }
+
+    if (fstat(fd_in, &stat) == -1) {
+        ConsoleWriteFAIL("Failed to get file stats of %s (%s)", path, strerror(errno));
+
+        close(fd_in);
+        return -1;
+    }
+
+    size = stat.st_size;
+
+    fd_out = open(new, O_CREAT | O_RDWR | O_TRUNC, 0644);
+    if (fd_out == -1) {
+        ConsoleWriteFAIL("Failed to open %s", new);
+        return -1;
+    }
+
+    do {
+        /* For some reason, copy_file_range is not defined in unistd...
+           For some reason, syscall is not defined in unistd either....
+
+           .... I am very confused ...
+
+           In order to not copy from kernel to userspace and vise versa multiple times
+           we are going to manually do a syscall. Yay! */
+        ret = zako_syscall6(__NR_copy_file_range, fd_in, (long) NULL, fd_out, (long) NULL, size, 0);
+        if (ret == -1) {
+            ConsoleWriteFAIL("Failed copy %s to %s", path, new);
+            return -1;
+        }
+
+        size -= ret;
+    } while (size > 0 && ret > 0);
+
+    close(fd_in);
+
+    return fd_out;
+}
+// Windows NT
+file_handle_t zako_sys_file_opencopy(char* path, char* new, bool overwrite) {
+    if (!CopyFileA(path, new, !overwrite)) {
+        ConsoleWriteFAIL("Failed to open a copy of %s at %s", path, new);
+
+        return NULL;
+    }
+
+    return zako_sys_file_open(new);
+}
+
+// POSIX
+void zako_sys_file_append_end(file_handle_t file, uint8_t* data, size_t sz) {
+    write(file, (void*) data, sz);
+}
+// Windows NT
+void zako_sys_file_append_end(file_handle_t file, uint8_t* data, size_t sz) {
+    WriteFile(file, data, sz, 0, NULL);
+}
+
+// POSIX
+void zako_sys_file_close(file_handle_t fd) {
+    close(fd);
+}
+// Windows NT
+void zako_sys_file_close(file_handle_t file) {
+    CloseHandle(file);
+}
+
+// POSIX
+size_t zako_sys_file_sz(file_handle_t file) {
+    struct stat st;
+    fstat(file, &st);
+
+    return (size_t) st.st_size;
+}
+// Windows NT
+size_t zako_sys_file_sz(file_handle_t file) {
+    LARGE_INTEGER li;
+    GetFileSizeEx(file, &li);
+
+    if (li.HighPart != 0) {
+        ConsoleWriteFAIL("Error: File too big");
+        return 0;
+    }
+
+    return li.LowPart;
+}
+
+// POSIX
+size_t zako_sys_file_szatpath(char* path) {
+    struct stat st;
+    stat(path, &st);
+
+    return (size_t) st.st_size;
+}
+// Windows NT
+size_t zako_sys_file_szatpath(char* path) {
+    WIN32_FILE_ATTRIBUTE_DATA data;
+    GetFileAttributesExA(path, GetFileExInfoStandard, &data);
+
+    if (data.nFileSizeHigh != 0) {
+        ConsoleWriteFAIL("Error: File %s is too big", path);
+        return 0;
+    }
+
+    return data.nFileSizeLow;
+}
+
+// POSIX
+void* zako_sys_file_map(file_handle_t file, size_t sz) {
+    return mmap(NULL, sz, PROT_READ, MAP_SHARED, file, 0);
+}
+// Windows NT
+void* zako_sys_file_map(file_handle_t file, size_t sz) {
+    HANDLE hMapFile = CreateFileMappingA(file, NULL, PAGE_READONLY, 0, 0, NULL);
+    return MapViewOfFile(hMapFile, FILE_MAP_READ, 0, 0, 0);
+}
+
+// POSIX
+void* zako_sys_file_map_rw(file_handle_t file, size_t sz) {
+    return mmap(NULL, sz, PROT_READ | PROT_WRITE, MAP_SHARED, file, 0);
+}
+// Windows NT
+void* zako_sys_file_map_rw(file_handle_t file, size_t sz) {
+    HANDLE hMapFile = CreateFileMappingA(file, NULL, PAGE_READWRITE, 0, 0, NULL);
+    return MapViewOfFile(hMapFile, FILE_MAP_WRITE, 0, 0, 0);
+}
+
+// POSIX
+void zako_sys_file_unmap(void* ptr, size_t sz) {
+    munmap(ptr, sz);
+}
+// Windows NT
+void zako_sys_file_unmap(void* ptr, size_t sz) {
+    UnmapViewOfFile(ptr);
+
+    /* lets leak this for convenient purpose
+    CloseHandle(); */
+}
+
+void zako_esign_set_publickey(struct zako_esign_context* ctx, EVP_PKEY* key) {
+    /* Public key size is a known size, so we can safely ignore this */
+#pragma clang diagnostic ignored "-Wincompatible-pointer-types"
+    zako_get_public_raw(key, &ctx->esig_buf.key.public_key);
+}
+
+const char* zako_esign_verrcidx2str(uint8_t idx) {
+    if (idx >= 31) {
+        return NULL;
+    }
+
+    return error_messages[idx];
+}
+
+EVP_PKEY* zako_load_private(const char* path, char* password) {
+    return zako_load_anykey(path, password);
+}
+
+EVP_PKEY* zako_parse_private(const char* data, char* password) {
+    return zako_parse_anykey(data, password);
+}
+
+EVP_PKEY* zako_load_public(const char* path) {
+    return zako_load_anykey(path, NULL);
+}
+
+EVP_PKEY* zako_parse_public(const char* data) {
+    return zako_parse_anykey(data, NULL);
+}
+
+EVP_PKEY* zako_parse_public_raw(uint8_t* data) {
+    return EVP_PKEY_new_raw_public_key(EVP_PKEY_ED25519, NULL, data, ZAKO_PUBKEY_LENGTH);
+}
+
+bool zako_get_public_raw(EVP_PKEY* key, uint8_t* data) {
+    size_t len = ZAKO_PUBKEY_LENGTH;
+    return EVP_PKEY_get_raw_public_key(key, data, &len);
+}
+
+bool zako_trustchain_add_intermediate_str(struct zako_trustchain* chain, char* certificate) {
+    sk_X509_push(chain->cert_chain, zako_x509_parse_pem(certificate));
+
+    return true;
+}
+
+bool zako_trustchain_add_intermediate_der(struct zako_trustchain* chain, uint8_t* data, size_t len) {
+    sk_X509_push(chain->cert_chain, zako_x509_parse_der(data, len));
+
+    return true;
+}
+
+bool zako_trustchain_add_intermediate(struct zako_trustchain* chain, X509* certificate) {
+    sk_X509_push(chain->cert_chain, certificate);
+
+    return true;
+}
+
+bool zako_trustchain_set_leaf_str(struct zako_trustchain* chain, char* certificate) {
+    chain->leaf = zako_x509_parse_pem(certificate);
+
+    return true;
+}
+
+bool zako_trustchain_set_leaf_der(struct zako_trustchain* chain, uint8_t* data, size_t len) {
+    chain->leaf = zako_x509_parse_der(data, len);
+
+    return true;
+}
+
+bool zako_trustchain_set_leaf(struct zako_trustchain* chain, X509* certificate) {
+    chain->leaf = certificate;
+
+    return true;
+}
+```
+
+可以看见伪代码与源码大致相同，因为没有开任何编译优化和剥离符号
+
+以上便是整个 `libzakosign.so` 中**几乎没有封装什么的函数**，也许部分是有用的，但是**绝大部分都是毫无意义的**，有些甚至写出来都**没有使用**
+
+然后是具体的验证内容
+
+```c
+// 入口函数
+uint32_t zako_file_verify_esig(file_handle_t fd, uint32_t flags) {
+    size_t file_sz = zako_sys_file_sz(fd);
+
+    void* buffer = zako_sys_file_map(fd, file_sz);
+
+    if (buffer == NULL) {
+        return ZAKO_FV_MMAP_FAILED;
+    }
+
+    void* buff_end = ApplyOffset(buffer, +(file_sz));
+    uint64_t* r_magic = (uint64_t*) ApplyOffset(buff_end, -8);
+
+    if (*r_magic != ZAKO_ESIGNATURE_MAGIC) { // ZAKO_ESIGNATURE_MAGIC = 0x7a616b6f7369676eull = 'zakosign'
+        return ZAKO_FV_INVALID_HEADER;
+    }
+
+    uint64_t* sz = (uint64_t*) ApplyOffset(buff_end, -16);
+    if (*sz == 0 || *sz > file_sz) {
+        return ZAKO_FV_INVALID_HEADER;
+    }
+
+    struct zako_esignature* esign_buf = (struct zako_esignature*) ApplyOffset(sz, -*sz);
+
+    /* Entire file footer is ESignature + ESignatureSize + ESignatureMagic
+         which is *sz + sizeof(sz) + 8 = *sz + 16
+       So, original file buffer will be FileSize - *sz - 16 */
+    uint32_t result = zako_esign_verify(esign_buf, buffer, file_sz - *sz - 16, flags);
+
+    zako_sys_file_unmap(buffer, file_sz);
+    return result;
+}
+
+uint32_t zako_esign_verify(struct zako_esignature* esig, uint8_t* buff, size_t len, uint32_t flags) {
+    if (esig->magic != ZAKO_ESIGNATURE_MAGIC) { // ZAKO_ESIGNATURE_MAGIC = 0x7a616b6f7369676eull = 'zakosign'
+        return ZAKO_ESV_INVALID_HEADER;
+    }
+
+    if (esig->version != ZAKO_ESIGNATURE_VERSION) {
+        if (esig->version > ZAKO_ESIGNATURE_VERSION) {
+            return ZAKO_ESV_UNSUPPORTED_VERSION;
+        } else {
+            return ZAKO_ESV_OUTDATED_VERSION;
+        }
+    }
+
+    uint32_t result = 0;
+    EVP_PKEY* pubkey = NULL;
+
+    OnFlag(flags, ZAKO_ESV_INTEGRITY_ONLY) {
+        goto verify_integrity;
+    }
+
+    /* Verify Ceritificates */
+
+    uint8_t cert_count = esig->cert_sz;
+    struct zako_der_certificate* cstbl[200] = { 0 };
+
+    uint8_t* data = &esig->data;
+    size_t off = (size_t) 0;
+    for (uint8_t i = 0; i < cert_count; i ++) {
+        struct zako_der_certificate* cert = ApplyOffset(data, +off);
+        cstbl[i] = cert;
+
+        off += sizeof(struct zako_der_certificate) + cert->len;
+    }
+
+    result |= zako_keychain_verify(&esig->key, &cstbl);
+
+verify_integrity:
+    pubkey = zako_parse_public_raw(esig->key.public_key);
+
+    if (zako_hash_verify(buff, len, esig->hash) != 1) {
+        result |= ZAKO_ESV_VERFICATION_FAILED;
+    }
+
+    if (zako_verify_buffer(pubkey, esig->hash, ZAKO_HASH_LENGTH, esig->signature) != 1) {
+        result |= ZAKO_ESV_VERFICATION_FAILED;
+    }
+
+    EVP_PKEY_free(pubkey);
+
+    uint64_t now = (uint64_t) time(NULL);
+    if (esig->created_at == 0) {
+        result |= ZAKO_ESV_MISSING_TIMESTAMP;
+    } else if (esig->created_at >= now) {
+        result |= ZAKO_ESV_UNTRUSTED_TIMESTAMP;
+    }
+
+    return result;
+
+}
+
+X509_STORE **zako_trustchain_new()
+{
+  X509_STORE **safe;
+  X509_STORE *v1;
+  X509 *v2;
+
+  safe = (X509_STORE **)zako_allocate_safe(0x18uLL);
+  *safe = X509_STORE_new();
+  safe[1] = (X509_STORE *)OPENSSL_sk_new_null();
+  v1 = *safe;
+  v2 = (X509 *)zako_x509_parse_pem(
+                 "-----BEGIN CERTIFICATE-----\n"
+                 "MIIB3zCCAZGgAwIBAgIUOa4KF6KfAg/Jerrx7AX1opSdNLEwBQYDK2VwMHExCzAJ\n"
+                 "BgNVBAYTAkNIMRIwEAYDVQQHDAlHdWFuZ3pob3UxEjAQBgNVBAgMCUd1YW5nZG9u\n"
+                 "ZzESMBAGA1UECgwJc2hpcmtuZWtvMRIwEAYDVQQLDAlzaGlya25la28xEjAQBgNV\n"
+                 "BAMMCXNoaXJrbmVrbzAeFw0yNTA4MTAxNTU2MTRaFw0zNTA4MDgxNTU2MTRaMHEx\n"
+                 "CzAJBgNVBAYTAkNIMRIwEAYDVQQHDAlHdWFuZ3pob3UxEjAQBgNVBAgMCUd1YW5n\n"
+                 "ZG9uZzESMBAGA1UECgwJc2hpcmtuZWtvMRIwEAYDVQQLDAlzaGlya25la28xEjAQ\n"
+                 "BgNVBAMMCXNoaXJrbmVrbzAqMAUGAytlcAMhAKyLThabZFGUsW/deKhLcmwlTF+H\n"
+                 "KQ78bO6ohwzcgncWozswOTAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIC\n"
+                 "pDAWBgNVHSUBAf8EDDAKBggrBgEFBQcDAzAFBgMrZXADQQB1T6vftHjoaBNTBk85\n"
+                 "E/HVR6jZZwq4UFJMRWpxpJ0JvGn27tLKYB2ZoXhoUbuCIoYa8e892hRoRB2xG4Jk\n"
+                 "iU4A\n"
+                 "-----END CERTIFICATE-----\n");
+  X509_STORE_add_cert(v1, v2);
+  return safe;
+}
+```
+
+显而易见，这些代码用于验证 SukiSU Ultra 自己的给压缩包文件末尾上的一种签名格式
+
+这么个**没说明**还有**兼容性问题**（**作者亲口说的，并且实际上看起来也的确如此**）的东西却已经添加到 v3.1.9 中发布了，用户用出问题了也没地方得到解释
+
+一个还在**测试**的东西却被直接添加到了**正式版**中，而且还**没有任何说明**，也不知道作者脑子里是怎么想的
+
+<Tip>没有任何一个地方标注是测试。测试？Releases？这两个东西是可以出现在一起的吗？</Tip>
+
+## 深入
+
+深度分析源码后，zakosign 究竟想要干什么已经呼之欲出了，一些行为已经“**貌似合理**”了
+
+实际上就是为了所谓的“**跨平台**”已经无所不用其极了，zakosign 的“**跨平台**”方式是为了微小的优化而“捡了芝麻，丢了西瓜”
+
+zakosign 通过一个平台写一套代码并且还写了一堆莫名其妙的封装来实现“**跨平台**”，而不是直接使用跨平台函数
+
+<Tip>跨平台了吗？如跨</Tip>
+
+这种做法带来的很明显的感觉就是**水平不足带来的自以为是**，**常识缺乏还要强行解释**，让人完全理解他想要做什么，但是让人琢磨不透他究竟是在什么状态下能写出如此代码
+
+<Tip>"我发现你缺乏专注"</Tip>
+
+自己写的东西转头就不承认，有问题不自知还要妄自尊大并且拈轻怕重，不回答重要问题还要转移火力，这种项目只能祝早日删库跑路了
+
+## 总结
+
+<Tip>"击沉俾斯麦号！"</Tip>
+
+一个不知道定位不知道具体用途的东西（_实际上就是为了自立门户_）就这么稀里糊涂地被端上来了，想标新立异还不如先把自己的问题一个一个都修好，然后把开发文档维护好，那么抽象的东西还要靠我们帮你修，很难想象这群敢做不敢当的人脑子里想的都是什么

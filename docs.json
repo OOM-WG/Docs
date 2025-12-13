@@ -1,122 +1,181 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "theme": "aspen",
+  "name": "OOM.WG.",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#f56c6c",
+    "light": "#fbf7f7",
+    "dark": "#ef8e8e"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/img.png",
   "navigation": {
-    "tabs": [
+    "languages": [
       {
-        "tab": "Guides",
-        "groups": [
+        "language": "zh",
+        "dropdowns": [
           {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
+            "dropdown": "博客",
+            "icon": "rss",
+            "groups": [
+              {
+                "group": "简介",
+                "icon": "book-open",
+                "pages": [
+                  "index",
+                  "we/member"
+                ]
+              },
+              {
+                "group": "最新发布",
+                "icon": "calendar",
+                "pages": [
+                  "blog/oow-timeline",
+                  "blog/shell-obf-enc",
+                  "blog/go4-sukisu-ultra-2",
+                  "blog/oow-dev-ref",
+                  "blog/ai-for-root",
+                  "blog/go4-mi-oplusrm-sukisu",
+                  "blog/ssu-ko-fund",
+                  "blog/go4-sukisu-ultra",
+                  "blog/suu-for-data-opt"
+                ]
+              }
             ]
           },
           {
-            "group": "Customization",
+            "dropdown": "ShiroSU",
+            "icon": "drafting-compass",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              {
+                "group": "快速开始",
+                "pages": [
+                  "ssu/base/overview",
+                  "ssu/base/install",
+                  "ssu/base/feats",
+                  "ssu/base/faq"
+                ]
+              },
+              {
+                "group": "开发者文档",
+                "pages": [
+                  "ssu/dev/module/manager",
+                  "ssu/dev/module/cfgui",
+                  "ssu/dev/module/webui",
+                  "ssu/dev/module/root",
+                  "ssu/dev/module/kernel",
+                  "ssu/dev/module/builder",
+                  "ssu/dev/scheme"
+                ]
+              },
+              {
+                "group": "SSU 详细文档",
+                "pages": [
+                  "ssu/ssu/origin",
+                  "ssu/ssu/principle",
+                  "ssu/ssu/defense",
+                  "ssu/ssu/compat"
+                ]
+              },
+              {
+                "group": "更新日志",
+                "pages": [
+                  "ssu/update/history"
+                ]
+              }
             ]
           },
           {
-            "group": "Writing content",
+            "dropdown": "苏柚",
+            "icon": "pencil-ruler",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "suu/Know",
+              "suu/Start/Android",
+              "suu/Start/Windows",
+              {
+                "group": "功能特性",
+                "pages": [
+                  "suu/Feat/Android/C&C",
+                  "suu/Feat/Android/GBB",
+                  "suu/Feat/Android/Nyanya",
+                  "suu/Feat/Android/Toybox",
+                  "suu/Feat/Android/Xposed",
+                  "suu/Feat/Android/modify.my.id"
+                ]
+              },
+              {
+                "group": "附录",
+                "pages": [
+                  "suu/Appendix/Android/Mode",
+                  "suu/Appendix/Android/Path",
+                  "suu/Appendix/Android/Tip"
+                ]
+              },
+              {
+                "group": "更新日志",
+                "pages": [
+                  "suu/ChangeLog/Android",
+                  "suu/ChangeLog/Windows"
+                ]
+              },
+              {
+                "group": "更多信息",
+                "pages": [
+                  "suu/More/Agreement",
+                  "suu/More/License",
+                  "suu/More/Privacy"
+                ]
+              }
             ]
           }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+        ],
+        "global": {
+          "anchors": [
+            {
+              "anchor": "Github",
+              "icon": "github",
+              "href": "https://github.com/oom-wg"
+            },
+            {
+              "anchor": "加入群组",
+              "icon": "users",
+              "href": "https://mintlify.com/blog"
+            }
+          ]
         }
-      ]
-    }
+      }
+    ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/img.png",
+    "dark": "/logo/img.png"
   },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
+  "metadata": {
+    "timestamp": true
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "telegram": "https://t.me/OOM_Group",
+      "github": "https://github.com/OOM-WG",
+      "discord": "https://discord.gg/4HQ2DaqKX"
+    }
+  },
+  "errors": {
+    "404": {
+      "redirect": false,
+      "title": "找不到页面",
+      "description": "这个_页面_到底**发生了什么**？"
     }
   }
 }

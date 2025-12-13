@@ -1,0 +1,681 @@
+---
+title: SukiSU Ultra 源码里的逆天操作
+date: 2025-06-30
+description: SukiSU Ultra 究竟是一个什么样的项目？
+author: 白彩恋
+tags: [SukiSU Ultra, root, 开发, Kotlin, Shell]
+---
+
+import {Avatar} from "/snippets/avatar.jsx"
+
+<Avatar
+name="白彩恋"
+role="全栈开发者"
+avatar="/images/avatar/shiro.webp"
+date="25 年 6 月 30 日 星期一"
+/>
+
+
+<Tip>[二周目请见此处](go4-sukisu-ultra-2)</Tip>
+
+## 前言
+
+SukiSU Ultra，一个名字抽象、包名抽象、作者抽象、用户抽象的在 GitHub 上有超过 **2K Stars** 的 KernelSU Fork 抽象项目，其中的代码质量更是抽象到极致。
+
+让人很难接受，居然是 “Suki” “SU”，还要加 “Ultra” 这么个莫名其妙的后缀，这分明就是要害了 root，给 KernelSU 这个巧克力蛋糕上浇💩。
+
+## 抽象源码大合集
+
+<Tip>部分问题已被回忆溢出修复，但是 SukiSU Ultra 的根病无法治愈</Tip>
+
+SukiSU Ultra 的包名已经很抽象了，`com.sukisu.ultra`、`io.sukisu.ultra`以及`zako.zako.zako`，图标还是个表情包，看来写 SukiSU Ultra 的和用 SukiSU Ultra 的都是纯贬低意的”杂鱼“
+
+```kotlin
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/KsuCli.kt
+
+fun getKpmVersion(): String {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} version"
+    val result = ShellUtils.fastCmd(shell, cmd)
+    return result.trim()
+}
+
+
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/zako/zako/zako/zakoui/activity/util/AppData.kt
+
+fun getKpmVersionUse(): String {
+    return try {
+        if (!rootAvailable()) return ""
+        val version = getKpmVersion()
+        if (version.isEmpty()) "" else version
+    } catch (e: Exception) {
+        "Error: ${e.message}"
+    }
+}
+```
+
+调用的时候反倒是这样的
+
+```kotlin
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/zako/zako/zako/zakoui/activity/component/BottomBar.kt
+
+val kpmVersion = getKpmVersionUse()
+!kpmVersion.startsWith("Error")
+```
+
+就是说，为了判断是否正确，还去专门判断了`startsWith("Error")`，但是，有没有一种可能，这个调用过程中是不会有可能报错的？
+
+并且，为什么不有报错就`return ""`呢？
+
+```kotlin
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/zako/zako/zako/zakoui/flash/KernelFlash.kt
+
+private fun runCommand(su: Boolean, cmd: String): Int {
+    val process = ProcessBuilder(if (su) "su" else "sh")
+        .redirectErrorStream(true)
+        .start()
+
+    return try {
+        process.outputStream.bufferedWriter().use { writer ->
+            writer.write("$cmd\n")
+            writer.write("exit\n")
+            writer.flush()
+        }
+        process.waitFor()
+    } finally {
+        process.destroy()
+    }
+}
+
+private fun runCommandGetOutput(su: Boolean, cmd: String): String? {
+    val process = ProcessBuilder(if (su) "su" else "sh")
+        .redirectErrorStream(true)
+        .start()
+
+    return try {
+        process.outputStream.bufferedWriter().use { writer ->
+            writer.write("$cmd\n")
+            writer.write("exit\n")
+            writer.flush()
+        }
+        process.inputStream.bufferedReader().use { reader ->
+            reader.readText().trim()
+        }
+    } catch (_: Exception) {
+        ""
+    } finally {
+        process.destroy()
+    }
+}
+
+private fun rootAvailable(): Boolean {
+    return try {
+        val process = Runtime.getRuntime().exec("su -c id")
+        val exitValue = process.waitFor()
+        exitValue == 0
+    } catch (_: Exception) {
+        false
+    }
+}
+```
+
+这些代码纯纯就是闲的没事干，源码里有大量的`ProcessBuilder()`和`Runtime.getRuntime().exec()`滥用，并且还用`su -c id`检测是否有 root，你一个 root 管理器不应该在进去软件的时候就知道自己有没有 root 的吗？而且还用`su -c id`然后检测返回值？`su -c true`不行吗？
+
+```java
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/io/sukisu/ultra/UltraShellHelper.java
+
+public static boolean isPathExists(String path) {
+    return runCmd("file " + path).contains("No such file or directory");
+}
+
+public static void CopyFileTo(String path, String target) {
+    runCmd("cp -f " + path + " " + target);
+}
+```
+
+SukiSU Ultra 在不断刷新我对低劣代码的认知，我是真的第一次遇到检测文件存在用`file`然后判断有没有报错`No such file or directory`的。
+
+都是 root 管理器了，还在用 shell 来检测文件复制文件，还是通过这种莫名其妙的方法，很难想象是怎么写出来的，我怎么写也想不到用`file`来检测，顶多想到`test -f ...`、`[ -f ... ]`、`[[ -f ... ]]`这些东西。
+
+```java
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/io/sukisu/ultra/UltraToolInstall.java
+
+private static final String OUTSIDE_KPMMGR_PATH = "/data/adb/ksu/bin/kpmmgr";
+private static final String OUTSIDE_SUSFSD_PATH = "/data/adb/ksu/bin/susfsd";
+public static void tryToInstall() {
+    String kpmmgrPath = getKpmmgrPath();
+    if (UltraShellHelper.isPathExists(OUTSIDE_KPMMGR_PATH)) {
+        UltraShellHelper.CopyFileTo(kpmmgrPath, OUTSIDE_KPMMGR_PATH);
+        UltraShellHelper.runCmd("chmod a+rx " + OUTSIDE_KPMMGR_PATH);
+    }
+    String SuSFSDaemonPath = getSuSFSDaemonPath();
+    if (UltraShellHelper.isPathExists(OUTSIDE_SUSFSD_PATH)) {
+        UltraShellHelper.CopyFileTo(SuSFSDaemonPath, OUTSIDE_SUSFSD_PATH);
+        UltraShellHelper.runCmd("chmod a+rx " + OUTSIDE_SUSFSD_PATH);
+    }
+}
+```
+
+硬编码 + shell 调用，没什么好说的。
+
+```kotlin
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/Kernels.kt
+
+data class KernelVersion(val major: Int, val patchLevel: Int, val subLevel: Int) {
+    override fun toString(): String = "$major.$patchLevel.$subLevel"
+    fun isGKI(): Boolean = when {
+        major > 5 -> true
+        major == 5 && patchLevel >= 10 -> true
+        else -> false
+    }
+    fun isGKI1(): Boolean = (major == 4 && patchLevel >= 19) || (major == 5 && patchLevel < 10)
+}
+```
+
+反正就是怎么莫名其妙怎么来，原本只有 `isGKI`，多写了个 `isGKI1` 也不知道给原来的多加个 `2`
+
+```kotlin
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/SuSFSModuleScripts.kt
+
+private const val LOG_DIR = "/data/adb/ksu/log"
+
+// 清理残留脚本生成
+private fun StringBuilder.generateCleanupResidueSection() {
+    appendLine("# 清理工具残留文件")
+    appendLine("echo \"$(get_current_time): 开始清理工具残留\" >> \"${'$'}LOG_FILE\"")
+    appendLine()
+
+    // 定义清理函数
+    appendLine("""
+    cleanup_path() {
+        local path="$1"
+        local desc="$2"
+        local current="$3"
+        local total="$4"
+
+        if [ -n "${'$'}desc" ]; then
+            echo "$(get_current_time): [${'$'}current/${'$'}total] 清理: ${'$'}path (${'$'}desc)" >> "${'$'}LOG_FILE"
+         else
+            echo "$(get_current_time): [${'$'}current/${'$'}total] 清理: ${'$'}path" >> "${'$'}LOG_FILE"
+        fi
+
+        if rm -rf "${'$'}path" 2>/dev/null; then
+            echo "$(get_current_time): ✓ 成功清理: ${'$'}path" >> "${'$'}LOG_FILE"
+        else
+            echo "$(get_current_time): ✗ 清理失败或不存在: ${'$'}path" >> "${'$'}LOG_FILE"
+        fi
+     }
+""".trimIndent())
+
+    appendLine()
+    appendLine("# 开始清理各种工具残留")
+    appendLine("TOTAL=33")
+    appendLine()
+
+    val cleanupPaths = listOf(
+        "/data/local/stryker/" to "Stryker残留",
+        "/data/system/AppRetention" to "AppRetention残留",
+        "/data/local/tmp/luckys" to "Luck Tool残留",
+        "/data/local/tmp/HyperCeiler" to "西米露残留",
+        "/data/local/tmp/simpleHook" to "simple Hook残留",
+        "/data/local/tmp/DisabledAllGoogleServices" to "谷歌省电模块残留",
+        "/data/local/MIO" to "解包软件",
+        "/data/DNA" to "解包软件",
+        "/data/local/tmp/cleaner_starter" to "质感清理残留",
+        "/data/local/tmp/byyang" to "",
+        "/data/local/tmp/mount_mask" to "",
+        "/data/local/tmp/mount_mark" to "",
+        "/data/local/tmp/scriptTMP" to "",
+        "/data/local/luckys" to "",
+        "/data/local/tmp/horae_control.log" to "",
+        "/data/gpu_freq_table.conf" to "",
+        "/storage/emulated/0/Download/advanced/" to "",
+        "/storage/emulated/0/Documents/advanced/" to "爱玩机",
+        "/storage/emulated/0/Android/naki/" to "旧版asoulopt",
+        "/data/swap_config.conf" to "scene附加模块2",
+        "/data/local/tmp/resetprop" to "",
+        "/dev/cpuset/AppOpt/" to "AppOpt模块",
+        "/storage/emulated/0/Android/Clash/" to "Clash for Magisk模块",
+        "/storage/emulated/0/Android/Yume-Yunyun/" to "网易云后台优化模块",
+        "/data/local/tmp/Surfing_update" to "Surfing模块缓存",
+        "/data/encore/custom_default_cpu_gov" to "encore模块",
+        "/data/encore/default_cpu_gov" to "encore模块",
+        "/data/local/tmp/yshell" to "",
+        "/data/local/tmp/encore_logo.png" to "",
+        "/storage/emulated/legacy/" to "",
+        "/storage/emulated/elgg/" to "",
+        "/data/system/junge/" to "",
+        "/data/local/tmp/mount_namespace" to "挂载命名空间残留"
+    )
+
+    cleanupPaths.forEachIndexed { index, (path, desc) ->
+        val current = index + 1
+        appendLine("cleanup_path '$path' '$desc' $current \$TOTAL")
+    }
+
+    appendLine()
+    appendLine("echo \"$(get_current_time): 工具残留清理完成\" >> \"${'$'}LOG_FILE\"")
+    appendLine()
+}
+```
+
+由于这一整个文件写的全都是垃圾，就只挑一部分说。
+
+缩进嘛，就挺抽象的。
+
+首当其冲的是路径硬编码，不用多说。
+
+让人难以理解的是`listOf()`的大小也要硬编码，你但凡调用一下它的属性呢？
+
+还写个残留清理功能，纯属没活硬整，连 DNA 都删上了，而且还删 cgroup 节点，完全就是没有任何 Android 内核相关常识。
+
+让人最难以理解的是`${'$'}`，看到这个东西的时候我脑子都要炸掉了，整个脑子里都是骂人的话，这个东西究竟是不是人类写出来的？我感觉连类人生物都算不上。
+
+说他不好吧，他还知道用单引号包裹，只取`Char`类型。
+
+但是呢，`${'$'}`这种写法到底是什么神人写法，实用性为 0 而且纯纯给代码凑字数，而且`${'$'}`和`\$`混用，写这么多转义就不能用一下`$$`吗？
+
+<Tip>更让人难评的是这么多 shell 代码就非得塞在 kotlin 代码里面，搞个单独的文件很难吗？跟某位模块作者一样难评</Tip>
+
+```kotlin
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/SuSFSManager.kt
+
+private const val MODULE_PATH = "/data/adb/modules/$MODULE_ID"
+
+private fun getSuSFSTargetPath(): String = "/data/adb/ksu/bin/${getSuSFSBinaryName()}"
+
+// 槽位信息获取
+suspend fun getCurrentSlotInfo(): List<SlotInfo> = withContext(Dispatchers.IO) {
+    try {
+        val slotInfoList = mutableListOf<SlotInfo>()
+        val shell = Shell.getShell()
+
+        listOf("boot_a", "boot_b").forEach { slot ->
+            val unameCmd =
+                "strings -n 20 /dev/block/by-name/$slot | awk '/Linux version/ && ++c==2 {print $3; exit}'"
+            val buildTimeCmd = "strings -n 20 /dev/block/by-name/$slot | sed -n '/Linux version.*#/{s/.*#/#/p;q}'"
+
+            val uname = runCmd(shell, unameCmd).trim()
+            val buildTime = runCmd(shell, buildTimeCmd).trim()
+
+            if (uname.isNotEmpty() && buildTime.isNotEmpty()) {
+                slotInfoList.add(SlotInfo(slot, uname.ifEmpty { "unknown" }, buildTime.ifEmpty { "unknown" }))
+            }
+        }
+
+        slotInfoList
+    } catch (e: Exception) {
+        e.printStackTrace()
+        emptyList()
+    }
+}
+
+ /**
+ * 模块管理
+ */
+private suspend fun updateMagiskModule(context: Context): Boolean {
+    return removeMagiskModule() && createMagiskModule(context)
+}
+
+/**
+ * 模块创建方法
+ */
+private suspend fun createMagiskModule(context: Context): Boolean = withContext(Dispatchers.IO) {
+    try {
+        val config = getCurrentModuleConfig(context)
+
+        // 创建模块目录
+        if (!runCmdWithResult("mkdir -p $MODULE_PATH").isSuccess) return@withContext false
+
+        // 创建module.prop
+        val moduleProp = ScriptGenerator.generateModuleProp(MODULE_ID)
+        if (!runCmdWithResult("cat > $MODULE_PATH/module.prop << 'EOF'\n$moduleProp\nEOF").isSuccess) return@withContext false
+
+        // 生成并创建所有脚本文件
+        val scripts = ScriptGenerator.generateAllScripts(config)
+
+        scripts.all { (filename, content) ->
+            runCmdWithResult("cat > $MODULE_PATH/$filename << 'EOF'\n$content\nEOF").isSuccess &&
+                    runCmdWithResult("chmod 755 $MODULE_PATH/$filename").isSuccess
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        false
+    }
+}
+
+private suspend fun removeMagiskModule(): Boolean = withContext(Dispatchers.IO) {
+    try {
+        runCmdWithResult("rm -rf $MODULE_PATH").isSuccess
+    } catch (e: Exception) {
+        e.printStackTrace()
+        false
+    }
+}
+```
+
+真就是演都不演了，在 KernelSU 里面整上 Magisk 了。
+
+首当其冲的仍然是硬编码。
+
+而且已经把 kotlin 当 shell 辅助工具玩了，干脆改名成 ShellSU 得了。
+
+```kotlin
+suspend fun backupModules(context: Context, snackBarHost: SnackbarHostState, uri: Uri) {
+    withContext(Dispatchers.IO) {
+        try {
+            val busyboxPath = "/data/adb/ksu/bin/busybox"
+            val moduleDir = "/data/adb/modules"
+
+            // 直接将tar输出重定向到用户选择的文件
+            val command = """
+                cd "$moduleDir" &&
+                $busyboxPath tar -cz ./* > /proc/self/fd/1
+            """.trimIndent()
+
+            val process = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
+
+            // 直接将tar输出写入到用户选择的文件
+            context.contentResolver.openOutputStream(uri)?.use { output ->
+                process.inputStream.copyTo(output)
+            }
+
+            val error = BufferedReader(InputStreamReader(process.errorStream)).readText()
+            if (process.exitValue() != 0) {
+                throw IOException(context.getString(R.string.command_execution_failed, error))
+            }
+
+            withContext(Dispatchers.Main) {
+                snackBarHost.showSnackbar(
+                    context.getString(R.string.backup_success),
+                    duration = SnackbarDuration.Long
+                )
+            }
+
+        } catch (e: Exception) {
+            Log.e("Backup", context.getString(R.string.backup_failed, ""), e)
+            withContext(Dispatchers.Main) {
+                snackBarHost.showSnackbar(
+                    context.getString(R.string.backup_failed, e.message),
+                    duration = SnackbarDuration.Long
+                )
+            }
+        }
+    }
+}
+
+suspend fun restoreModules(
+    context: Context,
+    snackBarHost: SnackbarHostState,
+    uri: Uri,
+    showConfirmDialog: (Boolean) -> Unit,
+    confirmResult: CompletableDeferred<Boolean>
+) {
+    // 显示确认对话框
+    withContext(Dispatchers.Main) {
+        showConfirmDialog(true)
+    }
+
+    val userConfirmed = confirmResult.await()
+    if (!userConfirmed) return
+
+    withContext(Dispatchers.IO) {
+        try {
+            val busyboxPath = "/data/adb/ksu/bin/busybox"
+            val moduleDir = "/data/adb/modules"
+
+            // 直接从用户选择的文件读取并解压
+            val process = Runtime.getRuntime().exec(arrayOf("su", "-c", "$busyboxPath tar -xz -C $moduleDir"))
+
+            context.contentResolver.openInputStream(uri)?.use { input ->
+                input.copyTo(process.outputStream)
+            }
+            process.outputStream.close()
+
+            process.waitFor()
+
+            val error = BufferedReader(InputStreamReader(process.errorStream)).readText()
+            if (process.exitValue() != 0) {
+                throw IOException(context.getString(R.string.command_execution_failed, error))
+            }
+
+            withContext(Dispatchers.Main) {
+                val snackbarResult = snackBarHost.showSnackbar(
+                    message = context.getString(R.string.restore_success),
+                    actionLabel = context.getString(R.string.restart_now),
+                    duration = SnackbarDuration.Long
+                )
+                if (snackbarResult == SnackbarResult.ActionPerformed) {
+                    reboot()
+                }
+            }
+
+        } catch (e: Exception) {
+            Log.e("Restore", context.getString(R.string.restore_failed, ""), e)
+            withContext(Dispatchers.Main) {
+                snackBarHost.showSnackbar(
+                    message = context.getString(
+                        R.string.restore_failed,
+                        e.message ?: context.getString(R.string.unknown_error)
+                    ),
+                    duration = SnackbarDuration.Long
+                )
+            }
+        }
+    }
+}
+
+suspend fun backupAllowlist(context: Context, snackBarHost: SnackbarHostState, uri: Uri) {
+    withContext(Dispatchers.IO) {
+        try {
+            val allowlistPath = "/data/adb/ksu/.allowlist"
+
+            // 直接复制文件到用户选择的位置
+            val process = Runtime.getRuntime().exec(arrayOf("su", "-c", "cat $allowlistPath"))
+
+            context.contentResolver.openOutputStream(uri)?.use { output ->
+                process.inputStream.copyTo(output)
+            }
+
+            val error = BufferedReader(InputStreamReader(process.errorStream)).readText()
+            if (process.exitValue() != 0) {
+                throw IOException(context.getString(R.string.command_execution_failed, error))
+            }
+
+            withContext(Dispatchers.Main) {
+                snackBarHost.showSnackbar(
+                    context.getString(R.string.allowlist_backup_success),
+                    duration = SnackbarDuration.Long
+                )
+            }
+
+        } catch (e: Exception) {
+            Log.e("AllowlistBackup", context.getString(R.string.allowlist_backup_failed, ""), e)
+            withContext(Dispatchers.Main) {
+                snackBarHost.showSnackbar(
+                    context.getString(R.string.allowlist_backup_failed, e.message),
+                    duration = SnackbarDuration.Long
+                )
+            }
+        }
+    }
+}
+
+suspend fun restoreAllowlist(
+    context: Context,
+    snackBarHost: SnackbarHostState,
+    uri: Uri,
+    showConfirmDialog: (Boolean) -> Unit,
+    confirmResult: CompletableDeferred<Boolean>
+) {
+    // 显示确认对话框
+    withContext(Dispatchers.Main) {
+        showConfirmDialog(true)
+    }
+
+    val userConfirmed = confirmResult.await()
+    if (!userConfirmed) return
+
+    withContext(Dispatchers.IO) {
+        try {
+            val allowlistPath = "/data/adb/ksu/.allowlist"
+
+            // 直接从用户选择的文件读取并写入到目标位置
+            val process = Runtime.getRuntime().exec(arrayOf("su", "-c", "cat > $allowlistPath"))
+
+            context.contentResolver.openInputStream(uri)?.use { input ->
+                input.copyTo(process.outputStream)
+            }
+            process.outputStream.close()
+
+            process.waitFor()
+
+            val error = BufferedReader(InputStreamReader(process.errorStream)).readText()
+            if (process.exitValue() != 0) {
+                throw IOException(context.getString(R.string.command_execution_failed, error))
+            }
+
+            withContext(Dispatchers.Main) {
+                snackBarHost.showSnackbar(
+                    context.getString(R.string.allowlist_restore_success),
+                    duration = SnackbarDuration.Long
+                )
+            }
+
+        } catch (e: Exception) {
+            Log.e("AllowlistRestore", context.getString(R.string.allowlist_restore_failed, ""), e)
+            withContext(Dispatchers.Main) {
+                snackBarHost.showSnackbar(
+                    context.getString(R.string.allowlist_restore_failed, e.message),
+                    duration = SnackbarDuration.Long
+                )
+            }
+        }
+    }
+}
+
+private fun reboot() {
+    Runtime.getRuntime().exec(arrayOf("su", "-c", "reboot"))
+}
+```
+
+真就是演都不演了，硬编码、`Runtime.getRuntime().exec()`滥用、`su -c`滥用、shell 滥用轮着来。
+
+要是说`${'$'}`是我见过的最抽象的 kotlin 写法，那么`> /proc/self/fd/1`就是我见过的最抽象的 shell 写法。
+
+能想到`> /proc/self/fd/1`的已经离人非常远了，可能会想到`&>1`，但是要不想想默认输出走的是哪呢？
+
+```kotlin
+// https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/KsuCli.kt
+
+fun getSuSFS(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} support")
+    return result
+}
+
+fun getSuSFSVersion(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} version")
+    return result
+}
+
+fun getSuSFSVariant(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} variant")
+    return result
+}
+
+fun getSuSFSFeatures(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} features")
+    return result
+}
+
+fun susfsSUS_SU_0(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} sus_su 0")
+    return result
+}
+
+fun susfsSUS_SU_2(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} sus_su 2")
+    return result
+}
+
+fun susfsSUS_SU_Mode(): String {
+    val shell = getRootShell()
+    val result = ShellUtils.fastCmd(shell, "${getSuSFSDaemonPath()} sus_su mode")
+    return result
+}
+
+fun loadKpmModule(path: String, args: String? = null): String {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} load $path ${args ?: ""}"
+    return ShellUtils.fastCmd(shell, cmd)
+}
+
+fun unloadKpmModule(name: String): String {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} unload $name"
+    return ShellUtils.fastCmd(shell, cmd)
+}
+
+fun getKpmModuleCount(): Int {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} num"
+    val result = ShellUtils.fastCmd(shell, cmd)
+    return result.trim().toIntOrNull() ?: 0
+}
+
+fun runCmd(shell: Shell, cmd: String): String {
+    return shell.newJob()
+        .add(cmd)
+        .to(mutableListOf<String>(), null)
+        .exec().out
+        .joinToString("\n")
+}
+
+fun listKpmModules(): String {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} list"
+    return try {
+        runCmd(shell, cmd).trim()
+    } catch (e: Exception) {
+        Log.e(TAG, "Failed to list KPM modules", e)
+        ""
+    }
+}
+
+fun getKpmModuleInfo(name: String): String {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} info $name"
+    return try {
+        runCmd(shell, cmd).trim()
+    } catch (e: Exception) {
+        Log.e(TAG, "Failed to get KPM module info: $name", e)
+        ""
+    }
+}
+
+fun controlKpmModule(name: String, args: String? = null): Int {
+    val shell = getRootShell()
+    val cmd = """${getKpmmgrPath()} control $name "${args ?: ""}"""//" // 由于代码块解析出错，这里忽略掉一个双引号
+    val result = runCmd(shell, cmd)
+    return result.trim().toIntOrNull() ?: -1
+}
+
+fun getKpmVersion(): String {
+    val shell = getRootShell()
+    val cmd = "${getKpmmgrPath()} version"
+    val result = ShellUtils.fastCmd(shell, cmd)
+    return result.trim()
+}
+```
+
+封装得莫名其妙，重复封装并且一点 Kotlin 语法也不会用，虽然质疑很多次了都是我还是想质疑一下这到底是个什么水平
+
+## 总结
+
+SukiSU Ultra 到处都充斥着各种抽象滥用行为，甚至 README 都能把大小写写错，这种抽象的项目真的有人能用得下去吗？
