@@ -14,17 +14,35 @@ ConfigUI 的 配置文件、多语言文件、UI 文件 也必须以 FVV 格式 
 
 模块目录应遵循以下结构:
 
-```plaintext
-.
-├── module.prop
-└── cfgui
-  ├── config.fvv
-  ├── ui
-  │ └── FWW UI 配置文件...
-  ├── lang (可选)
-  │ └── FVV 多语言 配置文件...
-  └── 其他资源...
-```
+<RequestExample>
+    ```plaintext 目录 icon="code"
+    .
+    ├── module.prop
+    └── cfgui
+    ├── config.fvv
+    ├── ui
+    │ └── FWW UI 配置文件...
+    ├── lang (可选)
+    │ └── FVV 多语言 配置文件...
+    └── 其他资源...
+    ```
+</RequestExample>
+
+<ResponseExample>
+    ```fvv conference.fvv
+    UI.PageA = <页面A> [
+    <...>
+    ]
+    <直接命名>
+
+        UI.PageB = <Lang.PageB> [
+        <...>
+        ]
+        <通过多语言命名>
+    ```
+</ResponseExample>
+
+
 
 - **`cfgui`** 目录是 ConfigUI 的根目录，包含所有配置
 - **`module.prop`** 为模块描述文件
@@ -67,17 +85,7 @@ ConfigUI 的 FWW 界面均使用 **FVV 列表** 作为页面，
 
 ConfigUI 会将页面的注释设置为该页面的标题:
 
-```fvv conference.fvv
-UI.PageA = <页面A> [
-    <...>
-]
-<直接命名>
 
-UI.PageB = <Lang.PageB> [
-    <...>
-]
-<通过多语言命名>
-```
 <Tip>
     主页面的标题默认是模块名称，在 FWW 中再自定义名称也是允许的
 </Tip>
