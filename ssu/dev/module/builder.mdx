@@ -11,16 +11,20 @@ ShiroSU 的模块构建工具分为如下内容:
 
 ## 依赖
 
-> [!TIP]
-> 构建工具会使用 [NGA SDK](https://app.niggergo.work) 在构建时自动集成 Shell Utils，自动混淆加密`action.sh`、`customize.sh`、`nga-utils.sh`
+<Tip>
+    构建工具会使用 [NGA SDK](https://app.niggergo.work) 在构建时自动集成 Shell Utils，自动混淆加密`action.sh`、`customize.sh`、`nga-utils.sh`
+</Tip>
+
 
 - [Android NDK](https://developer.android.google.cn/ndk)
 - [Go](https://golang.google.cn)
 - [Garble (可选)](https://github.com/burrowers/garble)
 
-> [!WARNING]
-> 本地构建需要至少有 `ksh` 或者语法特性更多的 Shell 解释器！否则 Shell 加密无法运行，
-> 不可使用 `POSIX` Shell！
+
+<Warning>
+    本地构建需要至少有 `ksh` 或者语法特性更多的 Shell 解释器！否则 Shell 加密无法运行，
+    不可使用 `POSIX` Shell！
+</Warning>
 
 ## 使用方法 1 (GitHub Action)
 
@@ -36,9 +40,9 @@ ShiroSU 的模块构建工具分为如下内容:
 4. 通过 Go 运行本项目的构建工具来实现构建模块
 
 ## 项目结构
-
-> [!TIP]
-> 模块项目应该遵循以下目录结构
+<Tip>
+    模块项目应该遵循以下目录结构
+</Tip>
 
 ```plaintext
 |
@@ -111,6 +115,6 @@ ShiroSU 的模块构建工具分为如下内容:
 
 模块示例仓库已经配置好这些内容，可直接使用模板并按需修改以使用
 
-> [!WARNING]
-> 
-> 不需要的文件请自行删除！请避免对用户设备造成不必要的负担！
+<Warning>
+    不需要的文件请自行删除！请避免对用户设备造成不必要的负担！
+</Warning>

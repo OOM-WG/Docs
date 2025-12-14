@@ -51,7 +51,7 @@ libzakosign.so: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dyn
 
 把这个 arm64 的 `libzakosign.so` 逆向后，真的非常令人感到莫名其妙，一直用莫名其妙这个词是因为这些东西真的令人非常疑惑，下面就大概看看吧
 
-```c
+```c libzakosign.c expandable icon="code"
 void *zako_allocate_safe(size_t size)
 {
   return calloc(1uLL, size);
@@ -261,7 +261,7 @@ int64_t zako_trustchain_set_leaf(int64_t a1, int64_t a2)
 
 与之对应的源码是
 
-```c
+```c libzakosign.c expandable icon="code"
 __hide uint8_t* zako_allocate_safe(size_t len) {
     uint8_t* buff = (uint8_t*) malloc(len);
 
@@ -730,7 +730,7 @@ bool zako_trustchain_set_leaf(struct zako_trustchain* chain, X509* certificate) 
 
 然后是具体的验证内容
 
-```c
+```c libzakosign.c expandable icon="code"
 // 入口函数
 uint32_t zako_file_verify_esig(file_handle_t fd, uint32_t flags) {
     size_t file_sz = zako_sys_file_sz(fd);

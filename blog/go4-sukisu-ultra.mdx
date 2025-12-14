@@ -28,7 +28,7 @@ SukiSU Ultra，一个名字抽象、包名抽象、作者抽象、用户抽象�
 
 SukiSU Ultra 的包名已经很抽象了，`com.sukisu.ultra`、`io.sukisu.ultra`以及`zako.zako.zako`，图标还是个表情包，看来写 SukiSU Ultra 的和用 SukiSU Ultra 的都是纯贬低意的”杂鱼“
 
-```kotlin
+```kotlin KsuCli.kt expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/KsuCli.kt
 
 fun getKpmVersion(): String {
@@ -54,7 +54,7 @@ fun getKpmVersionUse(): String {
 
 调用的时候反倒是这样的
 
-```kotlin
+```kotlin BottomBar.kt icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/zako/zako/zako/zakoui/activity/component/BottomBar.kt
 
 val kpmVersion = getKpmVersionUse()
@@ -65,7 +65,7 @@ val kpmVersion = getKpmVersionUse()
 
 并且，为什么不有报错就`return ""`呢？
 
-```kotlin
+```kotlin KernelFlash.kt expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/zako/zako/zako/zakoui/flash/KernelFlash.kt
 
 private fun runCommand(su: Boolean, cmd: String): Int {
@@ -119,7 +119,7 @@ private fun rootAvailable(): Boolean {
 
 这些代码纯纯就是闲的没事干，源码里有大量的`ProcessBuilder()`和`Runtime.getRuntime().exec()`滥用，并且还用`su -c id`检测是否有 root，你一个 root 管理器不应该在进去软件的时候就知道自己有没有 root 的吗？而且还用`su -c id`然后检测返回值？`su -c true`不行吗？
 
-```java
+```java UltraShellHelper.java icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/io/sukisu/ultra/UltraShellHelper.java
 
 public static boolean isPathExists(String path) {
@@ -135,7 +135,7 @@ SukiSU Ultra 在不断刷新我对低劣代码的认知，我是真的第一次�
 
 都是 root 管理器了，还在用 shell 来检测文件复制文件，还是通过这种莫名其妙的方法，很难想象是怎么写出来的，我怎么写也想不到用`file`来检测，顶多想到`test -f ...`、`[ -f ... ]`、`[[ -f ... ]]`这些东西。
 
-```java
+```java UltraToolInstall.java expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/io/sukisu/ultra/UltraToolInstall.java
 
 private static final String OUTSIDE_KPMMGR_PATH = "/data/adb/ksu/bin/kpmmgr";
@@ -156,7 +156,7 @@ public static void tryToInstall() {
 
 硬编码 + shell 调用，没什么好说的。
 
-```kotlin
+```kotlin Kernels.kt expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/Kernels.kt
 
 data class KernelVersion(val major: Int, val patchLevel: Int, val subLevel: Int) {
@@ -172,7 +172,7 @@ data class KernelVersion(val major: Int, val patchLevel: Int, val subLevel: Int)
 
 反正就是怎么莫名其妙怎么来，原本只有 `isGKI`，多写了个 `isGKI1` 也不知道给原来的多加个 `2`
 
-```kotlin
+```kotlin SuSFSModuleScripts.kt expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/SuSFSModuleScripts.kt
 
 private const val LOG_DIR = "/data/adb/ksu/log"
@@ -275,7 +275,7 @@ private fun StringBuilder.generateCleanupResidueSection() {
 
 <Tip>更让人难评的是这么多 shell 代码就非得塞在 kotlin 代码里面，搞个单独的文件很难吗？跟某位模块作者一样难评</Tip>
 
-```kotlin
+```kotlin SuSFSManager.kt expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/SuSFSManager.kt
 
 private const val MODULE_PATH = "/data/adb/modules/$MODULE_ID"
@@ -358,7 +358,7 @@ private suspend fun removeMagiskModule(): Boolean = withContext(Dispatchers.IO) 
 
 而且已经把 kotlin 当 shell 辅助工具玩了，干脆改名成 ShellSU 得了。
 
-```kotlin
+```kotlin backupModules.kt expandable icon="code"
 suspend fun backupModules(context: Context, snackBarHost: SnackbarHostState, uri: Uri) {
     withContext(Dispatchers.IO) {
         try {
@@ -563,7 +563,7 @@ private fun reboot() {
 
 能想到`> /proc/self/fd/1`的已经离人非常远了，可能会想到`&>1`，但是要不想想默认输出走的是哪呢？
 
-```kotlin
+```kotlin KsuCli.kt expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/KsuCli.kt
 
 fun getSuSFS(): String {

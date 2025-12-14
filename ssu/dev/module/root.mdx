@@ -10,8 +10,10 @@ ShiroSU 的原生 root 还在开发中，具体内容随时可能变动！
 
 对于大部分内容，ShiroSU 与 **`Magisk` 和 `KernelSU`** 基本保持一致，此处仅介绍不同之处
 
-> [!IMPORTANT]
-> 请确保模块内的所有文本文件均使用 `UNIX (LF)` 换行类型，而不是 `Windows (CR + LF)` 或 `Macintosh (CR)`！
+
+<Callout icon="audio-lines" color="#a371f7" iconType="regular">
+    请确保模块内的所有文本文件均使用 `UNIX (LF)` 换行类型，而不是 `Windows (CR + LF)` 或 `Macintosh (CR)`！
+</Callout>
 
 ## 模块系统
 
@@ -24,14 +26,12 @@ ShiroSU 的 Systemless 是一种类似于 Magisk 的挂载机制，其接口完�
 并且，为了保证更强的安全性，ShiroSU 的 Systemless 会无视模块挂载的 **文件/目录的 SELinux 上下文**、**目录的权限**以及**文件/目录的用户/组**，
 如果文件挂载到了不存在的目录，那么其 **SELinux 上下文**、**权限**、**用户/组**均会继承自父目录。通常来说，这些行为不会影响模块的运行，反而有助于提高稳定性
 
-::: tip
+<Tip>
+    ShiroSU 的 Systemless 会使用模块目录中的 `systemless` 文件夹执行挂载，
+    如果模块通过 `system` 文件夹使用 Systemless，那么 `systemless` 文件夹会被**自动创建**
 
-ShiroSU 的 Systemless 会使用模块目录中的 `systemless` 文件夹执行挂载，
-如果模块通过 `system` 文件夹使用 Systemless，那么 `systemless` 文件夹会被**自动创建**
-
-如果模块仅适配 ShiroSU，那么可以直接通过 `systemless` 文件夹使用 Systemless
-
-:::
+    如果模块仅适配 ShiroSU，那么可以直接通过 `systemless` 文件夹使用 Systemless
+</Tip>
 
 ### Shell
 
@@ -50,8 +50,11 @@ ShiroSU 使用 [sush](https://github.com/shellgei/rusty_bash) (用 Rust 编写�
 
 为了便于区分，ShiroSU 在模块运行时注入以下变量:
 
+
 - `SSU` (布尔值): 在 ShiroSU 环境下运行时，此值将为 `true`
-  > 但这并不能代表可以通过 `$SSU && # code ...` 来执行代码，应当始终使用 `[ "$SSU" = true ]` 或类似方法来检测 ShiroSU
+<Callout icon="audio-lines" color="#a371f7" iconType="regular">
+    但这并不能代表可以通过 `$SSU && # code ...` 来执行代码，应当始终使用 `[ "$SSU" = true ]` 或类似方法来检测 ShiroSU
+</Callout>
 - `SSU_VER` (字符串): ShiroSU 的版本号 (不包括补丁号)
 - `SSU_VER_CODE` (整数值): ShiroSU 的纯数字版本号 (包括补丁号)
 

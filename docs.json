@@ -68,6 +68,7 @@
               {
                 "group": "开发者文档",
                 "pages": [
+                  "ssu/dev/module/index",
                   "ssu/dev/module/manager",
                   "ssu/dev/module/cfgui",
                   "ssu/dev/module/webui",

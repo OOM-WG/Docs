@@ -14,21 +14,13 @@ ShiroSU 的 WebUI 实现与 KernelSU 完全兼容，您可以在两者的管理�
 
 模块目录应遵循以下结构:
 
-<FileTree>
-- module.prop
-- webroot/
-  - index.html (仅可为 index.html！不可为 index.htm 等)
-  - 其他网页资源...
-</FileTree>
-
-<Accordion>
-  <AccordionItem title="目录结构说明">
-    <ul>
-      <li><strong>webroot</strong> 目录是 WebUI 的根目录，包含所有前端资源</li>
-      <li><strong>module.prop</strong> 为模块描述文件</li>
-    </ul>
-  </AccordionItem>
-</Accordion>
+```
+.
+├── module.prop
+└── webroot
+  ├── index.html (仅可为 index.html！不可为 index.htm 等)
+  └── 其他网页资源...
+```
 
 ## 开发 Demo
 
