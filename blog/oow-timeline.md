@@ -1,9 +1,10 @@
 ---
-title: 回忆溢出的建立与近年活动
+title: "回忆溢出的建立与近年活动"
 date: 2025-09-13
-description: 回忆溢出是怎么建立的？近些年来都干了些什么？
-author: 白彩恋
-tags: [回忆溢出, 开发]
+description: "回忆溢出是怎么建立的？近些年来都干了些什么？OOW 工作组的历史和发展历程"
+author: "白彩恋"
+keywords: ['回忆溢出', '开发']
+tag: "最新"
 ---
 
 import {Avatar} from "/snippets/avatar.jsx"

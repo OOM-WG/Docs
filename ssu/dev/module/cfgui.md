@@ -1,7 +1,7 @@
 ---
 title: ConfigUI 模块开发
 description: 了解如何开发具有配置界面的 ShiroSU 模块
-icon: "sliders"
+icon: "cpu"
 ---
 
 ConfigUI 是 ShiroSU 特有的一种功能，旨在通过 FVV [^1] 的 FWW [^2] 低学习成本地快速生成 CU NGA 风格 [^3] 的模块配置界面

@@ -2,6 +2,7 @@
 title: 什么是 ShiroSU？
 description: 了解 ShiroSU - 致力于畅享 root 的先进工具
 icon: "shield-check"
+keywords: ['ShiroSU', 'SSU', 'root', 'Android', '超级用户', '白彩恋']
 ---
 
 **ShiroSU**（简称 **SSU**）是由回忆溢出工作组 [(O.O.M. W.G.)](https://oom-wg.dev) 以核心成员 [@白彩恋](https://github.com/ShIroRRen) 的名字命名的项目。

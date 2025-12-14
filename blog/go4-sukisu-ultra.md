@@ -3,7 +3,7 @@ title: SukiSU Ultra 源码里的逆天操作
 date: 2025-06-30
 description: SukiSU Ultra 究竟是一个什么样的项目？
 author: 白彩恋
-tags: [SukiSU Ultra, root, 开发, Kotlin, Shell]
+keywords: ['SukiSU Ultra', 'root', '开发', 'Kotlin', 'Shell']
 ---
 
 import {Avatar} from "/snippets/avatar.jsx"

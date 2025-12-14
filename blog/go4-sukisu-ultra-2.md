@@ -4,7 +4,7 @@ sidebarTitle: 二周目：SukiSU Ultra 的逆天操作
 date: 2025-08-29
 description: SukiSU Ultra 为何如此千疮百孔？
 author: 白彩恋
-tags: [SukiSU Ultra, root, 开发, C-C++]
+keywords: ['SukiSU Ultra', 'root', '开发', 'C-C++']
 ---
 
 import {Avatar} from "/snippets/avatar.jsx"

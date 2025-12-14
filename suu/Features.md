@@ -1,0 +1,260 @@
+---
+title: 功能特性
+description: 苏柚提供的全部功能特性，包括存储清理、数据重定向、文件整理等
+icon: "zap"
+keywords: ['苏柚', 'SUU', '功能特性', 'Android', '存储', '工具']
+---
+
+苏柚提供了一系列强大功能，帮助您优化设备性能、管理存储空间和提升使用体验。这些功能根据运行模式提供不同程度的访问权限。
+
+<Tabs>
+<Tab title="全部功能">
+查看所有可用功能概览，不分平台或类型。
+</Tab>
+
+<Tab title="存储优化">
+专注于存储管理和空间优化的功能。
+</Tab>
+
+<Tab title="系统工具">
+系统级工具和高级功能。
+</Tab>
+
+<Tab title="Windows版">
+Windows平台专属功能。
+</Tab>
+</Tabs>
+
+## 存储优化功能
+
+### C&C清理
+
+C&C清理功能帮助您清除无用文件，释放存储空间，保持设备运行流畅。
+
+<AccordionGroup>
+<Accordion title="功能概述">
+通过存储权限或root权限删除指定文件或目录，清理缓存和垃圾文件。
+</Accordion>
+
+<Accordion title="使用方法">
+- **手动清理**：打开苏柚应用 → 进入功能页面 → 点击C&C清理的"运行"按钮
+- **自动清理**：通过附加模块实现开机自启动，定期自动清理设备
+</Accordion>
+
+<Accordion title="配置选项">
+- **清理软件缓存**：清除第三方应用缓存
+- **清理隐藏路径**：删除`.`开头的文件或目录
+- **清理空文件/文件夹**：删除内容为空的文件和文件夹
+- **过滤规则**：设置白名单和黑名单，精确控制清理范围
+</Accordion>
+</AccordionGroup>
+
+### GBB优质存储
+
+GBB优质存储通过重定向技术优化应用数据存储，释放主要存储空间，提升设备性能。
+
+<Warning>
+此功能仅支持欢愉模式，需要root权限。
+</Warning>
+
+<AccordionGroup>
+<Accordion title="功能概述">
+通过root权限与Zygisk API重定向应用数据目录，将大型存储需求的数据转移到外部存储或次要分区。
+</Accordion>
+
+<Accordion title="挂载类型">
+- **全局挂载**：对所有应用可见的挂载配置，系统全局生效
+- **软件挂载**：仅对指定应用生效的挂载配置，不影响其他应用
+</Accordion>
+
+<Accordion title="应用场景">
+- 游戏OBB数据重定向到SD卡
+- 应用缓存重定向到外部存储
+- 开发目录重定向（开发者专用）
+</Accordion>
+</AccordionGroup>
+
+### Nyanya整理
+
+Nyanya整理功能通过监听指定目录或定期扫描，根据文件类型、名称规则自动将文件移动到相应的分类文件夹中。
+
+<AccordionGroup>
+<Accordion title="功能概述">
+自动分类和整理下载目录中的文件，保持文件系统有序，便于查找和管理。
+</Accordion>
+
+<Accordion title="主要功能">
+- **监听目录**：实时监控指定目录的新文件
+- **规则分类**：根据后缀、名称规则自动分类
+- **时间归类**：按文件修改日期创建子目录
+- **延迟移动**：设置移动延迟，避免文件被占用
+</Accordion>
+
+<Accordion title="分类规则示例">
+```
+# 后缀分类
+jpg|Images
+png|Images
+mp4|Videos
+mp3|Audio
+pdf|Documents
+
+# 名称规则
+Screenshot*|Screenshots
+IMG_*|Images
+VID_*|Videos
+```
+</Accordion>
+</AccordionGroup>
+
+## 系统工具
+
+### Toybox玩具箱
+
+Toybox玩具箱提供了一系列实用小工具，帮助您更便捷地使用设备和管理日常任务。
+
+<AccordionGroup>
+<Accordion title="震震震功能">
+- **功能描述**：通过设备振动传感器提供触觉反馈
+- **使用条件**：设备需配备振动传感器
+- **应用场景**：增强交互体验，提供操作反馈
+</Accordion>
+
+<Accordion title="画笔功能">
+- **功能描述**：在屏幕上进行自由绘制，支持基本绘图工具
+- **使用条件**：设备需支持触控操作
+- **主要特点**：颜色选择、画笔大小调节、作品保存
+</Accordion>
+
+<Accordion title="使用方法">
+1. 打开苏柚应用
+2. 进入功能页面
+3. 选择Toybox中的需要的功能
+4. 按照界面提示使用相应工具
+</Accordion>
+</AccordionGroup>
+
+### Xposed功能
+
+苏柚的Xposed功能提供系统级扩展能力，解锁设备的隐藏特性和高级功能。
+
+<Warning>
+不支持免root Xposed框架！推荐使用LSPosed框架。
+</Warning>
+
+<AccordionGroup>
+<Accordion title="支持范围">
+- **LSPosed**：完全兼容，提供完整功能
+- **EdXposed**：基本兼容，但部分功能受限
+- **TaiChi**：实验性支持，建议升级到LSPosed
+</Accordion>
+
+<Accordion title="主要功能">
+- **解锁监听**：记录设备解锁时间和模式
+- **欧加真OTA优化**：针对OPPO、OnePlus、realme设备优化OTA更新体验
+- **欧加真GPA伪装**：伪装设备GPA获取信息，获取指定型号的云控数据
+</Accordion>
+
+<Accordion title="安装与配置">
+1. 获取root权限并安装LSPosed框架
+2. 在LSPosed中勾选苏柚模块
+3. 选择作用域并重启设备
+4. 在苏柚中配置Xposed功能
+</Accordion>
+</AccordionGroup>
+
+### modify.my.id
+
+modify.my.id功能帮助您修改和管理设备标识符，保护隐私并优化应用体验。
+
+<Callout type="warning">
+此功能仅支持欢愉模式，需要root权限。修改设备标识可能影响部分应用功能。
+</Callout>
+
+<AccordionGroup>
+<Accordion title="支持的标识类型">
+- **Android系统**：SSAID (Android ID)、AAID (广告 ID)
+- **小米设备**：OAID、VAID、Extm ID、GC ID、Key ID
+- **OPPO设备**：Security ID、OUID、GUID、百度 ID
+- **华为设备**：OAID (开放匿名设备标识符)
+</Accordion>
+
+<Accordion title="功能特点">
+- **隐私保护**：修改广告和分析标识符，减少跨应用追踪
+- **区域绕过**：解决基于设备标识的区域访问限制
+- **应用兼容**：解决因设备标识导致的应用兼容性问题
+</Accordion>
+
+<Accordion title="使用注意事项">
+1. 修改前务必备份原始标识符
+2. 避免同时修改多个关键标识符
+3. 修改后测试关键应用功能
+4. 确保修改行为符合当地法律法规
+</Accordion>
+</AccordionGroup>
+
+## Windows版功能
+
+苏柚Windows版主要作为配套工具，帮助您更方便地管理Android设备。
+
+<AccordionGroup>
+<Accordion title="设备连接">
+通过USB连接Android设备，提供更便捷的管理界面。
+</Accordion>
+
+<Accordion title="跨平台管理">
+- 文件传输和管理
+- 应用安装与卸载
+- 设备信息查看
+</Accordion>
+
+<Accordion title="开发辅助">
+- ADB命令执行
+- 日志查看
+- 性能监控
+</Accordion>
+</AccordionGroup>
+
+## 功能对比
+
+| 功能 | 良民模式 | 僭越模式 | 欢愉模式 | Windows版 |
+|------|----------|----------|----------|-----------|
+| 基本文件管理 | ✓ | ✓ | ✓ | ✓ |
+| C&C清理 | 部分 | ✓ | ✓ | ✓ |
+| GBB存储重定向 | ✗ | ✗ | ✓ | ✗ |
+| Nyanya文件整理 | 部分 | ✓ | ✓ | ✗ |
+| Toybox工具 | ✓ | ✓ | ✓ | 部分 |
+| Xposed功能 | ✗ | ✗ | ✓ | ✗ |
+| modify.my.id | ✗ | ✗ | ✓ | ✗ |
+
+## 使用技巧
+
+<AccordionGroup>
+<Accordion title="性能优化">
+- 定期使用C&C清理清除应用缓存
+- 将大型应用数据重定向到高速存储设备
+- 减少不必要的后台监控功能
+</Accordion>
+
+<Accordion title="存储管理">
+- 使用Nyanya整理定期分类下载文件
+- 利用GBB重定向释放内部存储空间
+- 设置合理的路径变量，提高配置灵活性
+</Accordion>
+
+<Accordion title="安全使用">
+- 修改系统级设置前创建备份
+- 谨慎使用modify.my.id功能
+- 定期检查功能运行状态
+</Accordion>
+</AccordionGroup>
+
+<Info>
+苏柚目前还在进行预览版更新，功能可能出现不稳定、不完整等情况，请见谅！
+</Info>
+
+## 相关文档
+
+- [苏柚快速开始](/suu/Guide)
+- [苏柚更新日志](/suu/Changelog)
+- [苏柚使用协议](/suu/More/Agreement)

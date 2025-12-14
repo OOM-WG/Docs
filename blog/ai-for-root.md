@@ -1,10 +1,8 @@
 ---
 title: AI 在一个项目的实际开发中究竟应该起什么样的作用？
 sidebarTitle: AI 应该如何参与项目开发
-date: 2025-07-29
 description: 很多人已经离不开 AI 了，但是 AI 到底应该有何地位？
-author: 白彩恋
-tags: [AI, root, 模块, 开发]
+keywords: ['AI', 'root', '模块', '开发']
 ---
 import {Avatar} from "/snippets/avatar.jsx"
 

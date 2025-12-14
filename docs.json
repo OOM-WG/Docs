@@ -1,13 +1,26 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "aspen",
+  "theme": "maple",
   "name": "OOM.WG.",
   "colors": {
     "primary": "#f56c6c",
     "light": "#fbf7f7",
     "dark": "#ef8e8e"
   },
-  "favicon": "/logo/img.png",
+  "fonts": {
+    "heading": {
+      "family": "Ubuntu Mono",
+      "weight": 700
+    },
+    "body": {
+      "family": "JetBrains Mono",
+      "weight": 400
+    }
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "favicon": "favicon.ico",
   "navigation": {
     "languages": [
       {
@@ -20,10 +33,7 @@
               {
                 "group": "简介",
                 "icon": "book-open",
-                "pages": [
-                  "index",
-                  "we/member"
-                ]
+                "pages": ["index", "we/member", "we/join"]
               },
               {
                 "group": "最新发布",
@@ -78,9 +88,7 @@
               },
               {
                 "group": "更新日志",
-                "pages": [
-                  "ssu/update/history"
-                ]
+                "pages": ["ssu/update/history"]
               }
             ]
           },
@@ -88,33 +96,12 @@
             "dropdown": "苏柚",
             "icon": "pencil-ruler",
             "pages": [
-              "suu/Know",
-              "suu/Start/Android",
-              "suu/Start/Windows",
               {
-                "group": "功能特性",
+                "group": "快速开始",
                 "pages": [
-                  "suu/Feat/Android/C&C",
-                  "suu/Feat/Android/GBB",
-                  "suu/Feat/Android/Nyanya",
-                  "suu/Feat/Android/Toybox",
-                  "suu/Feat/Android/Xposed",
-                  "suu/Feat/Android/modify.my.id"
-                ]
-              },
-              {
-                "group": "附录",
-                "pages": [
-                  "suu/Appendix/Android/Mode",
-                  "suu/Appendix/Android/Path",
-                  "suu/Appendix/Android/Tip"
-                ]
-              },
-              {
-                "group": "更新日志",
-                "pages": [
-                  "suu/ChangeLog/Android",
-                  "suu/ChangeLog/Windows"
+                  "suu/Guide",
+                  "suu/Features",
+                  "suu/Changelog"
                 ]
               },
               {
@@ -138,7 +125,7 @@
             {
               "anchor": "加入群组",
               "icon": "users",
-              "href": "https://mintlify.com/blog"
+              "href": "https://oom-wg.dev/we/join"
             }
           ]
         }
@@ -148,6 +135,35 @@
   "logo": {
     "light": "/logo/img.png",
     "dark": "/logo/img.png"
+  },
+  "seo": {
+    "metatags": {
+      "robots": "index, follow",
+      "charset": "UTF-8",
+      "viewport": "width=device-width, initial-scale=1.0",
+      "googlebot": "index, follow",
+      "generator": "Mintlify",
+      "theme-color": "#f56c6c",
+      "format-detection": "telephone=no",
+      "referrer": "origin",
+      "rating": "general",
+      "revisit-after": "7 days",
+      "language": "zh-CN",
+      "copyright": "回忆溢出工作组 OOM. WG.",
+      "distribution": "global",
+      "HandheldFriendly": "True",
+      "MobileOptimized": "320",
+      "apple-mobile-web-app-capable": "yes",
+      "apple-mobile-web-app-status-bar-style": "black",
+      "apple-mobile-web-app-title": "OOM.WG.",
+      "application-name": "OOM.WG.",
+      "msapplication-TileColor": "#f56c6c",
+      "og:type": "website",
+      "og:image": "https://oom-wg.dev/logo/img.png",
+      "og:site_name": "OOM.WG. 技术文档",
+      "og:locale": "zh_CN",
+      "canonical": "https://oom-wg.dev"
+    }
   },
   "metadata": {
     "timestamp": true

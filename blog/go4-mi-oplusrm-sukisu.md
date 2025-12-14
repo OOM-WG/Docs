@@ -1,9 +1,8 @@
 ---
-title: 此地三两事
-date: 2025-07-28
+title: "此地三两事"
 description: 这里究竟发生了什么？
 author: 白彩恋
-tags: [AI, root, 模块, SukiSU Ultra, Shell]
+keywords: ['AI', 'root', '模块', 'SukiSU Ultra', 'Shell']
 ---
 
 import {Avatar} from "/snippets/avatar.jsx"

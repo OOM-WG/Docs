@@ -2,6 +2,7 @@
 title: 管理器 Scheme
 description: 了解如何使用 ShiroSU 管理器的 Scheme 方式调用
 icon: "link"
+keywords: ['ShiroSU', 'SSU', 'scheme', '管理器', '调用', '接口']
 ---
 
 

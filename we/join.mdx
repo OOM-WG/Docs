@@ -1,0 +1,86 @@
+---
+title: "加入我们"
+description: "获取更多关于我们"
+---
+
+## 问题 计算下列运行结果
+<CodeGroup dropdown>
+
+```cpp fast_pow.cpp
+#include <iostream>
+using namespace std;
+
+int main(){
+    long long a=2,b=10,r=1;
+    for(;b;b>>=1,a*=a) if(b&1) r*=a;
+    cout<<r;
+}
+````
+
+```kotlin fast_pow.kt
+fun main(){
+    var a=2L; var b=10L; var r=1L
+    for(;b>0;b=b shr 1){ if((b and 1L)==1L) r*=a; a*=a }
+    println(r)
+}
+```
+
+</CodeGroup>
+
+
+<Danger>
+    如不在群组内活跃发言勿加，会定期清理潜水人员，长期潜水请加下面群组
+</Danger>
+
+<Columns cols={2}>
+    <Card
+        title="伊甸园"
+        icon="users"
+        href="https://qm.qq.com/q/pKuFysMZs4"
+        cta="需要验证"
+    >
+        活跃用户群 (816708963)
+
+
+    </Card>
+
+    {/* 帮助群 */}
+    <Card
+        title="帮助"
+        icon="badge-question-mark"
+        href="https://qm.qq.com/q/5MHCYXQQZG"
+    >
+        疑问解答群 (345867222)
+    </Card>
+
+    {/* QQ频道 */}
+    <Card
+        title="QQ频道"
+        icon="message-square"
+        href="https://pd.qq.com/s/91t3v4mr3"
+    >
+        我们的官方QQ频道
+    </Card>
+
+    {/* Telegram */}
+    <Card
+        title="Telegram"
+        icon="send"
+        href="https://t.me/OOM_Group"
+    >
+        Telegram 群组
+    </Card>
+
+    {/* Discord */}
+    <Card
+        title="Discord"
+        icon="headphones"
+        href="https://discord.gg/RQBBVhSCa5"
+    >
+        Discord 频道
+    </Card>
+</Columns>
+
+<Danger>
+    我们仅允许在 Telegram/Discord 交流 <code>YumeBox</code>/<code>YumeMem</code> 项目的相关事宜
+</Danger>

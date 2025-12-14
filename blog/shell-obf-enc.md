@@ -4,7 +4,7 @@ sidebarTitle: Shell 混淆加密
 date: 2025-09-06
 description: 何为安全？如何防护？最终的走向是什么？
 author: 白彩恋 
-tags: [开发, 安全, Shell]
+keywords: ['开发', '安全', 'Shell']
 ---
 import {Avatar} from "/snippets/avatar.jsx"
 

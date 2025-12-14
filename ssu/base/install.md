@@ -2,6 +2,7 @@
 title: 安装指南
 description: ShiroSU 的安装步骤和配置说明
 icon: "download"
+keywords: ['ShiroSU', 'SSU', 'root', '安装', '管理器', 'Android']
 ---
 ## 下载 ShiroSU 管理器
 

@@ -3,7 +3,6 @@ title: 如何挽救被侵犯的存储空间？
 date: 2025-05-23
 description: 苏柚是如何解决存储空间所面临的困境的？
 author: 白彩恋
-tags: [回忆溢出, 苏柚, adb, root, 存储空间]
 ---
 
 import {Avatar} from "/snippets/avatar.jsx"

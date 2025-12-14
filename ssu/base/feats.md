@@ -2,6 +2,7 @@
 title: ShiroSU 的特色功能
 description: 了解 ShiroSU 有哪些实用功能
 icon: "sparkles"
+keywords: ['ShiroSU', 'SSU', '功能', '特色', 'root', 'Android']
 ---
 
 <Callout type="info">
