@@ -160,7 +160,7 @@
       "msapplication-TileColor": "#f56c6c",
       "og:type": "website",
       "og:image": "https://oom-wg.dev/logo/img.png",
-      "og:site_name": "OOM.WG. 技术文档",
+      "og:site_name": "OOM.WG.",
       "og:locale": "zh_CN",
       "canonical": "https://oom-wg.dev"
     }
@@ -189,7 +189,7 @@
   },
   "errors": {
     "404": {
-      "redirect": false,
+      "redirect": true,
       "title": "找不到页面",
       "description": "这个_页面_到底**发生了什么**？"
     }
