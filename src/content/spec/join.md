@@ -24,8 +24,12 @@ description: 加入回忆溢出工作组的群聊
 > 鼠标悬浮或者点击查看答案，如不在群组内活跃发言
 > 勿加，会定期清理潜水人员，长期潜水请加下面群组
 
-### [Telegram 群组](https://t.me/OOM_Group)
+### [抖音群组 (265359728722)](https://v.douyin.com/group/265359728722)
+
+### [快手群组 (K140792814109)](https://v48xq.autugmakw.com/f/X-8BmVmXnxpz9uem)
+
+### [Telegram 群组 (OOM_Group)](https://t.me/OOM_Group)
 
 ### [Discord 频道](https://discord.gg/RQBBVhSCa5)
 
-> 我们仅允许在 Telegram/Discord 交流 `YumeBox`/`YumeMem` 项目的相关事宜
+> 我们仅允许在 **Telegram**/**Discord** 交流 `YumeBox`/`YumeMem` 项目的相关事宜

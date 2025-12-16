@@ -6,7 +6,11 @@ author: 白彩恋
 tags: [SukiSU Ultra, root, 开发, Kotlin, Shell]
 ---
 
-> [二周目请见此处](go4-sukisu-ultra-2)
+> 各周目合集:
+>
+> - [一周目](go4-sukisu-ultra)
+> - [二周目](go4-sukisu-ultra-2)
+> - [三周目](go4-sukisu-ultra-3)
 
 ## 前言
 
