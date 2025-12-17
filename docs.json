@@ -16,7 +16,9 @@
 		"dark": "/images/logo/oow.webp"
 	},
 	"colors": {
-		"primary": "#b4cce9"
+		"primary": "#4a5bab",
+		"light": "#b4cce9",
+		"dark": "#4a5bab"
 	},
 	"fonts": {
 		"heading": {"family": "Ubuntu Mono"},
