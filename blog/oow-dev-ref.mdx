@@ -1,17 +1,12 @@
 ---
 title: 回忆溢出开发参考
 description: 在团队项目中，我们应该如何保持一致性？
-keywords: ['回忆溢出', '开发', 'C-C++', 'Dart', 'FVV', 'Go', 'Kotlin', 'Shell']
+keywords: [回忆溢出, 开发, C-C++, Dart, FVV, Go, Kotlin, Shell]
 ---
 
-import {Avatar} from "/snippets/avatar.jsx"
+import {Avatar, ShiroAvatar} from '/snippets/avatars.jsx'
 
-<Avatar
-name="白彩恋"
-role="全栈开发者"
-avatar="/images/avatar/shiro.webp"
-date="25 年 8 月 22 日 星期五"
-/>
+<ShiroAvatar date='2025 年 8 月 22 日 星期五' />
 
 ## 前言
 
@@ -31,7 +26,12 @@ date="25 年 8 月 22 日 星期五"
 
 为了确保一致性，统一值/函数/类等命名是比较必要的，下面大概说说
 
-<Tip>部分语言可能会冲突，可以适当"入乡随俗"<br />`Go` 的公开定义注意大写</Tip>
+<Note>
+部分语言可能会冲突，可以适当"入乡随俗"
+
+`Go` 的公开定义注意大写
+
+</Note>
 
 命名时应当**简写但不能过简**，避免任何直接的 `i`、`j` 等单字母命名，而是使用`idx`或与用途相关的名字
 
@@ -51,7 +51,7 @@ int const user_id = 114514;
 
 #### 命名规则
 
-<Tip>公开定义应当注重可读性，可以不遵从此规则</Tip>
+<Note>公开定义应当注重可读性，可以不遵从此规则</Note>
 
 - **全局**: 以 `gl` 开头
 - **循环当前**: 以 `idx` 开头
@@ -215,7 +215,7 @@ fun func() = /*...*/
 
 #### 避免声明类型
 
-在 Dart 中，应当主要提供 IDE 得知一个值或函数的类型，需要尽可能简化代码中的声明
+在 Kotlin 中，应当主要提供 IDE 得知一个值或函数的类型，需要尽可能简化代码中的声明
 
 ```kotlin
 // 完整声明
@@ -263,7 +263,7 @@ val obj by lazy { /*...*/ }
 
 善用标准库的 Lambda 可以很大地提升对 Kotlin 的理解以及代码质量
 
-```kotlin demo.md expandable icon="code"
+```kotlin expandable icon="code"
 // 常规判断
 if (/*...*/) {
     // ...
@@ -460,7 +460,7 @@ list.firstNotNullOfOrNull { it.takeIf { /*...*/ } }?.let {
 
 在开发回忆溢出的项目时，应当以作用而使用不同的包名
 
-<Tip>所有包名均应使用已有实际控制权的域名</Tip>
+<Note>所有包名均应使用已有实际控制权的域名</Note>
 
 ###### JVM 包名
 

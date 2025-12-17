@@ -4,16 +4,11 @@ description: ShiroSU 内核部分原理
 keywords: ['回忆溢出', 'ShiroSU', 'root', '内核', 'C-C++']
 ---
 
-import {Avatar} from "/snippets/avatar.jsx"
+import {Avatar, LinsoAvatar} from '/snippets/avatars.jsx'
 
-<Avatar
-name=" Linso"
-role="全栈开发者"
-avatar="/images/avatar/linso.webp"
-date=" 25 年 7 月 4 日 星期五"
-/>
+<LinsoAvatar date='2025 年 7 月 4 日 星期五' />
 
-<Tip>SSU 内核是 SSU 的一部分，但其并非 SSU 的主要定位，其将会作为可选内容而存在</Tip>
+> SSU 内核是 SSU 的一部分，但其并非 SSU 的主要定位，其将会作为可选内容而存在
 
 ## 概述
 
@@ -23,7 +18,7 @@ SSU 内核部分是一个针对 Android 内核的提权与权能限制处理的�
 - **能力管理绕过**: 注入拦截能力检查函数，绕过 Linux 能力限制
 - **SELinux 绕过**: 注入拦截 SELinux 访问控制，允许敏感操作
 
-<Tip>目前实现方向可能为**暂定**</Tip>
+> 目前实现方向可能为**暂定**
 
 ---
 
@@ -51,7 +46,7 @@ flowchart TD
 
 ### 核心提权逻辑
 
-<Tip><strong>伪代码，并非实际逻辑</strong></Tip>
+<Tip>**伪代码，并非实际逻辑**</Tip>
 
 ```c
 struct cred *cred = (struct cred *)__task_cred(current);
@@ -89,13 +84,11 @@ if (cred->group_info) {
 
 ---
 
-
-
 ---
 
 ### SELinux 绕过机制
 
-<Tip><strong>伪代码，并非实际逻辑</strong></Tip>
+<Tip>**伪代码，并非实际逻辑**</Tip>
 
 ```c
 // avc_denied kretprobe handler
@@ -117,7 +110,7 @@ if (current->real_cred->uid.val == /* 白名单 UID */) {
 
 ### 能力检查绕过
 
-**伪代码，并非实际逻辑**
+<Tip>**伪代码，并非实际逻辑**</Tip>
 
 ```c
 // cap_capable kretprobe handler
@@ -141,7 +134,7 @@ if (current->real_cred->uid.val == /* 白名单 UID */) {
 - 通过 `kprobe` 注入 `sys_execve` (具体地址名称需要依内核版本以及架构而定)，监控进程执行 `su`
 - 检测到执行 `su` 时，自动调用提权函数实现提权为 `root`
 
-<Tip><strong>伪代码，并非实际逻辑</strong></Tip>
+<Tip>**伪代码，并非实际逻辑**</Tip>
 
 ```c
 char buf[128] = {0};
@@ -159,4 +152,7 @@ if (!strcmp(buf, "/system/bin/su")) {
 
 ## 声明
 
-<Tip>本文章所展示的代码为 ShiroSU 内核的部分<strong>伪代码</strong>，<strong>并非实际代码</strong>，<strong>与实际代码会有出入</strong>，<strong>伪代码仅供参考</strong></Tip>
+<Tip>
+本文章所展示的代码为 ShiroSU 内核的部分**伪代码**，**并非实际代码**，**与实际代码会有出入**，**伪代码仅供参考**
+
+</Tip>

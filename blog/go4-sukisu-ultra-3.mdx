@@ -1,0 +1,1080 @@
+---
+title: '三周目: SukiSU Ultra 是一个正经项目吗？'
+sidebarTitle: SukiSU 是一个正经项目吗？
+description: SukiSU Ultra 是人类开发出来的吗？（是神人开发出来的，已经脱离人类的范畴了）
+keywords: [SukiSU Ultra, root, 内核, 开发, C-C++]
+tag: 最新
+---
+
+import {Avatar, ShiroAvatar} from '/snippets/avatars.jsx'
+
+<ShiroAvatar date='2025 年 12 月 12 日 星期五' />
+
+> 各周目合集:
+>
+> - [一周目](go4-sukisu-ultra)
+> - [二周目](go4-sukisu-ultra-2)
+> - [三周目](go4-sukisu-ultra-3)
+
+## 前言
+
+> 写了好几天，大部分是在一晚上通宵写出来的，有点昏头了...
+
+SukiSU Ultra 总是在不断地搬起石头砸自己的脚，我们至今无法知道在其管理器主页所写的“_相对独立_”究竟是如何相对？
+
+我们无法区分哪些人是他们的开发成员，哪些只是管理员，
+但是从他们的言论来看，他们把一个开源项目 **代码写的烂**、**不断拉取其他项目** 当作了理所应当的，
+难道要靠 **不断缝合** 来实现所谓的“**独立**”？
+
+<Note>
+SukiSU Ultra 只有名字是独立的
+
+之前看一个人的评论，SukiSU Ultra 要是叫 KernelSU Ultra 或者 SukiSU 都没什么好说的，
+可是偏偏却叫了个 SukiSU Ultra 这么个名字
+
+感觉不如叫 SukiSU Ultra Turbo Pro Max+ 把 buff 叠得更多些
+
+</Note>
+
+他们有着常人难以理解的心态，一个 **3K+ Stars** 的项目长期以来都是 **质量低下**，
+却能脸不红心不跳地认为开源项目写的烂，就是会有人来帮忙的？
+
+这样的小团体，除了 **自娱自乐**、**自说自话**，让这个诞生之初就极其抽象的项目继续走着下坡路（也可以说是跳崖），还能有什么作为？
+
+<Note>
+他们恶心人还怪有一套的，与 `满血核心` 的作者 _Caelifall_ 一样，我抄就是我有能耐，我能写就是我厉害，别人有什么资格来说？
+
+可是呢？莫名其妙的 `zakosign` 最终还不是会被 KernelSU 官方以 **更完善的体系** 所取代，一个 **莫名其妙**、**没有水平** 的项目怎么可能被认可？
+
+一直在推崇的魔改后的抽象 MD3 风格还不是换成了上游的 MIUIX？（但是基于现有情况来看，最后会使用什么 UI 风格仍然是未知的）
+
+不过为了能够拉取上游，甚至使用到了 [Cursor](https://github.com/SukiSU-Ultra/SukiSU-Ultra/commit/39f4a5991a4b9b614a9fe2a56f13f9f8800c3943)（或许也可能是项目 **烂到只能用 AI 来维护了**？）
+
+我个人从未使用过 AI Agent，以后也不会使用，如果一个项目要完全靠 AI 来维护的话，那就像以前已经说过了的，已经无药可救了
+（虽然并不知道 SukiSU Ultra 的代码究竟是 神人 写的还是 AI 写的）
+
+但是说实话，整个 SukiSU Ultra 还没有达到 _Caelifall_ 这样的高度，这样一个 **网暴、开户、圈钱、作秀、剽窃、抄袭** 样样精通的人，
+要么他是一个 **高度的神人**，要么他就是一个 **AI 的重度滥用者**（两者都是也说不定呢？），这个高度 SukiSU Ultra 还是太难达到了
+
+</Note>
+
+## 混乱的分支
+
+每次看 SukiSU Ultra 都能给我带来新的体验，最直观的就是分支变得更莫名其妙了
+
+SukiSU Ultra 目前有以下分支（以 GitHub 排序排列）:
+
+- main
+- Crowdin
+- miuix-dev
+- miuix
+- tmp-builtin
+- builtin
+- dev
+
+从字面上看，`main` 是主分支；`Crowdin` 是多语言翻译分支；
+`miuix-dev` 是 MIUIX UI 的开发分支；`miuix` 是 MIUIX UI 的分支；
+`tmp-builtin` 与 `builtin` 这两个分支只有内核源码，但是连个 `README` 都没有，理论上是给内核集成用的分支，
+并且从他们近期发布内容可以得知有 `tmp-builtin` 分支的存在是因为 `builtin` 由于强制推送导致错误，有分支保护又无法及时修复；
+`dev` 则是开发分支
+
+理论上这个分支规划貌似做的还是挺好的？实则不然
+
+因为按照内核集成文档，在各个分支中，`main` 是 `susfs-main`，`test` 是 `susfs-test`，然而 `test` 分支在哪里并不知道
+
+给非 GKI 内核用的 `nongki` 分支也不知所踪，带 susfs 的分支也不知道去哪里了
+
+因为他们在分支变动后根本就没人再管文档了，文档的上次更新还是几个月前的，其他开发者要是不分析一下是用都没法用的
+（都没法想该怎么办，GitHub 上找一圈还要再去 Telegram 找一圈，说不定还找不到）
+
+`builtin` 分支都有了结果却没个 `builtin-dev` 分支，要是有还能出现意外导致分支暂时无法使用，还要再搞个临时分支的情况吗？
+
+实际上就算有他们也不会好好开发，因为据提交内容来看，居然是先在**主分支**提交再同步到**开发分支**
+（在提交历史中合并的源是 `main` 分支而不是 `dev` 分支）
+
+甚至还能出现**主分支**比**开发分支**提交还**多**的情况，
+都不知道开发分支是开发在哪里了，真的是把他们自己所说的“**不稳定**”发挥到极致
+
+<Note>
+讲一个正面的典范:
+
+之前在 Flutter 上使用知名开源库 MMKV，在 Flutter 新版本上由于部分 API 弃用，无法正常编译
+
+然后我就去提了个 issue，开发者说不知道，
+但是我稍微查了一下，实际上只是因为导入了一个弃用 API，但是这个 API 并没有用到，删掉那行 `import` 即可
+
+于是我便向 MMKV 提了个 PR，由于我并没有注意到 MMKV 的主分支与开发分支什么的，就直接向主分支 PR 了
+
+然后开发者就提醒我要向开发分支 PR，我才重新向开发分支 PR，
+然后我的 PR 就随着开发变动合并进了主分支，开发者在新版本发布后，还在原来的 issue 下提醒我已经更新
+
+这才是开发分支的真正用途，所有变动与 PR 都要先基于开发分支，然后才可以合并进主分支给所有人使用
+
+但是人家 SukiSU Ultra 都说了自己不稳定了，也不好再评价什么了，`dev` 分支存在都不用存在，随便写点啥都直接端上来用呗
+
+</Note>
+
+### 管理器 UI 将要何去何从？
+
+自 SukiSU Ultra 诞生之初就饱受诟病的抽象 MD3 UI，也是跟随 KernelSU 上游把 UI 换成了 MIUIX，
+但是就像是上面列出的分支列表，原本的抽象 UI 仍然存在，与 MIUIX UI 处于不同的分支，只不过他们目前发布的都是 MIUIX 的了
+
+我们无从得知他们为什么要这样做，只能推测出如下可能的情况:
+
+- 他们以后将要同时发布两个 UI 的管理器（就像是以前两个图标一样）
+- 他们会在一个管理器里面做两套 UI
+- 他们要把 MIUIX 改得像他们的 MD3 一样抽象
+
+无论是哪种可能，对于 SukiSU Ultra 的用户而言应该都是不太友好的，对于这方面 SukiSU Ultra 如果选择一直跟随上游反而是个明智的选择
+
+## “惊天地泣鬼神”的多语言 UID 扫描器
+
+第一次见到 `user_scanner` 这个东西，我还以为是 _Lama3L9R_ 这个 `C` 魔怔人写的，结果看提交还是主作者 _ShirkNeko_ 写的，
+一个个都让我大开眼界
+
+<Note>
+为什么说 _Lama3L9R_ 魔怔呢？因为他自己说讨厌 `C++` 喜欢 `C`，而且还熟悉 `C`
+
+但是实际情况呢？只从 `zakosign` 来看，毫无水平（对他其他的项目也没有一点兴趣去看）
+
+对一个有着跨平台需求的项目（也许是有吧，但是这种东西真的会有人有用吗？），选择的不是使用跨平台表现优秀的语言，而是去使用 `C`
+（`C` 有什么问题不用多说了）
+
+但是就算用 `C` 吧，他也不用标准库，为了性能每个平台都单独写一套代码，但凡写一套回退呢？
+
+就连 `syscall` 函数都用汇编写，真的没办法理解是什么导致他要一个劲地脱离标准库
+
+面对这么些问题，他的回应也是答非所问，还把一些常识说得特别高大上的样子，更何况他说的东西和他项目的问题没有半点关系
+
+所以我只能认为他是一个没有什么水平的自娱自乐的 `C` 魔怔人了，根本就没法理解他的心境是怎么样的，
+他这种人就适合写写 `Python` 用 `print` 和 `input` 玩了
+
+然后我看到 `user_scanner` 是 _ShirkNeko_ 写的后，就更加吃惊了，
+没办法理解为什么他们要在 `ksud` 是 `Rust` 写的的情况下写这么多 `C` ，总是选择造新的东西而不是做进 `ksud` 里面
+
+</Note>
+
+虽然已经早就从 `Kotlin` 这样的高级语言能够看出是什么样的水平，但是在 `C` 这种低级语言上更能看到下限有多低
+
+`user_scanner` 给我的第一感觉就是它有一个极其混乱的日志系统，同时用到了 _Android 日志_、_文件日志_、_`printf`_ 三种输出方式，
+虽然并非完全不合理，但是 _Android 日志_ 与 _文件日志_ 共用我实在是想不到他有什么特殊的理由要怎么做，更何况调用方式也是一塌糊涂
+
+最难理解的就是这么个程序它为什么会有多语言？要是真的想做多语言的话，为什么不先给 `ksud` 整上？
+
+各种千奇百怪的抽象让我对代码本身的质量已经没有了判断能力，这种东西写出来害的可不止作者一人还有所有用户
+
+不过很能肯定，这些代码应该是纯 ~~人类~~ _神人_ 写出来的，
+因为 Cursor 规则里面写的要求是 `C`**23** 标准，然而 `user_scanner` 的编译传参是 `-std=c99`
+
+### 有多语言的混乱日志体系
+
+`user_scanner` 中多语言的存在真的是很难让人想通，可以从以下代码中看出来是有多莫名其妙:
+
+```c uid_scanner.c expandable icon="code"
+#define LOG_TAG "User_UID_Scanner"
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+
+typedef enum {
+    LANG_EN = 0,
+    LANG_ZH = 1
+} language_t;
+
+struct scanner_config {
+    language_t language;
+    int multi_user_scan;
+    int scan_interval;
+    int log_level;
+    int auto_scan;
+};
+
+typedef struct {
+    const char *en;
+    const char *zh;
+} message_t;
+
+static struct scanner_config config = {
+    .language = LANG_EN,
+    .multi_user_scan = 0,
+    .scan_interval = 5,
+    .log_level = 1,
+    .auto_scan = 0
+};
+
+// message dictionary
+static const message_t messages[] = {
+    {"Signal %d received", "收到信号 %d"},
+    {"Reload signal", "重载信号"},
+    {"User signal", "用户信号"},
+    {"Log rotated", "日志轮转"},
+    {"Fork failed: %s", "Fork失败: %s"},
+    {"setsid failed: %s", "setsid失败: %s"},
+    {"Second fork failed: %s", "第二次fork失败: %s"},
+    {"chdir failed: %s", "目录切换失败: %s"},
+    {"PID file create failed %s: %s", "PID文件创建失败 %s: %s"},
+    {"PID file created: %d", "PID文件已创建: %d"},
+    {"Daemon not running", "守护进程未运行"},
+    {"Stopping daemon (PID: %d)", "停止守护进程 (PID: %d)"},
+    {"Kill signal failed: %s", "终止信号失败: %s"},
+    {"Daemon stopped", "守护进程已停止"},
+    {"Force terminating", "强制终止中"},
+    {"Daemon killed", "守护进程已杀死"},
+    {"Cannot stop daemon", "无法停止守护进程"},
+    {"Restarting daemon", "重启守护进程"},
+    {"Cannot stop old daemon", "无法停止旧守护进程"},
+    {"Starting new daemon", "启动新守护进程"},
+    {"Status: Not running", "状态: 未运行"},
+    {"Status: Running (PID: %d)", "状态: 运行中 (PID: %d)"},
+    {"Recent logs:", "最近日志:"},
+    {"Status: Stopped (stale PID)", "状态: 已停止 (陈旧PID)"},
+    {"Sending reload signal (PID: %d)", "发送重载信号 (PID: %d)"},
+    {"Reload signal sent", "重载信号已发送"},
+    {"Reload signal failed: %s", "重载信号失败: %s"},
+    {"Directory open failed %s: %s", "目录打开失败 %s: %s"},
+    {"Scan started", "扫描开始"},
+    {"Package name too long: %s", "包名过长: %s"},
+    {"File stat failed %s: %s", "文件状态获取失败 %s: %s"},
+    {"Memory allocation failed", "内存分配失败"},
+    {"Scan complete, found %d packages", "扫描完成，发现 %d 个包"},
+    {"Whitelist file open failed %s: %s", "白名单文件打开失败 %s: %s"},
+    {"Whitelist written %d entries", "白名单写入 %d 个条目"},
+    {"Kernel comm file open failed %s: %s", "内核通信文件打开失败 %s: %s"},
+    {"Kernel comm write failed %s: %s", "内核通信写入失败 %s: %s"},
+    {"Kernel notified", "内核已通知"},
+    {"Performing scan and update", "执行扫描和更新"},
+    {"Scan failed", "扫描失败"},
+    {"Whitelist write failed", "白名单写入失败"},
+    {"Scan completed successfully", "扫描成功完成"},
+    {"Whitelist not found: %s", "白名单未找到: %s"},
+    {"Current whitelist:", "当前白名单:"},
+    {"One-time scan", "一次性扫描"},
+    {"Invalid argument: %s", "无效参数: %s"},
+    {"Daemon already running", "守护进程已运行"},
+    {"Starting daemon", "启动守护进程"},
+    {"Daemon startup failed", "守护进程启动失败"},
+    {"Daemon started", "守护进程已启动"},
+    {"Reload request received", "收到重载请求"},
+    {"Kernel rescan request", "内核重扫描请求"},
+    {"Daemon exiting", "守护进程退出中"},
+    {"Daemon exited", "守护进程已退出"},
+    {"Config loaded", "配置已加载"},
+    {"Config saved", "配置已保存"},
+    {"Config load failed: %s", "配置加载失败: %s"},
+    {"Config save failed: %s", "配置保存失败: %s"},
+    {"Language switched to English", "语言切换到英文"},
+    {"Language switched to Chinese", "语言切换到中文"},
+    {"Multi-user scan enabled", "多用户扫描启用"},
+    {"Multi-user scan disabled", "多用户扫描禁用"},
+    {"Scanning directory: %s", "扫描目录: %s"},
+    {"Found %d users", "发现 %d 个用户"},
+    {"Using fallback user detection", "使用备用用户检测"},
+    {"Auto scan enabled", "自动扫描启用"},
+    {"Auto scan disabled", "自动扫描禁用"},
+    {"Auto scan disabled, daemon loaded", "自动扫描禁用，守护进程已加载"},
+    {"Auto scan disabled, skipping", "自动扫描禁用，跳过"},
+    {"Auto scan disabled, ignoring kernel request", "自动扫描禁用，忽略内核请求"},
+    {"Retry attempt %d/%d", "重试 %d/%d"},
+    {"Max retries reached, waiting %d seconds", "达到最大重试次数，等待 %d 秒"},
+    {"Operation failed after retries", "重试后操作失败"},
+    {"Auto scan disabled, operation not allowed", "自动扫描禁用，操作不被允许"},
+    {"Manual scan requested, ignoring auto_scan setting", "手动扫描请求，忽略自动扫描设置"}
+};
+
+#define MSG_COUNT (sizeof(messages) / sizeof(messages[0]))
+
+const char* get_message(int msg_id) {
+    if (msg_id < 0 || msg_id >= (int)MSG_COUNT) {
+        return "Unknown message";
+    }
+    return (config.language == LANG_ZH) ? messages[msg_id].zh : messages[msg_id].en;
+}
+
+void write_log(const char *level, int msg_id, ...) {
+    char buffer[1024];
+    char formatted_msg[1024];
+    time_t now = time(NULL);
+    struct tm *tm_info = localtime(&now);
+    va_list args;
+
+    va_start(args, msg_id);
+    vsnprintf(formatted_msg, sizeof(formatted_msg), get_message(msg_id), args);
+    va_end(args);
+
+    strftime(buffer, 64, "[%H:%M:%S]", tm_info);
+    snprintf(buffer + strlen(buffer), sizeof(buffer) - strlen(buffer), " %s: %s", level, formatted_msg);
+
+    if (log_fd != -1) {
+        dprintf(log_fd, "%s\n", buffer);
+        fsync(log_fd);
+    }
+
+    if (strcmp(level, "ERROR") == 0) {
+        LOGE("%s", formatted_msg);
+    } else {
+        LOGI("%s", formatted_msg);
+    }
+}
+
+int handle_config_command(int argc, char *argv[]) {
+    if (strcmp(argv[1], "--lang") == 0) {
+        if (argc < 3) return 1;
+        if (strcmp(argv[2], "zh") == 0) {
+            set_language(LANG_ZH);
+        } else if (strcmp(argv[2], "en") == 0) {
+            set_language(LANG_EN);
+        } else {
+            return 1;
+        }
+        return 0;
+    } else if (strcmp(argv[1], "--multi-user") == 0) {
+        if (argc < 3) return 1;
+        int value = atoi(argv[2]);
+        if (value != 0 && value != 1) return 1;
+        set_multi_user_scan(value);
+        return 0;
+    } else if (strcmp(argv[1], "--auto-scan") == 0) {
+        if (argc < 3) return 1;
+        int value = atoi(argv[2]);
+        if (value != 0 && value != 1) return 1;
+        set_auto_scan(value);
+        return 0;
+    } else if (strcmp(argv[1], "--config") == 0) {
+        show_config();
+        return 0;
+    }
+    return -1;
+}
+```
+
+以下是一些调用代码:
+
+```c uid_scanner.c expandable icon="code"
+// Retry wrapper for operations
+int retry_operation(int (*operation)(void), const char *op_name) {
+    (void)op_name;
+    for (int attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        int result = operation();
+        if (result == 0) {
+            return 0; // Success
+        }
+
+        if (attempt < MAX_RETRIES) {
+            write_log("WARN", 69, attempt, MAX_RETRIES); // Retry attempt X/Y
+            sleep(1);
+        } else {
+            write_log("ERROR", 70, RETRY_DELAY); // Max retries reached
+            sleep(RETRY_DELAY);
+            write_log("ERROR", 71); // Operation failed after retries
+        }
+    }
+    return -1;
+}
+
+void ensure_directory_exists(void) {
+    const char *path = "/data/misc/user_uid";
+    struct stat st;
+
+    if (stat(path, &st) != 0) {
+        if (mkdir(path, 0777) != 0) {
+            LOGE("Failed to create directory %s: %s", path, strerror(errno));
+            return;
+        }
+    }
+
+    if (chmod(path, 0777) != 0) {
+        LOGE("Failed to chmod directory %s: %s", path, strerror(errno));
+    }
+}
+
+int load_config(void) {
+    FILE *fp = fopen(CONFIG_FILE_PATH, "r");
+    if (!fp) {
+        write_log("WARN", 56, "配置文件不存在，使用默认配置");
+        return save_config();
+    }
+
+    char line[256];
+    while (fgets(line, sizeof(line), fp)) {
+        line[strcspn(line, "\n")] = 0;
+
+        if (line[0] == '#' || line[0] == '\0') continue;
+
+        char key[64], value[64];
+        if (sscanf(line, "%63[^=]=%63s", key, value) == 2) {
+            parse_config_line(key, value);
+        }
+    }
+
+    fclose(fp);
+    write_log("INFO", 54); // Config loaded
+    write_log("INFO", config.auto_scan ? 64 : 65); // 记录当前自动扫描状态
+    return 0;
+}
+
+int save_config(void) {
+    ensure_directory_exists();
+
+    FILE *fp = fopen(CONFIG_FILE_PATH, "w");
+    if (!fp) {
+        write_log("ERROR", 57, strerror(errno)); // Config save failed
+        return -1;
+    }
+
+    fprintf(fp, "# UID Scanner Configuration\n");
+    fprintf(fp, "# Language: en (English) or zh (Chinese)\n");
+    fprintf(fp, "language=%s\n", (config.language == LANG_ZH) ? "zh" : "en");
+    fprintf(fp, "# Multi-user scanning: 0=disabled, 1=enabled\n");
+    fprintf(fp, "multi_user_scan=%d\n", config.multi_user_scan);
+    fprintf(fp, "# Scan interval in seconds\n");
+    fprintf(fp, "scan_interval=%d\n", config.scan_interval);
+    fprintf(fp, "# Log level: 0=minimal, 1=normal, 2=verbose\n");
+    fprintf(fp, "log_level=%d\n", config.log_level);
+    fprintf(fp, "# Auto scan: 0=disabled, 1=enabled\n");
+    fprintf(fp, "auto_scan=%d\n", config.auto_scan);
+
+    fclose(fp);
+    write_log("INFO", 55); // Config saved
+    return 0;
+}
+
+void set_language(language_t lang) {
+    config.language = lang;
+    save_config();
+    write_log("INFO", (lang == LANG_ZH) ? 59 : 58);
+}
+
+int stop_daemon(void) {
+    pid_t pid = read_pid_file();
+    if (pid <= 0) {
+        printf("%s\n", get_message(10));
+        return 0;
+    }
+
+    printf(get_message(11), pid);
+    printf("\n");
+
+    if (kill(pid, SIGTERM) != 0) {
+        printf(get_message(12), strerror(errno));
+        printf("\n");
+        return -1;
+    }
+
+    // Wait up to 30 seconds
+    for (int i = 0; i < 30; i++) {
+        if (kill(pid, 0) != 0) {
+            printf("%s\n", get_message(13));
+            unlink(PID_FILE_PATH);
+            return 0;
+        }
+        sleep(1);
+    }
+
+    printf("%s\n", get_message(14));
+    if (kill(pid, SIGKILL) == 0) {
+        printf("%s\n", get_message(15));
+        unlink(PID_FILE_PATH);
+        return 0;
+    }
+
+    printf("%s\n", get_message(16));
+    return -1;
+}
+
+void show_status(void) {
+    pid_t pid = read_pid_file();
+    if (pid <= 0) {
+        printf("%s\n", get_message(20));
+        return;
+    }
+
+    if (kill(pid, 0) == 0) {
+        printf(get_message(21), pid);
+        printf("\n");
+
+        if (access(LOG_FILE_PATH, R_OK) == 0) {
+            printf("\n%s\n", get_message(22));
+            char cmd[512];
+            snprintf(cmd, sizeof(cmd), "tail -n 10 %s", LOG_FILE_PATH);
+            system(cmd);
+        }
+    } else {
+        printf("%s\n", get_message(23));
+        unlink(PID_FILE_PATH);
+    }
+}
+
+void print_usage(const char *prog) {
+    if (config.language == LANG_ZH) {
+        printf("用法: %s [选项]\n", prog);
+        printf("KSU UID 扫描器 - 管理UID白名单\n\n");
+        printf("选项:\n");
+        printf("  start                启动守护进程\n");
+        printf("  stop                 停止守护进程\n");
+        printf("  restart              重启守护进程\n");
+        printf("  status               显示守护进程状态\n");
+        printf("  reload               重新加载守护进程配置\n");
+        printf("  -s, --scan           执行一次扫描并退出 (忽略auto_scan设置)\n");
+        printf("  -l, --list           列出当前UID白名单\n");
+        printf("  --lang <en|zh>       设置语言 (英文|中文)\n");
+        printf("  --multi-user <0|1>   设置多用户扫描 (0=禁用, 1=启用)\n");
+        printf("  --auto-scan <0|1>    设置自动扫描 (0=禁用, 1=启用)\n");
+        printf("  --config             显示当前配置\n");
+        printf("  -h, --help           显示此帮助信息\n");
+    } else {
+        printf("Usage: %s [options]\n", prog);
+        printf("KSU UID Scanner - Manage UID whitelist\n\n");
+        printf("Options:\n");
+        printf("  start                Start daemon\n");
+        printf("  stop                 Stop daemon\n");
+        printf("  restart              Restart daemon\n");
+        printf("  status               Show daemon status\n");
+        printf("  reload               Reload daemon config\n");
+        printf("  -s, --scan           Perform one scan and exit (ignore auto_scan setting)\n");
+        printf("  -l, --list           List current UID whitelist\n");
+        printf("  --lang <en|zh>       Set language\n");
+        printf("  --multi-user <0|1>   Set multi-user scanning\n");
+        printf("  --auto-scan <0|1>    Set auto scanning\n");
+        printf("  --config             Show current config\n");
+        printf("  -h, --help           Show this help\n");
+    }
+}
+
+void list_whitelist(void) {
+    FILE *fp = fopen(KSU_UID_LIST_PATH, "r");
+    if (!fp) {
+        printf(get_message(42), strerror(errno));
+        printf("\n");
+        return;
+    }
+
+    printf("%s\n", get_message(43));
+    printf("%-8s %-40s\n", "UID", (config.language == LANG_ZH) ? "包名" : "Package");
+    printf("%-8s %-40s\n", "--------", "----------------------------------------");
+
+    char line[512];
+    while (fgets(line, sizeof(line), fp)) {
+        int uid;
+        char package[256];
+        if (sscanf(line, "%d %255s", &uid, package) == 2) {
+            printf("%-8d %-40s\n", uid, package);
+        }
+    }
+    fclose(fp);
+}
+
+void show_config(void) {
+    if (config.language == LANG_ZH) {
+        printf("当前配置:\n");
+        printf("  语言: %s\n", (config.language == LANG_ZH) ? "中文" : "英文");
+        printf("  多用户扫描: %s\n", config.multi_user_scan ? "启用" : "禁用");
+        printf("  自动扫描: %s\n", config.auto_scan ? "启用" : "禁用");
+        printf("  扫描间隔: %d 秒\n", config.scan_interval);
+        printf("  日志级别: %d\n", config.log_level);
+    } else {
+        printf("Current Configuration:\n");
+        printf("  Language: %s\n", (config.language == LANG_ZH) ? "Chinese" : "English");
+        printf("  Multi-user scan: %s\n", config.multi_user_scan ? "Enabled" : "Disabled");
+        printf("  Auto scan: %s\n", config.auto_scan ? "Enabled" : "Disabled");
+        printf("  Scan interval: %d seconds\n", config.scan_interval);
+        printf("  Log level: %d\n", config.log_level);
+    }
+}
+```
+
+映入眼帘的依旧是喜闻乐见的硬编码（_硬编码在 SukiSU Ultra 中真就无处不在了_）
+
+首先是大体架构上的问题，就像是已经说过了的，`ksud` 都还是全英文，给这么个东西整多语言有什么用？
+
+更何况用什么语言还要手动传入，要手动传的多语言有什么意思，加个本机当前语言识别很难吗？
+
+硬编码也是各种形式地硬编码，首先就是硬编码 `messages` 这么多日志信息，然后调用的时候用序号调用？？？
+
+根本没办法理解到底是如何写出来的，近百个文本究竟该如何正确使用？是他一点一点加进去的还是写完后一次性修改的？
+
+这些问题无从得知，只有他自己知道，很难想象这种东西到底要如何维护，追加条目还好说，插入与删除的难度无法想象
+
+多语言也不完全多语言，`ensure_directory_exists` 这个函数原本只有一行 `system("mkdir -p /data/misc/user_uid");`，
+貌似是从 `Shell` 改成 `C` 后忘记了还有多语言这回事了，直接硬编码上英文了，
+日志输出也不用自己封装的 _Android 日志_ + _文件日志_ 了，直接只用 _Android 日志_，也不知何意味（~~何异位~~）。
+再观察一下后可以发现 `save_config` 这块写入的文件倒是没有多语言，日志什么的输出都上了，配置文件怎么不上一个？
+
+翻译的时候也不知道为什么区别对待，`print_usage` 中的选项用途只有在中文有写，英文则是没有，
+写就是写，不写就是不写，不知道为什么要搞这种区别对待，更何况配置文件里面都已经写了英文版本的用途了
+
+再加之 `load_config` 中传递给格式化的字符串是硬编码中文，也不做个多语言了，总之就是莫名其妙的
+
+多语言也使得格式化变得更加麻烦，不少地方都需要再加一个 `printf("\n");`，
+不过无论是在原始字符串加上换行，还是在调用的地方加一个 `printf("\n");`，都是极为麻烦的
+
+#### 脱离人类的语言
+
+很难想象 _ShirkNeko_ 是否还会使用人类的语言，因为根本就想不到他是如何能写出这样的多语言的
+
+在 `set_language` 中他写了一行 `write_log("INFO", (lang == LANG_ZH) ? 59 : 58);`，
+对应的文本是 `{"Language switched to English", "语言切换到英文"}`(58) 与 `{"Language switched to Chinese", "语言切换到中文"}`(59)
+
+但是究竟是什么情况下需要在**切换到 *中文***的时候**显示 *英文***，在**切换到 *英文***的时候**显示 *中文***？
+
+虽然他的多语言本身就是个问题，但是真要这么写的话不应该是同一个文本，英文显示切换到英文，中文显示切换到中文吗？
+
+最起码得要判断语言然后硬编码个切换语言的文本吧？为什么会像这样有完全不可能用得到的文本？
+
+但是 _ShirkNeko_ 对使用人类语言的失控程度还远远不止于此，在 `show_config` 中可以看到，
+他居然还能在 `if (config.language == LANG_ZH)` 分支中写出 `(config.language == LANG_ZH) ? "中文" : "英文"`，
+在 `else` 分支中写出 `(config.language == LANG_ZH) ? "Chinese" : "English"`
+
+我们也无法得知 _ShirkNeko_ 使用的是不是叫做 `中英` 与 `英中` 的语言，在语言确定的情况下仍然可以二次判断当前语言
+
+#### 有日志等级吗？如有
+
+所有的日志输出都是硬编码日志等级，语言都能搞个 enum 了，日志等级却不能搞个？
+
+配置文件中的 `log_level` 也是仅仅有这么个值，不会对运行产生任何影响，形同虚设
+
+最令人匪夷所思的是，在 `write_log` 调用 _Android 日志_ 时，只有**错误**走 `ANDROID_LOG_ERROR`，
+其余所有日志等级都走 `ANDROID_LOG_INFO`
+
+判断其他日志等级或许很难，总之能让除了错误外所有日志都走一个日志等级的话，还不如不用 _Android 日志_，
+已经有了 _文件日志_ 不知道为什么还要搞个其他的有的没的
+
+#### 日志写得比运行还急
+
+在 `write_log` 中每写一次日志就要调用一次 `fsync`，就是说无论干什么都会确保日志写好了才会执行
+
+随便干点什么都会反复**强制写入**，非得让**吃更多性能**，让**闪存寿命损耗更快**？
+
+一个阶段一个阶段地同步或者只同步错误日志不好吗？日志比扫描还急着投胎了
+
+### Kotlin for Shell？也可以 C for Shell！
+
+先前已经见识过不少 SukiSU Ultra 管理器中调用 `Shell` 的代码了，`Kotlin` 中可以这样做，`C` 同样可以
+
+就像是 `ensure_directory_exists` 这个函数，先前已经说过它原本只是调用 `Shell` 执行 `mkdir -p`，
+在提交历史中可以知道因为没权限改成了 `C` 的 `mkdir` 与 `chmod`，
+或许是知道 `/data/misc` 一定存在，所以不再用 `Shell` 了，不过我觉得还是 `mkdir -p` 与 `chmod -R` 适合他
+
+在 `show_status` 中还使用 `tail -n 10` 来输出日志，如果不会写，真的没必要做这么个功能
+
+### 根源问题：为何独立？
+
+`uid_scanner` 是 SukiSU Ultra 的一部分，
+原来的 `kpm` 管理都整合进 `ksud` 里面了，为什么 `uid_scanner` 却是一个相对独立的程序？
+
+```rust uid_scanner.rs expandable icon="code"
+const SCANNER_PATH: &str = "/data/adb/uid_scanner";
+const LINK_DIR: &str = "/data/adb/ksu/bin";
+const LINK_PATH: &str = "/data/adb/ksu/bin/uid_scanner";
+const SERVICE_DIR: &str = "/data/adb/service.d";
+const SERVICE_PATH: &str = "/data/adb/service.d/uid_scanner.sh";
+
+pub fn start_uid_scanner_daemon() -> Result<()> {
+    if !fs::exists(SCANNER_PATH)? {
+        warn!("uid scanner binary not found at {SCANNER_PATH}");
+        return Ok(());
+    }
+
+    if let Err(e) = fs::set_permissions(SCANNER_PATH, fs::Permissions::from_mode(0o755)) {
+        warn!("failed to set permissions for {SCANNER_PATH}: {e}");
+    }
+
+    #[cfg(unix)]
+    {
+        if let Err(e) = fs::create_dir_all(LINK_DIR) {
+            warn!("failed to create {LINK_DIR}: {e}");
+        } else if !fs::exists(LINK_PATH)? {
+            match symlink(SCANNER_PATH, LINK_PATH) {
+                Ok(()) => info!("created symlink {SCANNER_PATH} -> {LINK_PATH}"),
+                Err(e) => warn!("failed to create symlink: {e}"),
+            }
+        }
+    }
+
+    if let Err(e) = fs::create_dir_all(SERVICE_DIR) {
+        warn!("failed to create {SERVICE_DIR}: {e}");
+    }
+
+    if !fs::exists(SERVICE_PATH)? {
+        let content = include_str!("uid_scanner.sh");
+
+        match fs::OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .open(SERVICE_PATH)
+            .and_then(|mut f| {
+                f.write_all(content.as_bytes())?;
+                f.sync_all()?;
+                fs::set_permissions(SERVICE_PATH, fs::Permissions::from_mode(0o755))
+            }) {
+            Ok(()) => info!("created service script {SERVICE_PATH}"),
+            Err(e) => warn!("failed to write {SERVICE_PATH}: {e}"),
+        }
+    }
+
+    info!("starting uid scanner daemon with highest priority");
+    let mut cmd = Command::new(SCANNER_PATH);
+    cmd.arg("start")
+        .stdin(Stdio::null())
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .current_dir("/");
+
+    unsafe {
+        cmd.pre_exec(|| {
+            libc::nice(-20);
+            libc::setsid();
+            Ok(())
+        });
+    }
+
+    match cmd.spawn() {
+        Ok(child) => {
+            info!("uid scanner daemon started with pid: {}", child.id());
+            std::mem::drop(child);
+        }
+        Err(e) => warn!("failed to start uid scanner daemon: {e}"),
+    }
+
+    Ok(())
+}
+```
+
+只有启动是写进 `ksud` 里面的，并且自启动还是在 `service.d` 写入脚本来实现的，而不是用一个更内部的做法
+
+#### 重复处理
+
+```c uid_scanner.c expandable icon="code"
+void setup_daemon_stdio(void) {
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
+    open("/dev/null", O_RDONLY);
+    open("/dev/null", O_WRONLY);
+    open("/dev/null", O_WRONLY);
+}
+
+int daemonize(void) {
+    pid_t pid = fork();
+    if (pid < 0) {
+        LOGE(get_message(4), strerror(errno));
+        return -1;
+    }
+    if (pid > 0) exit(0);
+
+    if (setsid() < 0) {
+        LOGE(get_message(5), strerror(errno));
+        return -1;
+    }
+
+    signal(SIGHUP, SIG_IGN);
+    pid = fork();
+    if (pid < 0) {
+        LOGE(get_message(6), strerror(errno));
+        return -1;
+    }
+    if (pid > 0) exit(0);
+
+    umask(0);
+    if (chdir("/") < 0) {
+        LOGE(get_message(7), strerror(errno));
+        return -1;
+    }
+
+    setup_daemon_stdio();
+    return 0;
+}
+```
+
+在 `ksud` 中的调用启动守护进程与 `uid_scanner` 本身的启动过程高度重合，
+把 _文件描述符屏蔽_、_工作目录设置_、_会话脱离_ 都执行了两遍，对于一个自己的东西，有必要这样闲的干两遍吗？
+
+#### “不稳定”？还不安全！
+
+`uid_scanner` 的运行几乎完全脱离 SukiSU Ultra 的原有内容
+
+它的大部分文件都处于 `/data/misc/user_uid` 这么个与 `/data/adb/ksu` 毫不搭边的目录，这会导致什么呢？
+
+在很多人的印象里，各种 root 实现的东西就应该存放在 `/data/adb` 里面，
+什么出问题了或者想换 root 实现了就直接把 `/data/adb` 删掉就好，通常不需要再干点其他的什么
+
+可是 `uid_scanner` 却运行于 `/data/misc`，可它**并不是**一个可以通过卸载脚本清理内容的模块，
+它是一个直接属于 root 实现的功能，**没有执行清理的机会**，只有在管理器手动关闭时才会清理，
+但是直接卸载管理器了怎么办？不能什么都让别人买单吧？
+
+所以所有使用过 `uid_scanner` 的 SukiSU Ultra 用户，在想清理 root 残留时，
+除 `/data/adb` 外，还要额外注意 `uid_scanner` 所使用的 `/data/misc`，否则仍有残留，
+要解决要么**管理器关闭**，要么就**手动清理**了
+
+##### **明目张胆地交互**
+
+把数据存 `/data/misc` 还称不上“_不安全_”，但是把与内核的交互放在 `/proc` 那就是完全不把安全当回事了
+
+`uid_scanner` 的内核空间会创建 `/proc/ksu_uid_scanner` 以便于与用户空间交互
+
+但是这种写法我只在几年前的**外挂程序**上见过，但是人家**外挂程序**都知道弄**随机路径**了，
+`uid_scanner` 居然在用**固定路径**
+
+这样想知道一个设备有没有在用 SukiSU Ultra 那简直是轻而易举了，
+因为用户空间是否启动 `uid_scanner` 并**不会影响**内核空间，`/proc` 里面的交互节点会**一直存在**
+
+但凡改一下 KernelSU 原本的文件描述符注入逻辑呢？能这样明目张胆地创建一个节点真的让人很不明白
+
+## 结语
+
+SukiSU Ultra 仍是如此抽象，一直都是如此，代码写起来完全就是随心所欲，
+这样如何能给内核集成开发者与使用者一个交代？完全是把除自己外的所有人都不当回事
+
+不知道这么个固步自封的小团体会不会像 _Caelifall_ 一样骂我圣母心，
+但是作为这么多人都在用的项目，总不能在别人看不到的地方一直给别人使绊子甚至自己给自己使绊子吧？
+
+## 附录：满血核心究竟是一个怎样的模块？
+
+我早些已经说过了满血核心的很多问题，但是一直没有说过为什么会有这些问题，因为我怕 _Caelifall_ 看到了就直接修好了，
+但是时间久了感觉就没什么必要了，所以还是写写为什么会这么烂，毕竟它的口碑早就烂成什么样了
+
+### 缝合伊始，前世今生
+
+之前也已说过，满血核心是一个**模块比作者出名**的东西，以至于我不知道 _Caelifall_ 是从 _Luxus_ 改名的，
+还以为是别的某个人接手的这么个烂摊子，结果一直都是他一个人
+
+知道了这么个事，他的问题那就真可是源远流长了，我从来都没有觉得骂他的人少过
+
+最为典型的事件就是缝合模块时把 _nakixii_ 的线程优化程序缝合了进去，
+但是程序里面有模块 ID 验证，他就索性直接把模块 ID 也改成一样的了
+
+抄能抄成这样的真的是少见了，为了抄成功**连模块 ID 都可以抄**，他的开发品质就是这样的
+
+他缝合的那些东西应该可以算得上满血核心的前身，并且从他改名前的满血核心一直到现在，也都是缝合与 AI 的产物，
+因为他连最基本的开发能力都没有，满血核心中的代码我都不知道他自己能不能看懂
+
+但是现在再去考证就有些麻烦了，因为重构成了 `C++` 版本，
+就算是以前的 `Shell` 版本，也被改得面目全非，无法与其他模块进行直接对比，
+但是看个大概也能看出可能是从哪里抄来的，毕竟能实现他那些功能的模块知名的就那么几个
+
+### 水平低下，不知廉耻
+
+无论是从满血核心的 `Shell`、`C++`，以至于 WebUI，都可以看出是一个非常没有水平的废品，
+再加之他本人的素质，满血核心就这样臭名远扬下去了
+
+#### 素质问题：丑态尽出
+
+_Caelifall_ 网暴过包括我在内的很多人，在自己群里发个公告挂个人把自己当大爷一样，但是他群里的人不都是付费品屎吗？
+
+<Note>还会吹嘘自己群里几千人人多，我群里几万人我说过什么了吗？</Note>
+
+他的惯用手段就是用自己的小号去评论区闹事，自己大号发的东西都很少，但是开几个小号轮流对线还骂不过别人一个人真的很可笑
+
+<Note>无论是他自己网暴、教唆网暴，还是他粉丝来网暴我，感觉都挺没什么意义的</Note>
+
+但是发公告挂人也是要挟用户，用户能用都是赏他脸了凭什么要给他做事？他的想法很难让人理解
+
+他把用户开户的事情也是人尽皆知，平常威胁威胁人就算了，哪有开别人户还直接发公告的？
+真不怕有人把他送进去？还在想要把我送进去？
+
+他给韩红基金会捐钱的事情我一直都认为是一个笑话，就他捐的那点钱还远不及他圈到的十分之一，
+还有脸说“爱来自满血核心用户”，怕不是爱来自他兜里零钱吧？
+
+<Note>按别人说的，他有时间捐这么点钱，还不如买点东西抽给用户，但是他都不把用户当人看，还能怎么办？</Note>
+
+还能展现他素质的是他给下载的提取码、配置文件的文件名、一点注释都弄的是挺脏的脏话，真不怕别人膈应
+（我觉得某个知名开发者的事故已经是前车之鉴了）
+
+#### 代码问题：“勇气可嘉”
+
+我没收集过他的黑料，所以就说些很多人都知道的事情，最切实地还是要从能直接看到的代码上来讲
+
+##### **WebUI：难以溯源**
+
+满血核心的 WebUI 从 UI 上就相当抽象了，莫名其妙的 UI 抽搐难以理解是怎么写成这样的
+
+按某位经常从事前端开发的话大概来讲，就是能把 UI 写成这样的，要么是神人，要么是 AI
+
+确实，因为满血核心的 WebUI 的确带来了一种非常诡异的感觉
+
+WebUI 的 `html`、`css`、`js` 代码全都有一种莫名其妙的现象：部分压缩，部分展开
+
+WebUI 的代码都集中在 `index.html`、`script.js`、`style.css` 中，
+除此之外除了一个可能是依赖库的 `draw.js`，就没有其他的了
+
+但是这三个文件都是部分正常展开行，部分压缩成一行，比较可能的是把构建出的代码进行了部分手改或 AI 改，
+但是具体怎样也是无从得知，并且所有的 `svg` 图标都是内联进 `html`/`js` 的，很难分析整个 WebUI 是如何写出来的
+
+##### **C++：掩耳盗铃**
+
+首先是不得不佩服他把所有可执行文件都放在了 `webroot` 这么个用来放前端资源的地方，连好好放文件都做不到
+
+并且一堆可执行都是些莫名其妙的名字，也佩服他开发时的心境
+
+所有可执行都使用了 [Hikari](https://github.com/komimoe/Hikari) 来混淆加密，
+但是实际上只要想破解，他无论是混淆加密 `Shell` 也好，`C++` 也罢，就那样的水平怎么能挡得住？
+
+没有混淆加密的版本我也有，以 `alpha 4.76.8`(`250817`) 举例，这是个在他发布重构版前的一个 `C++` 的版本
+
+实际上就是 `Shell` 转 `C++`，这个版本是完全照搬 `Shell` 版本的，文件命名一模一样，重构估计就是给 AI 下个命令的事
+
+剩下的 `Shell` 代码（`service.sh` 等关键脚本）中已经去掉了其他脚本对应的可执行的 `.sh` 后缀，
+结果通过逆向发现，`C++` 内部的居然还没改，就是说这个版本实际上跑都跑不起来，也不知道重构究竟是如何实现的
+
+通过逆向也能对他的代码质量看个大概，这种东西无论是人写的还是 AI 写的，都没有一点可用性
+
+##### **Shell：暴露本质**
+
+> 一切皆以最后一个 `Shell` 版本 `alpha 4.77.1`(`250817`) 为例
+
+不知道为什么他会对以极弱手段保护的 `Shell` 脚本展现出比命还重要的态度，他看得这么重的这些代码反而是能暴露他问题的本质
+
+<Note>有一个小问题我也不知道是谁起的头，为什么好多模块都把 `versionCode` 写成 `versioncode` 了？</Note>
+
+他的所有代码扔进 _shellcheck_ 里面都是一片红黄，惨不忍睹
+
+###### **毫无意义、徒增风险的验证**
+
+在安装脚本中，验证用户的逻辑居然是硬编码的 _QQ 号_，验证成功会写入个 `/data/local/tests/system/mega` 这么个文件
+
+这么做就是为了好在其他脚本中验证这个文件的存在，好让复制模块目录的用户无法使用（防盗）
+
+只能说谁家好人这么验证啊，没点技术这么瞎搞一点用都没有
+
+###### **硬编码滥用**
+
+依旧是喜闻乐见的硬编码，满血核心的硬编码包括但不限于以下内容:
+
+- 在已经定义 `MOD_PATH=$(dirname "$0")` 的情况下硬编码路径
+- 在安装脚本退出硬编码 `rm -rf "/data/adb/modules_update/Caelifall_SensorDecoy" 2>/dev/null` 并 `exit 1`
+- 在安装脚本硬编码 `/data/adb/modules/Caelifall_SensorDecoy/module.prop` 来判断能否实现他的覆盖安装
+- 定义 `Device_market_name=$(getprop ro.vendor.oplus.market.name)` 与 `cleaned_name=$(echo "$Device_market_name" | tr -d ' ' | tr '[:upper:]' '[:lower:]')` 实现通过机型名称判断机型
+- 在卸载脚本硬编码 `rm -rf "/data/adb/modules_update/Caelifall_SensorDecoy" 2>/dev/null`
+
+###### **非人逻辑，缺乏常识**
+
+满血核心之所以长期以来饱受诟病的其中一条是卸载无法恢复，
+是因为 _Caelifall_ 缺乏对系统服务的常识，肆意修改 `persist` 属性所导致的
+
+他在代码中频繁以 `persist.sys.horae.enable` 作为温控是否启用的依据，
+并且在启用/关闭时都会执行 `setprop` 与 `start`/`stop`
+
+他一直用 `setprop` 与 `start`/`stop` 重复开/关两次，
+但是 `persist` 属性是持久化的，用 `setprop` 改还会影响到本地属性，
+就算要改属性也应当是通过 `resetprop` 来临时性修改，
+这样也用不着再在卸载脚本里面用 `setprop` 来改回去了
+（有些地方还在调用 `setprop ctl.start`/`setprop ctl.stop`，不知何意味（~~何异位~~））
+
+<Note>实际上有部分 `persist` 属性他也没在卸载脚本里面恢复</Note>
+
+其他逻辑也是相当难以理解，
+使用 `if (( $(echo "$android_os_version_number < 14" | bc -l) ))` 来判断 Android 版本，
+直接用版本号而非 SDK 来判断我真是第一次见，更何况 `(( ... ))` **并非 _POSIX_ 语法**，我一般默认都是 AI 写的
+（其他地方也有多处用到了 `(( ... ))` 语法）
+
+判断机型拿名称判断我也是第一次见，更何况是
+`*一加ace2*|*一加ace2v*|*一加ace2pro*|*一加ace3*|*一加ace3pro*|*一加ace3v*|*一加11*|*一加12*`、
+`*一加ace5*|*一加ace5pro*|*一加ace5至尊版*|*一加ace5竞速版*|*一加13*|*一加13t*`
+这种前面都把后面匹配了的无意义判断
+
+他在写大小写转换的时候还是 `tr 'a-z' 'A-Z'` 与 `tr '[:upper:]' '[:lower:]'` 两种形式混用，
+也许是有部分是抄的，也许是有部分是 AI 吧？
+
+变量定义也是 `A`、`B`、`C` 等等随心用:
+
+```shell icon="code"
+O_FILE="${MOD_PATH}/wcsm"
+
+A_SCRIPT="${MOD_PATH}/temp_static.sh"
+B_SCRIPT="${MOD_PATH}/temp_dyn.sh"
+C_SCRIPT="${MOD_PATH}/g_sample.sh"
+D_SCRIPT="${MOD_PATH}/sample_dyn.sh"
+E_SCRIPT="${MOD_PATH}/fast_charge.sh"
+```
+
+并且判断模块功能是否启用还是用的 `ps -ef | grep -Fw "sh ..." | grep -v grep` 开判断的，
+好好利用配置文件是一件相当困难的事情呐
+
+处理个文件也是很奇怪，好好的 `TMPDIR` 不用，非得在安装时自己创建一个 `/data/adb/bk`，
+而且用完了还不删，非得在卸载脚本删是什么逻辑？
+
+###### **进退两难：破坏还是破坏**
+
+我无法理解为什么对 `cgroup` 的处理能被称为“_ColorOS 墓碑完全体_”，明明就是在破坏 `cgroup` 与 `cgroup` 中二选一
+
+```shell expandable icon="code"
+DISPLAY_TOMBSTONE_MENU() {
+    while true; do
+        local current_tombstone=$([ -d "/sys/fs/cgroup/frozen" ] && [ -d "/sys/fs/cgroup/unfrozen" ] && echo "已开启" || echo "未启用")
+        local title="ColorOS墓碑完全体
+当前状态: ${current_tombstone}"
+
+        CREATE_MENU "$title" "开启" "关闭" "返回上级" "退出脚本"
+        case $? in
+            0)
+                TOMBSTONE_CONTROL 1
+                grep -q "^tomb_mode=" "$MOD_PROP" && sed -i "s|^tomb_mode=.*|tomb_mode=1|" "$MOD_PROP" || echo "tomb_mode=1" >> "$MOD_PROP"
+                echo "ColorOS墓碑完全体已开启"
+                sleep 1.5
+                exit 0
+                ;;
+            1)
+                TOMBSTONE_CONTROL 0
+                grep -q "^tomb_mode=" "$MOD_PROP" && sed -i "s|^tomb_mode=.*|tomb_mode=0|" "$MOD_PROP" || echo "tomb_mode=0" >> "$MOD_PROP"
+                echo "ColorOS墓碑完全体已关闭"
+                sleep 1.5
+                exit 0
+                ;;
+            2) return;;
+            3) echo -ne "\033[H\033[J"; exit 0;;
+        esac
+    done
+}
+
+TOMBSTONE_CONTROL() {
+    if [ "$1" -eq 1 ]; then
+        mkdir -p /sys/fs/cgroup/frozen/ /sys/fs/cgroup/unfrozen/
+        chown system:system /sys/fs/cgroup/frozen/cgroup.procs
+        chown system:system /sys/fs/cgroup/frozen/cgroup.freeze
+        chown system:system /sys/fs/cgroup/unfrozen/cgroup.procs
+        chown system:system /sys/fs/cgroup/unfrozen/cgroup.freeze
+        echo 1 > /sys/fs/cgroup/frozen/cgroup.freeze
+        echo 1 > /sys/fs/cgroup/unfrozen/cgroup.freeze
+    elif [ "$1" -eq 0 ]; then
+        if [ -d "/sys/fs/cgroup/frozen" ]; then
+            echo 0 > /sys/fs/cgroup/frozen/cgroup.freeze
+            rmdir /sys/fs/cgroup/frozen
+        fi
+        if [ -d "/sys/fs/cgroup/unfrozen" ]; then
+            echo 0 > /sys/fs/cgroup/unfrozen/cgroup.freeze
+            rmdir /sys/fs/cgroup/unfrozen
+        fi
+    fi
+}
+```
+
+他对他所谓的“墓碑”的处理就是这样的，相当荒谬，能大概猜到是从哪里抄过来的
+
+但是他可能并不认识英文，觉得把 `frozen` 与 `unfrozen` 的冻结都开启效果才好
+
+但是 `frozen` 是 _冻结_，`unfrozen` 是 _解冻_，_冻结_ 与 _解冻_ 全部 **冻结** 除了**造成死机**还能干什么？
+（不过还是要看当前的墓碑用的是哪种冻结方式，用了这两个是真得暴毙）
+
+<Note>把这个代码扔给任何一个研究过墓碑的都会被笑死</Note>
+
+兴许这个“_ColorOS 墓碑完全体_”是对的，手机都冻成板砖了还不够墓碑吗？
+
+但是不开的话，他反而会把 `frozen` 与 `unfrozen` 两个 `cgroup` 节点直接删掉，
+并且他也是以这两个节点是否存在来作为有没有开启这个“墓碑”功能的依据的，不开不应该不管吗，怎么还删了？
+（所以所有满血核心用户使用即关闭 `cgroup` _V2_ 的 `frozen` 与 `unfrozen`）
+
+所以关是彻底关，开是彻底冻，总的来说还是不被冻死机好一点
+
+但是实际上这个功能完全没有存在的必要，都已经确保是 Android `14`**+** 了，
+还要对 `cgroup` _V2_ 的节点下如此黑手？ColorOS 的 `hans` 墓碑都推出多久了啊？
+
+_Caelifall_ 和 _ShirkNeko_ 都是硬删 `cgroup` 的狠人啊...
+
+### 意难平
+
+有的用户还因为满血核心的梗被 _Caelifall_ 踢出去的...
+
+#### 蹭热度吗？实则不然
+
+_Caelifall_ 连 `SUU` 与 `SSU` 都分不清，还以为我在拿 `SSU` 蹭他的热度，我有必要蹭他黑红的热度吗？
+
+但是 `SSU` 中清理系统缓存的功能的确是**专门为满血核心而写的**，因为之前有它的用户在使用后系统故障，
+清理了一下系统缓存的确就好了，我索性就在 `SSU` 里面添加了这个功能

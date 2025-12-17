@@ -1,0 +1,16 @@
+{
+	"name": "oom-workspace",
+	"private": true,
+	"license": "F2DLPRL",
+	"type": "module",
+	"scripts": {
+		"mint": "mint",
+		"dev": "mint dev",
+		"lint": "prettier --write ."
+	},
+	"devDependencies": {
+		"mint": "^4.2.245",
+		"prettier": "^3.7.4",
+		"prettier-plugin-lint-md": "^1.0.1"
+	}
+}

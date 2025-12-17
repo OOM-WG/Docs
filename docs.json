@@ -1,196 +1,152 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "theme": "maple",
-  "name": "OOM.WG.",
-  "description": "回忆溢出工作组 OOM. WG.",
-  "colors": {
-    "primary": "#f56c6c",
-    "light": "#fbf7f7",
-    "dark": "#ef8e8e"
-  },
-  "fonts": {
-    "heading": {
-      "family": "Ubuntu Mono",
-      "weight": 700
-    },
-    "body": {
-      "family": "JetBrains Mono",
-      "weight": 400
-    }
-  },
-  "icons": {
-    "library": "lucide"
-  },
-  "favicon": "favicon.ico",
-  "navigation": {
-    "languages": [
-      {
-        "language": "zh",
-        "dropdowns": [
-          {
-            "dropdown": "博客",
-            "icon": "rss",
-            "groups": [
-              {
-                "group": "简介",
-                "icon": "book-open",
-                "pages": ["index", "we/member", "we/join"]
-              },
-              {
-                "group": "最新发布",
-                "icon": "calendar",
-                "pages": [
-                  "blog/oow-timeline",
-                  "blog/shell-obf-enc",
-                  "blog/go4-sukisu-ultra-2",
-                  "blog/oow-dev-ref",
-                  "blog/ai-for-root",
-                  "blog/go4-mi-oplusrm-sukisu",
-                  "blog/ssu-ko-fund",
-                  "blog/go4-sukisu-ultra",
-                  "blog/suu-for-data-opt"
-                ]
-              }
-            ]
-          },
-          {
-            "dropdown": "ShiroSU",
-            "icon": "drafting-compass",
-            "pages": [
-              {
-                "group": "快速开始",
-                "pages": [
-                  "ssu/base/overview",
-                  "ssu/base/install",
-                  "ssu/base/feats",
-                  "ssu/base/faq"
-                ]
-              },
-              {
-                "group": "开发者文档",
-                "pages": [
-                  "ssu/dev/module/index",
-                  "ssu/dev/module/manager",
-                  "ssu/dev/module/cfgui",
-                  "ssu/dev/module/webui",
-                  "ssu/dev/module/root",
-                  "ssu/dev/module/kernel",
-                  "ssu/dev/module/builder",
-                  "ssu/dev/scheme"
-                ]
-              },
-              {
-                "group": "SSU 详细文档",
-                "pages": [
-                  "ssu/ssu/origin",
-                  "ssu/ssu/principle",
-                  "ssu/ssu/defense",
-                  "ssu/ssu/compat"
-                ]
-              },
-              {
-                "group": "更新日志",
-                "pages": ["ssu/update/history"]
-              }
-            ]
-          },
-          {
-            "dropdown": "苏柚",
-            "icon": "pencil-ruler",
-            "pages": [
-              {
-                "group": "快速开始",
-                "pages": [
-                  "suu/Guide",
-                  "suu/Features",
-                  "suu/Changelog"
-                ]
-              },
-              {
-                "group": "更多信息",
-                "pages": [
-                  "suu/More/Agreement",
-                  "suu/More/License",
-                  "suu/More/Privacy"
-                ]
-              }
-            ]
-          }
-        ],
-        "global": {
-          "anchors": [
-            {
-              "anchor": "Github",
-              "icon": "github",
-              "href": "https://github.com/oom-wg"
-            },
-            {
-              "anchor": "加入群组",
-              "icon": "users",
-              "href": "https://oom-wg.dev/we/join"
-            }
-          ]
-        }
-      }
-    ]
-  },
-  "logo": {
-    "light": "/logo/img.png",
-    "dark": "/logo/img.png"
-  },
-  "seo": {
-    "metatags": {
-      "robots": "index, follow",
-      "charset": "UTF-8",
-      "viewport": "width=device-width, initial-scale=1.0",
-      "googlebot": "index, follow",
-      "generator": "Mintlify",
-      "theme-color": "#f56c6c",
-      "format-detection": "telephone=no",
-      "referrer": "origin",
-      "rating": "general",
-      "revisit-after": "7 days",
-      "language": "zh-CN",
-      "copyright": "回忆溢出工作组 OOM. WG.",
-      "distribution": "global",
-      "HandheldFriendly": "True",
-      "MobileOptimized": "320",
-      "apple-mobile-web-app-capable": "yes",
-      "apple-mobile-web-app-status-bar-style": "black",
-      "apple-mobile-web-app-title": "OOM.WG.",
-      "application-name": "OOM.WG.",
-      "msapplication-TileColor": "#f56c6c",
-      "og:type": "website",
-      "og:image": "https://oom-wg.dev/logo/img.png",
-      "og:site_name": "OOM.WG.",
-      "og:locale": "zh_CN",
-      "canonical": "https://oom-wg.dev"
-    }
-  },
-  "metadata": {
-    "timestamp": true
-  },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity"
-    ]
-  },
-  "footer": {
-    "socials": {
-      "telegram": "https://t.me/OOM_Group",
-      "github": "https://github.com/OOM-WG",
-      "discord": "https://discord.gg/4HQ2DaqKX"
-    }
-  },
-  "errors": {
-    "404": {
-      "redirect": true,
-      "title": "找不到页面",
-      "description": "这个_页面_到底**发生了什么**？"
-    }
-  }
+	"$schema": "https://mintlify.com/docs.json",
+	"theme": "maple",
+	"name": "回忆溢出工作组",
+	"description": "致力于用编程创造美好回忆的组织",
+	"footer": {
+		"socials": {
+			"telegram": "https://t.me/OOM_WG",
+			"github": "https://github.com/OOM-WG",
+			"discord": "https://discord.gg/4HQ2DaqKX"
+		}
+	},
+	"favicon": "/images/logo/oow.ico",
+	"logo": {
+		"light": "/images/logo/oow.webp",
+		"dark": "/images/logo/oow.webp"
+	},
+	"colors": {
+		"primary": "#b4cce9"
+	},
+	"fonts": {
+		"heading": {"family": "Ubuntu Mono"},
+		"body": {"family": "JetBrains Mono"}
+	},
+	"icons": {
+		"library": "lucide"
+	},
+	"errors": {
+		"404": {
+			"redirect": false,
+			"title": "您走丢了吗？",
+			"description": "请确保链接**没有缺失**或**没有多余的*申请恢复访问***，若仍不可用请**联系开发者**"
+		}
+	},
+	"metadata": {
+		"timestamp": true
+	},
+	"contextual": {
+		"options": ["copy", "view", "chatgpt", "claude", "perplexity"]
+	},
+	"seo": {
+		"indexing": "all",
+		"metatags": {
+			"canonical": "https://oom-wg.dev"
+		}
+	},
+	"navigation": {
+		"languages": [
+			{
+				"language": "zh",
+				"dropdowns": [
+					{
+						"dropdown": "博客",
+						"icon": "rss",
+						"groups": [
+							{
+								"group": "简介",
+								"icon": "book-open",
+								"pages": ["index", "developers", "projects", "projects-ext"]
+							},
+							{
+								"group": "回忆篇章",
+								"icon": "calendar",
+								"pages": [
+									"blog/go4-sukisu-ultra-3",
+									"blog/oow-timeline",
+									"blog/shell-obf-enc",
+									"blog/go4-sukisu-ultra-2",
+									"blog/oow-dev-ref",
+									"blog/ai-for-root",
+									"blog/go4-mi-oplusrm-sukisu",
+									"blog/ssu-ko-fund",
+									"blog/go4-sukisu-ultra",
+									"blog/suu-for-data-opt"
+								]
+							}
+						]
+					},
+					{
+						"dropdown": "ShiroSU",
+						"icon": "drafting-compass",
+						"pages": [
+							{
+								"group": "快速开始",
+								"pages": [
+									"ssu/base/overview",
+									"ssu/base/install",
+									"ssu/base/feats",
+									"ssu/base/faq"
+								]
+							},
+							{
+								"group": "开发者文档",
+								"pages": [
+									"ssu/dev/module/index",
+									"ssu/dev/module/manager",
+									"ssu/dev/module/cfgui",
+									"ssu/dev/module/webui",
+									"ssu/dev/module/root",
+									"ssu/dev/module/kernel",
+									"ssu/dev/module/builder",
+									"ssu/dev/scheme"
+								]
+							},
+							{
+								"group": "SSU 详细文档",
+								"pages": [
+									"ssu/ssu/origin",
+									"ssu/ssu/principle",
+									"ssu/ssu/defense",
+									"ssu/ssu/compat"
+								]
+							},
+							{
+								"group": "更新日志",
+								"pages": ["ssu/update/history"]
+							}
+						]
+					},
+					{
+						"dropdown": "苏柚",
+						"icon": "pencil-ruler",
+						"pages": [
+							{
+								"group": "快速开始",
+								"pages": ["suu/Guide", "suu/Features", "suu/Changelog"]
+							},
+							{
+								"group": "更多信息",
+								"pages": ["suu/More/Agreement", "suu/More/License", "suu/More/Privacy"]
+							}
+						]
+					}
+				],
+				"global": {
+					"anchors": [
+						{
+							"anchor": "Github",
+							"icon": "github",
+							"href": "https://github.com/OOM-WG"
+						},
+						{
+							"anchor": "加入群组",
+							"icon": "users",
+							"href": "https://oom-wg.dev/join"
+						}
+					]
+				}
+			}
+		]
+	}
 }

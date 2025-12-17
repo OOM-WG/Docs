@@ -1,20 +1,19 @@
 ---
 title: SukiSU Ultra 源码里的逆天操作
+sidebarTitle: SukiSU 源码里的逆天操作
 description: SukiSU Ultra 究竟是一个什么样的项目？
-keywords: ['SukiSU Ultra', 'root', '开发', 'Kotlin', 'Shell']
+keywords: [SukiSU Ultra, root, 开发, Kotlin, Shell]
 ---
 
-import {Avatar} from "/snippets/avatar.jsx"
+import {Avatar, ShiroAvatar} from '/snippets/avatars.jsx'
 
-<Avatar
-name="白彩恋"
-role="全栈开发者"
-avatar="/images/avatar/shiro.webp"
-date="25 年 6 月 30 日 星期一"
-/>
+<ShiroAvatar date='2025 年 6 月 30 日 星期一' />
 
-
-<Tip>[二周目请见此处](go4-sukisu-ultra-2)</Tip>
+> 各周目合集:
+>
+> - [一周目](go4-sukisu-ultra)
+> - [二周目](go4-sukisu-ultra-2)
+> - [三周目](go4-sukisu-ultra-3)
 
 ## 前言
 
@@ -24,7 +23,7 @@ SukiSU Ultra，一个名字抽象、包名抽象、作者抽象、用户抽象�
 
 ## 抽象源码大合集
 
-<Tip>部分问题已被回忆溢出修复，但是 SukiSU Ultra 的根病无法治愈</Tip>
+> 部分问题已被回忆溢出修复，但是 SukiSU Ultra 的根病无法治愈
 
 SukiSU Ultra 的包名已经很抽象了，`com.sukisu.ultra`、`io.sukisu.ultra`以及`zako.zako.zako`，图标还是个表情包，看来写 SukiSU Ultra 的和用 SukiSU Ultra 的都是纯贬低意的”杂鱼“
 
@@ -273,7 +272,9 @@ private fun StringBuilder.generateCleanupResidueSection() {
 
 但是呢，`${'$'}`这种写法到底是什么神人写法，实用性为 0 而且纯纯给代码凑字数，而且`${'$'}`和`\$`混用，写这么多转义就不能用一下`$$`吗？
 
-<Tip>更让人难评的是这么多 shell 代码就非得塞在 kotlin 代码里面，搞个单独的文件很难吗？跟某位模块作者一样难评</Tip>
+<Tip>
+	更让人难评的是这么多 shell 代码就非得塞在 kotlin 代码里面，搞个单独的文件很难吗？跟某位模块作者一样难评
+</Tip>
 
 ```kotlin SuSFSManager.kt expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/SuSFSManager.kt

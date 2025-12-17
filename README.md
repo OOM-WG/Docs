@@ -1,16 +1,26 @@
+# [回忆溢出工作组综合网站](https://oom-wg.dev)
 
-## Development
+为统一文档利于维护，目前已使用 [Mintlify](https://www.mintlify.com/) 统一文章、项目文档部署
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
+以下项目文档已迁至此处:
 
+- ShiroSU <ssu.oom-wg.dev>
+- 苏柚 <suu.oom-wg.dev>
+
+## 本地预览
+
+初始化项目:
+
+```shell
+pnpm i --no-frozen-lockfile
 ```
-npm i -g mint
+
+运行本地预览:
+
+```shell
+pnpm dev
 ```
 
-Run the following command at the root of your documentation, where your `docs.json` is located:
+## [许可证](LICENSE.txt)
 
-```
-mint dev
-```
-
-View your local preview at `http://localhost:3000`.
+本项目使用 [F2DLPR 许可证](https://license.fileto.download)，适用于所有文章、文档，不适用于所有图标、头像

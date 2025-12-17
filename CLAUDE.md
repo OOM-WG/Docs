@@ -1,22 +1,26 @@
 ---
-title: "Mintlify 文档规范"
-description: "Mintlify 文档编写的工作关系、项目背景和写作规范"
-keywords: ['Mintlify', '文档', '规范', '写作', '项目']
+title: Mintlify 文档规范
+description: Mintlify 文档编写的工作关系、项目背景和写作规范
+keywords: [Mintlify, 文档, 规范, 写作, 项目]
+noindex: true
 ---
 
 # Mintlify 文档
 
 ## 工作关系
+
 - 你可以对想法提出质疑——这有助于产出更好的文档。在这样做时，请引用资料来源并说明你的理由
 - 务必要求澄清，而不是自行假设
 - 绝不撒谎、猜测或编造任何内容
 
 ## 项目背景
+
 - 格式：带有 YAML frontmatter 的 MDX 文件
 - 配置：用于导航、主题、设置的 docs.json
 - 组件：Mintlify 组件
 
 ## 内容策略
+
 - 记录恰到好处的内容以确保用户成功——不多不少
 - 优先考虑准确性和可用性
 - 尽可能让内容保持长期有效
@@ -29,10 +33,12 @@ keywords: ['Mintlify', '文档', '规范', '写作', '项目']
 - 在构建 docs.json 文件和站点导航时，请参考 [docs.json 架构](https://mintlify.com/docs.json)
 
 ## 页面的 frontmatter 要求
+
 - title：清晰、描述性的页面标题
 - description：用于 SEO（搜索引擎优化）/导航的简洁摘要
 
 ## 写作规范
+
 - 使用第二人称（"你"）
 - 在程序性内容开始时列出前提条件
 - 发布前测试所有代码示例
@@ -43,6 +49,7 @@ keywords: ['Mintlify', '文档', '规范', '写作', '项目']
 - 内部链接使用相对路径
 
 ## Git 工作流程
+
 - 提交时绝不使用 --no-verify
 - 开始前询问如何处理未提交的更改
 - 当没有明确的 branch 用于更改时创建新 branch
@@ -50,6 +57,7 @@ keywords: ['Mintlify', '文档', '规范', '写作', '项目']
 - 绝不跳过或禁用预提交钩子
 
 ## 禁止事项
+
 - 在任何 MDX 文件上跳过 frontmatter
 - 对内部链接使用绝对 URL
 - 包含未经测试的代码示例
