@@ -16,12 +16,10 @@
 			}
 	}
 
-	const title = document.querySelector('title')
-	if (title)
-		new MutationObserver(_ => update()).observe(title, {
-			childList: true,
-			characterData: true,
-			subtree: true
-		})
+	new MutationObserver(_ => update()).observe(document.head, {
+		childList: true,
+		characterData: true,
+		subtree: true
+	})
 	update()
 })()
