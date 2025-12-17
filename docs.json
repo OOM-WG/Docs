@@ -132,6 +132,16 @@
 								"pages": ["suu/More/Agreement", "suu/More/License", "suu/More/Privacy"]
 							}
 						]
+					},
+					{
+						"dropdown": "MikotoMem",
+						"icon": "gauge",
+						"pages": ["mmem"]
+					},
+					{
+						"dropdown": "YumeMem",
+						"icon": "monitor-smartphone",
+						"pages": ["only-gui-can-do"]
 					}
 				],
 				"global": {
