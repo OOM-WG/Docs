@@ -49,7 +49,8 @@
 	"seo": {
 		"indexing": "all",
 		"metatags": {
-			"canonical": "https://oom-wg.dev"
+			"canonical": "https://oom-wg.dev",
+			"baidu-site-verification": "codeva-Y9T3t5qRxy"
 		}
 	},
 	"navigation": {
