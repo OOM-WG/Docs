@@ -27,6 +27,12 @@
 	"icons": {
 		"library": "lucide"
 	},
+	"redirects": [
+		{
+			"source": "/posts/:path*",
+			"destination": "/blog/:path*"
+		}
+	],
 	"errors": {
 		"404": {
 			"redirect": false,
