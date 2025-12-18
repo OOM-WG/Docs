@@ -1,14 +1,29 @@
 {
 	"$schema": "https://mintlify.com/docs.json",
 	"theme": "maple",
-	"name": "回忆溢出工作组",
+	"name": "回忆溢出工作组 (OOM WG)",
 	"description": "致力于用编程创造美好回忆的组织",
 	"footer": {
 		"socials": {
 			"telegram": "https://t.me/OOM_WG",
 			"github": "https://github.com/OOM-WG",
 			"discord": "https://discord.gg/4HQ2DaqKX"
-		}
+		},
+		"links": [
+			{
+				"header": "相关协议",
+				"items": [
+					{
+						"label": "F2DLPR 许可证",
+						"href": "https://license.fileto.download/"
+					},
+					{
+						"label": "友盟+ 隐私政策",
+						"href": "https://www.umeng.com/policy"
+					}
+				]
+			}
+		]
 	},
 	"favicon": "/images/logo/oow.ico",
 	"logo": {
