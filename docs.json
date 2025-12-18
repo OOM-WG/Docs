@@ -22,6 +22,15 @@
 						"href": "https://www.umeng.com/policy"
 					}
 				]
+			},
+			{
+				"header": "友链",
+				"items": [
+					{
+						"label": "Latest File",
+						"href": "https://latestfile.zip/"
+					}
+				]
 			}
 		]
 	},
