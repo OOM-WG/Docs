@@ -2,7 +2,7 @@
 title: SukiSU Ultra 源码里的逆天操作
 sidebarTitle: SukiSU 源码里的逆天操作
 description: SukiSU Ultra 究竟是一个什么样的项目？
-keywords: [SukiSU Ultra, root, 开发, Kotlin, Shell]
+keywords: [SukiSU Ultra, root, Android 开发, Kotlin, Shell]
 ---
 
 import {Avatar, ShiroAvatar} from '/snippets/avatars.jsx'
@@ -14,6 +14,9 @@ import {Avatar, ShiroAvatar} from '/snippets/avatars.jsx'
 > - [一周目](go4-sukisu-ultra)
 > - [二周目](go4-sukisu-ultra-2)
 > - [三周目](go4-sukisu-ultra-3)
+> - [四周目(总结)](go4-sukisu-ultra-4)
+>
+> [历史渊源](oow-timeline#sukisu-ultra-%E5%B0%8F%E5%9B%A2%E4%BD%93)
 
 ## 前言
 
@@ -133,6 +136,8 @@ public static void CopyFileTo(String path, String target) {
 SukiSU Ultra 在不断刷新我对低劣代码的认知，我是真的第一次遇到检测文件存在用`file`然后判断有没有报错`No such file or directory`的。
 
 都是 root 管理器了，还在用 shell 来检测文件复制文件，还是通过这种莫名其妙的方法，很难想象是怎么写出来的，我怎么写也想不到用`file`来检测，顶多想到`test -f ...`、`[ -f ... ]`、`[[ -f ... ]]`这些东西。
+
+> 甚至可以发现这个代码的逻辑是反的
 
 ```java UltraToolInstall.java expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/io/sukisu/ultra/UltraToolInstall.java
