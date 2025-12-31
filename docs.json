@@ -81,9 +81,9 @@
 		"languages": [
 			{
 				"language": "zh",
-				"dropdowns": [
+				"products": [
 					{
-						"dropdown": "博客",
+						"product": "博客",
 						"icon": "rss",
 						"groups": [
 							{
@@ -111,67 +111,86 @@
 						]
 					},
 					{
-						"dropdown": "ShiroSU",
+						"product": "ShiroSU",
 						"icon": "drafting-compass",
 						"pages": [
+							"ssu/index",
+							"ssu/update",
 							{
 								"group": "快速开始",
+								"pages": ["ssu/use/index", "ssu/use/faq"]
+							},
+							{
+								"group": "开发文档",
 								"pages": [
-									"ssu/base/overview",
-									"ssu/base/install",
-									"ssu/base/feats",
-									"ssu/base/faq"
+									"ssu/dev/index",
+									{
+										"group": "管理器开发",
+										"pages": [
+											"ssu/dev/man/index",
+											"ssu/dev/man/mod-info",
+											"ssu/dev/man/scheme",
+											"ssu/dev/man/cfgui",
+											"ssu/dev/man/webui"
+										]
+									},
+									{
+										"group": "root 开发",
+										"pages": [
+											"ssu/dev/root/index",
+											{
+												"group": "模块开发",
+												"pages": [
+													"ssu/dev/root/mod/index",
+													"ssu/dev/root/mod/builder"
+												]
+											}
+										]
+									}
 								]
 							},
 							{
-								"group": "开发者文档",
-								"pages": [
-									"ssu/dev/module/index",
-									"ssu/dev/module/manager",
-									"ssu/dev/module/cfgui",
-									"ssu/dev/module/webui",
-									"ssu/dev/module/root",
-									"ssu/dev/module/kernel",
-									"ssu/dev/module/builder",
-									"ssu/dev/scheme"
-								]
-							},
-							{
-								"group": "SSU 详细文档",
-								"pages": [
-									"ssu/ssu/origin",
-									"ssu/ssu/principle",
-									"ssu/ssu/defense",
-									"ssu/ssu/compat"
-								]
-							},
-							{
-								"group": "更新日志",
-								"pages": ["ssu/update/history"]
+								"group": "详细文档",
+								"pages": ["ssu/compat", "ssu/more/origin", "ssu/more/privacy"]
 							}
 						]
 					},
 					{
-						"dropdown": "苏柚",
+						"product": "苏柚",
 						"icon": "pencil-ruler",
-						"pages": [
+						"dropdowns": [
 							{
-								"group": "快速开始",
-								"pages": ["suu/Guide", "suu/Features", "suu/Changelog"]
+								"dropdown": "Android",
+								"icon": "tablet-smartphone",
+								"pages": [
+									{
+										"group": "快速开始",
+										"pages": ["suu/Guide", "suu/Features", "suu/Changelog"]
+									},
+									{
+										"group": "更多信息",
+										"pages": [
+											"suu/More/Agreement",
+											"suu/More/License",
+											"suu/More/Privacy"
+										]
+									}
+								]
 							},
 							{
-								"group": "更多信息",
-								"pages": ["suu/More/Agreement", "suu/More/License", "suu/More/Privacy"]
+								"dropdown": "Windows",
+								"icon": "monitor-smartphone",
+								"pages": ["suu/win/index"]
 							}
 						]
 					},
 					{
-						"dropdown": "MikotoMem",
+						"product": "MikotoMem",
 						"icon": "gauge",
 						"pages": ["mmem"]
 					},
 					{
-						"dropdown": "YumeMem",
+						"product": "YumeMem",
 						"icon": "monitor-smartphone",
 						"pages": ["only-gui-can-do"]
 					}
@@ -179,7 +198,7 @@
 				"global": {
 					"anchors": [
 						{
-							"anchor": "Github",
+							"anchor": "GitHub",
 							"icon": "github",
 							"href": "https://github.com/OOM-WG"
 						},

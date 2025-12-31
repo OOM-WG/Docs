@@ -1,0 +1,118 @@
+---
+title: ConfigUI 模块开发
+description: ShiroSU 管理器的 ConfigUI 开发
+icon: bolt
+---
+
+<Danger>
+	ConfigUI 仍在开发中，由于计划有变，我们将要开发出一套完整的 FWW for Compose 之后再将其应用于
+	ConfigUI，当前文档**仅供参考**
+</Danger>
+
+<span>
+	ConfigUI 是 ShiroSU 特有的一种功能，旨在通过{' '}
+	<Tooltip
+		headline='FVV'
+		tip='一种简单易上手的语言，主要目的是实现一种自由方便的配置文件格式'
+		cta='文档'
+		href='https://app.niggergo.work/docs/fw/'>
+		FVV
+	</Tooltip>{' '}
+	的{' '}
+	<Tooltip
+		headline='FWW (FVV Widget)'
+		tip='FVV 的图形化实现，尽管 FVV 本身并不是一种独立语言，但是 FWW 通过其他语言解析 FWW 的配置文件从而生成界面'
+		cta='文档'
+		href='https://app.niggergo.work/docs/fw/fww'>
+		FWW
+	</Tooltip>{' '}
+	低学习成本地快速生成{' '}
+	<Tooltip
+		headline='CU NGA 风格'
+		tip='基于 Chenzyadb 的 CU 风格 的 MD3 风格 界面而设计的一种类似于它的界面风格，但是 CU NGA 风格 也可以基于 FlexiUI 或 Miuix 实现，后期我们将再设计出一套独立的 YumeStar 风格'>
+		CU NGA 风格
+	</Tooltip>{' '}
+	的模块配置界面
+</span>
+
+使用 ConfigUI 要求模块的**配置文件必须以 FVV 格式 编写**，除非是能让 FVV 解析的简单赋值格式
+
+ConfigUI 的 配置文件、多语言文件、UI 文件 也必须以 FVV 格式 编写，因此需要了解 FVV 格式 才能使用 ConfigUI
+
+## 模块目录结构
+
+模块目录应遵循以下结构:
+
+<Tree>
+	<Tree.Folder name='模块目录' defaultOpen>
+		<Tree.File name='module.prop' />
+		<Tree.Folder name='cfgui' defaultOpen>
+			<Tree.File name='config.fvv' />
+			<Tree.Folder name='ui'>
+				<Tree.File name='FWW UI 配置文件...' />
+			</Tree.Folder>
+			<Tree.Folder name='lang'>
+				<Tree.File name='FVV 多语言 配置文件...' />
+			</Tree.Folder>
+		</Tree.Folder>
+		<Tree.File name='其他模块资源...' />
+	</Tree.Folder>
+</Tree>
+
+- `module.prop` 为模块描述文件
+- `cfgui` 目录是 ConfigUI 的根目录，包含所有配置
+  - `config.fvv` 为 ConfigUI 配置文件
+  - `ui` 目录为 FWW 配置目录
+  - `lang` 目录可选，用于配置多语言文本
+
+## 配置 ConfigUI
+
+`config.fvv` 是 ConfigUI 的配置文件，其中应当包含以下内容:
+
+- `ConfigPath`: 模块的 FVV 配置文件路径，将会以 _`cfgui` 的相对路径_、_模块目录的相对路径_、_绝对路径_ 顺序查找
+- `DefaultLang` (可选): 多语言的默认回滚语言
+- `IconPath` (可选): 图标路径，用于创建快捷方式
+- `InitCommand` (可选): ConfigUI 初始化时需要执行的 Shell 代码
+
+### 多语言
+
+多语言的配置文件需要存储到 `lang` 目录内，以**下斜杠**语言标签作为子目录名称，其中的文件会被递归载入至当前语言标签
+
+<Warning>
+	语言标签目录内的 FVV 配置文件会被**无差别**递归读取，子目录路径不会影响其被解析时的行为！
+</Warning>
+
+多语言内的文本会被存储到 `Lang` 内，故调用时需要在值名称前加上 `Lang.`
+
+### 界面
+
+界面的配置文件需要存储到 `ui` 目录内
+
+<Danger>
+	FWW 的文件后缀是 `fww` 而不是 `fvv`！
+	<></>目录内的 FWW 配置文件会被**无差别**递归读取，子目录路径不会影响其被解析时的行为！
+</Danger>
+
+由于解析时会直接赋值多语言文本，故无法直接将 FWW 界面存储至 `UI` 内，请务必保证每个页面均以 `UI.` 开头！
+仅有赋值进 `UI` 内的页面才会被解析为 FWW 界面！
+
+ConfigUI 的 FWW 界面均使用 **FVV 列表** 作为页面，
+其中 `UI.Main` 是 ConfigUI 的默认页面，编写 ConfigUI 需要确保至少有 `UI.Main` 一个界面！
+
+ConfigUI 会将页面的注释设置为该页面的标题:
+
+```fvv
+UI.PageA = <页面A> [
+    <...>
+]
+<直接命名>
+
+UI.PageB = <Lang.PageB> [
+    <...>
+]
+<通过多语言命名>
+```
+
+<Tip>主页面的标题默认是模块名称，在 FWW 中再自定义名称也是允许的</Tip>
+
+每个页面的除 `UI.` 外的内容是其路由名称，并且 ConfigUI **不支持**多级定义！请确保所有页面定义均为 `UI` 的顶级定义！

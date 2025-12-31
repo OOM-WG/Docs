@@ -1,0 +1,32 @@
+---
+title: 开发 ShiroSU
+description: ShiroSU 各项内容的开发适配
+icon: code
+---
+
+ShiroSU 作为有多条开发方向的项目，为 ShiroSU 开发适配从而 ShiroSU 特性大致有两条方向:
+
+- **管理器**特性: 是 ShiroSU **管理器** 的特性，在其他 root 实现上也可使用
+- **原生 root** 特性: 是 ShiroSU **root 实现** 的特性，与其他 root 实现略有不同
+
+<Tip>
+	如果将 ShiroSU 仅用于其他 root 实现的 root 管理器，那么模块标准应当以当前 root 实现为准，ShiroSU
+	**不会干涉**其他 root 实现的任何行为
+	<></>
+	但不依赖 root 实现的标准可以**额外再遵守** ShiroSU 管理器 的标准，实现对 ShiroSU 管理器的专门适配
+</Tip>
+
+<Columns cols={2}>
+	<Card title='管理器开发' icon='folder-code' arrow href='/ssu/dev/man'>
+		基于 **ShiroSU 管理器** 的特性
+	</Card>
+	<Card title='原生开发' icon='shield-plus' arrow href='/ssu/dev/root'>
+		基于 **ShiroSU root 实现** 的特性
+	</Card>
+</Columns>
+
+---
+
+<Card title='模块构建' icon='drill' arrow href='/ssu/dev/root/mod/builder'>
+	为 ShiroSU 而设计的模块构建工具，**同时适用**于 ShiroSU 与其他 root 实现
+</Card>

@@ -1,0 +1,37 @@
+---
+title: WebUI 模块开发
+description: ShiroSU 管理器的 WebUI 开发
+icon: app-window
+---
+
+ShiroSU 的 WebUI 标准与 KerenlSU 保持一致，详细规范请参考 [KerenlSU 规范](https://kernelsu.org/zh_CN/guide/module-webui.html)
+
+<Warning>**不保证**与 KernelSU 标准持续同步，可能出现滞后情况</Warning>
+
+## 模块目录结构
+
+模块目录应遵循以下结构:
+
+<Tree>
+	<Tree.Folder name='模块目录' defaultOpen>
+		<Tree.File name='module.prop' />
+		<Tree.Folder name='webroot' defaultOpen>
+			<Tree.File name='index.html' />
+			<Tree.File name='其他网页资源...' />
+		</Tree.Folder>
+		<Tree.File name='其他模块资源...' />
+	</Tree.Folder>
+</Tree>
+
+<Warning>`index.html` 不可更名为 `index.htm` 等文件名！</Warning>
+
+<Note>不建议把任何非网页资源放置于 `webroot` 目录内</Note>
+
+## 开发 Demo
+
+<Card title='WebUI Demo 仓库' icon='code' arrow href='https://github.com/OOM-WG/WebUI_Demo'>
+	<p>
+		我们提供了一个简单的 WebUI Demo，它使用 **vite** 进行打包，并基于 **vue3** 开发，同时集成了
+		**KernelSU** 包，以帮助您快速入门。
+	</p>
+</Card>
