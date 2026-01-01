@@ -18,7 +18,7 @@
 		for (const config of projects)
 			if (window.location.pathname.startsWith(config.path)) {
 				if (document.title.endsWith(` - ${config.name}`)) return
-				const oow = '回忆溢出工作组 (OOM WG)'
+				const oow = '回忆溢出工作组'
 				if (document.title.includes(` - ${oow}`)) {
 					document.title = document.title.replace(` - ${oow}`, ` - ${config.name}`)
 					if (!config.icon) {

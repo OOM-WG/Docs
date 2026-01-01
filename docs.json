@@ -1,7 +1,7 @@
 {
 	"$schema": "https://mintlify.com/docs.json",
 	"theme": "maple",
-	"name": "回忆溢出工作组 (OOM WG)",
+	"name": "回忆溢出工作组",
 	"description": "致力于用编程创造美好回忆的组织",
 	"footer": {
 		"socials": {
