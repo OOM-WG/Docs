@@ -1,0 +1,35 @@
+---
+title: 功能概览
+description: 苏柚的存储功能概览
+icon: hard-drive
+---
+
+<Card title='Nyanya 整理' icon='folder-cog' arrow href='/suu/feats/data/nyanya'>
+	通过监听目录或定时循环来整理文件
+</Card>
+
+<Card title='C&C 清理' icon='brush-cleaning' arrow href='/suu/feats/data/c&c'>
+	定时循环清理文件、目录
+</Card>
+
+<Card title='GBB 优质存储' icon='trending-up-down' arrow href='/suu/feats/data/gbb'>
+	重定向目录
+</Card>
+
+---
+
+## 路径对照
+
+配置中的可用变量可在此参照使用:
+
+| 变量                          | 单用户                    | 多用户                    | 需要 root |
+| ----------------------------- | ------------------------- | ------------------------- | --------- |
+| `{id}`                        | `0`                       | `<用户ID>`                | 仅多用户  |
+| `{storage}`                   | `/sdcard`                 | `/storage/emulated/{id}`  | 仅多用户  |
+| `{androidData}`               | `{storage}/Android/data`  | `{storage}/Android/data`  | 是        |
+| `{androidMedia}`              | `{storage}/Android/media` | `{storage}/Android/media` | 是        |
+| `{androidObb}`                | `{storage}/Android/obb`   | `{storage}/Android/obb`   | 是        |
+| ~~`{userData}`~~ `{dataUser}` | `/data/data`              | `/data/user/{id}`         | 是        |
+| `{dataMedia}`                 | `/data/media/0`           | `/data/media/{id}`        | 是        |
+
+<Note>非 root 权限仅可处理当前用户，且无法访问各类私有目录，局限性较大</Note>

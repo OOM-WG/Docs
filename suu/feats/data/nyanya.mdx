@@ -1,0 +1,257 @@
+---
+title: Nyanya 整理
+description: 苏柚的 Nyanya 整理功能
+icon: folder-cog
+---
+
+Nyanya 整理可通过监听目录或定时循环将文件归类到指定目录，
+按照规则将文件以 _文件名_/_文件类型_ 分类，还可以再依据时间进行二次分类
+
+## 配置
+
+<Note>配置可以 导出/导入 来进行原始文件编辑或分享配置</Note>
+
+<AccordionGroup>
+	<Accordion title='信息配置'>
+		<ParamField
+			query={
+				<span>
+					名称 <code>Name</code>
+				</span>
+			}
+			type='string'
+			required>
+			配置文件名称
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					作者 <code>Author</code>
+				</span>
+			}
+			type='string'
+			required>
+			配置文件作者
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					版本 <code>Version</code>
+				</span>
+			}
+			type='string'
+			required>
+			配置文件版本
+		</ParamField>
+		<Note>信息配置对功能**无任何作用**，仅用于标记配置信息</Note>
+	</Accordion>
+	<Accordion title='基本配置'>
+		<ParamField
+			query={
+				<span>
+					调试模式 <code>Debug</code>
+				</span>
+			}
+			type='boolean'
+			required>
+			输出更多日志以排查问题
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					多用户支持 <code>MultiUser</code>
+				</span>
+			}
+			type='boolean'
+			required
+			default='false (当非 root 时强制)'>
+			<Badge color='red' icon='triangle-alert'>
+				仅 _root_ 可用
+			</Badge>
+			处理当前设备上多个用户上的数据
+		</ParamField>
+	</Accordion>
+	<Accordion title='功能配置'>
+		<ParamField
+			query={
+				<span>
+					归类路径 <code>Classify</code>
+				</span>
+			}
+			type='string'
+			required>
+			归类后文件的存放路径
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					移动延迟 <code>Delay</code>
+				</span>
+			}
+			type='integer'
+			required>
+			<Badge color='gray' icon='info'>
+				单位: _秒_
+			</Badge>
+			归类文件前的等待时间
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					固定循环 <code>Loop</code>
+				</span>
+			}
+			type='boolean'
+			required>
+			是否在监听路径的同时固定循环移动文件
+			<Note>因为部分设备可能无法正常运行监听</Note>
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					固定循环间隔 <code>LoopInterval</code>
+				</span>
+			}
+			type='duration'
+			required>
+			<Badge color='gray' icon='info'>
+				格式遵守 [`time.ParseDuration`](https://pkg.go.dev/time#ParseDuration)
+			</Badge>
+			固定循环的间隔
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					依监听组分类 <code>SubApp</code>
+				</span>
+			}
+			type='boolean'
+			required>
+			是否把文件归类到名称为监听组名称的子目录内
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					依时间分类 <code>SubTime</code>
+				</span>
+			}
+			type='boolean'
+			required>
+			是否把文件归类到名称为文件修改日期的子目录内
+			<Info>格式为 `年-月-日`</Info>
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					默认分类类型 <code>DefaultType</code>
+				</span>
+			}
+			type='string'
+			required>
+			不在 _后缀列表_ 与 _名称列表_ 规则内的文件的归类子目录
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					忽略无后缀文件 <code>IgnoreNoSuffix</code>
+				</span>
+			}
+			type='boolean'
+			required
+		/>
+		<ParamField
+			query={
+				<span>
+					忽略隐藏文件 <code>IgnoreDotPath</code>
+				</span>
+			}
+			type='boolean'
+			required>
+			<Note>即以 `.` 开头的文件或目录</Note>
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					监听列表 <code>ListenList</code>
+				</span>
+			}
+			type='group{string: string[]}'
+			required>
+			<Badge color='gray' icon='info'>
+				路径格式遵守 [`filepath.Match`](https://pkg.go.dev/path/filepath#Match)
+			</Badge>
+			要监听的路径
+			<></>
+			需要递归的路径将以组名称形式存储到 _递归列表_
+			<></>
+			组名称可用于 _依监听组分类_
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					递归列表 <code>RecList</code>
+				</span>
+			}
+			type='string[]'
+			required>
+			用于存储需要递归监听的 _监听列表_ 组名称
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					后缀列表 <code>SuffixList</code>
+				</span>
+			}
+			type='group{string: string[]}'
+			required>
+			<Badge color='gray' icon='info'>
+				优先级比 _名称列表_ 低
+			</Badge>
+			分类文件的后缀规则
+			<></>
+			组名称会用于归类文件的子目录
+			<></>
+			变量 `[name]` 会被替换为归类文件所属监听组的组名称
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					后缀忽略列表 <code>IgnoreSuffixList</code>
+				</span>
+			}
+			type='string[]'
+			required>
+			要忽略的文件后缀
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					名称列表 <code>NameList</code>
+				</span>
+			}
+			type='group{string: string[]}'
+			required>
+			<Badge color='gray' icon='info'>
+				优先级比 _后缀列表_ 高
+			</Badge>{' '}
+			<Badge color='gray' icon='info'>
+				格式遵守 [`path.Match`](https://pkg.go.dev/path#Match) 或**仅子字符串判断**
+			</Badge>
+			分类文件的名称规则
+			<></>
+			组名称会用于归类文件的子目录
+			<></>
+			变量 `[name]` 会被替换为归类文件所属监听组的组名称
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					名称忽略列表 <code>IgnoreNameList</code>
+				</span>
+			}
+			type='string[]'
+			required>
+			要忽略的文件名称
+		</ParamField>
+	</Accordion>
+</AccordionGroup>

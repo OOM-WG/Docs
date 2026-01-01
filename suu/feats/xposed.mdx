@@ -1,0 +1,43 @@
+---
+title: Xposed 功能
+description: 苏柚的 Xposed 注入功能
+icon: blocks
+---
+
+为苏柚启用对应软件的作用域即可使用对应功能
+
+## 功能
+
+### 解锁监听
+
+监听设备解锁时间
+
+<Expandable title='作用域'>
+	<ul>
+		<li>系统界面 (`com.android.systemui`)</li>
+	</ul>
+</Expandable>
+
+### 欧加真 OTA 优化
+
+移除 `本地安装` 开发者模式检测
+
+移除 `本地安装` 有更新推送时禁用检测
+
+移除系统更新时 DM 校验检测
+
+<Expandable title='作用域'>
+	<ul>
+		<li>软件更新 (`com.oplus.ota`)</li>
+	</ul>
+</Expandable>
+
+### 欧加真 GPA 伪装
+
+伪装 GPA 获取型号以获取指定型号的云控数据
+
+<Expandable title='作用域'>
+	<ul>
+		<li>应用增强服务 (`com.oplus.cosa`)</li>
+	</ul>
+</Expandable>

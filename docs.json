@@ -163,16 +163,39 @@
 								"dropdown": "Android",
 								"icon": "tablet-smartphone",
 								"pages": [
+									"suu/index",
+									"suu/update",
 									{
 										"group": "快速开始",
-										"pages": ["suu/Guide", "suu/Features", "suu/Changelog"]
+										"pages": ["suu/use/index", "suu/use/faq"]
 									},
 									{
-										"group": "更多信息",
+										"group": "软件功能",
 										"pages": [
-											"suu/More/Agreement",
-											"suu/More/License",
-											"suu/More/Privacy"
+											"suu/feats/index",
+											{
+												"group": "存储功能",
+												"icon": "database",
+												"pages": [
+													"suu/feats/data/index",
+													"suu/feats/data/nyanya",
+													"suu/feats/data/c&c",
+													"suu/feats/data/gbb"
+												]
+											},
+											"suu/feats/xposed",
+											"suu/feats/modify.my.id",
+											"suu/feats/toybox",
+											"suu/feats/tip"
+										]
+									},
+									{
+										"group": "详细文档",
+										"pages": [
+											"suu/more/origin",
+											"suu/more/privacy",
+											"suu/more/agreement",
+											"suu/more/license"
 										]
 									}
 								]
@@ -187,12 +210,12 @@
 					{
 						"product": "MikotoMem",
 						"icon": "gauge",
-						"pages": ["mmem"]
+						"pages": ["mmem/index"]
 					},
 					{
 						"product": "YumeMem",
 						"icon": "monitor-smartphone",
-						"pages": ["only-gui-can-do"]
+						"pages": ["only-gui-can-do/index"]
 					}
 				],
 				"global": {

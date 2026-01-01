@@ -1,0 +1,213 @@
+---
+title: C&C 清理
+description: 苏柚的 C&C 清理功能
+icon: brush-cleaning
+---
+
+C&C 清理可以定时循环清理文件、目录
+
+## 配置
+
+<Note>配置可以 导出/导入 来进行原始文件编辑或分享配置</Note>
+
+<AccordionGroup>
+	<Accordion title='信息配置'>
+		<ParamField
+			query={
+				<span>
+					名称 <code>Name</code>
+				</span>
+			}
+			type='string'
+			required>
+			配置文件名称
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					作者 <code>Author</code>
+				</span>
+			}
+			type='string'
+			required>
+			配置文件作者
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					版本 <code>Version</code>
+				</span>
+			}
+			type='string'
+			required>
+			配置文件版本
+		</ParamField>
+		<Note>信息配置对功能**无任何作用**，仅用于标记配置信息</Note>
+	</Accordion>
+	<Accordion title='基本配置'>
+		<ParamField
+			query={
+				<span>
+					调试模式 <code>Debug</code>
+				</span>
+			}
+			type='boolean'
+			required>
+			输出更多日志以排查问题
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					多用户支持 <code>MultiUser</code>
+				</span>
+			}
+			type='boolean'
+			required
+			default='false (当非 root 时强制)'>
+			<Badge color='red' icon='triangle-alert'>
+				仅 _root_ 可用
+			</Badge>
+			处理当前设备上多个用户上的数据
+		</ParamField>
+	</Accordion>
+	<Accordion title='功能配置'>
+		<ParamField
+			query={
+				<span>
+					循环间隔 <code>Time</code>
+				</span>
+			}
+			type='duration'
+			required>
+			<Badge color='gray' icon='info'>
+				格式遵守 [`time.ParseDuration`](https://pkg.go.dev/time#ParseDuration)
+			</Badge>
+			每次清理的间隔
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					清理软件缓存 <code>AppCache</code>
+				</span>
+			}
+			type='boolean'
+			required>
+			<Note>仅第三方应用</Note>
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					包名白名单列表 <code>AppWhitelist</code>
+				</span>
+			}
+			type='string[]'
+			required>
+			不清理缓存的软件包名
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					搜索路径列表 <code>SearchList</code>
+				</span>
+			}
+			type='string[]'
+			required>
+			<Badge color='gray' icon='info'>
+				路径格式遵守 [`filepath.Match`](https://pkg.go.dev/path/filepath#Match)
+			</Badge>
+			要搜索的路径
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					路径白名单列表 <code>PathWhitelist</code>
+				</span>
+			}
+			type='string[]'
+			required>
+			<Badge color='gray' icon='info'>
+				路径格式遵守 [`filepath.Match`](https://pkg.go.dev/path/filepath#Match)
+			</Badge>
+			不搜索的路径或不删除的路径
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					路径黑名单列表 <code>PathBlacklist</code>
+				</span>
+			}
+			type='string[]'
+			required>
+			<Badge color='gray' icon='info'>
+				路径格式遵守 [`filepath.Match`](https://pkg.go.dev/path/filepath#Match)
+			</Badge>
+			要删除的路径
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					清理隐藏路径 <code>DotPath</code>
+				</span>
+			}
+			type='boolean'
+			required>
+			<Note>
+				即以 `.` 开头的文件或目录
+				<></>
+				不包括 `.nomedia` 与 `.database_uuid`
+				<></>
+				包括 `.thumbnails`
+			</Note>
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					清理空文件 <code>EmptyFile</code>
+				</span>
+			}
+			type='boolean'
+			required
+		/>
+		<ParamField
+			query={
+				<span>
+					清理空目录 <code>EmptyDir</code>
+				</span>
+			}
+			type='boolean'
+			required
+		/>
+		<ParamField
+			query={
+				<span>
+					名称白名单列表 <code>NameWhitelist</code>
+				</span>
+			}
+			type='string[]'
+			required>
+			<Badge color='gray' icon='info'>
+				优先级比 _名称黑名单列表_ 高
+			</Badge>{' '}
+			<Badge color='gray' icon='info'>
+				格式遵守 [`path.Match`](https://pkg.go.dev/path#Match) 或**仅子字符串判断**
+			</Badge>
+			不清理的名称
+		</ParamField>
+		<ParamField
+			query={
+				<span>
+					名称黑名单列表 <code>NameBlacklist</code>
+				</span>
+			}
+			type='string[]'
+			required>
+			<Badge color='gray' icon='info'>
+				优先级比 _名称白名单列表_ 低
+			</Badge>{' '}
+			<Badge color='gray' icon='info'>
+				格式遵守 [`path.Match`](https://pkg.go.dev/path#Match) 或**仅子字符串判断**
+			</Badge>
+			要清理的名称
+		</ParamField>
+	</Accordion>
+</AccordionGroup>
