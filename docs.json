@@ -44,10 +44,7 @@
 		"light": "#b4cce9",
 		"dark": "#4a5bab"
 	},
-	"fonts": {
-		"heading": {"family": "Ubuntu Mono"},
-		"body": {"family": "JetBrains Mono"}
-	},
+	"fonts": {"family": "Ubuntu"},
 	"icons": {
 		"library": "lucide"
 	},
