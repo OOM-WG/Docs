@@ -18,8 +18,12 @@
 						"href": "https://license.fileto.download/"
 					},
 					{
-						"label": "友盟+ 隐私政策",
-						"href": "https://www.umeng.com/policy"
+						"label": "Clarity 使用条款",
+						"href": "https://clarity.microsoft.com/terms"
+					},
+					{
+						"label": "Cloudflare Web Analytics",
+						"href": "https://www.cloudflare.com/privacypolicy/"
 					}
 				]
 			},
