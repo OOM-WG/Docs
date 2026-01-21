@@ -3,22 +3,80 @@ title: 加入我们
 description: 交流 & 反馈，共同发展
 ---
 
-## 问题 计算下列运行结果
+## 交流渠道
 
+<Tabs>
+<Tab title='中国大陆交流渠道' icon='land-plot'>
+
+<Accordion title='QQ 群 - 活跃用户群' icon='users'>
+<Warning>若不**活跃发言**勿加，**长期潜水**请加 _疑问解答群_</Warning>
+
+<Expandable title='问题'>
 <CodeGroup dropdown>
 
-```cpp fast_pow.cpp
-#include <iostream>
-using namespace std;
+```c fast_pow.c icon=code
+#include <stdio.h>
 
-int main(){
+int main(void){
     long long a=2,b=10,r=1;
     for(;b;b>>=1,a*=a) if(b&1) r*=a;
-    cout<<r;
+    printf("%lld\n",r);
+    return !!0;
 }
 ```
 
-```kotlin fast_pow.kt
+```cpp fast_pow.cpp icon=code
+#include <iostream>
+using namespace std;
+
+int main(void){
+    long long a=2,b=10,r=1;
+    for(;b;b>>=1,a*=a) if(b&1) r*=a;
+    cout<<r<<endl;
+    return !true;
+}
+```
+
+```csharp fast_pow.cs icon=code
+using System;
+
+class Program {
+    static void Main() {
+        long a=2,b=10,r=1;
+        for(;b>0;b>>=1,a*=a) if((b&1)==1) r*=a;
+        Console.WriteLine(r);
+    }
+}
+```
+
+```dart fast_pow.dart icon=code
+import 'dart:core';
+
+void main() {
+    int a=2,b=10,r=1;
+    for (;b>0;b>>=1,a*=a) if ((b&1)==1) r*=a;
+    print(r);
+}
+```
+
+```go fast_pow.go icon=code
+package main
+
+import "fmt"
+
+func main() {
+    var a,b,r int64 = 2,10,1
+    for ;b>0;b>>=1 {
+        if b&1==1 {
+            r*=a
+        }
+        a*=a
+    }
+    fmt.Println(r)
+}
+```
+
+```kotlin fast_pow.kt icon=code
 fun main(){
     var a=2L; var b=10L; var r=1L
     for(;b>0;b=b shr 1){ if((b and 1L)==1L) r*=a; a*=a }
@@ -27,73 +85,106 @@ fun main(){
 ```
 
 </CodeGroup>
+</Expandable>
 
-<Danger>
-如不在群组内**活跃发言**勿加 _活跃用户群_，群组内会不定期清理潜水人员
+<Card
+	title='加入群聊'
+	icon='external-link'
+	arrow={false}
+	href='https://qm.qq.com/q/pKuFysMZs4'
+	cta='需要验证，请获取答案后加入'>
+	群号: **816708963**
+</Card>
 
-**长期潜水**请加 _疑问解答群_
-
-</Danger>
+</Accordion>
 
 <Columns cols={2}>
-
-    <Card
-        title="伊甸园"
-        icon="users"
-        href="https://qm.qq.com/q/pKuFysMZs4"
-        cta="需要验证"
-    >
-        活跃用户群 (816708963)
-    </Card>
-
-    <Card
-        title="帮助"
-        icon="badge-question-mark"
-        href="https://qm.qq.com/q/5MHCYXQQZG"
-    >
-        疑问解答群 (345867222)
-    </Card>
-
-    <Card
-        title="QQ频道"
-        icon="message-square"
-        href="https://pd.qq.com/s/91t3v4mr3"
-    >
-        我们的官方QQ频道
-    </Card>
-
-    <Card
-        title="Telegram"
-        icon="send"
-        href="https://t.me/OOM_Group"
-    >
-        Telegram 群组
-    </Card>
-
-    <Card
-        title="Discord"
-        icon="headphones"
-        href="https://discord.gg/RQBBVhSCa5"
-    >
-        Discord 频道
-    </Card>
-
-    <Card
-        title="抖音"
-        icon="music-2"
-        href="https://v.douyin.com/group/265359728722"
-    >
-        抖音群组 (265359728722)
-    </Card>
-
-    <Card
-        title="快手"
-        icon="video"
-        href="https://v48xq.autugmakw.com/f/X-8BmVmXnxpz9uem"
-    >
-        快手群组 (K140792814109)
-    </Card>
-
+	<Card title='QQ 群 - 疑问解答群' icon='badge-question-mark' href='https://qm.qq.com/q/5MHCYXQQZG'>
+		群号: **345867222**
+	</Card>
+	<Card title='QQ 频道' icon='message-square' href='https://pd.qq.com/s/91t3v4mr3'>
+		频道号: **MoeReFate2**
+	</Card>
+	<Card title='抖音群组' icon='music-2' href='https://v.douyin.com/group/265359728722'>
+		群号: **265359728722**
+	</Card>
+	<Card title='快手群组' icon='video' href='https://v48xq.autugmakw.com/f/X-8BmVmXnxpz9uem'>
+		群号: **K140792814109**
+	</Card>
 </Columns>
 
-<Danger>我们仅允许在 **Telegram**/**Discord** 交流 `YumeBox`/`YumeMem` 项目的相关事宜</Danger>
+<Note>请尽量只在 _国际交流渠道_ 内交流 `YumeBox`/`YumeMem` 项目的相关事宜</Note>
+
+</Tab>
+<Tab title='国际交流渠道' icon='globe'>
+
+<Columns cols={2}>
+	<Card title='Telegram 群组' icon='send' href='https://t.me/OOM_Group'>
+		@**OOM_Group**
+	</Card>
+	<Card title='Discord 频道' icon='headphones' href='https://discord.gg/RQBBVhSCa5'>
+		OOM Worldnews
+	</Card>
+</Columns>
+
+</Tab>
+</Tabs>
+
+## 交流守则
+
+### 导言
+
+您可以自由地加入本页面所列出的交流渠道，包括 _一人多号加入同一渠道_ 与 _同一人加入多个渠道_
+
+您在任何官方群组内都需要遵守以下内容，此守则在大部分情况下都不会影响到您的言论自由，但仍需注意**不要触碰这些红线**
+
+### 基本能力要求
+
+在官方群组内交流**即视为您有以下基本能力**，**请勿询问**与基本能力有关的内容，本群组不提供任何基本能力的支持
+
+<Expandable title='附注'>
+	请在别处**自行学习**这些内容，我们**不歧视**任何低技术人群，但是与之交流会耗费大量时间精力，我们依据现有情况并不能做到这些
+</Expandable>
+
+#### 上网能力
+
+您需要有以下基本的上网能力:
+
+- 了解 _链接_、_域名_、_根域名_、_子域名_ 等相关概念
+- 认识各大主流**搜索引擎**，能够正常**搜索内容**并**区分广告与有效内容**
+- 能够正常判断文本是否为**链接**，能够正常识别掺杂在链接中的**间隔符号**，并能够将其**删除**或**转为正确符号**，并且能够将链接**输入进浏览器内**进行访问
+- 能够判断进入哪些网站可能需要**使用代理**或是否存在**检测 IP 纯净度**的可能性，也能考虑到**浏览器兼容性**等问题
+
+#### 玩机能力
+
+如果您将要交流 _root_ 等**玩机相关内容**，请务必保证您有以下基本能力:
+
+- 对 `adb` 与 `fastboot` 有最基本的了解，会使用它们连接设备，并且能够使用 `fastboot` 或 _第三方 Recovery_ 等方式**刷入分区**
+- 能够使用 `logcat` 等命令或其他日志抓取软件/模块 **抓取错误日志**
+- 了解各种 root 实现方式的**目标分区**，例如针对 _ramdisk_ 的 root 实现，针对 _内核_ 的 root 实现，能够区分 _GKI_ 与 _LKM_ 的区别，了解 `boot` 分区与 `init_boot` 分区的作用
+- 能够区分哪些内容需要 _普通权限_/_adb 权限_/_root 权限_，知道 _Xposed 模块_ 与 _Zygisk 模块_ 的使用方法，能够判断一个 `zip` 压缩包是 _普通的压缩包_ 还是 _Android 软件安装包_ 还是 _被二次压缩的安装包_ 或是 _root 模块安装包_ 等
+
+### 名称规范
+
+在官方群组内，_SSU_ 仅能为项目 _ShiroSU_ 的 _简写_ 与 _官方名称_ 之一，_SSUU_ 仅能为项目 _苏柚_ 的 _简写_ 与 _官方名称_ 之一，除非在上下文中有明确说明
+
+### 言论规范
+
+您需要确保您的言论不会涉及以下内容:
+
+- 涉及 _色情低俗_、_暴力恐怖_、_精神污染_、_政治_（适用于 _表情包_）
+- _广告_ 或**无意义**的 _推广_
+- 对**同类竞品**的 _推广_（除非依据上下文真的有必要这么做）
+- **在线游戏**的 _外挂程序_
+
+还需要注意的是，尽量不要在 _**中国大陆**境内平台_ 交流 _代理_ 等相关内容
+
+### 良性发展
+
+为促进良性发展，我们支持提出任何利好的建议，但是我们也有可能依据实际情况予以拒绝，在提出时请确保自身有能够承担**被拒绝**的心理素质
+
+并且请勿对项目的发展提出 _主观_、_片面_ 的不当评价，请依据现实情况与实际体验而进行切实评价
+
+### 结语
+
+当您违反以上规定时，我们可能会对您进行 **警告**/**禁言**/**踢出** 行为，可能不会有 _预示_ 或 _解释_，但不会滥用职权无故处罚
