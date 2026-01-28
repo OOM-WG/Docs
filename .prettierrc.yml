@@ -8,6 +8,3 @@ trailingComma: none
 bracketSpacing: false
 bracketSameLine: true
 arrowParens: avoid
-
-plugins:
-  - prettier-plugin-lint-md

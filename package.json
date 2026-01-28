@@ -9,8 +9,7 @@
 		"lint": "prettier --write ."
 	},
 	"devDependencies": {
-		"mint": "^4.2.286",
-		"prettier": "^3.8.0",
-		"prettier-plugin-lint-md": "^1.0.1"
+		"mint": "^4.2.303",
+		"prettier": "^3.8.1"
 	}
 }
