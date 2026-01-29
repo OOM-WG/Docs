@@ -48,25 +48,21 @@ export const Avatar = ({name, role, avatar, date, className = ''}) => {
 	)
 }
 
-export const ShiroAvatar = ({date, className = ''}) => {
-	return (
-		<Avatar
-			name='白彩恋'
-			role='总主编'
-			avatar='/images/avatar/shiro.webp'
-			date={date}
-			className={className}
-		/>
-	)
-}
-export const LinsoAvatar = ({date, className = ''}) => {
-	return (
-		<Avatar
-			name='Linso'
-			role='强到被跨省抓捕'
-			avatar='/images/avatar/linso.webp'
-			date={date}
-			className={className}
-		/>
-	)
-}
+export const ShiroAvatar = ({date, className = ''}) => (
+	<Avatar
+		name='白彩恋'
+		role='总主编'
+		avatar='/images/avatar/shiro.webp'
+		date={date}
+		className={className}
+	/>
+)
+export const LinsoAvatar = ({date, className = ''}) => (
+	<Avatar
+		name='Linso'
+		role='强到被跨省抓捕'
+		avatar='/images/avatar/linso.webp'
+		date={date}
+		className={className}
+	/>
+)

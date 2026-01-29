@@ -21,12 +21,12 @@
 		y.parentNode.insertBefore(t, y)
 	})(window, document, 'clarity', 'script', 'v4cpxdpw7p')
 	// Clarity: https://clarity.microsoft.com/
-
-	const script = document.createElement('script')
-	script.src = 'https://static.cloudflareinsights.com/beacon.min.js'
-	script.defer = true
-	script.setAttribute('data-cf-beacon', `{"token": "39151721f49d4b68be95c02bdc214799"}`)
-	script.onerror = onerror
-	document.head.appendChild(script)
+	;(function (script) {
+		script.src = 'https://static.cloudflareinsights.com/beacon.min.js'
+		script.defer = true
+		script.setAttribute('data-cf-beacon', `{"token": "39151721f49d4b68be95c02bdc214799"}`)
+		script.onerror = onerror
+		document.head.appendChild(script)
+	})(document.createElement('script'))
 	// Cloudflare Web Analytics: https://www.cloudflare.com/web-analytics/
 })()
