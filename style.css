@@ -1,0 +1,20 @@
+:root,
+body,
+html {
+	text-autospace: normal;
+	text-spacing-trim: trim-start;
+	font-feature-settings: 'palt' 1;
+}
+
+.code-block,
+.code-group,
+pre,
+code {
+	font-feature-settings: 'palt' 0 !important;
+	text-autospace: no-autospace !important;
+	font-variant-numeric: tabular-nums !important;
+}
+
+table {
+	font-variant-numeric: tabular-nums;
+}
