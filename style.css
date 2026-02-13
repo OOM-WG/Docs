@@ -3,7 +3,13 @@ body,
 html {
 	text-autospace: normal;
 	text-spacing-trim: trim-start;
-	font-feature-settings: 'palt' 1;
+	font-feature-settings: 'palt';
+	font-variant-ligatures: common-ligatures;
+	font-optical-sizing: auto;
+	font-smooth: always;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	hyphens: auto;
 }
 
 .code-block,
