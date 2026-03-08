@@ -83,167 +83,191 @@
 		}
 	},
 	"navigation": {
-		"languages": [
-			{
-				"language": "zh",
-				"products": [
-					{
-						"product": "主页",
-						"icon": "house",
-						"groups": [
-							{
-								"group": "简介",
-								"icon": "book-open",
-								"pages": ["index", "developers", "projects", "projects-ext"]
-							},
-							{
-								"group": "回忆篇章",
-								"icon": "calendar",
-								"pages": [
-									"blog/ssu-nt",
-									"blog/go4-sukisu-ultra-4",
-									"blog/go4-sukisu-ultra-3",
-									"blog/oow-timeline",
-									"blog/shell-obf-enc",
-									"blog/go4-sukisu-ultra-2",
-									"blog/oow-dev-ref",
-									"blog/ai-for-root",
-									"blog/go4-mi-oplusrm-sukisu",
-									"blog/ssu-ko-fund",
-									"blog/go4-sukisu-ultra",
-									"blog/suu-for-data-opt"
-								]
-							}
-						]
-					},
-					{
-						"product": "开发",
-						"icon": "folder-code",
-						"pages": ["dev/index"]
-					},
-					{
-						"product": "ShiroSU",
-						"icon": "drafting-compass",
-						"pages": [
-							"ssu/index",
-							"ssu/update",
-							{
-								"group": "快速开始",
-								"pages": ["ssu/use/index", "ssu/use/faq"]
-							},
-							{
-								"group": "开发文档",
-								"pages": [
-									"ssu/dev/index",
-									{
-										"group": "管理器开发",
-										"pages": [
-											"ssu/dev/man/index",
-											"ssu/dev/man/mod-info",
-											"ssu/dev/man/scheme",
-											"ssu/dev/man/cfgui",
-											"ssu/dev/man/webui"
-										]
-									},
-									{
-										"group": "root 开发",
-										"pages": [
-											"ssu/dev/root/index",
-											{
-												"group": "模块开发",
-												"pages": [
-													"ssu/dev/root/mod/index",
-													"ssu/dev/root/mod/builder"
-												]
-											}
-										]
-									}
-								]
-							},
-							{
-								"group": "详细文档",
-								"pages": ["ssu/compat", "ssu/more/origin", "ssu/more/privacy"]
-							}
-						]
-					},
-					{
-						"product": "苏柚",
-						"icon": "pencil-ruler",
-						"dropdowns": [
-							{
-								"dropdown": "Android",
-								"icon": "tablet-smartphone",
-								"pages": [
-									"suu/index",
-									"suu/update",
-									{
-										"group": "快速开始",
-										"pages": ["suu/use/index", "suu/use/faq"]
-									},
-									{
-										"group": "软件功能",
-										"pages": [
-											"suu/feats/index",
-											{
-												"group": "存储功能",
-												"icon": "database",
-												"pages": [
-													"suu/feats/data/index",
-													"suu/feats/data/nyanya",
-													"suu/feats/data/c&c",
-													"suu/feats/data/gbb"
-												]
-											},
-											"suu/feats/xposed",
-											"suu/feats/modify.my.id",
-											"suu/feats/toybox",
-											"suu/feats/tip"
-										]
-									},
-									{
-										"group": "详细文档",
-										"pages": [
-											"suu/more/origin",
-											"suu/more/privacy",
-											"suu/more/agreement",
-											"suu/more/license"
-										]
-									}
-								]
-							},
-							{
-								"dropdown": "Windows",
-								"icon": "monitor-smartphone",
-								"pages": ["suu/win/index"]
-							}
-						]
-					},
-					{
-						"product": "MikotoMem",
-						"icon": "gauge",
-						"pages": ["mmem/index"]
-					},
-					{
-						"product": "YumeMem",
-						"icon": "monitor-smartphone",
-						"pages": ["only-gui-can-do/index"]
-					}
-				],
-				"global": {
-					"anchors": [
-						{
-							"anchor": "GitHub",
-							"icon": "github",
-							"href": "https://github.com/OOM-WG"
-						},
-						{
-							"anchor": "加入群组",
-							"icon": "users",
-							"href": "https://oom-wg.dev/join"
-						}
-					]
-				}
-			}
-		]
-	}
+    "languages": [
+      {
+        "language": "zh",
+        "global": {
+          "anchors": [
+            {
+              "anchor": "GitHub",
+              "icon": "github",
+              "href": "https://github.com/OOM-WG"
+            },
+            {
+              "anchor": "加入群组",
+              "icon": "users",
+              "href": "https://oom-wg.dev/join"
+            }
+          ]
+        },
+        "products": [
+          {
+            "product": "主页",
+            "icon": "house",
+            "groups": [
+              {
+                "group": "简介",
+                "icon": "book-open",
+                "pages": [
+                  "index",
+                  "developers",
+                  "projects",
+                  "projects-ext"
+                ]
+              },
+              {
+                "group": "回忆篇章",
+                "icon": "calendar",
+                "pages": [
+                  "blog/ssu-nt",
+                  "blog/go4-sukisu-ultra-4",
+                  "blog/go4-sukisu-ultra-3",
+                  "blog/oow-timeline",
+                  "blog/shell-obf-enc",
+                  "blog/go4-sukisu-ultra-2",
+                  "blog/oow-dev-ref",
+                  "blog/ai-for-root",
+                  "blog/go4-mi-oplusrm-sukisu",
+                  "blog/ssu-ko-fund",
+                  "blog/go4-sukisu-ultra",
+                  "blog/suu-for-data-opt"
+                ]
+              }
+            ]
+          },
+          {
+            "product": "开发",
+            "icon": "folder-code",
+            "pages": [
+              "dev/index"
+            ]
+          },
+          {
+            "product": "ShiroSU",
+            "icon": "drafting-compass",
+            "pages": [
+              "ssu/index",
+              "ssu/update",
+              {
+                "group": "快速开始",
+                "pages": [
+                  "ssu/use/index",
+                  "ssu/use/previre",
+                  "ssu/use/faq"
+                ]
+              },
+              {
+                "group": "开发文档",
+                "pages": [
+                  "ssu/dev/index",
+                  {
+                    "group": "管理器开发",
+                    "pages": [
+                      "ssu/dev/man/index",
+                      "ssu/dev/man/mod-info",
+                      "ssu/dev/man/scheme",
+                      "ssu/dev/man/cfgui",
+                      "ssu/dev/man/webui"
+                    ]
+                  },
+                  {
+                    "group": "root 开发",
+                    "pages": [
+                      "ssu/dev/root/index",
+                      {
+                        "group": "模块开发",
+                        "pages": [
+                          "ssu/dev/root/mod/index",
+                          "ssu/dev/root/mod/builder"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "详细文档",
+                "pages": [
+                  "ssu/compat",
+                  "ssu/more/origin",
+                  "ssu/more/privacy"
+                ]
+              }
+            ]
+          },
+          {
+            "product": "苏柚",
+            "icon": "pencil-ruler",
+            "dropdowns": [
+              {
+                "dropdown": "Android",
+                "icon": "tablet-smartphone",
+                "pages": [
+                  "suu/index",
+                  "suu/update",
+                  {
+                    "group": "快速开始",
+                    "pages": [
+                      "suu/use/index",
+                      "suu/use/faq"
+                    ]
+                  },
+                  {
+                    "group": "软件功能",
+                    "pages": [
+                      "suu/feats/index",
+                      {
+                        "group": "存储功能",
+                        "icon": "database",
+                        "pages": [
+                          "suu/feats/data/index",
+                          "suu/feats/data/nyanya",
+                          "suu/feats/data/c&c",
+                          "suu/feats/data/gbb"
+                        ]
+                      },
+                      "suu/feats/xposed",
+                      "suu/feats/modify.my.id",
+                      "suu/feats/toybox",
+                      "suu/feats/tip"
+                    ]
+                  },
+                  {
+                    "group": "详细文档",
+                    "pages": [
+                      "suu/more/origin",
+                      "suu/more/privacy",
+                      "suu/more/agreement",
+                      "suu/more/license"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dropdown": "Windows",
+                "icon": "monitor-smartphone",
+                "pages": [
+                  "suu/win/index"
+                ]
+              }
+            ]
+          },
+          {
+            "product": "MikotoMem",
+            "icon": "gauge",
+            "pages": [
+              "mmem/index"
+            ]
+          },
+          {
+            "product": "YumeMem",
+            "icon": "monitor-smartphone",
+            "pages": [
+              "only-gui-can-do/index"
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
