@@ -1,133 +1,128 @@
 ---
-title: 加入我们
-description: 交流 & 反馈，共同发展
+title: "加入我们"
+description: "交流 & 反馈，共同发展"
 ---
 
 ## 交流渠道
 
 <Tabs>
-<Tab title='中国大陆交流渠道' icon='land-plot'>
+  <Tab title="中国大陆交流渠道" icon="land-plot">
+    <Warning>
+      若不**活跃发言**勿加活跃群聊，**长期潜水**请加 _疑问解答群_
+    </Warning>
+    <Expandable title="问题">
+      <CodeGroup>
 
-<Accordion title='QQ 群 - 活跃用户群' icon='users'>
-<Warning>若不**活跃发言**勿加，**长期潜水**请加 _疑问解答群_</Warning>
+      ```c fast_pow.c icon=code
+      #include <stdio.h>
+      
+      int main(void){
+          long long a=2,b=10,r=1;
+          for(;b;b>>=1,a*=a) if(b&1) r*=a;
+          printf("%lld\n",r);
+          return !!0;
+      }
+      ```
 
-<Expandable title='问题'>
-<CodeGroup dropdown>
+      
+      ```cpp fast_pow.cpp icon=code
+      #include <iostream>
+      using namespace std;
+      
+      int main(void){
+          long long a=2,b=10,r=1;
+          for(;b;b>>=1,a*=a) if(b&1) r*=a;
+          cout<<r<<endl;
+          return !true;
+      }
+      ```
 
-```c fast_pow.c icon=code
-#include <stdio.h>
+      
+      ```csharp fast_pow.cs icon=code
+      using System;
+      
+      class Program {
+          static void Main() {
+              long a=2,b=10,r=1;
+              for(;b>0;b>>=1,a*=a) if((b&1)==1) r*=a;
+              Console.WriteLine(r);
+          }
+      }
+      ```
 
-int main(void){
-    long long a=2,b=10,r=1;
-    for(;b;b>>=1,a*=a) if(b&1) r*=a;
-    printf("%lld\n",r);
-    return !!0;
-}
-```
+      
+      ```dart fast_pow.dart icon=code
+      import 'dart:core';
+      
+      void main() {
+          int a=2,b=10,r=1;
+          for (;b>0;b>>=1,a*=a) if ((b&1)==1) r*=a;
+          print(r);
+      }
+      ```
 
-```cpp fast_pow.cpp icon=code
-#include <iostream>
-using namespace std;
+      
+      ```go fast_pow.go icon=code
+      package main
+      
+      import "fmt"
+      
+      func main() {
+          var a,b,r int64 = 2,10,1
+          for ;b>0;b>>=1 {
+              if b&1==1 {
+                  r*=a
+              }
+              a*=a
+          }
+          fmt.Println(r)
+      }
+      ```
 
-int main(void){
-    long long a=2,b=10,r=1;
-    for(;b;b>>=1,a*=a) if(b&1) r*=a;
-    cout<<r<<endl;
-    return !true;
-}
-```
+      
+      ```kotlin fast_pow.kt icon=code
+      fun main(){
+          var a=2L; var b=10L; var r=1L
+          for(;b>0;b=b shr 1){ if((b and 1L)==1L) r*=a; a*=a }
+          println(r)
+      }
+      ```
 
-```csharp fast_pow.cs icon=code
-using System;
+      </CodeGroup>
+    </Expandable>
 
-class Program {
-    static void Main() {
-        long a=2,b=10,r=1;
-        for(;b>0;b>>=1,a*=a) if((b&1)==1) r*=a;
-        Console.WriteLine(r);
-    }
-}
-```
+    <Card icon="users" href="https://qm.qq.com/q/pKuFysMZs4" cta="需要验证，请解答以上程序,获取打印结果后加入" title="QQ 群 - 活跃群聊">
+      群号: **816708963**
+    </Card>
 
-```dart fast_pow.dart icon=code
-import 'dart:core';
-
-void main() {
-    int a=2,b=10,r=1;
-    for (;b>0;b>>=1,a*=a) if ((b&1)==1) r*=a;
-    print(r);
-}
-```
-
-```go fast_pow.go icon=code
-package main
-
-import "fmt"
-
-func main() {
-    var a,b,r int64 = 2,10,1
-    for ;b>0;b>>=1 {
-        if b&1==1 {
-            r*=a
-        }
-        a*=a
-    }
-    fmt.Println(r)
-}
-```
-
-```kotlin fast_pow.kt icon=code
-fun main(){
-    var a=2L; var b=10L; var r=1L
-    for(;b>0;b=b shr 1){ if((b and 1L)==1L) r*=a; a*=a }
-    println(r)
-}
-```
-
-</CodeGroup>
-</Expandable>
-
-<Card
-	title='加入群聊'
-	icon='external-link'
-	arrow={false}
-	href='https://qm.qq.com/q/pKuFysMZs4'
-	cta='需要验证，请获取答案后加入'>
-	群号: **816708963**
-</Card>
-
-</Accordion>
-
-<Columns cols={2}>
-	<Card title='QQ 群 - 疑问解答群' icon='badge-question-mark' href='https://qm.qq.com/q/5MHCYXQQZG'>
-		群号: **345867222**
-	</Card>
-	<Card title='QQ 频道' icon='message-square' href='https://pd.qq.com/s/91t3v4mr3'>
-		频道号: **MoeReFate2**
-	</Card>
-	<Card title='抖音群组' icon='music-2' href='https://v.douyin.com/group/265359728722'>
-		群号: **265359728722**
-	</Card>
-	<Card title='快手群组' icon='video' href='https://v48xq.autugmakw.com/f/X-8BmVmXnxpz9uem'>
-		群号: **K140792814109**
-	</Card>
-</Columns>
-
-<Note>请尽量只在 _国际交流渠道_ 内交流 `YumeBox`/`YumeMem` 项目的相关事宜</Note>
-
-</Tab>
-<Tab title='国际交流渠道' icon='globe'>
-
-<Columns cols={2}>
-	<Card title='Telegram 群组' icon='send' href='https://t.me/OOM_Group'>
-		@**OOM_Group**
-	</Card>
-	<Card title='Discord 频道' icon='headphones' href='https://discord.gg/RQBBVhSCa5'>
-		OOM Worldnews
-	</Card>
-</Columns>
-
-</Tab>
+    <Columns cols={2}>
+      <Card icon="badge-question-mark" href="https://qm.qq.com/q/5MHCYXQQZG" title="QQ 群 - 疑问解答群">
+        群号: **345867222**
+      </Card>
+      <Card icon="message-square" href="https://pd.qq.com/s/91t3v4mr3" title="QQ 频道">
+        频道号: **MoeReFate2**
+      </Card>
+      <Card icon="music-2" href="https://v.douyin.com/group/265359728722" title="抖音群组">
+        群号: **265359728722**
+      </Card>
+      <Card icon="video" href="https://v48xq.autugmakw.com/f/X-8BmVmXnxpz9uem" title="快手群组">
+        群号: **K140792814109**
+      </Card>
+    </Columns>
+    <Note>
+      请尽量只在 _国际交流渠道_ 内交流 `YumeBox`/`YumeMem` 项目的相关事宜
+    </Note>
+  </Tab>
+  <Tab title="国际交流渠道" icon="globe">
+    <Columns cols={2}>
+      <Card icon="send" href="https://t.me/OOM_Group" title="Telegram 群组">
+        @**OOM_Group**
+      </Card>
+      <Card icon="headphones" href="https://discord.gg/RQBBVhSCa5" title="Discord 频道">
+        OOM Worldnews
+      </Card>
+    </Columns>
+  </Tab>
 </Tabs>
 
 ## 交流守则
@@ -142,8 +137,8 @@ fun main(){
 
 在官方群组内交流**即视为您有以下基本能力**，**请勿询问**与基本能力有关的内容，本群组不提供任何基本能力的支持
 
-<Expandable title='附注'>
-	请在别处**自行学习**这些内容，我们**不歧视**任何低技术人群，但是与之交流会耗费大量时间精力，我们依据现有情况并不能做到这些
+<Expandable title="附注">
+  请在别处**自行学习**这些内容，我们**不歧视**任何低技术人群，但是与之交流会耗费大量时间精力，我们依据现有情况并不能做到这些
 </Expandable>
 
 #### 上网能力
@@ -177,7 +172,7 @@ fun main(){
 - 对**同类竞品**的 _推广_（除非依据上下文真的有必要这么做）
 - **在线游戏**的 _外挂程序_
 
-还需要注意的是，尽量不要在 _**中国大陆**境内平台_ 交流 _代理_ 等相关内容
+还需要注意的是，尽量不要在 **_中国大陆境内平台_** 交流 _代理_ 等相关内容
 
 ### 良性发展
 
