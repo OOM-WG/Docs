@@ -6,7 +6,7 @@
 	"scripts": {
 		"mint": "mint",
 		"dev": "mint dev",
-		"lint": "prettier --write ."
+		"format": "prettier --write ."
 	},
 	"devDependencies": {
 		"mint": "^4.2.405",
