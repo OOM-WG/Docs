@@ -79,7 +79,8 @@
 		"indexing": "all",
 		"metatags": {
 			"canonical": "https://oom-wg.dev",
-			"baidu-site-verification": "codeva-Y9T3t5qRxy"
+			"baidu-site-verification": "codeva-Y9T3t5qRxy",
+			"og:image": "https://oom-wg.dev/images/logo/oom-wg.webp"
 		}
 	},
 	"navigation": {
