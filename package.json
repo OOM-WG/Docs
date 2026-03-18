@@ -9,7 +9,7 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"mint": "^4.2.405",
+		"mint": "^4.2.437",
 		"prettier": "^3.8.1"
 	}
 }
