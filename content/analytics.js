@@ -1,10 +1,7 @@
 ;(function () {
 	if (!['oom-wg.dev', 'oom.mintlify.app'].includes(window.location.hostname)) return
 	function onerror() {
-		console.error(
-			'%c ERROR!!! ',
-			'color: white; background: red; font-size: 88px; font-weight: bold; padding: 22px;'
-		)
+		console.error('%c ERROR!!! ', 'color: white; background: red; font-size: 88px; font-weight: bold; padding: 22px;')
 	}
 
 	;(function (script) {

@@ -31,38 +31,20 @@ export const Avatar = ({name, role, avatar, date, className = ''}) => {
 			{/* 2. 文本部分：占据剩余空间 (flex-1) */}
 			<div className='flex flex-col flex-1 min-w-0'>
 				<div className='flex items-center justify-between gap-2'>
-					<span className='text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate'>
-						{name}
-					</span>
+					<span className='text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate'>{name}</span>
 				</div>
 				<span className='text-xs text-zinc-500 dark:text-zinc-400 truncate'>{role}</span>
 			</div>
 
 			{/* 3. 日期部分：在最右侧显示 */}
-			{date && (
-				<div className='flex-shrink-0 text-xs font-mono text-zinc-400 dark:text-zinc-500 ml-2'>
-					{date}
-				</div>
-			)}
+			{date && <div className='flex-shrink-0 text-xs font-mono text-zinc-400 dark:text-zinc-500 ml-2'>{date}</div>}
 		</div>
 	)
 }
 
 export const ShiroAvatar = ({date, className = ''}) => (
-	<Avatar
-		name='白彩恋'
-		role='总主编'
-		avatar='/images/avatar/shiro.webp'
-		date={date}
-		className={className}
-	/>
+	<Avatar name='白彩恋' role='总主编' avatar='/images/avatar/shiro.webp' date={date} className={className} />
 )
 export const LinsoAvatar = ({date, className = ''}) => (
-	<Avatar
-		name='Linso'
-		role='强到被跨省抓捕'
-		avatar='/images/avatar/linso.webp'
-		date={date}
-		className={className}
-	/>
+	<Avatar name='Linso' role='强到被跨省抓捕' avatar='/images/avatar/linso.webp' date={date} className={className} />
 )

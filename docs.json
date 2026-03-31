@@ -167,10 +167,7 @@
 											"ssu/dev/root/index",
 											{
 												"group": "模块开发",
-												"pages": [
-													"ssu/dev/root/mod/index",
-													"ssu/dev/root/mod/builder"
-												]
+												"pages": ["ssu/dev/root/mod/index", "ssu/dev/root/mod/builder"]
 											}
 										]
 									}

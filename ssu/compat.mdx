@@ -12,9 +12,7 @@ ShiroSU 支持管理其他 root 实现的模块，
 所有模块目录在 `/data/adb/modules` 的 root 实现，ShiroSU 都可以兼容，
 具体的模块功能适配如下:
 
-<Tip>
-	由于暂无较多用户使用的模块目录不在 `/data/adb/modules` 的 root 实现，故暂不推出模块目录自定义功能
-</Tip>
+<Tip>由于暂无较多用户使用的模块目录不在 `/data/adb/modules` 的 root 实现，故暂不推出模块目录自定义功能</Tip>
 
 - 操作(`action.sh`): 已完全适配
 - WebUI(`webroot`): 已完全在 [KernelSU 标准](https://kernelsu.org/zh_CN/guide/module-webui.html) 上适配，未计划适配 [WebUIX](https://mmrl.dev/guide/webuix/)
@@ -32,8 +30,8 @@ ShiroSU 支持管理其他 root 实现的权能管理，
   - [SukiSU Ultra](https://sukisu.org/zh/): 有特别适配，可正常使用
 
 <Warning>
-	如果是 KernelSU `v2.0.0` (对应 KernelSU Next `v3.0.0`/SukiSU Ultra `4.0.0`) 及以后的版本，则无法管理
-	root 权能，但仍可管理模块
+	如果是 KernelSU `v2.0.0` (对应 KernelSU Next `v3.0.0`/SukiSU Ultra `4.0.0`) 及以后的版本，则无法管理 root
+	权能，但仍可管理模块
 </Warning>
 <Warning>使用 KernelSU 时若开启了 `默认卸载模块`，则 ShiroSU 内的卸载模块管理会失效！</Warning>
 
