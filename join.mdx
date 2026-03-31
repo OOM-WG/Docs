@@ -11,84 +11,13 @@ description: '交流 & 反馈，共同发展'
       若不**活跃发言**勿加活跃群聊，**长期潜水**请加 _疑问解答群_
     </Warning>
     <Expandable title="问题">
-      <CodeGroup>
-
-      ```c fast_pow.c icon=code
-      #include <stdio.h>
-
-      int main(void){
-          long long a=2,b=10,r=1;
-          for(;b;b>>=1,a*=a) if(b&1) r*=a;
-          printf("%lld\n",r);
-          return !!0;
-      }
-      ```
-
-
-      ```cpp fast_pow.cpp icon=code
-      #include <iostream>
-      using namespace std;
-
-      int main(void){
-          long long a=2,b=10,r=1;
-          for(;b;b>>=1,a*=a) if(b&1) r*=a;
-          cout<<r<<endl;
-          return !true;
-      }
-      ```
-
-
-      ```csharp fast_pow.cs icon=code
-      using System;
-
-      class Program {
-          static void Main() {
-              long a=2,b=10,r=1;
-              for(;b>0;b>>=1,a*=a) if((b&1)==1) r*=a;
-              Console.WriteLine(r);
-          }
-      }
-      ```
-
-
-      ```dart fast_pow.dart icon=code
-      import 'dart:core';
-
-      void main() {
-          int a=2,b=10,r=1;
-          for (;b>0;b>>=1,a*=a) if ((b&1)==1) r*=a;
-          print(r);
-      }
-      ```
-
-
-      ```go fast_pow.go icon=code
-      package main
-
-      import "fmt"
-
-      func main() {
-          var a,b,r int64 = 2,10,1
-          for ;b>0;b>>=1 {
-              if b&1==1 {
-                  r*=a
-              }
-              a*=a
-          }
-          fmt.Println(r)
-      }
-      ```
-
-
-      ```kotlin fast_pow.kt icon=code
-      fun main(){
-          var a=2L; var b=10L; var r=1L
-          for(;b>0;b=b shr 1){ if((b and 1L)==1L) r*=a; a*=a }
-          println(r)
-      }
-      ```
-
-      </CodeGroup>
+    <Tip>在经典的拜占庭将军问题中，总将军中可能存在一些叛徒。为了防止将军之间的消息被篡改或伪造，可以引入不可伪造的数字签名，将问题改进为 已签名消息的拜占庭问题。
+               在这种情况下，为了保证所有忠诚的将军能够达成一致，所需的最小将军人数与叛徒人数之间的关系如何？</Tip>
+    <Tip>只需要输入选择即可 例如 `A` </Tip>
+    <Badge color="blue">A.</Badge><Note>总将军人数需要至少是叛徒人数的两倍加一</Note>
+    <Badge color="blue">B.</Badge><Note>总将军人数需要至少是叛徒人数的三倍加一</Note>
+    <Badge color="blue">C.</Badge><Note>总将军人数只需比叛徒人数多一</Note>
+    <Badge color="blue">D.</Badge><Note>总将军人数至少等于叛徒人数</Note>
     </Expandable>
 
     <Card icon="users" href="https://qm.qq.com/q/pKuFysMZs4" cta="需要验证，请解答以上程序,获取打印结果后加入" title="QQ 群 - 活跃群聊">
