@@ -7,25 +7,25 @@ icon: hammer
 ShiroSU 的模块构建工具分为如下内容:
 
 <Columns cols={2}>
-	<Card
-		title='构建工具本体'
-		img='https://github.html.zone/OOM-WG/ShiroSU-Modules-Builder'
-		href='https://github.com/OOM-WG/ShiroSU-Modules-Builder'>
-		在 `GitHub Action` 中使用或在本地使用
-	</Card>
-	<Card
-		title='模块示例模板'
-		img='https://github.html.zone/OOM-WG/ShiroSU-Module-EG'
-		href='https://github.com/OOM-WG/ShiroSU-Module-EG'>
-		通过此模板生成模块仓库
-	</Card>
+  <Card
+    title='构建工具本体'
+    img='https://github.html.zone/OOM-WG/ShiroSU-Modules-Builder'
+    href='https://github.com/OOM-WG/ShiroSU-Modules-Builder'>
+    在 `GitHub Action` 中使用或在本地使用
+  </Card>
+  <Card
+    title='模块示例模板'
+    img='https://github.html.zone/OOM-WG/ShiroSU-Module-EG'
+    href='https://github.com/OOM-WG/ShiroSU-Module-EG'>
+    通过此模板生成模块仓库
+  </Card>
 </Columns>
 
 ## 依赖
 
 <Tip>
-	构建工具会使用 [NGA SDK](https://app.niggergo.work/nga/shell) 在构建时自动集成 Shell Utils，自动混淆加密
-	`action.sh`、`customize.sh`、`nga-utils.sh`
+  构建工具会使用 [NGA SDK](https://app.niggergo.work/nga/shell) 在构建时自动集成 Shell Utils，自动混淆加密
+  `action.sh`、`customize.sh`、`nga-utils.sh`
 </Tip>
 
 - [Android NDK](https://developer.android.google.cn/ndk)
@@ -37,21 +37,21 @@ ShiroSU 的模块构建工具分为如下内容:
 ## 使用方法
 
 <Tabs>
-	<Tab title='GitHub Action'>
-		<Steps>
-			<Step title='新建文件夹'>前往示例仓库通过模板生成新项目</Step>
-			<Step title='修改代码'>修改模块项目代码</Step>
-			<Step title='构建模块'>通过 GitHub Action 手动或自行修改 Workflow 来实现构建模块</Step>
-		</Steps>
-	</Tab>
-	<Tab title='本地构建'>
-		<Steps>
-			<Step title='新建文件夹'>前往示例仓库通过模板生成新项目</Step>
-			<Step title='下载代码'>将本项目与模块项目克隆至本地</Step>
-			<Step title='修改代码'>修改模块项目代码</Step>
-			<Step title='构建模块'>通过 Go 运行本项目的构建工具来实现构建模块</Step>
-		</Steps>
-	</Tab>
+  <Tab title='GitHub Action'>
+    <Steps>
+      <Step title='新建文件夹'>前往示例仓库通过模板生成新项目</Step>
+      <Step title='修改代码'>修改模块项目代码</Step>
+      <Step title='构建模块'>通过 GitHub Action 手动或自行修改 Workflow 来实现构建模块</Step>
+    </Steps>
+  </Tab>
+  <Tab title='本地构建'>
+    <Steps>
+      <Step title='新建文件夹'>前往示例仓库通过模板生成新项目</Step>
+      <Step title='下载代码'>将本项目与模块项目克隆至本地</Step>
+      <Step title='修改代码'>修改模块项目代码</Step>
+      <Step title='构建模块'>通过 Go 运行本项目的构建工具来实现构建模块</Step>
+    </Steps>
+  </Tab>
 </Tabs>
 
 ## 项目结构
@@ -59,77 +59,77 @@ ShiroSU 的模块构建工具分为如下内容:
 <Tip>模块项目应该遵循以下目录结构</Tip>
 
 <Tree>
-	<Tree.Folder name='Git 仓库目录' defaultOpen>
-		<Tree.Folder name='src (模块目录)' defaultOpen>
-			<Tree.File name='module.prop (模块信息配置)' />
-			<br />
-			<Tree.File name='customize.sh (可选，配置安装)' />
-			<Tree.File name='action.sh (可选，操作按钮)' />
-			<Tree.File name='post-fs-data.sh (可选，在 post-fs-data 执行)' />
-			<Tree.File name='post-mount.sh (可选，在 post-mount 执行)' />
-			<Tree.File name='service.sh (可选，在 late_start 执行)' />
-			<Tree.File name='boot-completed.sh (可选，在系统启动完毕后执行)' />
-			<Tree.File name='uninstall.sh (可选，配置卸载)' />
-			<Tree.File name='system.prop (可选，配置需要修改的属性)' />
-			<Tree.File name='sepolicy.rule (可选，配置需要修改的 SELinux 策略)' />
-			<br />
-			<Tree.Folder name='system (可选，配置需要通过 systemless 挂载的文件)'>
-				<Tree.File name='需要挂载的文件...' />
-			</Tree.Folder>
-			<br />
-			<Tree.Folder name='cfgui (可选，模块 ConfigUI 前端)' />
-			<Tree.Folder name='webroot (可选，模块 WebUI 前端)'>
-				<Tree.File name='index.html' />
-				<Tree.File name='其他网页资源...' />
-			</Tree.Folder>
-			<br />
-			<Tree.File name='nga-utils.sh (构建产生，常用 Shell 函数)' />
-			<Tree.File name='hashList.dat (构建产生，安装时校验的模块文件哈希值)' />
-			<Tree.Folder name='META-INF (构建产生，Recovery 刷入脚本)' />、
-			<Tree.Folder name='zygisk (构建产生，Zygisk 共享库)'>
-				<Tree.File name='Zygisk 共享库文件...' />
-			</Tree.Folder>
-			<Tree.Folder name='bin (构建产生，可执行二进制)'>
-				<Tree.Folder name='<项目名称>'>
-					<Tree.File name='各架构可执行文件...' />
-				</Tree.Folder>
-				<Tree.Folder name='其他 C++ 项目可执行文件目录...' />
-			</Tree.Folder>
-			<br />
-			<Tree.File name='其他模块资源...' />
-		</Tree.Folder>
-		<br />
-		<Tree.Folder name='c++_native (C++ 项目目录)' defaultOpen>
-			<Tree.Folder name='<项目名称>' defaultOpen>
-				<Tree.File name='Android.mk (构建配置文件)' />
-				<Tree.File name='Application.mk (构建配置文件)' />
-				<Tree.File name='其他源码文件...' />
-			</Tree.Folder>
-			<Tree.Folder name='其他 C++ 项目目录...' />
-		</Tree.Folder>
-		<br />
-		<Tree.Folder name='go_native (Go 项目目录)' defaultOpen>
-			<Tree.Folder name='<项目名称>' defaultOpen>
-				<Tree.Folder name='arch (输出构建架构的子项目)'>
-					<Tree.File name='go.mod (项目信息文件)' />
-					<Tree.File name='go.sum (有依赖时生成的校验文件)' />
-					<Tree.File name='其他源码文件...' />
-				</Tree.Folder>
-				<Tree.File name='go.mod (项目信息文件)' />
-				<Tree.File name='go.sum (有依赖时生成的校验文件)' />
-				<Tree.File name='其他源码文件...' />
-			</Tree.Folder>
-			<Tree.Folder name='其他 Go 项目目录...' />
-		</Tree.Folder>
-		<br />
-		<Tree.File name='README.md (仓库说明文件)' />
-		<Tree.File name='changelog.md (模块更新日志)' />
-		<Tree.File name='update.json (模块更新配置)' />
-		<br />
-		<Tree.File name='.nometa (可选，构建时不自动添加工具自带 META-INF 目录)' />
-		<br />
-		<Tree.File name='其他仓库资源...' />
-	</Tree.Folder>
+  <Tree.Folder name='Git 仓库目录' defaultOpen>
+    <Tree.Folder name='src (模块目录)' defaultOpen>
+      <Tree.File name='module.prop (模块信息配置)' />
+      <br />
+      <Tree.File name='customize.sh (可选，配置安装)' />
+      <Tree.File name='action.sh (可选，操作按钮)' />
+      <Tree.File name='post-fs-data.sh (可选，在 post-fs-data 执行)' />
+      <Tree.File name='post-mount.sh (可选，在 post-mount 执行)' />
+      <Tree.File name='service.sh (可选，在 late_start 执行)' />
+      <Tree.File name='boot-completed.sh (可选，在系统启动完毕后执行)' />
+      <Tree.File name='uninstall.sh (可选，配置卸载)' />
+      <Tree.File name='system.prop (可选，配置需要修改的属性)' />
+      <Tree.File name='sepolicy.rule (可选，配置需要修改的 SELinux 策略)' />
+      <br />
+      <Tree.Folder name='system (可选，配置需要通过 systemless 挂载的文件)'>
+        <Tree.File name='需要挂载的文件...' />
+      </Tree.Folder>
+      <br />
+      <Tree.Folder name='cfgui (可选，模块 ConfigUI 前端)' />
+      <Tree.Folder name='webroot (可选，模块 WebUI 前端)'>
+        <Tree.File name='index.html' />
+        <Tree.File name='其他网页资源...' />
+      </Tree.Folder>
+      <br />
+      <Tree.File name='nga-utils.sh (构建产生，常用 Shell 函数)' />
+      <Tree.File name='hashList.dat (构建产生，安装时校验的模块文件哈希值)' />
+      <Tree.Folder name='META-INF (构建产生，Recovery 刷入脚本)' />、
+      <Tree.Folder name='zygisk (构建产生，Zygisk 共享库)'>
+        <Tree.File name='Zygisk 共享库文件...' />
+      </Tree.Folder>
+      <Tree.Folder name='bin (构建产生，可执行二进制)'>
+        <Tree.Folder name='<项目名称>'>
+          <Tree.File name='各架构可执行文件...' />
+        </Tree.Folder>
+        <Tree.Folder name='其他 C++ 项目可执行文件目录...' />
+      </Tree.Folder>
+      <br />
+      <Tree.File name='其他模块资源...' />
+    </Tree.Folder>
+    <br />
+    <Tree.Folder name='c++_native (C++ 项目目录)' defaultOpen>
+      <Tree.Folder name='<项目名称>' defaultOpen>
+        <Tree.File name='Android.mk (构建配置文件)' />
+        <Tree.File name='Application.mk (构建配置文件)' />
+        <Tree.File name='其他源码文件...' />
+      </Tree.Folder>
+      <Tree.Folder name='其他 C++ 项目目录...' />
+    </Tree.Folder>
+    <br />
+    <Tree.Folder name='go_native (Go 项目目录)' defaultOpen>
+      <Tree.Folder name='<项目名称>' defaultOpen>
+        <Tree.Folder name='arch (输出构建架构的子项目)'>
+          <Tree.File name='go.mod (项目信息文件)' />
+          <Tree.File name='go.sum (有依赖时生成的校验文件)' />
+          <Tree.File name='其他源码文件...' />
+        </Tree.Folder>
+        <Tree.File name='go.mod (项目信息文件)' />
+        <Tree.File name='go.sum (有依赖时生成的校验文件)' />
+        <Tree.File name='其他源码文件...' />
+      </Tree.Folder>
+      <Tree.Folder name='其他 Go 项目目录...' />
+    </Tree.Folder>
+    <br />
+    <Tree.File name='README.md (仓库说明文件)' />
+    <Tree.File name='changelog.md (模块更新日志)' />
+    <Tree.File name='update.json (模块更新配置)' />
+    <br />
+    <Tree.File name='.nometa (可选，构建时不自动添加工具自带 META-INF 目录)' />
+    <br />
+    <Tree.File name='其他仓库资源...' />
+  </Tree.Folder>
 </Tree>
 
 <Note>不建议往 `META-INF` 添加任何 Recovery 刷入脚本之外的文件</Note>

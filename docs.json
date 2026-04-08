@@ -44,7 +44,7 @@
 		"light": "#b4cce9",
 		"dark": "#4a5bab"
 	},
-	"fonts": {"family": "Ubuntu"},
+	"fonts": { "family": "Ubuntu" },
 	"icons": {
 		"library": "lucide"
 	},

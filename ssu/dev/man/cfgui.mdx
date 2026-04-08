@@ -5,33 +5,33 @@ icon: bolt
 ---
 
 <Danger>
-	ConfigUI 仍在开发中，由于计划有变，我们将要开发出一套完整的 FWW for Compose 之后再将其应用于 ConfigUI，当前文档**仅供参考**
+  ConfigUI 仍在开发中，由于计划有变，我们将要开发出一套完整的 FWW for Compose 之后再将其应用于 ConfigUI，当前文档**仅供参考**
 </Danger>
 
 <span>
-	ConfigUI 是 ShiroSU 特有的一种功能，旨在通过{' '}
-	<Tooltip
-		headline='FVV'
-		tip='一种简单易上手的语言，主要目的是实现一种自由方便的配置文件格式'
-		cta='文档'
-		href='https://fvvlang.sbs/'>
-		FVV
-	</Tooltip>{' '}
-	的{' '}
-	<Tooltip
-		headline='FWW (FVV Widgets)'
-		tip='FVV 的图形化实现，尽管 FVV 本身并不是一种独立语言，但是 FWW 通过其他语言解析 FWW 的配置文件从而生成界面'
-		cta='文档'
-		href='https://fvvlang.sbs/widgets'>
-		FWW
-	</Tooltip>{' '}
-	低学习成本地快速生成{' '}
-	<Tooltip
-		headline='CU NGA 风格'
-		tip='基于 Chenzyadb 的 CU 风格 的 MD3 风格 界面而设计的一种类似于它的界面风格，但是 CU NGA 风格 也可以基于 FlexiUI 或 Miuix 实现，后期我们将再设计出一套独立的 YumeStar 风格'>
-		CU NGA 风格
-	</Tooltip>{' '}
-	的模块配置界面
+  ConfigUI 是 ShiroSU 特有的一种功能，旨在通过{' '}
+  <Tooltip
+    headline='FVV'
+    tip='一种简单易上手的语言，主要目的是实现一种自由方便的配置文件格式'
+    cta='文档'
+    href='https://fvvlang.sbs/'>
+    FVV
+  </Tooltip>{' '}
+  的{' '}
+  <Tooltip
+    headline='FWW (FVV Widgets)'
+    tip='FVV 的图形化实现，尽管 FVV 本身并不是一种独立语言，但是 FWW 通过其他语言解析 FWW 的配置文件从而生成界面'
+    cta='文档'
+    href='https://fvvlang.sbs/widgets'>
+    FWW
+  </Tooltip>{' '}
+  低学习成本地快速生成{' '}
+  <Tooltip
+    headline='CU NGA 风格'
+    tip='基于 Chenzyadb 的 CU 风格 的 MD3 风格 界面而设计的一种类似于它的界面风格，但是 CU NGA 风格 也可以基于 FlexiUI 或 Miuix 实现，后期我们将再设计出一套独立的 YumeStar 风格'>
+    CU NGA 风格
+  </Tooltip>{' '}
+  的模块配置界面
 </span>
 
 使用 ConfigUI 要求模块的**配置文件必须以 FVV 格式 编写**，除非是能让 FVV 解析的简单赋值格式
@@ -43,19 +43,19 @@ ConfigUI 的 配置文件、多语言文件、UI 文件 也必须以 FVV 格式 
 模块目录应遵循以下结构:
 
 <Tree>
-	<Tree.Folder name='模块目录' defaultOpen>
-		<Tree.File name='module.prop' />
-		<Tree.Folder name='cfgui' defaultOpen>
-			<Tree.File name='config.fvv' />
-			<Tree.Folder name='ui'>
-				<Tree.File name='FWW UI 配置文件...' />
-			</Tree.Folder>
-			<Tree.Folder name='lang'>
-				<Tree.File name='FVV 多语言 配置文件...' />
-			</Tree.Folder>
-		</Tree.Folder>
-		<Tree.File name='其他模块资源...' />
-	</Tree.Folder>
+  <Tree.Folder name='模块目录' defaultOpen>
+    <Tree.File name='module.prop' />
+    <Tree.Folder name='cfgui' defaultOpen>
+      <Tree.File name='config.fvv' />
+      <Tree.Folder name='ui'>
+        <Tree.File name='FWW UI 配置文件...' />
+      </Tree.Folder>
+      <Tree.Folder name='lang'>
+        <Tree.File name='FVV 多语言 配置文件...' />
+      </Tree.Folder>
+    </Tree.Folder>
+    <Tree.File name='其他模块资源...' />
+  </Tree.Folder>
 </Tree>
 
 - `module.prop` 为模块描述文件
@@ -86,8 +86,8 @@ ConfigUI 的 配置文件、多语言文件、UI 文件 也必须以 FVV 格式 
 界面的配置文件需要存储到 `ui` 目录内
 
 <Danger>
-	FWW 的文件后缀是 `fww` 而不是 `fvv`！
-	<></>目录内的 FWW 配置文件会被**无差别**递归读取，子目录路径不会影响其被解析时的行为！
+  FWW 的文件后缀是 `fww` 而不是 `fvv`！
+  <></>目录内的 FWW 配置文件会被**无差别**递归读取，子目录路径不会影响其被解析时的行为！
 </Danger>
 
 由于解析时会直接赋值多语言文本，故无法直接将 FWW 界面存储至 `UI` 内，请务必保证每个页面均以 `UI.` 开头！

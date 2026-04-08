@@ -9,15 +9,15 @@ icon: badge-info
 ### ANSI 转义码
 
 <span>
-	ShiroSU 允许在 `module.prop` 或 Shell 脚本中使用{' '}
-	<Tooltip
-		headline='ANSI 转义码'
-		tip='一种用于控制文本显示样式的字符编码方式'
-		cta='维基百科'
-		href='https://zh.wikipedia.org/wiki/ANSI%E8%BD%AC%E4%B9%89%E5%BA%8F%E5%88%97'>
-		**ANSI 转义码**
-	</Tooltip>{' '}
-	来丰富文本的显示
+  ShiroSU 允许在 `module.prop` 或 Shell 脚本中使用{' '}
+  <Tooltip
+    headline='ANSI 转义码'
+    tip='一种用于控制文本显示样式的字符编码方式'
+    cta='维基百科'
+    href='https://zh.wikipedia.org/wiki/ANSI%E8%BD%AC%E4%B9%89%E5%BA%8F%E5%88%97'>
+    **ANSI 转义码**
+  </Tooltip>{' '}
+  来丰富文本的显示
 </span>
 
 以 ShiroSU 自带的拓展模块为例，可在 `module.prop` 使用如下代码:
@@ -46,7 +46,7 @@ descriptionAnsi=Add \e[1mcoreutils, busybox, and bash\e[0m to \e[1m/system/bin\e
 <Warning>ShiroSU 是通过**顺序解析**来读取 `module.prop` 中的内容的，所以请确保包含 `Ansi` 后缀的值是**靠后**的</Warning>
 
 <Frame>
-	<img src='/images/ssu/module_prop.webp' alt='渲染预览' noZoom />
+  <img src='/images/ssu/module_prop.webp' alt='渲染预览' noZoom />
 </Frame>
 
 ## 其他属性
@@ -81,8 +81,8 @@ ShiroSU 管理器有一个机制用来检测 `module.prop` 是否损坏或符合
 如果损坏或不符合规范，ShiroSU 管理器会在该模块的上方显示一个标签
 
 <Danger>
-	有些模块会使用 `sed` 命令来修改 `module.prop` 以实现实时更新内容，但此方法有一定概率会导致 `module.prop` 文件损坏，
-	请避免通过 `sed` 修改或者通过其他方式来显示实时内容，也可以实现一个 `module.prop` 损坏检测机制，在其损坏时恢复至默认内容
+  有些模块会使用 `sed` 命令来修改 `module.prop` 以实现实时更新内容，但此方法有一定概率会导致 `module.prop` 文件损坏，
+  请避免通过 `sed` 修改或者通过其他方式来显示实时内容，也可以实现一个 `module.prop` 损坏检测机制，在其损坏时恢复至默认内容
 </Danger>
 
 ShiroSU 管理器具体会检测如下内容:
@@ -94,7 +94,7 @@ ShiroSU 管理器具体会检测如下内容:
 - `module.prop` 内是否存在大小写不规范的情况 (管理器会正常解析，但仍会显示标签)
 
 <Warning>
-	如果只是 `module.prop` 损坏，**重装模块**通常可解决此问题，如果不符合规范，则需要**开发者自行修复**以解决此问题
+  如果只是 `module.prop` 损坏，**重装模块**通常可解决此问题，如果不符合规范，则需要**开发者自行修复**以解决此问题
 </Warning>
 
 ## 模块标签

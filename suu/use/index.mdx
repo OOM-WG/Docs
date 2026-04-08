@@ -5,62 +5,62 @@ icon: play
 ---
 
 <Steps>
-	<Step title='设备要求' icon='tablet-smartphone'>
-		您需要有一部 Android **`7`+** 的设备，架构为 `arm64-v8a`、`armeabi-v7a`、`x86_64`、`x86` 之一
-	</Step>
-	<Step title='安装 苏柚' icon='download'>
-		<Card title='下载' icon='download' arrow horizontal href='/suu/update'>
-			苏柚最新版本及历史版本下载
-		</Card>
-		下载苏柚后，请安装至您的 Android 设备
-	</Step>
-	<Step title='阅读并同意相关协议' icon='scale'>
-		您需要阅读并同意 [**隐私政策**](/suu/more/privacy)、 [**用户协议**](/suu/more/agreement)、
-		[**分发协议**](/suu/more/license) 后才可使用苏柚
-	</Step>
-	<Step title='授权权限' icon='key-round'>
-		您需要授予必要权限才可使用苏柚
-		<Tabs>
-			<Tab title='普通权限' icon='user-round'>
-				使用 _普通权限_ 局限性较大，只能使用部分基本功能，使用基本功能的范围也会有所限制
-				<></>
-				您只需要在使用特定功能时才需要授权所需权限
-			</Tab>
-			<Tab title='adb/do 权限' icon='usb'>
-				要使用 _adb/do 权限_，需要您通过 [Shizuku](https://shizuku.rikka.app/zh-hans/) 或
-				[Dhizuku](https://github.com/iamr0s/Dhizuku) 授权权限
-			</Tab>
-			<Tab title='root 权限' icon='shield-plus'>
-				苏柚支持所有提供 `su` 可执行的 root 实现，但部分功能需要附加模块支持，故建议使用有模块功能的 root 实现
-				<Tip>由于暂无较多用户使用提供名称非 `su` 的 root 实现，故暂不推出 `su` 名称自定义功能</Tip>
-				<Danger>
-					不建议使用任何**停止维护**或**不稳定**的 root 实现，例如 [**`SukiSU Ultra`**](https://sukisu.org/zh)
-					<></>
-					若可能，请切换使用在维护的稳定 root 实现
-					<></>
-					使用不被建议的 root 实现不会对苏柚的运行产生任何影响，但是有可能因为 root 实现本身的问题导致苏柚运行异常
-				</Danger>
-			</Tab>
-			<Tab title='Xposed 作用域' icon='blocks'>
-				您**只有在使用 _Xposed 功能_ 的情况下**才需要为苏柚启用 Xposed 作用域
-				<Warning>
-					不支持使用免 root Xposed 框架！
-					<></>
-					对于支持的 Xposed 框架，参见 [YukiHookAPI](https://highcapable.github.io/YukiHookAPI/zh-cn/guide/supportive.html)
-				</Warning>
-				对于所需的 Xposed 作用域范围，请按照已启用的 Xposed 功能进行选择
-			</Tab>
-		</Tabs>
-	</Step>
-	<Step title='使用苏柚' icon='sparkles'>
-		<Card title='功能' icon='sparkles' arrow horizontal href='/suu/feats'>
-			苏柚的各项功能
-		</Card>
-	</Step>
+  <Step title='设备要求' icon='tablet-smartphone'>
+    您需要有一部 Android **`7`+** 的设备，架构为 `arm64-v8a`、`armeabi-v7a`、`x86_64`、`x86` 之一
+  </Step>
+  <Step title='安装 苏柚' icon='download'>
+    <Card title='下载' icon='download' arrow horizontal href='/suu/update'>
+      苏柚最新版本及历史版本下载
+    </Card>
+    下载苏柚后，请安装至您的 Android 设备
+  </Step>
+  <Step title='阅读并同意相关协议' icon='scale'>
+    您需要阅读并同意 [**隐私政策**](/suu/more/privacy)、 [**用户协议**](/suu/more/agreement)、
+    [**分发协议**](/suu/more/license) 后才可使用苏柚
+  </Step>
+  <Step title='授权权限' icon='key-round'>
+    您需要授予必要权限才可使用苏柚
+    <Tabs>
+      <Tab title='普通权限' icon='user-round'>
+        使用 _普通权限_ 局限性较大，只能使用部分基本功能，使用基本功能的范围也会有所限制
+        <></>
+        您只需要在使用特定功能时才需要授权所需权限
+      </Tab>
+      <Tab title='adb/do 权限' icon='usb'>
+        要使用 _adb/do 权限_，需要您通过 [Shizuku](https://shizuku.rikka.app/zh-hans/) 或
+        [Dhizuku](https://github.com/iamr0s/Dhizuku) 授权权限
+      </Tab>
+      <Tab title='root 权限' icon='shield-plus'>
+        苏柚支持所有提供 `su` 可执行的 root 实现，但部分功能需要附加模块支持，故建议使用有模块功能的 root 实现
+        <Tip>由于暂无较多用户使用提供名称非 `su` 的 root 实现，故暂不推出 `su` 名称自定义功能</Tip>
+        <Danger>
+          不建议使用任何**停止维护**或**不稳定**的 root 实现，例如 [**`SukiSU Ultra`**](https://sukisu.org/zh)
+          <></>
+          若可能，请切换使用在维护的稳定 root 实现
+          <></>
+          使用不被建议的 root 实现不会对苏柚的运行产生任何影响，但是有可能因为 root 实现本身的问题导致苏柚运行异常
+        </Danger>
+      </Tab>
+      <Tab title='Xposed 作用域' icon='blocks'>
+        您**只有在使用 _Xposed 功能_ 的情况下**才需要为苏柚启用 Xposed 作用域
+        <Warning>
+          不支持使用免 root Xposed 框架！
+          <></>
+          对于支持的 Xposed 框架，参见 [YukiHookAPI](https://highcapable.github.io/YukiHookAPI/zh-cn/guide/supportive.html)
+        </Warning>
+        对于所需的 Xposed 作用域范围，请按照已启用的 Xposed 功能进行选择
+      </Tab>
+    </Tabs>
+  </Step>
+  <Step title='使用苏柚' icon='sparkles'>
+    <Card title='功能' icon='sparkles' arrow horizontal href='/suu/feats'>
+      苏柚的各项功能
+    </Card>
+  </Step>
 </Steps>
 
 ---
 
 <Card title='常见问题' icon='message-circle-question-mark' arrow href='/suu/use/faq'>
-	若有问题，可在此处查看
+  若有问题，可在此处查看
 </Card>

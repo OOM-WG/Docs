@@ -1,9 +1,9 @@
 ;(function () {
 	const projects = [
-		{path: '/ssu', name: 'ShiroSU', icon: 'ssu'},
-		{path: '/suu', name: '苏柚', icon: 'suu'},
-		{path: '/mmem', name: 'MikotoMem'},
-		{path: '/only-gui-can-do', name: 'Only GUI Can Do', icon: 'only-gui-can-do'}
+		{ path: '/ssu', name: 'ShiroSU', icon: 'ssu' },
+		{ path: '/suu', name: '苏柚', icon: 'suu' },
+		{ path: '/mmem', name: 'MikotoMem' },
+		{ path: '/only-gui-can-do', name: 'Only GUI Can Do', icon: 'only-gui-can-do' },
 	]
 
 	function update() {
@@ -41,7 +41,7 @@
 	new MutationObserver(_ => update()).observe(document.head, {
 		childList: true,
 		characterData: true,
-		subtree: true
+		subtree: true,
 	})
 	update()
 })()

@@ -1,10 +1,10 @@
-export const UpdateLog = ({date, changes = [], link}) => {
+export const UpdateLog = ({ date, changes = [], link }) => {
 	const types = {
-		common: {icon: 'scroll-text', color: 'blue'},
-		update: {icon: 'circle-fading-arrow-up', color: 'green'},
-		fix: {icon: 'bug-off', color: 'yellow'},
-		broken: {icon: 'circle-x', color: 'red'},
-		setting: {icon: 'bolt', color: 'gray'}
+		common: { icon: 'scroll-text', color: 'blue' },
+		update: { icon: 'circle-fading-arrow-up', color: 'green' },
+		fix: { icon: 'bug-off', color: 'yellow' },
+		broken: { icon: 'circle-x', color: 'red' },
+		setting: { icon: 'bolt', color: 'gray' },
 	}
 	return (
 		<>

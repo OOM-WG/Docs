@@ -1,4 +1,4 @@
-export const CoreDevCard = ({name, role, image, bio, url, email, tooltip}) => {
+export const CoreDevCard = ({ name, role, image, bio, url, email, tooltip }) => {
 	const [address, setAddress] = useState('')
 	const [hasMail, setHasMail] = useState(false)
 
@@ -63,4 +63,4 @@ export const CoreDevCard = ({name, role, image, bio, url, email, tooltip}) => {
 	)
 }
 
-export const DevList = ({children}) => <div className='flex flex-col gap-4 w-full max-w-3xl mx-auto my-8'>{children}</div>
+export const DevList = ({ children }) => <div className='flex flex-col gap-4 w-full max-w-3xl mx-auto my-8'>{children}</div>
