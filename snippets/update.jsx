@@ -4,7 +4,7 @@ export const UpdateLog = ({ date, changes = [], link }) => {
 		update: { icon: 'circle-fading-arrow-up', color: 'green' },
 		fix: { icon: 'bug-off', color: 'yellow' },
 		broken: { icon: 'circle-x', color: 'red' },
-		setting: { icon: 'bolt', color: 'gray' },
+		setting: { icon: 'bolt', color: 'gray' }
 	}
 	return (
 		<>
