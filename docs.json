@@ -29,6 +29,10 @@
 					{
 						"label": "Latest File",
 						"href": "https://latestfile.zip/"
+					},
+					{
+						"label": "200OK Working",
+						"href": "https://200ok.work/"
 					}
 				]
 			}
