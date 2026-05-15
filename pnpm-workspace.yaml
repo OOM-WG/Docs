@@ -1,4 +1,0 @@
-allowBuilds:
-  keytar: true
-  puppeteer: true
-  sharp: true
