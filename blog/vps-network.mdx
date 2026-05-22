@@ -1,0 +1,481 @@
+---
+title: 优化 VPS 的网络
+sidebarTitle: 优化 VPS 的网络
+description: 记录 VPS 网络及系统底层优化的个人实践，避免一键脚本，深入内核与系统参数。
+keywords: [VPS, 网络优化, 代理, BBR, sysctl, 内核优化, linux, tcp, fq]
+tag: 最新
+---
+
+import { Avatar, NuoFangAvatar } from '/snippets/avatars.jsx'
+
+<NuoFangAvatar date='2026 年 5 月 23 日 星期六' />
+
+最近突然想尝试自己搭建一条线路，看看会不会更好，遂购入了一台 VPS。
+现在不想续费了，记录一下进行过的优化。本篇侧重于**网络优化**。
+
+<CardGroup cols={1}>
+  <Card title="前置说明" icon="circle-info" iconType="duotone">
+    * 全程不使用任何“一键脚本”之类，确保每一步优化透明可控。
+    * 本篇假定你已了解 Linux 和服务器相关基础知识，如有不懂可询问各大 LLM。
+    * **操作有风险，做好备份，搞炸了本人概不负责。**
+  </Card>
+</CardGroup>
+
+---
+
+## 0. 选择合适的 VPS
+
+基础非常重要，如果你已经有了 VPS 可以跳过此步骤。对于小白用户，推荐按以下流程入门（无广告推广）：
+
+### 💡 学习必备知识
+
+<CardGroup cols={2}>
+  <Card title="线路与网络科普" icon="network-wired" href="https://meowvps.com/blog/route/">
+    常见各种线路和网络的科普，夯实网络理论基础。
+  </Card>
+  <Card title="常见地区 VPS 推荐" icon="server" href="https://meowvps.com/blog/resrec/">
+    不同地区 VPS 的选择逻辑与主流机房推荐。
+  </Card>
+</CardGroup>
+
+<Note>
+  上述外部链接中可能存在过时信息，但整体分析框架与核心逻辑大体一致。此外，市面上还有一种 NAT 机器（共享 IP），由于本人没有玩过，在此不作展开。
+</Note>
+
+<Warning>
+  **流量计费注意**：VPS 多以“双向流量”计费。如果用于对称传输流量，实际可用流量需要将套餐总额除以 2。
+</Warning>
+
+### 📊 对比挑选
+
+<CardGroup cols={2}>
+  <Card title="Digvps 测评" icon="chart-simple" href="https://digvps.com/review">
+    提供详细的 VPS 性能、延迟及网络吞吐数据查询。
+  </Card>
+  <Card title="NodeSeek 论坛" icon="comments" href="https://www.nodeseek.com/">
+    主打交流与最新信息。*⚠️ 交易与浏览时请谨防被骗。*
+  </Card>
+</CardGroup>
+
+### 🚀 线路选择建议
+
+本人对线路质量有较高要求。如果你的主要场景是从国内直连到服务器，强烈推荐选择明确标注“**大陆优化**”的型号。
+
+<Tabs>
+  <Tab title="中国电信 (China Telecom)">
+    * 👍 **推荐**：`CN2 GIA` / `CN2 (AS4809)`、`CTGNet (AS23764)`
+    * 👎 **不推荐**：`163 骨干网 (AS4134)` 或其他普通线路
+  </Tab>
+  <Tab title="中国联通 (China Unicom)">
+    * 👍 **推荐**：`AS10099`、`9929 (AS9929)`
+    * 👎 **不推荐**：`4837 (AS4837)` 或其他普通线路
+  </Tab>
+  <Tab title="中国移动 (China Mobile)">
+    * 👍 **推荐**：`CMIN2 (AS58807)`
+    * 🥈 **次选**：`CMI (AS58453)`、`Lumen (AS3356)`
+    * 👎 **不推荐**：`CMNET (AS9808)` 或其他普通线路
+  </Tab>
+  <Tab title="中国广电">
+    * 广电可能需要**三网优化**，次保**移动优化**。
+  </Tab>
+</Tabs>
+
+<Tip>
+  **核心原则**：如果上传和下载的路由线路不一致，**优先保障下载（回国）线路的质量**。
+</Tip>
+
+---
+
+## 1. 内核与底层优化
+
+<Note>本小节以 Ubuntu 系统为例。</Note>
+
+### 1.1 安装 XanMod 优化内核
+
+首先，查询当前处理器支持的指令集级别，以便选择最匹配的内核版本：
+
+```bash title="查询 CPU 指令集"
+/lib64/ld-linux-x86-64.so.2 --help | grep -E "x86-64-v[234]"
+```
+
+**示例输出：**
+```text
+root@nuofang:~# /lib64/ld-linux-x86-64.so.2 --help | grep -E "x86-64-v[234]"
+  x86-64-v4 (supported, searched)
+  x86-64-v3 (supported, searched)
+  x86-64-v2 (supported, searched)
+```
+*在输出中，以支持的最大版本（如 `x86-64-v4` 或 `x86-64-v3`）为首选。请以你机器的实际输出为准。*
+
+访问 [XanMod 官网](https://xanmod.org/)，根据其 **APT Repository** 教程完成内核安装（推荐使用 `MAIN` 版本）。
+
+<Steps>
+  <Step title="导入 GPG 密钥">
+    ```bash
+    wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -vo /etc/apt/keyrings/xanmod-archive-keyring.gpg
+    ```
+  </Step>
+  <Step title="添加软件源">
+    ```bash
+    echo "deb [signed-by=/etc/apt/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/xanmod-release.list
+    ```
+  </Step>
+  <Step title="更新源并安装内核">
+    *注：XanMod 暂时没有独立的 v4 专属包，故在此选择 x64v3*
+    ```bash
+    sudo apt update && sudo apt install linux-xanmod-x64v3
+    ```
+  </Step>
+  <Step title="重启并验证">
+    安装完成后，**重启你的 VPS**。重启完毕运行以下命令验证：
+    ```bash
+    uname -a | grep "xanmod"
+    ```
+    *如果输出中包含 `xanmod` 字样，代表优化内核已成功激活。*
+  </Step>
+</Steps>
+
+---
+
+### 1.2 使用优化的软件仓库（可选）
+
+各个 Linux 发行版配置有所不同，此处以 **Ubuntu 26.04** 为例。
+
+<Warning>
+  **前提条件**：确保在 `/lib64/ld-linux-x86-64.so.2 --help | grep -E "x86-64-v[234]"` 的输出中，包含有 `x86-64-v3 (supported, searched)`。如果不满足，则无法使用该优化仓库。
+</Warning>
+
+<Steps>
+  <Step title="启用 amd64v3 架构优化支持">
+    运行以下命令：
+    ```bash
+    echo 'APT::Architecture-Variants "amd64v3";' | sudo tee /etc/apt/apt.conf.d/99enable-amd64v3
+    ```
+    *注：目前官方暂未提供 v4 的专用软件仓库。*
+  </Step>
+  <Step title="执行系统更新">
+    ```bash
+    sudo apt update && sudo apt upgrade -y
+    ```
+  </Step>
+  <Step title="重启 VPS 应用优化">
+    更新完成后，**再次重启 VPS**。后续系统升级获取的软件包都将针对 `v3` 指令集进行编译优化，从而提升 CPU 整体运行效率。
+  </Step>
+</Steps>
+
+---
+
+## 2. 系统参数深度调优
+
+### 2.1 sysctl 参数优化
+
+<Warning>
+  **内核参数调整是调优的“重灾区”**：每个人的网络环境、硬件配置和业务场景都不相同，世上没有绝对完美的万能模板。
+
+  以下配置是我个人基于 **Linux 7.0+ 内核文档**整理的参数，仅供参考，请根据自身实际情况调整。
+</Warning>
+
+使用文本编辑器（推荐 `nano`）编辑系统配置文件：
+
+```bash
+sudo nano /etc/sysctl.conf
+```
+
+将以下配置写入文件中：
+
+```sysctl title="/etc/sysctl.conf"
+# ====================================================================
+# 拥塞控制与队列调度
+# ====================================================================
+# TCP 拥塞控制算法：BBR。降延迟、提升带宽利用率的必备优化。
+# 如果你安装了上文的 XanMod 内核，这里对应的应该是 BBR v3（或更高版本）。
+net.ipv4.tcp_congestion_control = bbr
+
+# 默认队列调度器：fq_codel。避免大流量传输时造成的延迟抖动（Bufferbloat 缓解）。
+# 注意：网上常有“BBR 不能搭配 fq_codel”的说法。
+# 但在 BBR v3+ 版本中，推荐搭配 fq_codel 以获得更低的延迟。
+# 参考讨论：https://github.com/systemd/systemd/issues/9725
+net.core.default_qdisc = fq_codel
+
+# ====================================================================
+# 网络缓冲区大小优化 (基于 512MB 内存 / 1000M 带宽优化)
+# ====================================================================
+# 提升套接字最大缓冲区至 32MB (满足千兆 BDP 并留有抖动余裕)
+net.core.rmem_max = 33554432
+net.core.wmem_max = 33554432
+
+# TCP 接收与发送缓冲区（单位：字节）：[ 最小起步  默认分配  最大限制 ]
+# 分配参考：4KB 起步 | 2.5MB 满足百兆默认 | 32MB 冲顶千兆限制
+net.ipv4.tcp_rmem = 4096 2621440 33554432
+net.ipv4.tcp_wmem = 4096 2621440 33554432
+
+# 全局 TCP 内存限制（单位：页，1 页 = 4KB）
+# 对应物理内存水位线：约 150MB(安全) | 250MB(压力收缩) | 300MB(锁定防 OOM)
+net.ipv4.tcp_mem = 38400 64000 76800
+
+# ====================================================================
+# Cloudflare 推荐的 TCP 折叠优化 (需使用优化内核)
+# ====================================================================
+net.ipv4.tcp_collapse_max_bytes = 6291456
+net.ipv4.tcp_notsent_lowat = 131072
+
+# ====================================================================
+# 内存虚拟化与系统响应
+# ====================================================================
+# 尽量不使用 swap 交换分区，避免因磁盘 I/O 导致系统性能下降
+vm.swappiness = 1
+
+# ====================================================================
+# TCP Fast Open (TFO) 优化
+# ====================================================================
+# 开启 TFO（值 3 表示同时开启客户端与服务端 TFO）
+# 注：虽然国内客户端不一定完全支持，但对访问国际公网非常有用。
+net.ipv4.tcp_fastopen = 3
+# 每条连接都尝试 TFO，即使部分历史连接失败也不立即进入黑洞超时限制
+net.ipv4.tcp_fastopen_blackhole_timeout_sec = 0
+
+# ====================================================================
+# 端口、连接复用与高并发容量
+# ====================================================================
+# 增大临时端口范围，避免并发连接过多导致端口耗尽
+net.ipv4.ip_local_port_range = 1024 65000
+
+# 允许重用处于 TIME-WAIT 状态的 TCP 连接
+net.ipv4.tcp_tw_reuse = 1
+
+# 开启 TCP 时间戳，用于精确计算 RTT，防范注入攻击，降低丢包卡顿率
+net.ipv4.tcp_timestamps = 1
+
+# 关闭 TCP 慢启动：连接空闲后不重新进入慢启动流程，更快速地恢复满带宽性能
+net.ipv4.tcp_slow_start_after_idle = 0
+
+# 提高系统最大半连接数与高并发积压队列容量
+net.core.somaxconn = 10240
+net.ipv4.tcp_max_syn_backlog = 10240
+net.core.netdev_max_backlog = 8192
+fs.nr_open = 1048576
+fs.file-max = 1048576
+
+# ====================================================================
+# 丢包控制、MTU 探测与传输特性
+# ====================================================================
+# 启用选择性确认 (SACK)，帮助更精准地重传丢失的报文
+net.ipv4.tcp_sack = 1
+
+# 启用 TCP 窗口缩放支持
+net.ipv4.tcp_window_scaling = 1
+
+# 启用 ECN (显式拥塞通知)，减少网络拥塞时的重传与丢包
+# 设为 3 是较新内核支持的 AccECN (Accurate ECN) 模式，推荐
+net.ipv4.tcp_ecn = 3
+# 如果端到端路径不支持 ECN 则自动回退，避免连接中断
+net.ipv4.tcp_ecn_fallback = 1
+
+# 如果 MTU 设置过大导致丢包，允许内核自动探测并协商最适 MTU
+net.ipv4.tcp_mtu_probing = 1
+# 探测 MTU 的基准 MSS 大小（该值参考了内核维护者所使用的设定）
+net.ipv4.tcp_base_mss = 1348
+# 探测 MTU 的最低下限，避免因过度探测或异常情况导致吞吐骤降
+net.ipv4.tcp_mtu_probe_floor = 1024
+
+# 启用保护性负载均衡 (PLB)，主要对 IPv6 生效
+# 当 TCP 传输遇到异常时，内核会尝试自动切换物理传输路径（需要 ECN 支持）
+net.ipv4.tcp_plb_enabled = 1
+
+# 为细流（小流量长连接，如 SSH、推送服务等）启用线性超时动态触发
+# 参考内核文档：https://docs.kernel.org/networking/tcp-thin.html
+net.ipv4.tcp_thin_linear_timeouts = 1
+
+# ====================================================================
+# 其他杂项
+# ====================================================================
+# 允许响应 ICMP PING（设置为 0 表示不屏蔽，避免被误判为离线，非性能优化项）
+net.ipv4.icmp_echo_ignore_all = 0
+```
+
+<Tip>
+  **Nano 编辑器保存指南**：按 `Ctrl + O` 回车保存文件，再按 `Ctrl + X` 退出编辑器。
+</Tip>
+
+保存配置文件后，执行以下命令使参数立即生效：
+
+```bash title="生效配置"
+# 重新加载内核参数
+sudo sysctl -p
+
+# 为默认网卡手动应用 fq_codel 队列（请注意：每个实际使用的物理/虚拟网卡都需要执行一次）
+sudo tc qdisc replace dev $(ip route show default | awk '{print $5}') root fq_codel
+```
+
+<Warning>
+  **关于 bpftune 的特别说明**：个人实测**不推荐**使用 `bpftune`。该工具可能无法判断内存的实际需求上限，导致不可控的运行状态。
+</Warning>
+
+---
+
+### 2.2 客户端对应优化
+
+为了达到最佳效果，如果你有权限修改本地客户端，建议一并开启客户端的 `TCP Fast Open`、`ECN` 和 `BBR`。
+
+以下是 **Windows** 的优化配置方法：
+
+以管理员权限打开 **PowerShell**，然后执行以下命令：
+
+```powershell title="Windows PowerShell (管理员权限)"
+# 启用 TCP Fast Open (TFO)（依赖特定 Windows 版本，部分环境可能不生效）
+netsh interface tcp set global fastopen=enabled
+
+# 启用 TCP Fast Open 降级回退机制
+netsh interface tcp set global fastopenfallback=enabled
+
+# 启用 ECN（显式拥塞通知），协同服务器端降低丢包率
+netsh interface tcp set global ecncapability=enabled
+
+# 启用 TCP 时间戳支持
+netsh int tcp set global timestamps=allowed
+
+# --------------------------------------------------------------------
+# ⚠️ Windows 24H2 及以上环回 MTU Bug 修复（用bbr必须配置）
+# 24H2 及以上版本存在一个 Bug：必须关闭本地环回接口的 MTU 9000 限制，否则部分本地端口会无法正常打开。
+# --------------------------------------------------------------------
+netsh i ipv6 s g l=d
+netsh i i s g l=d
+
+# --------------------------------------------------------------------
+# 启用 BBRv2 拥塞控制算法 (仅在新版系统中有效)
+# --------------------------------------------------------------------
+netsh int tcp set supplemental Template=Internet CongestionProvider=bbr2
+netsh int tcp set supplemental Template=Datacenter CongestionProvider=bbr2
+netsh int tcp set supplemental Template=Compat CongestionProvider=bbr2
+netsh int tcp set supplemental Template=DatacenterCustom CongestionProvider=bbr2
+netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
+```
+
+<Note>
+  如果你的客户端本身支持 Tcp fastopen(tfo) 配置，请在配置文件中同步开启。
+</Note>
+
+---
+
+### 2.3 常用系统服务与参数优化
+
+<AccordionGroup>
+  <Accordion title="1. 调整 DNS" icon="globe">
+    国外 VPS 通常没有复杂的解析瓶颈，推荐首选 Cloudflare 和 Google 的公共解析。
+
+    编辑 `/etc/resolv.conf`：
+    ```text title="/etc/resolv.conf"
+    nameserver 1.0.0.1
+    nameserver 2606:4700:4700::1111
+    nameserver 8.8.8.8
+    ```
+    *(注：如果你的系统使用了 `systemd-resolved` 等其他 DNS 托管方案，请根据对应工具的规则进行持久化修改。)*
+  </Accordion>
+
+  <Accordion title="2. 调整软件源" icon="server">
+    如果服务器所在的物理区域国际互联不佳，建议在网上搜索 VPS 所在机房周边延迟最低的开源镜像站并替换默认软件源。
+  </Accordion>
+
+  <Accordion title="3. 将网卡中断队列绑定到不同 CPU 核心" icon="microchip">
+    由于我的 VPS 只是单核 CPU，因此略过了此步骤。如果你的 VPS 拥有多核 CPU，建议在网上搜索“网卡软中断多核绑定”教程，可提升高吞吐时的网络吞吐能力。
+  </Accordion>
+
+  <Accordion title="4. 提升关键软件运行优先级" icon="bolt">
+    根据不同发行版或服务的安装部署方式，可以通过调整进程优先级来保障其高负载下的稳定性：
+
+    ```bash title="调整运行优先级"
+    # 使用 nice 和 ionice 提升二进制进程的 CPU 和 I/O 优先级
+    nice -n -15 ionice -c 2 -n 0 ./你的二进制程序
+    ```
+
+    <Tip>
+      此外，在 Systemd Service 配置文件中通过设置 `LimitNOFILE`，或者在软件配置中**关闭详细日志输出**，都能提升高并发下的运行性能。
+    </Tip>
+  </Accordion>
+
+  <Accordion title="5. 调整网卡硬件参数" icon="gauge">
+    使用 `ethtool` 工具（需确认网卡驱动支持）开启网卡的 UDP 聚合接收转发功能：
+
+    ```bash title="网卡硬件优化"
+    ethtool -K eth0 rx-udp-gro-forwarding on
+    ```
+    *此外，还可以尝试调大网卡的环形缓冲区（Ring Buffer）大小。该操作存在小概率死机风险，具体调整方法和上限数值建议详细咨询 LLM。*
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## 3. 虚拟内存优化 (Swap)
+
+对于内存较小（如 512MB - 1GB）的 VPS，当遇到内存突发使用时，很容易因为 OOM (Out Of Memory) 导致关键服务被系统强制杀死。合理分配交换分区（Swap）可以极大地缓解该问题。
+
+### 🛠️ 创建与启用步骤
+
+<Steps>
+  <Step title="分配磁盘空间">
+    这里以创建 **1GB** 的 Swap 文件为例。使用 `fallocate` 命令可以实现秒级预留空间（若需 2GB、4GB 可将 `-l 1G` 修改为 `-l 2G`、`-l 4G`）：
+
+    ```bash
+    sudo fallocate -l 1G /swapfile
+    ```
+    *注：如果在一些老旧的虚拟化/文件系统上提示 `fallocate failed`，请改用传统的 `dd` 命令：*
+    `sudo dd if=/dev/zero of=/swapfile bs=1M count=1024`
+  </Step>
+  <Step title="严格限制文件权限">
+    由于交换文件中可能包含内存里的敏感、机密数据，必须确保只有 root 用户拥有读取权限：
+
+    ```bash
+    sudo chmod 600 /swapfile
+    ```
+  </Step>
+  <Step title="格式化为 Swap 格式">
+    将创建的文件格式化为系统可识别的交换文件系统：
+
+    ```bash
+    sudo mkswap /swapfile
+    ```
+  </Step>
+  <Step title="临时启用 Swap">
+    立即使该交换文件生效：
+
+    ```bash
+    sudo swapon /swapfile
+    ```
+  </Step>
+  <Step title="配置开机自动挂载">
+    为了防止 VPS 重启后 Swap 失效，需要将其写入系统的磁盘挂载表 `/etc/fstab` 中。运行以下命令一键追加：
+
+    ```bash
+    sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
+    ```
+  </Step>
+</Steps>
+
+---
+
+### 🔍 验证 Swap 是否成功启用
+
+配置完成后，你可以通过以下两种方式来检查虚拟内存的挂载状态：
+
+<CodeGroup>
+  ```bash title="方式一：查看简要摘要"
+  swapon --show
+  ```
+
+  ```bash title="方式二：查看整体内存看板"
+  free -h
+  ```
+</CodeGroup>
+
+**期望输出示例：**
+
+```text title="swapon 输出"
+NAME      TYPE SIZE USED PRIO
+/swapfile file   1G   0B   -2
+```
+
+<Tip>
+  **进阶建议**
+  * 开启 **zswap** 功能：可在内存中对即将写入 Swap 的数据进行压缩，能进一步减少小内存机器的物理 I/O 并提升系统响应性能。建议向 LLM 询问针对你机型内存大小的 zswap 最佳分配方案。
+  * 如果你的机器是**大物理内存**，比起普通的磁盘 Swap，使用 **zram**（内存压缩设备）会是性能更好的选择。
+</Tip>

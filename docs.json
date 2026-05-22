@@ -112,6 +112,7 @@
 								"group": "回忆篇章",
 								"icon": "calendar",
 								"pages": [
+									"blog/vps-network",
 									"blog/ssu-nt",
 									"blog/go4-sukisu-ultra-4",
 									"blog/go4-sukisu-ultra-3",
