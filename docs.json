@@ -171,6 +171,11 @@
 								]
 							},
 							{
+								"group": "API 参考",
+								"openapi": "ssu/openapi.yml",
+								"asyncapi": "ssu/asyncapi.yml"
+							},
+							{
 								"group": "详细文档",
 								"pages": ["ssu/compat", "ssu/more/origin", "ssu/more/privacy"]
 							}

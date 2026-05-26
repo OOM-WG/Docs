@@ -1,0 +1,63 @@
+asyncapi: 3.1.0
+info:
+  title: ShiroSU WebSocket 接口
+  version: 1.0.0
+  description: |
+    `suu man --server` 运行服务所提供的 WebSocket 接口
+
+    所有 WebSocket 路径与其对应的 HTTP 路径相同
+
+    需要先通过 HTTP 请求 `POST /ws` 获取临时一次性票证，
+    再使用 `?ws={ticket}` 建立 WebSocket 连接
+
+servers:
+  superuser:
+    host: '{host}:{port}'
+    protocol: ws
+    pathname: /api/v1/superuser
+    description: ShiroSU 后端的本地或局域网地址
+    variables:
+      host:
+        default: 127.0.0.1
+      port:
+        default: '5355'
+    security:
+      - $ref: '#/components/securitySchemes/wsTicket'
+
+channels:
+  statusVersion:
+    address: /status/version
+    title: 版本心跳
+    summary: 每秒发送一次当前版本号，用于连接存活判断
+    description: 服务端每秒发送一条版本号的文本消息
+    messages:
+      version:
+        $ref: '#/components/messages/VersionText'
+
+operations:
+  receiveStatusVersion:
+    action: receive
+    title: 接收版本心跳
+    summary: 每秒接收一次当前版本号文本
+    channel:
+      $ref: '#/channels/statusVersion'
+    messages:
+      - $ref: '#/components/messages/VersionText'
+
+components:
+  securitySchemes:
+    wsTicket:
+      type: apiKey
+      in: query
+      name: ws
+      description: 通过 HTTP 请求 `POST /ws` 返回的一次性票证
+  messages:
+    VersionText:
+      name: version
+      title: 版本号文本消息
+      summary: 当前运行的 ShiroSU 版本
+      contentType: text/plain
+      payload:
+        type: string
+        examples:
+          - 0.0.0-indev
