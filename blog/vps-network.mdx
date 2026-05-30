@@ -1,23 +1,21 @@
 ---
-title: 优化 VPS 的网络
-sidebarTitle: 优化 VPS 的网络
-description: 记录 VPS 网络及系统底层优化的个人实践，避免一键脚本，深入内核与系统参数。
-keywords: [VPS, 网络优化, 代理, BBR, sysctl, 内核优化, linux, tcp, fq]
-tag: 最新
+title: "优化 VPS 的网络"
+sidebarTitle: "优化 VPS 的网络"
+description: "记录 VPS 网络及系统底层优化的个人实践，避免一键脚本，深入内核与系统参数。"
+keywords: ["VPS", "网络优化", "代理", "BBR", "sysctl", "内核优化", "linux", "tcp", "fq"]
 ---
 
 import { Avatar, NuoFangAvatar } from '/snippets/avatars.jsx'
 
-<NuoFangAvatar date='2026 年 5 月 23 日 星期六' />
+<NuoFangAvatar date="2026 年 5 月 23 日 星期六" />
 
-最近突然想尝试自己搭建一条线路，看看会不会更好，遂购入了一台 VPS。
-现在不想续费了，记录一下进行过的优化。本篇侧重于**网络优化**。
+最近突然想尝试自己搭建一条线路，看看会不会更好，遂购入了一台 VPS。 现在不想续费了，记录一下进行过的优化。本篇侧重于**网络优化**。
 
 <CardGroup cols={1}>
   <Card title="前置说明" icon="info">
-    * 全程不使用任何“一键脚本”之类，确保每一步优化透明可控。
-    * 本篇假定你已了解 Linux 和服务器相关基础知识，如有不懂可询问各大 LLM。
-    * **操作有风险，做好备份，搞炸了本人概不负责。**
+    - 全程不使用任何“一键脚本”之类，确保每一步优化透明可控。
+    - 本篇假定你已了解 Linux 和服务器相关基础知识，如有不懂可询问各大 LLM。
+    - **操作有风险，做好备份，搞炸了本人概不负责。**
   </Card>
 </CardGroup>
 
@@ -33,6 +31,7 @@ import { Avatar, NuoFangAvatar } from '/snippets/avatars.jsx'
   <Card title="线路与网络科普" icon="route" href="https://meowvps.com/blog/route/">
     常见各种线路和网络的科普，夯实网络理论基础。
   </Card>
+
   <Card title="常见地区 VPS 推荐" icon="server" href="https://meowvps.com/blog/resrec/">
     不同地区 VPS 的选择逻辑与主流机房推荐。
   </Card>
@@ -52,8 +51,10 @@ import { Avatar, NuoFangAvatar } from '/snippets/avatars.jsx'
   <Card title="Digvps 测评" icon="chart-line" href="https://digvps.com/review">
     提供详细的 VPS 性能、延迟及网络吞吐数据查询。
   </Card>
+
   <Card title="NodeSeek 论坛" icon="users" href="https://www.nodeseek.com/">
-    主打交流与最新信息。<br/>*⚠️ 交易与浏览时请谨防被骗。*
+    主打交流与最新信息。\
+    _⚠️ 交易与浏览时请谨防被骗。_
   </Card>
 </CardGroup>
 
@@ -63,20 +64,20 @@ import { Avatar, NuoFangAvatar } from '/snippets/avatars.jsx'
 
 <Tabs>
   <Tab title="中国电信 (China Telecom)">
-    * 👍 **推荐**：`CN2 GIA` / `CN2 (AS4809)`、`CTGNet (AS23764)`
-    * 👎 **不推荐**：`163 骨干网 (AS4134)` 或其他普通线路
+    - 👍 **推荐**：`CN2 GIA` / `CN2 (AS4809)`、`CTGNet (AS23764)`
+    - 👎 **不推荐**：`163 骨干网 (AS4134)` 或其他普通线路
   </Tab>
   <Tab title="中国联通 (China Unicom)">
-    * 👍 **推荐**：`AS10099`、`9929 (AS9929)`
-    * 👎 **不推荐**：`4837 (AS4837)` 或其他普通线路
+    - 👍 **推荐**：`AS10099`、`9929 (AS9929)`
+    - 👎 **不推荐**：`4837 (AS4837)` 或其他普通线路
   </Tab>
   <Tab title="中国移动 (China Mobile)">
-    * 👍 **推荐**：`CMIN2 (AS58807)`
-    * 🥈 **次选**：`CMI (AS58453)`、`Lumen (AS3356)`
-    * 👎 **不推荐**：`CMNET (AS9808)` 或其他普通线路
+    - 👍 **推荐**：`CMIN2 (AS58807)`
+    - 🥈 **次选**：`CMI (AS58453)`、`Lumen (AS3356)`
+    - 👎 **不推荐**：`CMNET (AS9808)` 或其他普通线路
   </Tab>
   <Tab title="中国广电">
-    * 广电可能需要**三网优化**，次保**移动优化**。
+    - 广电可能需要**三网优化**，次保**移动优化**。
   </Tab>
 </Tabs>
 
@@ -88,7 +89,9 @@ import { Avatar, NuoFangAvatar } from '/snippets/avatars.jsx'
 
 ## 1. 内核与底层优化
 
-<Note>本小节以 Ubuntu 系统为例。</Note>
+<Note>
+  本小节以 Ubuntu 系统为例。
+</Note>
 
 ### 1.1 安装 XanMod 优化内核
 
@@ -99,13 +102,15 @@ import { Avatar, NuoFangAvatar } from '/snippets/avatars.jsx'
 ```
 
 **示例输出：**
+
 ```text
 root@nuofang:~# /lib64/ld-linux-x86-64.so.2 --help | grep -E "x86-64-v[234]"
   x86-64-v4 (supported, searched)
   x86-64-v3 (supported, searched)
   x86-64-v2 (supported, searched)
 ```
-*在输出中，以支持的最大版本（如 `x86-64-v4` 或 `x86-64-v3`）为首选。请以你机器的实际输出为准。*
+
+_在输出中，以支持的最大版本（如 `x86-64-v4` 或 `x86-64-v3`）为首选。请以你机器的实际输出为准。_
 
 访问 [XanMod 官网](https://xanmod.org/)，根据其 **APT Repository** 教程完成内核安装（推荐使用 `MAIN` 版本）。
 
@@ -121,17 +126,20 @@ root@nuofang:~# /lib64/ld-linux-x86-64.so.2 --help | grep -E "x86-64-v[234]"
     ```
   </Step>
   <Step title="更新源并安装内核">
-    *注：XanMod 暂时没有独立的 v4 专属包，故在此选择 x64v3*
+    _注：XanMod 暂时没有独立的 v4 专属包，故在此选择 x64v3_
+
     ```bash
     sudo apt update && sudo apt install linux-xanmod-x64v3
     ```
   </Step>
   <Step title="重启并验证">
     安装完成后，**重启你的 VPS**。重启完毕运行以下命令验证：
+
     ```bash
     uname -a | grep "xanmod"
     ```
-    *如果输出中包含 `xanmod` 字样，代表优化内核已成功激活。*
+
+    _如果输出中包含 `xanmod` 字样，代表优化内核已成功激活。_
   </Step>
 </Steps>
 
@@ -148,10 +156,12 @@ root@nuofang:~# /lib64/ld-linux-x86-64.so.2 --help | grep -E "x86-64-v[234]"
 <Steps>
   <Step title="启用 amd64v3 架构优化支持">
     运行以下命令：
+
     ```bash
     echo 'APT::Architecture-Variants "amd64v3";' | sudo tee /etc/apt/apt.conf.d/99enable-amd64v3
     ```
-    *注：目前官方暂未提供 v4 的专用软件仓库。*
+
+    _注：目前官方暂未提供 v4 的专用软件仓库。_
   </Step>
   <Step title="执行系统更新">
     ```bash
@@ -172,7 +182,7 @@ root@nuofang:~# /lib64/ld-linux-x86-64.so.2 --help | grep -E "x86-64-v[234]"
 <Warning>
   **内核参数调整是调优的“重灾区”**：每个人的网络环境、硬件配置和业务场景都不相同，世上没有绝对完美的万能模板。
 
-  以下配置是我个人基于 **Linux 7.0+ 内核文档**整理的参数，仅供参考，请根据自身实际情况调整。
+  以下配置是我个人基于 **Linux 7.0\+ 内核文档**整理的参数，仅供参考，请根据自身实际情况调整。
 </Warning>
 
 使用文本编辑器（推荐 `nano`）编辑系统配置文件：
@@ -364,12 +374,14 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
     国外 VPS 通常没有复杂的解析瓶颈，推荐首选 Cloudflare 和 Google 的公共解析。
 
     编辑 `/etc/resolv.conf`：
+
     ```text title="/etc/resolv.conf"
     nameserver 1.0.0.1
     nameserver 2606:4700:4700::1111
     nameserver 8.8.8.8
     ```
-    *(注：如果你的系统使用了 `systemd-resolved` 等其他 DNS 托管方案，请根据对应工具的规则进行持久化修改。)*
+
+    _(注：如果你的系统使用了 `systemd-resolved` 等其他 DNS 托管方案，请根据对应工具的规则进行持久化修改。)_
   </Accordion>
 
   <Accordion title="2. 调整软件源" icon="server">
@@ -399,7 +411,8 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
     ```bash title="网卡硬件优化"
     ethtool -K eth0 rx-udp-gro-forwarding on
     ```
-    *此外，还可以尝试调大网卡的环形缓冲区（Ring Buffer）大小。该操作存在小概率死机风险，具体调整方法和上限数值建议详细咨询 LLM。*
+
+    _此外，还可以尝试调大网卡的环形缓冲区（Ring Buffer）大小。该操作存在小概率死机风险，具体调整方法和上限数值建议详细咨询 LLM。_
   </Accordion>
 </AccordionGroup>
 
@@ -418,8 +431,8 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
     ```bash
     sudo fallocate -l 1G /swapfile
     ```
-    *注：如果在一些老旧的虚拟化/文件系统上提示 `fallocate failed`，请改用传统的 `dd` 命令：*
-    `sudo dd if=/dev/zero of=/swapfile bs=1M count=1024`
+
+    _注：如果在一些老旧的虚拟化/文件系统上提示 `fallocate failed`，请改用传统的 `dd` 命令：_ `sudo dd if=/dev/zero of=/swapfile bs=1M count=1024`
   </Step>
   <Step title="严格限制文件权限">
     由于交换文件中可能包含内存里的敏感、机密数据，必须确保只有 root 用户拥有读取权限：
@@ -458,13 +471,15 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
 配置完成后，你可以通过以下两种方式来检查虚拟内存的挂载状态：
 
 <CodeGroup>
-  ```bash title="方式一：查看简要摘要"
-  swapon --show
-  ```
 
-  ```bash title="方式二：查看整体内存看板"
-  free -h
-  ```
+```bash title="方式一：查看简要摘要"
+swapon --show
+```
+
+```bash title="方式二：查看整体内存看板"
+free -h
+```
+
 </CodeGroup>
 
 **期望输出示例：**
@@ -476,7 +491,8 @@ NAME      TYPE SIZE USED PRIO
 
 <Tip>
   **进阶建议**
-  * 开启 **zswap** 功能：可在内存中对即将写入 Swap 的数据进行压缩，能进一步减少小内存机器的物理 I/O 并提升系统响应性能。建议向 LLM 询问针对你机型内存大小的 zswap 最佳分配方案。
-  * 如果你的机器是**大物理内存**，比起普通的磁盘 Swap，使用 **zram**（内存压缩设备）会是性能更好的选择。
-  * 如果你的动手能力强，可以尝试将要用的软件针对 VPS 的 cpu 进行优化编译。
+
+  - 开启 **zswap** 功能：可在内存中对即将写入 Swap 的数据进行压缩，能进一步减少小内存机器的物理 I/O 并提升系统响应性能。建议向 LLM 询问针对你机型内存大小的 zswap 最佳分配方案。
+  - 如果你的机器是**大物理内存**，比起普通的磁盘 Swap，使用 **zram**（内存压缩设备）会是性能更好的选择。
+  - 如果你的动手能力强，可以尝试将要用的软件针对 VPS 的 cpu 进行优化编译。
 </Tip>

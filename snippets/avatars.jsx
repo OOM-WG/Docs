@@ -51,3 +51,6 @@ export const LinsoAvatar = ({ date, className = '' }) => (
 export const NuoFangAvatar = ({ date, className = '' }) => (
 	<Avatar name='悠栾' role='网管?' avatar='/images/avatar/ark.webp' date={date} className={className} />
 )
+export const YumeYukaAvatar = ({ date, className = '' }) => (
+	<Avatar name='梦璃酱' role='小魔女' avatar='/images/avatar/yumeyuka.webp' date={date} className={className} />
+)

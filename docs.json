@@ -111,7 +111,8 @@
 							{
 								"group": "回忆篇章",
 								"icon": "calendar",
-								"pages": [
+                "pages": [
+									"blog/shiro-su-ssu-0-1-0-beta",
 									"blog/vps-network",
 									"blog/ssu-nt",
 									"blog/go4-sukisu-ultra-4",
