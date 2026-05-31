@@ -12,44 +12,23 @@ export const CoreDevCard = ({ name, role, image, bio, url, email, tooltip }) => 
 	const CardContent = (
 		<a
 			href={url}
-			className='group flex items-start sm:items-center gap-5 p-5 rounded-xl w-full
-               not-prose no-underline border border-transparent
-               hover:border-primary bg-transparent
-               hover:bg-zinc-50 dark:hover:bg-zinc-800/30
-               transition-colors duration-200'>
+			className='not-prose hover:border-primary group flex w-full items-start gap-5 rounded-xl border border-transparent bg-transparent p-5 no-underline transition-colors duration-200 hover:bg-zinc-50 sm:items-center dark:hover:bg-zinc-800/30'>
 			<div className='shrink-0'>
-				<div
-					className='w-16 h-16 rounded-lg overflow-hidden
-                      bg-zinc-100 ring-1 ring-zinc-200
-                      dark:ring-white/10
-                      group-hover:ring-transparent
-                      transition-colors'>
-					<img src={image} alt={name} className='w-full h-full object-cover m-0' />
+				<div className='h-16 w-16 overflow-hidden rounded-lg bg-zinc-100 ring-1 ring-zinc-200 transition-colors group-hover:ring-transparent dark:ring-white/10'>
+					<img src={image} alt={name} className='m-0 h-full w-full object-cover' />
 				</div>
 			</div>
 
-			<div className='flex-1 min-w-0 flex flex-col justify-center text-left'>
-				<h3
-					className='text-base font-bold m-0
-                     text-zinc-900 dark:text-zinc-100
-                     group-hover:text-primary
-                     transition-colors'>
+			<div className='flex min-w-0 flex-1 flex-col justify-center text-left'>
+				<h3 className='group-hover:text-primary m-0 text-base font-bold text-zinc-900 transition-colors dark:text-zinc-100'>
 					{name}
 				</h3>
 
-				<div
-					className='text-xs font-semibold uppercase tracking-wider mb-2
-                      text-zinc-400
-                      group-hover:text-primary/80
-                      transition-colors'>
+				<div className='group-hover:text-primary/80 mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 transition-colors'>
 					{role}
 				</div>
 
-				<p
-					className='text-sm text-zinc-500 dark:text-zinc-400
-                    m-0 leading-relaxed line-clamp-2'>
-					{bio}
-				</p>
+				<p className='m-0 line-clamp-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400'>{bio}</p>
 			</div>
 		</a>
 	)
@@ -63,4 +42,4 @@ export const CoreDevCard = ({ name, role, image, bio, url, email, tooltip }) => 
 	)
 }
 
-export const DevList = ({ children }) => <div className='flex flex-col gap-4 w-full max-w-3xl mx-auto my-8'>{children}</div>
+export const DevList = ({ children }) => <div className='mx-auto my-8 flex w-full max-w-3xl flex-col gap-4'>{children}</div>

@@ -6,10 +6,10 @@
 	"scripts": {
 		"mint": "mint",
 		"dev": "mint dev",
-		"format": "prettier --write ."
+		"format": "vp fmt"
 	},
 	"devDependencies": {
-		"mint": "^4.2.565",
-		"prettier": "^3.8.3"
+		"mint": "^4.2.587",
+		"vite-plus": "^0.1.23"
 	}
 }

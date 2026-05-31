@@ -1,21 +1,20 @@
 ---
-title: "优化 VPS 的网络"
-sidebarTitle: "优化 VPS 的网络"
-description: "记录 VPS 网络及系统底层优化的个人实践，避免一键脚本，深入内核与系统参数。"
-keywords: ["VPS", "网络优化", "代理", "BBR", "sysctl", "内核优化", "linux", "tcp", "fq"]
+title: 优化 VPS 的网络
+sidebarTitle: 优化 VPS 的网络
+description: 记录 VPS 网络及系统底层优化的个人实践，避免一键脚本，深入内核与系统参数。
+keywords: [VPS, 网络优化, 代理, BBR, sysctl, 内核优化, Linux, TCP]
 ---
 
 import { Avatar, NuoFangAvatar } from '/snippets/avatars.jsx'
 
-<NuoFangAvatar date="2026 年 5 月 23 日 星期六" />
+<NuoFangAvatar date='2026 年 5 月 23 日 星期六' />
 
 最近突然想尝试自己搭建一条线路，看看会不会更好，遂购入了一台 VPS。 现在不想续费了，记录一下进行过的优化。本篇侧重于**网络优化**。
 
 <CardGroup cols={1}>
-  <Card title="前置说明" icon="info">
-    - 全程不使用任何“一键脚本”之类，确保每一步优化透明可控。
-    - 本篇假定你已了解 Linux 和服务器相关基础知识，如有不懂可询问各大 LLM。
-    - **操作有风险，做好备份，搞炸了本人概不负责。**
+  <Card title='前置说明' icon='info'>
+    - 全程不使用任何“一键脚本”之类，确保每一步优化透明可控。 - 本篇假定你已了解 Linux 和服务器相关基础知识，如有不懂可询问各大
+    LLM。 - **操作有风险，做好备份，搞炸了本人概不负责。**
   </Card>
 </CardGroup>
 
@@ -38,12 +37,11 @@ import { Avatar, NuoFangAvatar } from '/snippets/avatars.jsx'
 </CardGroup>
 
 <Note>
-  上述外部链接中可能存在过时信息，但整体分析框架与核心逻辑大体一致。此外，市面上还有一种 NAT 机器（共享 IP），由于本人没有玩过，在此不作展开。
+  上述外部链接中可能存在过时信息，但整体分析框架与核心逻辑大体一致。此外，市面上还有一种 NAT 机器（共享
+  IP），由于本人没有玩过，在此不作展开。
 </Note>
 
-<Warning>
-  **流量计费注意**：VPS 多以“双向流量”计费。如果用于对称传输流量，实际可用流量需要将套餐总额除以 2。
-</Warning>
+<Warning>**流量计费注意**：VPS 多以“双向流量”计费。如果用于对称传输流量，实际可用流量需要将套餐总额除以 2。</Warning>
 
 ### 📊 对比挑选
 
@@ -63,35 +61,26 @@ import { Avatar, NuoFangAvatar } from '/snippets/avatars.jsx'
 本人对线路质量有较高要求。如果你的主要场景是从国内直连到服务器，强烈推荐选择明确标注“**大陆优化**”的型号。
 
 <Tabs>
-  <Tab title="中国电信 (China Telecom)">
-    - 👍 **推荐**：`CN2 GIA` / `CN2 (AS4809)`、`CTGNet (AS23764)`
-    - 👎 **不推荐**：`163 骨干网 (AS4134)` 或其他普通线路
+  <Tab title='中国电信 (China Telecom)'>
+    - 👍 **推荐**：`CN2 GIA` / `CN2 (AS4809)`、`CTGNet (AS23764)` - 👎 **不推荐**：`163 骨干网 (AS4134)` 或其他普通线路
   </Tab>
-  <Tab title="中国联通 (China Unicom)">
-    - 👍 **推荐**：`AS10099`、`9929 (AS9929)`
-    - 👎 **不推荐**：`4837 (AS4837)` 或其他普通线路
+  <Tab title='中国联通 (China Unicom)'>
+    - 👍 **推荐**：`AS10099`、`9929 (AS9929)` - 👎 **不推荐**：`4837 (AS4837)` 或其他普通线路
   </Tab>
-  <Tab title="中国移动 (China Mobile)">
-    - 👍 **推荐**：`CMIN2 (AS58807)`
-    - 🥈 **次选**：`CMI (AS58453)`、`Lumen (AS3356)`
-    - 👎 **不推荐**：`CMNET (AS9808)` 或其他普通线路
+  <Tab title='中国移动 (China Mobile)'>
+    - 👍 **推荐**：`CMIN2 (AS58807)` - 🥈 **次选**：`CMI (AS58453)`、`Lumen (AS3356)` - 👎 **不推荐**：`CMNET (AS9808)`
+    或其他普通线路
   </Tab>
-  <Tab title="中国广电">
-    - 广电可能需要**三网优化**，次保**移动优化**。
-  </Tab>
+  <Tab title='中国广电'>- 广电可能需要**三网优化**，次保**移动优化**。</Tab>
 </Tabs>
 
-<Tip>
-  **核心原则**：如果上传和下载的路由线路不一致，**优先保障下载（回国）线路的质量**。
-</Tip>
+<Tip>**核心原则**：如果上传和下载的路由线路不一致，**优先保障下载（回国）线路的质量**。</Tip>
 
 ---
 
 ## 1. 内核与底层优化
 
-<Note>
-  本小节以 Ubuntu 系统为例。
-</Note>
+<Note>本小节以 Ubuntu 系统为例。</Note>
 
 ### 1.1 安装 XanMod 优化内核
 
@@ -131,6 +120,7 @@ _在输出中，以支持的最大版本（如 `x86-64-v4` 或 `x86-64-v3`）为
     ```bash
     sudo apt update && sudo apt install linux-xanmod-x64v3
     ```
+
   </Step>
   <Step title="重启并验证">
     安装完成后，**重启你的 VPS**。重启完毕运行以下命令验证：
@@ -140,6 +130,7 @@ _在输出中，以支持的最大版本（如 `x86-64-v4` 或 `x86-64-v3`）为
     ```
 
     _如果输出中包含 `xanmod` 字样，代表优化内核已成功激活。_
+
   </Step>
 </Steps>
 
@@ -150,7 +141,8 @@ _在输出中，以支持的最大版本（如 `x86-64-v4` 或 `x86-64-v3`）为
 各个 Linux 发行版配置有所不同，此处以 **Ubuntu 26.04** 为例。
 
 <Warning>
-  **前提条件**：确保在 `/lib64/ld-linux-x86-64.so.2 --help | grep -E "x86-64-v[234]"` 的输出中，包含有 `x86-64-v3 (supported, searched)`。如果不满足，则无法使用该优化仓库。
+  **前提条件**：确保在 `/lib64/ld-linux-x86-64.so.2 --help | grep -E "x86-64-v[234]"` 的输出中，包含有 `x86-64-v3 (supported,
+  searched)`。如果不满足，则无法使用该优化仓库。
 </Warning>
 
 <Steps>
@@ -162,6 +154,7 @@ _在输出中，以支持的最大版本（如 `x86-64-v4` 或 `x86-64-v3`）为
     ```
 
     _注：目前官方暂未提供 v4 的专用软件仓库。_
+
   </Step>
   <Step title="执行系统更新">
     ```bash
@@ -182,7 +175,8 @@ _在输出中，以支持的最大版本（如 `x86-64-v4` 或 `x86-64-v3`）为
 <Warning>
   **内核参数调整是调优的“重灾区”**：每个人的网络环境、硬件配置和业务场景都不相同，世上没有绝对完美的万能模板。
 
-  以下配置是我个人基于 **Linux 7.0\+ 内核文档**整理的参数，仅供参考，请根据自身实际情况调整。
+以下配置是我个人基于 **Linux 7.0\+ 内核文档**整理的参数，仅供参考，请根据自身实际情况调整。
+
 </Warning>
 
 使用文本编辑器（推荐 `nano`）编辑系统配置文件：
@@ -303,9 +297,7 @@ net.ipv4.tcp_thin_linear_timeouts = 1
 net.ipv4.icmp_echo_ignore_all = 0
 ```
 
-<Tip>
-  **Nano 编辑器保存指南**：按 `Ctrl + O` 回车保存文件，再按 `Ctrl + X` 退出编辑器。
-</Tip>
+<Tip>**Nano 编辑器保存指南**：按 `Ctrl + O` 回车保存文件，再按 `Ctrl + X` 退出编辑器。</Tip>
 
 保存配置文件后，执行以下命令使参数立即生效：
 
@@ -361,9 +353,7 @@ netsh int tcp set supplemental Template=DatacenterCustom CongestionProvider=bbr2
 netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
 ```
 
-<Note>
-  如果你的客户端本身支持 Tcp fastopen(tfo) 配置，请在配置文件中同步开启。
-</Note>
+<Note>如果你的客户端本身支持 Tcp fastopen(tfo) 配置，请在配置文件中同步开启。</Note>
 
 ---
 
@@ -382,15 +372,17 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
     ```
 
     _(注：如果你的系统使用了 `systemd-resolved` 等其他 DNS 托管方案，请根据对应工具的规则进行持久化修改。)_
+
   </Accordion>
 
-  <Accordion title="2. 调整软件源" icon="server">
-    如果服务器所在的物理区域国际互联不佳，建议在网上搜索 VPS 所在机房周边延迟最低的开源镜像站并替换默认软件源。
-  </Accordion>
+<Accordion title='2. 调整软件源' icon='server'>
+  如果服务器所在的物理区域国际互联不佳，建议在网上搜索 VPS 所在机房周边延迟最低的开源镜像站并替换默认软件源。
+</Accordion>
 
-  <Accordion title="3. 将网卡中断队列绑定到不同 CPU 核心" icon="microchip">
-    由于我的 VPS 只是单核 CPU，因此略过了此步骤。如果你的 VPS 拥有多核 CPU，建议在网上搜索“网卡软中断多核绑定”教程，可提升高吞吐时的网络吞吐能力。
-  </Accordion>
+<Accordion title='3. 将网卡中断队列绑定到不同 CPU 核心' icon='microchip'>
+  由于我的 VPS 只是单核 CPU，因此略过了此步骤。如果你的 VPS 拥有多核
+  CPU，建议在网上搜索“网卡软中断多核绑定”教程，可提升高吞吐时的网络吞吐能力。
+</Accordion>
 
   <Accordion title="4. 提升关键软件运行优先级" icon="bolt">
     根据不同发行版或服务的安装部署方式，可以通过调整进程优先级来保障其高负载下的稳定性：
@@ -403,6 +395,7 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
     <Tip>
       此外，在 Systemd Service 配置文件中通过设置 `LimitNOFILE`，或者在软件配置中**关闭详细日志输出**，都能提升高并发下的运行性能。
     </Tip>
+
   </Accordion>
 
   <Accordion title="5. 调整网卡硬件参数" icon="gauge">
@@ -413,6 +406,7 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
     ```
 
     _此外，还可以尝试调大网卡的环形缓冲区（Ring Buffer）大小。该操作存在小概率死机风险，具体调整方法和上限数值建议详细咨询 LLM。_
+
   </Accordion>
 </AccordionGroup>
 
@@ -433,6 +427,7 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
     ```
 
     _注：如果在一些老旧的虚拟化/文件系统上提示 `fallocate failed`，请改用传统的 `dd` 命令：_ `sudo dd if=/dev/zero of=/swapfile bs=1M count=1024`
+
   </Step>
   <Step title="严格限制文件权限">
     由于交换文件中可能包含内存里的敏感、机密数据，必须确保只有 root 用户拥有读取权限：
@@ -440,6 +435,7 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
     ```bash
     sudo chmod 600 /swapfile
     ```
+
   </Step>
   <Step title="格式化为 Swap 格式">
     将创建的文件格式化为系统可识别的交换文件系统：
@@ -447,6 +443,7 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
     ```bash
     sudo mkswap /swapfile
     ```
+
   </Step>
   <Step title="临时启用 Swap">
     立即使该交换文件生效：
@@ -454,6 +451,7 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
     ```bash
     sudo swapon /swapfile
     ```
+
   </Step>
   <Step title="配置开机自动挂载">
     为了防止 VPS 重启后 Swap 失效，需要将其写入系统的磁盘挂载表 `/etc/fstab` 中。运行以下命令一键追加：
@@ -461,6 +459,7 @@ netsh int tcp set supplemental Template=InternetCustom CongestionProvider=bbr2
     ```bash
     sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
     ```
+
   </Step>
 </Steps>
 
@@ -492,7 +491,8 @@ NAME      TYPE SIZE USED PRIO
 <Tip>
   **进阶建议**
 
-  - 开启 **zswap** 功能：可在内存中对即将写入 Swap 的数据进行压缩，能进一步减少小内存机器的物理 I/O 并提升系统响应性能。建议向 LLM 询问针对你机型内存大小的 zswap 最佳分配方案。
-  - 如果你的机器是**大物理内存**，比起普通的磁盘 Swap，使用 **zram**（内存压缩设备）会是性能更好的选择。
-  - 如果你的动手能力强，可以尝试将要用的软件针对 VPS 的 cpu 进行优化编译。
+- 开启 **zswap** 功能：可在内存中对即将写入 Swap 的数据进行压缩，能进一步减少小内存机器的物理 I/O 并提升系统响应性能。建议向 LLM 询问针对你机型内存大小的 zswap 最佳分配方案。
+- 如果你的机器是**大物理内存**，比起普通的磁盘 Swap，使用 **zram**（内存压缩设备）会是性能更好的选择。
+- 如果你的动手能力强，可以尝试将要用的软件针对 VPS 的 cpu 进行优化编译。
+
 </Tip>
