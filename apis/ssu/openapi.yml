@@ -26,7 +26,6 @@ security:
   - bearerAuth: []
 
 tags:
-  - name: 兼容
   - name: WebSocket
   - name: 状态
   - name: 配置
@@ -39,19 +38,26 @@ paths:
   /version:
     get:
       tags:
-        - 兼容
-      operationId: redirectVersion
-      summary: 重定向到当前版本接口
-      description: 建议首次连接时以此路径确认可用
+        - 状态
+        - WebSocket
+      operationId: getVersion
+      summary: 获取当前运行的 ShiroSU 版本
+      description: |
+        普通 HTTP 请求返回当前 ShiroSU 版本号
+
+        本路径也支持 WebSocket 升级
+      x-websocket: true
+      parameters:
+        - $ref: '#/components/parameters/WebSocketTicket'
       responses:
-        '308':
-          description: 永久重定向到 `/status/version`
-          headers:
-            Location:
-              description: 重定向目标
+        '200':
+          description: 当前运行版本号
+          content:
+            application/json:
               schema:
                 type: string
-                const: /api/v1/superuser/status/version
+        '400':
+          description: WebSocket 升级请求无效
         '403':
           $ref: '#/components/responses/Forbidden'
 
@@ -72,43 +78,27 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 
-  /status/version:
+  /status:
     get:
       tags:
         - 状态
-        - WebSocket
-      operationId: getVersionStatus
-      summary: 获取当前运行的 ShiroSU 版本
-      description: |
-        返回当前 ShiroSU 版本号
-
-        本路径也支持 WebSocket 升级
-      x-websocket: true
-      parameters:
-        - $ref: '#/components/parameters/WebSocketTicket'
+      operationId: getStatus
+      summary: 获取运行状态
       responses:
         '200':
-          description: 当前运行版本号
+          description: 运行状态
           content:
             application/json:
               schema:
-                type: string
-        '400':
-          description: WebSocket 升级请求无效
-        '403':
-          $ref: '#/components/responses/Forbidden'
-
-  /status/late-load:
-    get:
-      tags:
-        - 状态
-      operationId: getLateLoadStatus
-      summary: 检查是否处于越狱模式
-      responses:
-        '204':
-          description: 当前处于越狱模式
-        '409':
-          description: 当前不处于越狱模式
+                type: object
+                required:
+                  - version
+                  - lateLoad
+                properties:
+                  version:
+                    type: string
+                  lateLoad:
+                    type: boolean
         '403':
           $ref: '#/components/responses/Forbidden'
 
@@ -128,21 +118,17 @@ paths:
       tags:
         - 状态
       operationId: hotUpdateManager
-      summary: 热更新并重启管理后端
+      summary: 临时热更新并重启管理后端
       description: |
         接收替换用的 `suu` ELF 可执行文件，校验签名和版本后写入临时路径并执行热重载
+
+        仅用于临时更新 ShiroSU，设备重启后仍会变成旧版本
 
         如果请求体为空，后端会从 `url` 查询参数下载 `suu`
 
         前端调用后应该刷新页面
       parameters:
-        - name: url
-          in: query
-          required: false
-          description: 可选 `suu` 下载地址，仅启用完整功能的后端支持
-          schema:
-            type: string
-            format: uri
+        - $ref: '#/components/parameters/DownloadUrl'
       requestBody:
         required: false
         content:
@@ -154,130 +140,75 @@ paths:
         '202':
           description: 已接受热更新并将在后台执行热重载
         '400':
-          description: 未提供 `suu`、下载地址无效或下载结果为空、签名无效、`suu` 文件无效或版本低于本地版本
+          $ref: '#/components/responses/DownloadBadRequest'
         '403':
           $ref: '#/components/responses/Forbidden'
         '413':
-          description: 请求体或下载内容过大
+          $ref: '#/components/responses/DownloadPayloadTooLarge'
         '500':
           $ref: '#/components/responses/InternalServerError'
-        '501':
-          description: 当前后端不支持从 `url` 下载
         '502':
-          description: 下载 `suu` 失败
+          $ref: '#/components/responses/JvmBadGateway'
+        '503':
+          $ref: '#/components/responses/JvmUnavailable'
 
-  /config/password:
+  /config:
     get:
       tags:
         - 配置
-      operationId: getPasswordStatus
-      summary: 检查密码状态
+      operationId: getConfig
+      summary: 获取管理配置
       responses:
-        '204':
-          description: 已设置自定义密码
-        '409':
-          description: 正在使用默认密码
+        '200':
+          description: 管理配置
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - password
+                  - ip
+                  - port
+                properties:
+                  password:
+                    type: boolean
+                  ip:
+                    type: string
+                    format: ip
+                  port:
+                    type: integer
+                    minimum: 1024
+                    maximum: 49151
         '403':
           $ref: '#/components/responses/Forbidden'
     patch:
       tags:
         - 配置
-      operationId: updatePassword
-      summary: 修改管理密码
-      description: 修改后立即生效
+      operationId: updateConfig
+      summary: 修改管理配置
+      description: 可同时修改管理密码、监听 IP 和监听端口
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: string
-              minLength: 1
+              type: object
+              properties:
+                password:
+                  type: string
+                  minLength: 1
+                ip:
+                  type: string
+                  format: ip
+                port:
+                  type: integer
+                  minimum: 1024
+                  maximum: 49151
       responses:
         '204':
-          description: 密码已修改
+          description: 配置已修改
         '400':
           description: 新密码为空
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /config/ip:
-    get:
-      tags:
-        - 配置
-      operationId: getListenIp
-      summary: 获取监听 IP
-      responses:
-        '200':
-          description: 当前监听 IP
-          content:
-            application/json:
-              schema:
-                type: string
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-    patch:
-      tags:
-        - 配置
-      operationId: updateListenIp
-      summary: 修改监听 IP
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: string
-      responses:
-        '204':
-          description: 监听 IP 已修改
-        '400':
-          description: IP 地址无效
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /config/port:
-    get:
-      tags:
-        - 配置
-      operationId: getListenPort
-      summary: 获取监听端口
-      responses:
-        '200':
-          description: 当前监听端口
-          content:
-            application/json:
-              schema:
-                type: integer
-                minimum: 1024
-                maximum: 49151
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-    patch:
-      tags:
-        - 配置
-      operationId: updateListenPort
-      summary: 修改监听端口
-      description: 修改时会检测端口可用性
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: integer
-              minimum: 1024
-              maximum: 49151
-      responses:
-        '204':
-          description: 监听端口已修改
-        '400':
-          description: 端口不在支持范围内
         '403':
           $ref: '#/components/responses/Forbidden'
         '409':
@@ -285,38 +216,35 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 
-  /system/selinux:
+  /system:
     get:
       tags:
         - 系统
-      operationId: getSelinuxStatus
-      summary: 获取 SELinux 模式
-      responses:
-        '204':
-          description: SELinux 处于强制模式
-        '409':
-          description: SELinux 处于宽容模式
-        '410':
-          description: 内核不支持或未启用 SELinux
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /system/uname:
-    get:
-      tags:
-        - 系统
-      operationId: getUname
-      summary: 获取系统版本信息
-      description: 返回内核版本、设备架构和系统版本
+      operationId: getSystemInfo
+      summary: 获取系统信息
       responses:
         '200':
-          description: 系统版本信息
+          description: 系统信息
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnameResponse'
+                type: object
+                required:
+                  - kernel
+                  - arch
+                  - system
+                  - selinux
+                properties:
+                  kernel:
+                    type: string
+                  arch:
+                    type: string
+                  system:
+                    type: string
+                  selinux:
+                    oneOf:
+                      - type: boolean
+                      - type: 'null'
         '403':
           $ref: '#/components/responses/Forbidden'
         '500':
@@ -337,7 +265,7 @@ paths:
           schema:
             type: string
       responses:
-        '204':
+        '202':
           description: 已请求执行电源操作
         '403':
           $ref: '#/components/responses/Forbidden'
@@ -359,7 +287,7 @@ paths:
           schema:
             type: string
       responses:
-        '204':
+        '202':
           description: 已请求执行指定重启命令
         '403':
           $ref: '#/components/responses/Forbidden'
@@ -376,24 +304,29 @@ paths:
       responses:
         '200':
           description: 原始分区镜像
-          content:
-            application/x-raw-disk-image:
-              schema:
-                type: string
-                format: binary
           headers:
             Content-Disposition:
               description: 当前槽位分区镜像下载文件名
               schema:
                 type: string
                 example: attachment; filename="boot_a.img"
+            Content-Length:
+              description: 分区镜像字节数
+              schema:
+                type: integer
+                minimum: 1
+          content:
+            application/x-raw-disk-image:
+              schema:
+                type: string
+                format: binary
         '403':
           $ref: '#/components/responses/Forbidden'
         '410':
           description: 未找到支持的启动分区
         '500':
           $ref: '#/components/responses/InternalServerError'
-    patch:
+    put:
       tags:
         - 系统
       operationId: flashBootImage
@@ -403,13 +336,7 @@ paths:
 
         如果请求体为空，后端会从 `url` 查询参数下载镜像
       parameters:
-        - name: url
-          in: query
-          required: false
-          description: 可选镜像下载地址，仅启用完整功能的后端支持
-          schema:
-            type: string
-            format: uri
+        - $ref: '#/components/parameters/DownloadUrl'
       requestBody:
         required: false
         content:
@@ -421,19 +348,19 @@ paths:
         '204':
           description: 镜像已写入
         '400':
-          description: 未提供镜像、下载地址无效或下载结果为空
+          $ref: '#/components/responses/DownloadBadRequest'
         '403':
           $ref: '#/components/responses/Forbidden'
         '410':
           description: 未找到支持的启动分区
         '413':
-          description: 镜像大小大于分区大小
+          $ref: '#/components/responses/DownloadPayloadTooLarge'
         '500':
           $ref: '#/components/responses/InternalServerError'
-        '501':
-          description: 当前后端不支持从 `url` 下载
         '502':
-          description: 下载镜像失败
+          $ref: '#/components/responses/JvmBadGateway'
+        '503':
+          $ref: '#/components/responses/JvmUnavailable'
 
   /theme/wallpaper:
     post:
@@ -445,8 +372,14 @@ paths:
       responses:
         '200':
           description: 壁纸图片
+          headers:
+            Content-Length:
+              description: 壁纸图片字节数
+              schema:
+                type: integer
+                minimum: 1
           content:
-            application/octet-stream:
+            image/*:
               schema:
                 type: string
                 format: binary
@@ -454,22 +387,34 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '410':
           description: 未找到壁纸
-        '500':
-          $ref: '#/components/responses/InternalServerError'
 
   /packages:
     get:
       tags:
         - 软件包
       operationId: getPackageCount
-      summary: 获取软件包 UID 总数
+      summary: 获取软件包 UID 总数与授权隐藏数量
       responses:
         '200':
-          description: 软件包 UID 总数
+          description: 软件包 UID 总数与授权隐藏数量
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CountResponse'
+                type: object
+                required:
+                  - total
+                  - grant
+                  - hide
+                properties:
+                  total:
+                    type: integer
+                    minimum: 0
+                  grant:
+                    type: integer
+                    minimum: 0
+                  hide:
+                    type: integer
+                    minimum: 0
         '403':
           $ref: '#/components/responses/Forbidden'
     post:
@@ -482,7 +427,7 @@ paths:
 
         支持分页拉取，查询参数中不添加 `limit` 即返回 `offset` 后的全部
 
-        可能包含软件名称、图标、系统应用标记
+        软件包详细信息查询失败时会返回基础列表
       parameters:
         - $ref: '#/components/parameters/Offset'
         - $ref: '#/components/parameters/Limit'
@@ -492,46 +437,42 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PackageListResponse'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-
-  /packages/{type}:
-    get:
-      tags:
-        - 软件包
-      operationId: getPowerPackageCount
-      summary: 获取授权或隐藏列表的条目数量
-      parameters:
-        - $ref: '#/components/parameters/PackageListType'
-      responses:
-        '200':
-          description: 已授权或隐藏条目数量
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CountResponse'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-    post:
-      tags:
-        - 软件包
-      operationId: listPowerPackages
-      summary: 获取授权或隐藏列表
-      description: 不会包含软件名称、图标、系统应用标记
-      parameters:
-        - $ref: '#/components/parameters/PackageListType'
-      responses:
-        '200':
-          description: 以 UID 字符串为键的授权或隐藏 UID 分组
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PowerListResponse'
+                type: object
+                additionalProperties:
+                  allOf:
+                    - type: object
+                      required:
+                        - packages
+                        - users
+                      properties:
+                        packages:
+                          type: array
+                          items:
+                            type: string
+                        users:
+                          type: array
+                          items:
+                            type: integer
+                            format: uint32
+                            minimum: 0
+                    - type: object
+                      properties:
+                        names:
+                          type: array
+                          items:
+                            type: string
+                            description: 与 packages 一一对应的软件名称
+                        icons:
+                          type: array
+                          items:
+                            type: string
+                            description: 与 packages 一一对应的 base64 编码图片字符串
+                        system:
+                          type: boolean
+                        grant:
+                          type: boolean
+                        hide:
+                          type: boolean
         '403':
           $ref: '#/components/responses/Forbidden'
         '500':
@@ -583,16 +524,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ModuleSystemStatus'
-        '400':
-          description: 版本读取失败
+                type: object
+                required:
+                  - version
+                properties:
+                  version:
+                    type: string
         '403':
           $ref: '#/components/responses/Forbidden'
         '410':
           description: 模块系统未安装
         '500':
           $ref: '#/components/responses/InternalServerError'
-    patch:
+    put:
       tags:
         - 模块
       operationId: updateModuleSystem
@@ -602,13 +546,7 @@ paths:
 
         如果请求体为空，后端会从 `url` 查询参数下载 `modinit`
       parameters:
-        - name: url
-          in: query
-          required: false
-          description: 可选 `modinit` 下载地址，仅启用完整功能的后端支持
-          schema:
-            type: string
-            format: uri
+        - $ref: '#/components/parameters/DownloadUrl'
       requestBody:
         required: false
         content:
@@ -620,17 +558,79 @@ paths:
         '204':
           description: 模块系统已更新
         '400':
-          description: 未提供 `modinit`、下载地址无效或下载结果为空、签名无效、文件无效或版本低于本地版本
+          $ref: '#/components/responses/DownloadBadRequest'
         '403':
           $ref: '#/components/responses/Forbidden'
         '413':
-          description: 请求体或下载内容过大
+          $ref: '#/components/responses/DownloadPayloadTooLarge'
         '500':
           $ref: '#/components/responses/InternalServerError'
-        '501':
-          description: 当前后端不支持从 `url` 下载
         '502':
-          description: 下载 `modinit` 失败
+          $ref: '#/components/responses/JvmBadGateway'
+        '503':
+          $ref: '#/components/responses/JvmUnavailable'
+
+  /modules/install:
+    get:
+      tags:
+        - 模块
+        - WebSocket
+      operationId: installModuleWebSocket
+      summary: 通过 WebSocket 安装模块
+      description: 本路径只支持 WebSocket 升级
+      x-websocket: true
+      parameters:
+        - $ref: '#/components/parameters/DownloadUrl'
+      responses:
+        '400':
+          description: 未通过 WebSocket 方式请求或升级请求无效
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '410':
+          description: 模块系统未安装
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - 模块
+      operationId: installModule
+      summary: 安装模块
+      description: |
+        接收模块 ZIP 并执行模块安装
+
+        如果请求体为空，后端会从 `url` 查询参数下载模块 ZIP
+      parameters:
+        - $ref: '#/components/parameters/DownloadUrl'
+      requestBody:
+        required: false
+        content:
+          application/zip:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: 安装输出消息列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WsioMessage'
+        '400':
+          $ref: '#/components/responses/DownloadBadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '410':
+          description: 模块系统未安装
+        '413':
+          $ref: '#/components/responses/DownloadPayloadTooLarge'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '502':
+          $ref: '#/components/responses/JvmBadGateway'
+        '503':
+          $ref: '#/components/responses/JvmUnavailable'
 
   /modules/list:
     get:
@@ -644,7 +644,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CountResponse'
+                type: object
+                required:
+                  - total
+                properties:
+                  total:
+                    type: integer
+                    minimum: 0
         '403':
           $ref: '#/components/responses/Forbidden'
         '500':
@@ -666,7 +672,39 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ModuleListEntry'
+                  type: object
+                  required:
+                    - info
+                    - status
+                  properties:
+                    info:
+                      $ref: '#/components/schemas/ModuleProp'
+                    status:
+                      type: object
+                      required:
+                        - disable
+                        - remove
+                        - update
+                        - skipMount
+                      properties:
+                        disable:
+                          type: boolean
+                        remove:
+                          type: boolean
+                        update:
+                          type: boolean
+                        skipMount:
+                          type: boolean
+                        systemless:
+                          type: boolean
+                        action:
+                          type: boolean
+                        webui:
+                          type: boolean
+                        zygisk:
+                          type: boolean
+                        riru:
+                          type: boolean
         '403':
           $ref: '#/components/responses/Forbidden'
         '500':
@@ -678,51 +716,15 @@ paths:
         - 模块
       operationId: getModuleById
       summary: 获取单个模块信息
-      description: 查询参数中包含 `update` 时返回模块 `updateJson` 指向的更新信息
       parameters:
         - $ref: '#/components/parameters/ModuleId'
-        - name: update
-          in: query
-          required: false
-          description: 查询远程更新信息
-          schema:
-            type: string
       responses:
         '200':
-          description: 模块信息或远程更新信息
+          description: 模块信息
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/ModuleProp'
-                  - $ref: '#/components/schemas/ModuleUpdateJson'
-        '400':
-          description: 下载地址无效或下载结果为空
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          description: 模块不存在
-        '410':
-          description: 模块没有更新信息地址
-        '413':
-          description: 下载内容过大
-        '500':
-          $ref: '#/components/responses/InternalServerError'
-        '501':
-          description: 当前后端不支持从 `url` 下载
-        '502':
-          description: 下载更新信息失败
-    patch:
-      tags:
-        - 模块
-      operationId: toggleModuleDisable
-      summary: 切换模块启用状态
-      description: 存在 `disable` 标记时删除，不存在时创建
-      parameters:
-        - $ref: '#/components/parameters/ModuleId'
-      responses:
-        '204':
-          description: 模块启用状态已切换
+                $ref: '#/components/schemas/ModuleProp'
         '403':
           $ref: '#/components/responses/Forbidden'
         '404':
@@ -734,14 +736,12 @@ paths:
         - 模块
       operationId: markModuleRemove
       summary: 标记模块卸载
-      description: 创建 `remove` 标记文件
+      description: 创建或覆盖 `remove` 标记文件
       parameters:
         - $ref: '#/components/parameters/ModuleId'
       responses:
-        '201':
-          description: 已创建卸载标记
         '204':
-          description: 卸载标记已存在
+          description: 已创建卸载标记
         '403':
           $ref: '#/components/responses/Forbidden'
         '404':
@@ -749,7 +749,104 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 
-  /modules/id/{mid}/{mark}:
+  /modules/id/{mid}/update:
+    post:
+      tags:
+        - 模块
+      operationId: getModuleUpdate
+      summary: 获取模块远程更新信息
+      parameters:
+        - $ref: '#/components/parameters/ModuleId'
+      responses:
+        '200':
+          description: 远程更新信息
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                  versionCode:
+                    type: integer
+                    format: uint64
+                    minimum: 0
+                  zipUrl:
+                    type: string
+                  changelog:
+                    type: string
+        '400':
+          description: 更新信息下载地址无效或下载结果为空
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: 模块不存在
+        '410':
+          description: 模块没有更新信息地址
+        '413':
+          description: 下载内容过大
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '502':
+          $ref: '#/components/responses/JvmBadGateway'
+        '503':
+          $ref: '#/components/responses/JvmUnavailable'
+
+  /modules/id/{mid}/update/{url}:
+    post:
+      tags:
+        - 模块
+      operationId: downloadModuleUpdateAsset
+      summary: 下载模块远程更新资源
+      description: 下载模块更新信息中的更新包或更新日志
+      parameters:
+        - $ref: '#/components/parameters/ModuleId'
+        - name: url
+          in: path
+          required: true
+          description: 模块更新资源类型
+          schema:
+            type: string
+            enum:
+              - changelog
+              - zip
+      responses:
+        '200':
+          description: 远程更新资源
+          headers:
+            Content-Length:
+              description: 远程更新资源字节数
+              schema:
+                type: integer
+                minimum: 1
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+            text/markdown:
+              schema:
+                type: string
+        '400':
+          description: 下载地址无效或下载结果为空
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: 模块不存在
+        '410':
+          description: 模块没有更新信息地址
+        '413':
+          description: 下载内容过大
+        '422':
+          description: 更新信息中不存在目标资源地址
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '502':
+          $ref: '#/components/responses/JvmBadGateway'
+        '503':
+          $ref: '#/components/responses/JvmUnavailable'
+
+  /modules/id/{mid}/status/{mark}:
     put:
       tags:
         - 模块
@@ -794,10 +891,7 @@ paths:
         - WebSocket
       operationId: runModuleActionWebSocket
       summary: 通过 WebSocket 执行模块 `action.sh`
-      description: |
-        本路径只支持 WebSocket 升级
-
-        执行模块的 `action.sh`，并以 JSON 文本信息转发标准输出、标准错误和退出状态
+      description: 本路径只支持 WebSocket 升级
       x-websocket: true
       parameters:
         - $ref: '#/components/parameters/ModuleId'
@@ -810,7 +904,7 @@ paths:
         '404':
           description: 模块不存在
         '410':
-          description: 模块系统未安装
+          description: 模块系统未安装或模块没有 `action.sh`
         '500':
           $ref: '#/components/responses/InternalServerError'
     post:
@@ -822,7 +916,7 @@ paths:
         - $ref: '#/components/parameters/ModuleId'
       responses:
         '200':
-          description: 输出信息列表
+          description: 输出消息列表
           content:
             application/json:
               schema:
@@ -834,7 +928,50 @@ paths:
         '404':
           description: 模块不存在
         '410':
-          description: 模块系统未安装
+          description: 模块系统未安装或模块没有 `action.sh`
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /modules/id/{mid}/icons/{icon}:
+    get:
+      tags:
+        - 模块
+      operationId: getModuleIcon
+      summary: 获取模块图标
+      parameters:
+        - $ref: '#/components/parameters/ModuleId'
+        - name: icon
+          in: path
+          required: true
+          description: 模块图标类型
+          schema:
+            type: string
+            enum:
+              - module
+              - action
+              - webui
+      responses:
+        '200':
+          description: 模块图标
+          headers:
+            Content-Length:
+              description: 模块图标字节数
+              schema:
+                type: integer
+                minimum: 1
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          description: 模块不存在
+        '410':
+          description: 模块没有该图标
+        '415':
+          description: 图标文件不是图片
         '500':
           $ref: '#/components/responses/InternalServerError'
 
@@ -855,6 +992,14 @@ components:
       description: 一次性 WebSocket 票证，仅用于 WebSocket 升级
       schema:
         type: string
+    DownloadUrl:
+      name: url
+      in: query
+      required: false
+      description: 可选下载地址，仅请求体为空时使用
+      schema:
+        type: string
+        format: uri
     Offset:
       name: offset
       in: query
@@ -869,7 +1014,7 @@ components:
       required: false
       schema:
         type: integer
-        minimum: 0
+        minimum: 1
     PackageListType:
       name: type
       in: path
@@ -908,82 +1053,6 @@ components:
           - remove
           - skip_mount
   schemas:
-    CountResponse:
-      type: object
-      required:
-        - total
-      properties:
-        total:
-          type: integer
-          minimum: 0
-    UnameResponse:
-      type: object
-      required:
-        - kernel
-        - arch
-        - system
-      properties:
-        kernel:
-          type: string
-        arch:
-          type: string
-        system:
-          type: string
-    AppConfig:
-      type: object
-      required:
-        - packages
-        - users
-      properties:
-        packages:
-          type: array
-          items:
-            type: string
-        users:
-          type: array
-          items:
-            type: integer
-            format: uint32
-            minimum: 0
-    PackageListEntry:
-      allOf:
-        - $ref: '#/components/schemas/AppConfig'
-        - type: object
-          properties:
-            names:
-              type: array
-              items:
-                type: string
-                description: 与 packages 一一对应的软件名称
-            icons:
-              type: array
-              items:
-                type: string
-                description: |
-                  与 packages 一一对应的 base64 编码图片字符串
-
-                  字符串已添加类型前缀
-            system:
-              type: boolean
-            grant:
-              type: boolean
-            hide:
-              type: boolean
-    PackageListResponse:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/PackageListEntry'
-    PowerListResponse:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/AppConfig'
-    ModuleSystemStatus:
-      type: object
-      required:
-        - version
-      properties:
-        version:
-          type: string
     ModuleProp:
       type: object
       required:
@@ -1019,85 +1088,41 @@ components:
           type: boolean
         updateJson:
           type: string
-    ModuleStatus:
-      type: object
-      required:
-        - disable
-        - remove
-        - update
-        - skipMount
-      properties:
-        disable:
-          type: boolean
-        remove:
-          type: boolean
-        update:
-          type: boolean
-        skipMount:
-          type: boolean
-        systemless:
-          type: boolean
-        action:
-          type: boolean
-        webui:
-          type: boolean
-        zygisk:
-          type: boolean
-        riru:
-          type: boolean
-    ModuleListEntry:
-      type: object
-      required:
-        - info
-        - status
-      properties:
-        info:
-          $ref: '#/components/schemas/ModuleProp'
-        status:
-          $ref: '#/components/schemas/ModuleStatus'
-    ModuleUpdateJson:
-      type: object
-      properties:
-        version:
-          type: string
-        versionCode:
-          type: integer
-          format: uint64
-          minimum: 0
-        zipUrl:
-          type: string
-        changelog:
-          type: string
     WsioMessage:
       oneOf:
-        - $ref: '#/components/schemas/WsioStdioMessage'
-        - $ref: '#/components/schemas/WsioExitMessage'
-    WsioStdioMessage:
-      type: object
-      required:
-        - type
-      properties:
-        type:
-          type: string
-          const: stdio
-        stdout:
-          type: string
-        stderr:
-          type: string
-    WsioExitMessage:
-      type: object
-      required:
-        - type
-      properties:
-        type:
-          type: string
-          const: exit
-        code:
-          type: integer
-        signal:
-          type: integer
+        - type: object
+          required:
+            - type
+          properties:
+            type:
+              type: string
+              const: stdio
+            stdout:
+              type: string
+            stderr:
+              type: string
+        - type: object
+          required:
+            - type
+          properties:
+            type:
+              type: string
+              const: exit
+            code:
+              type: integer
+              description: 进程退出码或安装前置错误的 HTTP 状态码
+            signal:
+              type: integer
   responses:
+    DownloadBadRequest:
+      description: 未提供请求体、请求体读取失败、下载地址无效、下载结果为空、文件无效
+    DownloadPayloadTooLarge:
+      description: 请求体或下载内容过大
     Forbidden:
       description: 鉴权失败，或 WebSocket 票证无效
     InternalServerError:
       description: 后端执行操作失败
+    JvmBadGateway:
+      description: JVM 交互失败、下载响应失败、远端返回非成功状态或响应内容无法解析
+    JvmUnavailable:
+      description: JVM 服务不可用

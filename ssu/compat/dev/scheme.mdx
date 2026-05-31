@@ -1,12 +1,12 @@
 ---
 title: Scheme 关联
-description: 了解如何开发适配 ShiroSU 管理器的 Scheme 关联
+description: 了解如何开发适配 ShiroSU Compat 的 Scheme 关联
 icon: link
 ---
 
-ShiroSU 管理器会注册 `ssu` 的 `scheme` ，只需要通过 `ssu://...` 即可调用
+ShiroSU Compat 会注册 `ssu` 的 `scheme` ，只需要通过 `ssu://...` 即可调用
 
-如果没有传入或传入错误的内容，只会打开 ShiroSU 管理器的主页，支持的 `host` 如下:
+如果没有传入或传入错误的内容，只会打开 ShiroSU Compat 的主页，支持的 `host` 如下:
 
 ## module
 
@@ -20,7 +20,7 @@ ShiroSU 管理器会注册 `ssu` 的 `scheme` ，只需要通过 `ssu://...` 即
 
 示例: `ssu://module/action?id=xxx`
 
-调用后，会执行该模块的 `操作`，如果不存在该模块，则只会打开 ShiroSU 管理器的主页
+调用后，会执行该模块的 `操作`，如果不存在该模块，则只会打开 ShiroSU Compat 的主页
 
 ### webui
 
@@ -30,7 +30,7 @@ ShiroSU 管理器会注册 `ssu` 的 `scheme` ，只需要通过 `ssu://...` 即
 
 示例: `ssu://module/webui?id=xxx`
 
-调用后，会跳转该模块的 `WebUI`，如果不存在该模块，则只会打开 ShiroSU 管理器的主页
+调用后，会跳转该模块的 `WebUI`，如果不存在该模块，则只会打开 ShiroSU Compat 的主页
 
 ### install
 

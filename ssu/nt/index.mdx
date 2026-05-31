@@ -1,0 +1,51 @@
+---
+title: ShiroSU NewTech
+description: ShiroSU 分支 - 原生 root 实现
+icon: book-user
+---
+
+**ShiroSU NewTech** 是 ShiroSU 的一个分支，主要实现自己的原生 root 实现
+
+## 特色功能
+
+ShiroSU NewTech 致力于实现独特的 root 使用体验，包括但不限于如下内容:
+
+<Columns cols={2}>
+  <Card title='WebUI 管理' icon='app-window'>
+    通过 PWA 可以将网页安装至设备上，可以随时更新随时使用
+  </Card>
+  <Card title='公开后端' icon='router'>
+    前后端分离机制使得可以在局域网内自由交互，电脑直接管理手机轻而易举
+  </Card>
+  <Card title='SAR 高兼容' icon='shield-check'>
+    基于 Android `10`+ 实现跳过 SAR 挂载注入，省去一切 `ramdisk` 麻烦
+  </Card>
+  <Card title='高隐蔽性' icon='eye-off'>
+    原生 root 不会泄露任何 SELinux 或挂载上下文，后端端口可监听特定应用运行状态自动关闭
+  </Card>
+</Columns>
+
+ShiroSU NT 是白名单机制 root，默认为 adb 授予 root，在隐蔽性与便利性方面都有着良好体验
+
+## 支持性
+
+ShiroSU NT 是通过注入 `ramdisk` 的 `init` 实现的纯用户态 root
+
+实现逻辑中强制要求 Android `10`+ 的二阶段 SAR，在此范围内的 Android 设备全部支持，没有内核版本限制
+
+ShiroSU NT 也支持在 SELinux 宽容的设备上注入 SELinux 规则实现越狱，也可安装至虚拟机/模拟器的系统分区内使用
+
+---
+
+<Card title='如何使用' icon='user-round-search' arrow href='/ssu/nt/use'>
+  请参考 _使用指南_ 获取安装与使用说明
+</Card>
+
+<Columns cols={2}>
+  <Card title='模块开发' icon='code-xml' arrow href='/ssu/nt/dev'>
+    开发者可参考 _开发文档_ 来了解如何针对 ShiroSU NewTech 进行开发
+  </Card>
+  <Card title='常见问题' icon='message-circle-question-mark' arrow href='/ssu/nt/use/faq'>
+    记录了部分常见问题，若可能，请 [**加入群组**](https://oom-wg.dev/join) 以交流发展
+  </Card>
+</Columns>

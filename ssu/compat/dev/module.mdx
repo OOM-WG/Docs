@@ -1,0 +1,41 @@
+---
+title: 模块信息拓展
+description: ShiroSU Compat 的模块信息拓展开发
+icon: badge-info
+---
+
+## module.prop
+
+对于具体支持的内容，已经继承至 [SSU NT 模块开发](/ssu/nt/dev/module)
+
+### 损坏检测 & 规范检查
+
+ShiroSU Compat 有一个机制用来检测 `module.prop` 是否损坏或符合规范，
+如果损坏或不符合规范，ShiroSU Compat 会在该模块的上方显示一个标签
+
+<Danger>
+  有些模块会使用 `sed` 命令来修改 `module.prop` 以实现实时更新内容，但此方法有一定概率会导致 `module.prop` 文件损坏，
+  请避免通过 `sed` 修改或者通过其他方式来显示实时内容，也可以实现一个 `module.prop` 损坏检测机制，在其损坏时恢复至默认内容
+</Danger>
+
+ShiroSU Compat 具体会检测如下内容:
+
+- `module.prop` 内是否包含不符合语法的内容
+- `id`、`name`、`version`、`author`、`description` 是否为空 (如有带有 `Ansi` 后缀的同样检测)
+- `id` 是否符合此正则表达式: `^[a-zA-Z][a-zA-Z0-9._-]+$`
+- `versionCode` 是否大于 **0**
+- `module.prop` 内是否存在大小写不规范的情况 (会正常解析，但仍会显示标签)
+
+<Warning>
+  如果只是 `module.prop` 损坏，**重装模块**通常可解决此问题，如果不符合规范，则需要**开发者自行修复**以解决此问题
+</Warning>
+
+## 模块标签
+
+ShiroSU Compat 默认会在模块名称下方显示一个内容为该模块 `id` 的小标签，
+当模块目录内存在文件名称符合以下正则表达式的文件时，同样也会显示对应的小标签:
+
+- `(?i)^changelogs?(?:[._-][A-Za-z0-9._-]+)?(?:\.(?:txt|md|mkd))?$`: 模块的更新日志，点击则会通过弹窗显示内容
+- `(?i)^(?:license|licence)(?:[._-][A-Za-z0-9._-]+)?(?:\.(?:txt|md|mkd))?$`: 模块的许可证，点击则会通过弹窗显示内容
+
+<Note>搜索文件时不会搜索子目录内的内容</Note>

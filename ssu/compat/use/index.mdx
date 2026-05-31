@@ -1,6 +1,6 @@
 ---
 title: 使用指南
-description: ShiroSU 的安装步骤和使用说明
+description: ShiroSU Compat 的安装步骤和使用说明
 icon: mouse-pointer-click
 ---
 
@@ -9,16 +9,19 @@ icon: mouse-pointer-click
     您需要有一部 Android **`7`+** 的设备，架构为 `arm64-v8a`、`armeabi-v7a`、`x86_64`、`x86` 之一
   </Step>
   <Step title='获取 root' icon='shield-user'>
-    由于 ShiroSU 暂未实现自己的原生 root 实现，您需要使用第三方 root 实现来使用，具体支持可见 [适配列表](/ssu/compat)
+    您可以安装 [ShiroSU 原生 root](/ssu/nt) 或其他第三方 root 实现来使用 ShiroSU Compat
   </Step>
-  <Step title='安装 ShiroSU 管理器' icon='download'>
-    <Card title='下载' icon='download' arrow horizontal href='/ssu/update'>
+  <Step title='安装 ShiroSU Compat' icon='download'>
+    <Card title='下载' icon='download' arrow horizontal href='/ssu/compat/update'>
       ShiroSU 最新版本及历史版本下载
     </Card>
-    下载 ShiroSU 管理器 后，请安装至您的 Android 设备
+    下载 ShiroSU Compat 后，请安装至您的 Android 设备
   </Step>
   <Step title='授权 root' icon='key-round'>
     <Tabs>
+      <Tab title='ShiroSU 原生' icon='app-window'>
+        由于开发进度，ShiroSU Compat 还并未完全支持 ShiroSU NT，但您仍然可以使用它来管理模块
+      </Tab>
       <Tab title='黑名单类' icon='shield-check'>
         如果您在使用 `Magisk` 这样的黑名单类 root 实现，请在启动 ShiroSU 后授权 root
       </Tab>
@@ -30,7 +33,7 @@ icon: mouse-pointer-click
       </Tab>
     </Tabs>
   </Step>
-  <Step title='使用 ShiroSU' icon='sparkles'>
+  <Step title='使用 ShiroSU Compat' icon='sparkles'>
     向 ShiroSU 授予 root 后，即可开始使用 ShiroSU 的各项功能
     <></>
     <></>在 _模块页面_ 即可管理您的模块
@@ -43,6 +46,6 @@ icon: mouse-pointer-click
 
 ---
 
-<Card title='常见问题' icon='message-circle-question-mark' arrow href='/ssu/use/faq'>
+<Card title='常见问题' icon='message-circle-question-mark' arrow href='/ssu/compat/use/faq'>
   若有问题，可在此处查看
 </Card>

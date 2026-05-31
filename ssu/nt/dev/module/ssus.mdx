@@ -1,0 +1,33 @@
+---
+title: SSUS 特性
+description: ShiroSU 的原生元模块特性
+icon: unplug
+---
+
+**ShiroSU Systemless** (简称 _SSUS_)
+是基于 [**KernelSU 元模块**](https://kernelsu.org/zh_CN/guide/metamodule.html) 标准所写的元模块，
+它拥有自己的运行时，并且支持 **Magisk**
+
+<Note>SSUS 的开发慢于 SSU NT，目前已经完成元模块，但仍未完成所有实现目标</Note>
+
+<span>
+  ShiroSU 的{' '}
+  <Tooltip headline='Systemless' tip='Systemless 机制是一种无需直接修改系统分区即可实现修改系统文件的方法，为模块提供了便利性'>
+    Systemless
+  </Tooltip>{' '}
+  是基于 `bind mount` 的挂载机制实现的，其接口完全兼容 Magisk（但 `.replace` 用法已废除转为使用 `overlayfs` 用法）
+</span>
+
+但它的挂载机制兼容性更强，是基于动态识别分区实现的，也就是说，模块可以直接通过 SSUS 挂载例如 `odm` 以及其他 root 实现无法挂载的分区，无需为此而付出额外的心血
+
+并且，为了保证更强的安全性，SSUS 会无视模块挂载的 **文件/目录 的 SELinux 上下文**、**目录的权限**以及**文件/目录 的 用户/组**，
+如果文件挂载到了不存在的目录，那么其 **SELinux 上下文**、**权限**、**用户/组** 均会继承自父目录
+
+通常来说，这些行为不会影响模块的运行，反而有助于提高稳定性
+
+<Tip>
+  SSUS 会优先使用模块目录中的 `systemless` 目录执行挂载，如果要仅适配 SSUS，那么可以直接通过 `systemless` 目录使用 Systemless
+</Tip>
+
+与常规 Systemless 不同的是，SSUS 要求 `systemless` 目录中若要挂载 `/system`，
+需要将文件放至 `systemless/system` 而非直接置于 `systemless` 目录中

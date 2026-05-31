@@ -33,50 +33,23 @@ keywords: [ShiroSU, SSU, root, Android, 刷机, 玩机]
 
 ShiroSU 致力于为用户提供更易上手的 root 使用方式，在一切便利的基础上通过各种功能完整地使用 root
 
-## 特色功能
+## 项目分化
 
-ShiroSU 致力于在各个方面提供提升使用体验的功能，包括但不限于如下内容:
+**ShiroSU NewTech** (简称 _SSU NT_，又称 _SSU ROOT_) 是 SSU 自己的 root 实现，
+是基于 `ramdisk` 注入实现的**纯用户态 root 实现**，采用 **WebUI** 实现 **root 管理**
 
-<Columns cols={2}>
-  <Card title='一键管理模块' icon='layers'>
-    通过 _更多列表_ 以**一键 禁用/启用/更新** 模块
-  </Card>
-  <Card title='模块置顶' icon='pin'>
-    **长按**模块信息卡片可**置顶**模块
-  </Card>
-  <Card title='WebUI 快捷方式' icon='external-link'>
-    **长按** _WebUI 按钮_ 来为当前模块的 WebUI **创建桌面快捷方式**
-  </Card>
-  <Card title='Scheme 关联' icon='link'>
-    可通过网页直接跳转模块的 **操作**/**WebUI**，或是**安装模块**
-  </Card>
-</Columns>
+**ShiroSU Compat** (简称 _SSU Compat_，又称 _SSU 管理器_) 是**兼容多种 root 实现**的 root 管理器，可以**管理模块与权能**
 
-## 兼容性
+在规划上，它们是两个相对独立的项目（在部分设计上相互支持），但 SSU 就是通过这样的**双路线开发**实现覆盖面广且便利好用的
 
-ShiroSU 目前作为 **第三方 root 管理器**、**独立 root 实现** 进行双路线开发
-
-<Note>**独立 root 实现** 部分仍在开发中，目前仅可作为 **第三方 root 管理器** 使用</Note>
-
-只要有 root，不管是来自 ShiroSU 自己的，还是来着其他 root 实现的权能，均可在 ShiroSU 使用，
-但第三方 root 实现**仍需要逐步支持**才可完整使用
-
-<Card title='适配情况' icon='plug' arrow href='/ssu/compat'>
-  对 `Magisk`、`KernelSU`、`APatch`、`SKRoot` 等 _第三方 root 实现_ 的支持情况
-</Card>
-
----
-
-<Card title='如何使用' icon='user-round-search' arrow href='/ssu/use'>
-  请参考 _使用指南_ 获取安装与使用说明
-</Card>
+## 快速开始
 
 <Columns cols={2}>
-  <Card title='模块开发' icon='code-xml' arrow href='/ssu/dev'>
-    开发者可参考 _开发文档_ 来了解如何针对 ShiroSU 进行开发
+  <Card title='SSU NT' icon='album' arrow href='/ssu/nt'>
+    **ShiroSU NewTech** 简介
   </Card>
-  <Card title='常见问题' icon='message-circle-question-mark' arrow href='/ssu/use/faq'>
-    记录了部分常见问题，若可能，请 [**加入群组**](https://oom-wg.dev/join) 以交流发展
+  <Card title='SSU Compat' icon='book-marked' arrow href='/ssu/compat'>
+    **ShiroSU Compat** 简介
   </Card>
 </Columns>
 

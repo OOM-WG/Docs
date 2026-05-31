@@ -112,7 +112,7 @@
 								"group": "回忆篇章",
 								"icon": "calendar",
 								"pages": [
-									"blog/ssu-0-1-0-beta",
+									"blog/ssu-0-1-1-beta",
 									"blog/vps-network",
 									"blog/ssu-nt",
 									"blog/go4-sukisu-ultra-4",
@@ -138,47 +138,63 @@
 					{
 						"product": "ShiroSU",
 						"icon": "drafting-compass",
-						"pages": [
-							"ssu/index",
-							"ssu/update",
+						"dropdowns": [
 							{
-								"group": "快速开始",
-								"pages": ["ssu/use/index", "ssu/use/preview", "ssu/use/faq"]
-							},
-							{
-								"group": "开发文档",
+								"dropdown": "NewTech",
+								"icon": "book-up-2",
 								"pages": [
-									"ssu/dev/index",
+									"ssu/index",
 									{
-										"group": "管理器开发",
+										"group": "详细内容",
+										"pages": ["ssu/more/origin", "ssu/more/privacy"]
+									},
+									{
+										"group": "ShiroSU NT",
+										"pages": ["ssu/nt/index", "ssu/nt/update"]
+									},
+									{
+										"group": "快速开始",
+										"pages": ["ssu/nt/use/index", "ssu/nt/use/faq"]
+									},
+									{
+										"group": "开发文档",
 										"pages": [
-											"ssu/dev/man/index",
-											"ssu/dev/man/mod-info",
-											"ssu/dev/man/scheme",
-											"ssu/dev/man/cfgui",
-											"ssu/dev/man/webui"
+											"ssu/nt/dev/index",
+											"ssu/nt/dev/module/index",
+											"ssu/nt/dev/module/ssus",
+											"ssu/nt/dev/module/builder"
 										]
 									},
 									{
-										"group": "root 开发",
-										"pages": [
-											"ssu/dev/root/index",
-											{
-												"group": "模块开发",
-												"pages": ["ssu/dev/root/mod/index", "ssu/dev/root/mod/builder"]
-											}
-										]
+										"group": "API 参考",
+										"openapi": {
+											"source": "apis/ssu/openapi.yml",
+											"directory": "ssu/nt/dev/api"
+										}
 									}
 								]
 							},
 							{
-								"group": "API 参考",
-								"openapi": "ssu/openapi.yml",
-								"asyncapi": "ssu/asyncapi.yml"
-							},
-							{
-								"group": "详细文档",
-								"pages": ["ssu/compat", "ssu/more/origin", "ssu/more/privacy"]
+								"dropdown": "Compat",
+								"icon": "briefcase",
+								"pages": [
+									"ssu/compat/index",
+									"ssu/compat/update",
+									{
+										"group": "快速开始",
+										"pages": ["ssu/compat/use/index", "ssu/compat/use/faq"]
+									},
+									{
+										"group": "开发文档",
+										"pages": [
+											"ssu/compat/dev/index",
+											"ssu/compat/dev/module",
+											"ssu/compat/dev/scheme",
+											"ssu/compat/dev/cfgui",
+											"ssu/compat/dev/webui"
+										]
+									}
+								]
 							}
 						]
 					},
@@ -203,12 +219,7 @@
 											{
 												"group": "存储功能",
 												"icon": "database",
-												"pages": [
-													"suu/feats/data/index",
-													"suu/feats/data/nyanya",
-													"suu/feats/data/c&c",
-													"suu/feats/data/gbb"
-												]
+												"pages": ["suu/feats/data/index", "suu/feats/data/nyanya", "suu/feats/data/c&c", "suu/feats/data/gbb"]
 											},
 											"suu/feats/xposed",
 											"suu/feats/modify.my.id",
@@ -218,12 +229,7 @@
 									},
 									{
 										"group": "详细文档",
-										"pages": [
-											"suu/more/origin",
-											"suu/more/privacy",
-											"suu/more/agreement",
-											"suu/more/license"
-										]
+										"pages": ["suu/more/origin", "suu/more/privacy", "suu/more/agreement", "suu/more/license"]
 									}
 								]
 							},

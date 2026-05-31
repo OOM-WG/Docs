@@ -1,0 +1,76 @@
+---
+title: ShiroSU Compat
+description: ShiroSU 分支 - 多功能 root 管理器
+icon: book-user
+---
+
+**ShiroSU Compat** 是 ShiroSU 的一个分支，主要实现兼容多种 root 实现的 root 管理器
+
+## 特色功能
+
+ShiroSU Compat 致力于在各个方面提供提升使用体验的功能，包括但不限于如下内容:
+
+<Columns cols={2}>
+  <Card title='一键管理模块' icon='layers'>
+    通过 _更多列表_ 以**一键 禁用/启用/更新** 模块
+  </Card>
+  <Card title='模块置顶' icon='pin'>
+    **长按**模块信息卡片可**置顶**模块
+  </Card>
+  <Card title='WebUI 快捷方式' icon='external-link'>
+    **长按** _WebUI 按钮_ 来为当前模块的 WebUI **创建桌面快捷方式**
+  </Card>
+  <Card title='Scheme 关联' icon='link'>
+    可通过网页直接跳转模块的 **操作**/**WebUI**，或是**安装模块**
+  </Card>
+</Columns>
+
+## 兼容性
+
+只要有 root，不管是来自 ShiroSU 自己的，还是来着其他 root 实现的权能，均可在 ShiroSU Compat 使用，
+但第三方 root 实现**仍需要逐步支持**才可完整使用，目前兼容性情况如下
+
+<Warning>由于开发进度，ShiroSU Compat 还未完全支持 ShiroSU NT</Warning>
+
+### 模块兼容性
+
+ShiroSU Compat 支持管理其他 root 实现的模块，
+所有模块目录在 `/data/adb/modules` 的 root 实现，ShiroSU Compat 都可以兼容，
+具体的模块功能适配如下:
+
+<Tip>由于暂无较多用户使用的模块目录不在 `/data/adb/modules` 的 root 实现，故暂不推出模块目录自定义功能</Tip>
+
+- 操作(`action.sh`): 已完全适配
+- WebUI(`webroot`): 已完全在 [KernelSU 标准](https://kernelsu.org/zh_CN/guide/module-webui.html) 上适配，未计划适配 [WebUIX](https://mmrl.dev/guide/webuix/)
+
+<Warning>**不保证**与 KernelSU 标准持续同步，可能出现滞后情况</Warning>
+
+### 权能管理兼容性
+
+ShiroSU Compat 支持管理其他 root 实现的权能管理，
+具体的 root 实现适配如下:
+
+- [Magisk](https://topjohnwu.github.io/Magisk/): 支持 **root 权能**管理以及**排除列表**管理
+- [KernelSU](https://kernelsu.org/zh_CN/): 支持 **root 权能**管理以及**卸载模块**管理 (使用**原版**但设备上安装了 `KernelSU Next` 或 `SukiSU Ultra` 会无法使用)
+  - [KernelSU Next](https://kernelsu-next.github.io/webpage/zh_CN/): 有特别适配，可正常使用
+  - [SukiSU Ultra](https://sukisu.org/zh/): 有特别适配，可正常使用
+
+<Warning>使用 KernelSU 时若开启了 `默认卸载模块`，则 ShiroSU 内的卸载模块管理会失效！</Warning>
+
+- [APatch](https://apatch.dev/zh_CN/): 暂不支持，仍在计划中
+- [SKRoot](https://github.com/abcz316/SKRoot-linuxKernelRoot): 暂不支持，仍在计划中
+
+---
+
+<Card title='如何使用' icon='user-round-search' arrow href='/ssu/compat/use'>
+  请参考 _使用指南_ 获取安装与使用说明
+</Card>
+
+<Columns cols={2}>
+  <Card title='模块开发' icon='code-xml' arrow href='/ssu/compat/dev'>
+    开发者可参考 _开发文档_ 来了解如何针对 ShiroSU Compat 进行开发
+  </Card>
+  <Card title='常见问题' icon='message-circle-question-mark' arrow href='/ssu/compat/use/faq'>
+    记录了部分常见问题，若可能，请 [**加入群组**](https://oom-wg.dev/join) 以交流发展
+  </Card>
+</Columns>
