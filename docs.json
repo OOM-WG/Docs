@@ -162,7 +162,8 @@
 											"ssu/nt/dev/index",
 											"ssu/nt/dev/module/index",
 											"ssu/nt/dev/module/ssus",
-											"ssu/nt/dev/module/builder"
+											"ssu/nt/dev/module/builder",
+											"ssu/nt/dev/root"
 										]
 									},
 									{
