@@ -17,11 +17,11 @@ ShiroSU NewTech 致力于实现独特的 root 使用体验，包括但不限于�
   <Card title='公开后端' icon='router'>
     前后端分离机制使得可以在局域网内自由交互，电脑直接管理手机轻而易举
   </Card>
-  <Card title='SAR 高兼容' icon='shield-check'>
-    基于 Android `10`+ 实现跳过 SAR 挂载注入，省去一切 `ramdisk` 麻烦
+  <Card title='实权 root' icon='shield-cog'>
+    通过拦截 `zygote` 降权使得白名单应用本身具有完整权限，再通过 `su` 转换获得宽容 SELinux 域
   </Card>
   <Card title='高隐蔽性' icon='eye-off'>
-    原生 root 不会泄露任何 SELinux 或挂载上下文，后端端口可监听特定应用运行状态自动关闭
+    原生 root 不会泄露任何 SELinux 或挂载上下文，后端端口可监听黑名单应用运行状态自动关闭
   </Card>
 </Columns>
 
@@ -37,7 +37,7 @@ ShiroSU NT 也支持在 SELinux 宽容的设备上注入 SELinux 规则实现越
 
 ---
 
-<Card title='如何使用' icon='user-round-search' arrow href='/ssu/nt/use'>
+<Card title='如何使用' icon='user-round-search' arrow href='/ssu/nt/usage'>
   请参考 _使用指南_ 获取安装与使用说明
 </Card>
 
@@ -45,7 +45,7 @@ ShiroSU NT 也支持在 SELinux 宽容的设备上注入 SELinux 规则实现越
   <Card title='模块开发' icon='code-xml' arrow href='/ssu/nt/dev'>
     开发者可参考 _开发文档_ 来了解如何针对 ShiroSU NewTech 进行开发
   </Card>
-  <Card title='常见问题' icon='message-circle-question-mark' arrow href='/ssu/nt/use/faq'>
+  <Card title='常见问题' icon='message-circle-question-mark' arrow href='/ssu/nt/usage/faq'>
     记录了部分常见问题，若可能，请 [**加入群组**](https://oom-wg.dev/join) 以交流发展
   </Card>
 </Columns>

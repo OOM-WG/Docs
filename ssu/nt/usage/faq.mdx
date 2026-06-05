@@ -1,0 +1,48 @@
+---
+title: 常见问题
+description: ShiroSU NewTech 的常见问题解答
+icon: message-circle-question-mark
+---
+
+<Warning>如有问题难以自行解决，请 [**加入群组**](https://oom-wg.dev/join)</Warning>
+
+---
+
+### 有没有人知道这个怎么用?
+
+> [NT](/ssu/nt) 作为原生 root 可安装至设备后通过 WebUI 使用，
+> [Compat](/ssu/compat) 可作为第三方 root 管理器使用
+
+### 如何将后端限制至仅本地可访问？
+
+> 在设置中将后端监听 IP 改为 `127.0.0.1` 即可
+
+### 为什么通过网页 fastboot 刷入无法使用？
+
+> [WebUSB](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API#browser_compatibility)
+> 仅在 **Chromium 内核**的浏览器上可用
+
+### 为什么默认密码填写设置里的序列号或者 `SSU-PASSWD` 无效？
+
+> 大部分设备均有序列号，仅当明确知晓当前设备无序列号时才可使用回退密码 `SSU-PASSWD`
+>
+> <br />
+> 部分机型在系统设置里的序列号并不准确，可通过 adb/fastboot 二次确认
+
+### 为什么电脑上无法连接手机 IP？
+
+> 请注意是否误填为电脑本机 IP `127.0.0.1` 或电脑的局域网 IP，如果通过 adb 转发了端口才可直接使用本机 IP
+>
+> <br />
+> 局域网连接需要确保电脑与手机处于同一局域网内，再查询手机在当前局域网内的 IP 才可连接，局域网 IP 通常以 `192.168` 开头
+
+### 为什么部分浏览器无法连接后端？
+
+> 部分浏览器例如 Firefox、Safari 默认拦截 https/http 混合协议，推荐使用 **Chromium 内核**的浏览器
+
+### 为什么开启被隐藏权能的应用后无法连接后端？
+
+> 检测到目标应用运行时会自动断开端口监听
+>
+> <br />
+> 所以尽量不要对后台长期运行的应用隐藏权能，并且也不要对需要隐藏权能的应用允许自启动

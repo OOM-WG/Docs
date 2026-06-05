@@ -150,28 +150,34 @@
 									},
 									{
 										"group": "ShiroSU NT",
-										"pages": ["ssu/nt/index", "ssu/nt/update"]
-									},
-									{
-										"group": "快速开始",
-										"pages": ["ssu/nt/use/index", "ssu/nt/use/faq"]
-									},
-									{
-										"group": "开发文档",
 										"pages": [
-											"ssu/nt/dev/index",
-											"ssu/nt/dev/module/index",
-											"ssu/nt/dev/module/ssus",
-											"ssu/nt/dev/module/builder",
-											"ssu/nt/dev/root"
+											"ssu/nt/index",
+											"ssu/nt/update",
+											{
+												"group": "快速开始",
+												"expanded": true,
+												"pages": ["ssu/nt/usage/index", "ssu/nt/usage/faq"]
+											},
+											{
+												"group": "开发文档",
+												"expanded": true,
+												"pages": [
+													"ssu/nt/dev/index",
+													"ssu/nt/dev/module/index",
+													"ssu/nt/dev/module/ssus",
+													"ssu/nt/dev/module/builder",
+													"ssu/nt/dev/root",
+													{
+														"group": "API 参考",
+														"icon": "rss",
+														"openapi": {
+															"source": "apis/ssu/openapi.yml",
+															"directory": "ssu/nt/dev/api"
+														}
+													}
+												]
+											}
 										]
-									},
-									{
-										"group": "API 参考",
-										"openapi": {
-											"source": "apis/ssu/openapi.yml",
-											"directory": "ssu/nt/dev/api"
-										}
 									}
 								]
 							},
@@ -183,7 +189,7 @@
 									"ssu/compat/update",
 									{
 										"group": "快速开始",
-										"pages": ["ssu/compat/use/index", "ssu/compat/use/faq"]
+										"pages": ["ssu/compat/usage/index", "ssu/compat/usage/faq"]
 									},
 									{
 										"group": "开发文档",
@@ -211,7 +217,7 @@
 									"suu/update",
 									{
 										"group": "快速开始",
-										"pages": ["suu/use/index", "suu/use/faq"]
+										"pages": ["suu/usage/index", "suu/usage/faq"]
 									},
 									{
 										"group": "软件功能",
