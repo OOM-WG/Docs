@@ -1,6 +1,9 @@
 ;(function () {
 	const projects = [
+		{ path: '/ssu/nt', name: 'ShiroSU NT', icon: 'ssu' },
+		{ path: '/ssu/compat', name: 'ShiroSU Compat', icon: 'ssu' },
 		{ path: '/ssu', name: 'ShiroSU', icon: 'ssu' },
+		{ path: '/suu/win', name: '苏柚 Windows', icon: 'suu' },
 		{ path: '/suu', name: '苏柚', icon: 'suu' },
 		{ path: '/mmem', name: 'MikotoMem' },
 		{ path: '/only-gui-can-do', name: 'Only GUI Can Do', icon: 'only-gui-can-do' }
