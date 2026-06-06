@@ -299,7 +299,7 @@ paths:
       tags:
         - 系统
       operationId: readBootImage
-      summary: 读取当前槽位的 `init_boot` 或 `boot` 分区镜像
+      summary: 读取当前槽位的 init_boot 或 boot 分区镜像
       description: 优先读取 `init_boot{slot}`，不存在时读取 `boot{slot}`，`{slot}` 可能为空
       responses:
         '200':
@@ -330,7 +330,7 @@ paths:
       tags:
         - 系统
       operationId: flashBootImage
-      summary: 写入镜像到当前槽位的 `init_boot` 或 `boot` 分区
+      summary: 写入镜像到当前槽位的 init_boot 或 boot 分区
       description: |
         写入提供的镜像，并用零填充目标分区剩余空间
 
@@ -367,7 +367,7 @@ paths:
       tags:
         - 主题
       operationId: readWallpaper
-      summary: 读取用户 `0` 的系统壁纸
+      summary: 读取用户 0 的系统壁纸
       description: 优先壁纸裁剪图，其次原图或锁屏壁纸
       responses:
         '200':
@@ -890,7 +890,7 @@ paths:
         - 模块
         - WebSocket
       operationId: runModuleActionWebSocket
-      summary: 通过 WebSocket 执行模块 `action.sh`
+      summary: 通过 WebSocket 执行模块 action.sh
       description: 本路径只支持 WebSocket 升级
       x-websocket: true
       parameters:
@@ -911,7 +911,7 @@ paths:
       tags:
         - 模块
       operationId: runModuleAction
-      summary: 执行模块 `action.sh` 并返回输出
+      summary: 执行模块 action.sh 并返回输出
       parameters:
         - $ref: '#/components/parameters/ModuleId'
       responses:
