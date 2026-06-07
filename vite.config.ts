@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite-plus'
 
 export default defineConfig({
+	staged: { '*': 'vp check --fix' },
 	fmt: {
 		arrowParens: 'avoid',
 		bracketSameLine: true,
@@ -9,6 +10,6 @@ export default defineConfig({
 		sortImports: true,
 		sortTailwindcss: true,
 		trailingComma: 'none',
-		ignorePatterns: ['*-lock.*', '*.lock', '**/.nuxt/**', '**/.output/**', '**/dist/**', '**/build/**', '**/target/**']
+		ignorePatterns: ['*-lock.*', '*.lock']
 	}
 })
