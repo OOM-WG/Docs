@@ -10,7 +10,7 @@
 		"format": "vp fmt"
 	},
 	"devDependencies": {
-		"mint": "^4.2.598",
+		"mint": "^4.2.614",
 		"vite-plus": "^0.1.24"
 	}
 }

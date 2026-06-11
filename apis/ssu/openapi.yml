@@ -310,11 +310,6 @@ paths:
               schema:
                 type: string
                 example: attachment; filename="boot_a.img"
-            Content-Length:
-              description: 分区镜像字节数
-              schema:
-                type: integer
-                minimum: 1
           content:
             application/x-raw-disk-image:
               schema:
@@ -569,6 +564,19 @@ paths:
           $ref: '#/components/responses/JvmBadGateway'
         '503':
           $ref: '#/components/responses/JvmUnavailable'
+    delete:
+      tags:
+        - 模块
+      operationId: deleteModuleSystem
+      summary: 删除模块系统
+      description: 仅删除环境依赖，不会删除已安装模块
+      responses:
+        '204':
+          description: 模块系统已删除
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   /modules/install:
     get:
