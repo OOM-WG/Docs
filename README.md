@@ -12,16 +12,16 @@
 初始化项目:
 
 ```shell
-pnpm i --no-frozen-lockfile
+bun i
 ```
 
 运行本地预览:
 
 ```shell
-pnpm dev
+bun dev
 ```
 
 ## [许可证](LICENSE.txt)
 
-本项目使用 [**F2DLPR 许可证**](https://license.fileto.download)，
-适用于所有**文章、文档**，不适用于所有**图标、头像**
+本项目使用 [**File to Downloader 许可证**](https://license.fileto.download)，
+适用于所有**文章、文档**，不适用于所有**成员头像**

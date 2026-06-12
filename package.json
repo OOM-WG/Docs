@@ -1,7 +1,7 @@
 {
 	"name": "oom-workspace",
 	"private": true,
-	"license": "F2DLPRL",
+	"license": "File-to-Downloader",
 	"type": "module",
 	"scripts": {
 		"mint": "mint",
