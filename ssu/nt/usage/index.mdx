@@ -54,20 +54,20 @@ ShiroSU NT 可以通过 WebUI 进行管理
 在这之前需要获取设备的 **序列号** 作为唯一的密钥，执行以下任意命令即可获取到设备的序列号，或者在 `关于本机` 中找到序列号，
 大部分机型的序列号为 **16**位*大写字母*&_数字_ 或 **8**位*小写字母*&_数字_
 
-<Tip>欧加真的高通机型在系统设置中显示的序列号通常是不准确的，请优先使用命令获取</Tip>
+<Tip>欧加真的高通机型在系统设置中显示的序列号通常是不准确的，请优先通过命令行获取</Tip>
 
 <CodeGroup>
 
-```sh Command 1
+```sh ADB (电脑)
 adb get-serialno
 ```
 
-```sh Command 2
-adb devices
+```sh ADB (本机)
+getprop ro.serialno
 ```
 
-```sh Command 3
-adb shell getprop ro.serialno
+```sh bootloader/fastboot (电脑)
+fastboot getvar serialno
 ```
 
 </CodeGroup>
