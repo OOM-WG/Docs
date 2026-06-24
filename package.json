@@ -4,13 +4,12 @@
 	"license": "File-to-Downloader",
 	"type": "module",
 	"scripts": {
-		"mint": "mint",
-		"dev": "mint dev",
+		"docs:dev": "cd docs && mint dev",
 		"prepare": "vp config",
 		"format": "vp fmt"
 	},
 	"devDependencies": {
-		"mint": "^4.2.632",
+		"mint": "^4.2.637",
 		"vite-plus": "^0.2.1"
 	}
 }

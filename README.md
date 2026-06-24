@@ -1,6 +1,8 @@
-# [回忆溢出工作组综合网站](https://oom-wg.dev)
+# 回忆溢出工作组网站组
 
-为统一文档利于维护，目前已使用 [Mintlify](https://www.mintlify.com/) 统一文章、项目文档部署
+为利于统一维护，回忆溢出工作组的主要网站均在此处维护
+
+<oom-wg.dev> 使用 [Mintlify](https://www.mintlify.com/) 部署，统一发布文章、项目文档内容
 
 以下项目文档已迁至此处:
 
