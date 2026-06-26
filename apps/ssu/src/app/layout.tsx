@@ -17,6 +17,11 @@ export const metadata = {
 	title: {
 		default: 'ShiroSU',
 		template: '%s | ShiroSU'
+	},
+	verification: {
+		other: {
+			'baidu-site-verification': 'codeva-nXvaJYt4E0'
+		}
 	}
 } satisfies Metadata
 
