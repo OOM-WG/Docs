@@ -1,5 +1,12 @@
 * text=auto
 
+docs/** linguist-documentation=false
+
+*.config.js linguist-vendored
+*.config.[cm]js linguist-vendored
+*.config.ts linguist-vendored
+*.config.[cm]ts linguist-vendored
+
 *.md text eol=lf linguist-documentation
 *.mkd text eol=lf linguist-documentation
 *.mdx text eol=lf linguist-documentation

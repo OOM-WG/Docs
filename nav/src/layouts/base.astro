@@ -1,0 +1,53 @@
+---
+import '../styles/global.css'
+import { SiteFrame } from '@/components/site-frame'
+import { SEO } from 'astro-seo'
+import oowLogo from '../../../docs/images/logo/oow.webp'
+
+const { title = '200OK Working', description = '回忆溢出工作组网址导航' } = Astro.props
+---
+
+<!doctype html>
+<html lang='zh-Hans'>
+	<head>
+		<meta charset='UTF-8' />
+		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+		<SEO
+			title={title}
+			description={description}
+			canonical={new URL(Astro.url.pathname, Astro.site).toString()}
+			openGraph={{
+				basic: {
+					title,
+					type: 'website',
+					image: new URL(oowLogo.src, Astro.site).toString(),
+					url: new URL(Astro.url.pathname, Astro.site).toString(),
+				},
+				optional: {
+					description,
+					siteName: '200OK Working',
+					locale: 'zh_CN',
+				},
+				image: {
+					alt: title,
+				},
+			}}
+			twitter={{
+				card: 'summary_large_image',
+				title,
+				description,
+				image: new URL(oowLogo.src, Astro.site).toString(),
+				imageAlt: title,
+			}}
+			extend={{
+				link: [{ rel: 'icon', href: new URL(oowLogo.src, Astro.site).toString() }],
+				meta: [{ name: 'keywords', content: '回忆溢出工作组, OutOfMemories WorkGroup, OOM WG, 200OK Work' }],
+			}}
+		/>
+	</head>
+	<body>
+		<SiteFrame logoSrc={oowLogo.src}>
+			<slot />
+		</SiteFrame>
+	</body>
+</html>

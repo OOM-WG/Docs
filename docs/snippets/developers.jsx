@@ -24,7 +24,7 @@ export const CoreDevCard = ({ name, role, image, bio, url, email, tooltip }) => 
 					{name}
 				</h3>
 
-				<div className='group-hover:text-primary/80 mb-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 transition-colors'>
+				<div className='group-hover:text-primary/80 mb-2 text-xs font-semibold tracking-wider text-zinc-400 uppercase transition-colors'>
 					{role}
 				</div>
 

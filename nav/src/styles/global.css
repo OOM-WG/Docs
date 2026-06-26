@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+
+@plugin 'daisyui' {
+	themes: false;
+}
+
+@plugin 'daisyui/theme' {
+	name: 'caramellatte';
+	default: true;
+	color-scheme: light;
+	--color-primary: #d49a4f;
+	--color-primary-content: #2b1a0d;
+	--radius-box: 0.5rem;
+	--radius-field: 0.5rem;
+	--radius-selector: 0.5rem;
+}
+
+@plugin 'daisyui/theme' {
+	name: 'coffee';
+	prefersdark: true;
+	color-scheme: dark;
+	--color-primary: #e6be8a;
+	--color-primary-content: #21140c;
+	--radius-box: 0.5rem;
+	--radius-field: 0.5rem;
+	--radius-selector: 0.5rem;
+}
+
+@layer base {
+	html,
+	body {
+		min-block-size: 100%;
+	}
+
+	html {
+		text-autospace: normal;
+		text-spacing-trim: trim-start;
+		font-feature-settings: 'palt';
+		font-variant-ligatures: common-ligatures;
+		font-optical-sizing: auto;
+		font-smooth: always;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		hyphens: auto;
+	}
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-block-size: 100dvb;
+	background:
+		radial-gradient(circle at 18% 8%, color-mix(in oklab, var(--color-primary) 16%, transparent), transparent 34rem),
+		radial-gradient(circle at 86% 0%, color-mix(in oklab, var(--color-accent) 8%, transparent), transparent 32rem),
+		linear-gradient(180deg, var(--color-base-100), var(--color-base-200));
+	color: var(--color-base-content);
+}

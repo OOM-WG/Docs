@@ -1,0 +1,46 @@
+name: Deploy Nav
+
+on:
+  push:
+    branches: [oom]
+    paths:
+      - 'nav/**'
+      - '.github/**'
+  pull_request:
+    branches: [oom]
+    paths:
+      - 'nav/**'
+      - '.github/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nav-deployer
+  cancel-in-progress: true
+
+jobs:
+  deploy-nav:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          git config --global core.quotePath false
+          git config --global core.ignorecase false
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: |
+          bun ci
+          bun run build
+        working-directory: nav
+      - uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: nav-dist
+          folder: nav/dist
+          clean: true
+          single-commit: true

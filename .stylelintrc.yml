@@ -1,0 +1,17 @@
+plugins:
+  - stylelint-plugin-logical-css
+  - stylelint-plugin-defensive-css
+extends:
+  - stylelint-config-standard
+  - stylelint-config-tailwindcss
+  - stylelint-config-astro
+  - stylelint-plugin-logical-css/configs/recommended
+  - stylelint-plugin-defensive-css/configs/recommended
+rules:
+  defensive-css/require-pure-selectors: null
+  comment-empty-line-before: null
+  custom-property-empty-line-before: null
+  font-family-no-missing-generic-family-keyword: null
+  keyframes-name-pattern: null
+  rule-empty-line-before: null
+  selector-class-pattern: null

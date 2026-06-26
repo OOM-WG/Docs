@@ -6,3 +6,14 @@
 *.lock
 
 node_modules
+
+.astro/
+.next/
+dist/
+out/
+build/
+*.tsbuildinfo
+
+next-env.d.ts
+
+.DS_Store

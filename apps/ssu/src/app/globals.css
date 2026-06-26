@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.cn/css2?family=Ubuntu+Sans:wght@100..800&family=JetBrains+Mono:wght@100..800&display=swap');
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/vitepress.css';
+@import 'fumadocs-ui/css/preset.css';
+
+@plugin 'daisyui' {
+	themes: false;
+}
+
+@plugin 'daisyui/theme' {
+	name: 'caramellatte';
+	default: true;
+	color-scheme: light;
+	--color-primary: #d49a4f;
+	--color-primary-content: #2b1a0d;
+	--radius-box: 0.5rem;
+	--radius-field: 0.5rem;
+	--radius-selector: 0.5rem;
+}
+
+@plugin 'daisyui/theme' {
+	name: 'coffee';
+	prefersdark: true;
+	color-scheme: dark;
+	--color-primary: #e6be8a;
+	--color-primary-content: #21140c;
+	--radius-box: 0.5rem;
+	--radius-field: 0.5rem;
+	--radius-selector: 0.5rem;
+}
+
+@theme {
+	--font-sans: 'Ubuntu Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--font-mono: 'JetBrains Mono', ui-monospace, monospace, ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+	.prose {
+		--tw-prose-links: var(--color-fd-primary);
+		--tw-prose-code: var(--color-fd-primary);
+		--tw-prose-hr: var(--color-fd-border);
+		--tw-prose-quote-borders: color-mix(in oklab, var(--color-primary) 45%, transparent);
+		--tw-prose-kbd-shadows: color-mix(in oklab, var(--color-primary) 36%, transparent);
+	}
+
+	html,
+	body {
+		min-block-size: 100%;
+	}
+
+	html {
+		scrollbar-gutter: stable;
+		text-autospace: normal;
+		text-spacing-trim: trim-start;
+		font-feature-settings: 'palt';
+		font-variant-ligatures: common-ligatures;
+		font-optical-sizing: auto;
+		font-smooth: always;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		hyphens: auto;
+	}
+}
+
+:root,
+[data-theme],
+.dark {
+	--color-fd-background: var(--color-base-100);
+	--color-fd-foreground: var(--color-base-content);
+	--color-fd-card: color-mix(in oklab, var(--color-base-100) 92%, var(--color-primary));
+	--color-fd-card-foreground: var(--color-base-content);
+	--color-fd-popover: var(--color-base-100);
+	--color-fd-popover-foreground: var(--color-base-content);
+	--color-fd-muted: color-mix(in oklab, var(--color-base-200) 92%, var(--color-primary));
+	--color-fd-muted-foreground: color-mix(in oklab, var(--color-base-content) 72%, transparent);
+	--color-fd-secondary: color-mix(in oklab, var(--color-base-200) 86%, var(--color-primary));
+	--color-fd-secondary-foreground: var(--color-base-content);
+	--color-fd-accent: color-mix(in oklab, var(--color-primary) 16%, var(--color-base-100));
+	--color-fd-accent-foreground: var(--color-base-content);
+	--color-fd-border: color-mix(in oklab, var(--color-base-content) 14%, var(--color-primary));
+	--color-fd-overlay: color-mix(in oklab, var(--color-neutral) 34%, transparent);
+	--color-fd-primary: var(--color-primary);
+	--color-fd-primary-foreground: var(--color-primary-content);
+	--color-fd-ring: var(--color-primary);
+	--color-fd-info: color-mix(in oklab, var(--color-primary) 72%, var(--color-info));
+	--color-fd-warning: color-mix(in oklab, var(--color-primary) 68%, var(--color-warning));
+	--color-fd-error: color-mix(in oklab, var(--color-error) 78%, var(--color-primary));
+	--color-fd-success: color-mix(in oklab, var(--color-success) 72%, var(--color-primary));
+	--color-fd-idea: var(--color-primary);
+}
+
+.dark {
+	--color-fd-card: color-mix(in oklab, var(--color-base-100) 82%, var(--color-primary));
+	--color-fd-muted: color-mix(in oklab, var(--color-base-200) 86%, var(--color-primary));
+	--color-fd-muted-foreground: color-mix(in oklab, var(--color-base-content) 74%, transparent);
+	--color-fd-secondary: color-mix(in oklab, var(--color-base-200) 82%, var(--color-primary));
+	--color-fd-accent: color-mix(in oklab, var(--color-primary) 20%, var(--color-base-100));
+	--color-fd-border: color-mix(in oklab, var(--color-base-content) 16%, var(--color-primary));
+	--color-fd-info: color-mix(in oklab, var(--color-primary) 76%, var(--color-info));
+	--color-fd-warning: color-mix(in oklab, var(--color-primary) 70%, var(--color-warning));
+	--color-fd-error: color-mix(in oklab, var(--color-error) 72%, var(--color-primary));
+	--color-fd-success: color-mix(in oklab, var(--color-success) 68%, var(--color-primary));
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-block-size: 100dvb;
+	background:
+		radial-gradient(circle at 18% 8%, color-mix(in oklab, var(--color-primary) 16%, transparent), transparent 34rem),
+		radial-gradient(circle at 86% 0%, color-mix(in oklab, var(--color-accent) 8%, transparent), transparent 32rem),
+		linear-gradient(180deg, var(--color-base-100), var(--color-base-200));
+	color: var(--color-base-content);
+}
+
+a {
+	text-underline-offset: 0.2em;
+}

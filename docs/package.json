@@ -1,0 +1,13 @@
+{
+	"name": "oom-website",
+	"private": true,
+	"license": "File-to-Downloader",
+	"author": "OOM WG",
+	"type": "module",
+	"scripts": {
+		"dev": "mint dev"
+	},
+	"devDependencies": {
+		"mint": "^4.2.639"
+	}
+}
