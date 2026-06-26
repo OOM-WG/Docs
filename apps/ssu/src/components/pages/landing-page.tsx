@@ -1,5 +1,6 @@
 import { SiGithub } from '@icons-pack/react-simple-icons'
 import { ArrowRight, BookOpen, House } from 'lucide-react'
+import { headers } from 'next/headers'
 import Link from 'next/link'
 import { type ComponentType, type ReactNode } from 'react'
 
@@ -8,7 +9,7 @@ import MainBody from '@/content/body/main.mdx'
 import NewTechBody from '@/content/body/newtech.mdx'
 import UtilsBody from '@/content/body/utils.mdx'
 import { docsLinks, githubLinks, projectCards, siteConfigs, type SiteKey } from '@/content/site'
-import { getCurrentHost, getSiteHref } from '@/lib/routing'
+import { getSiteHref } from '@/lib/routing'
 
 type LandingPageProps = {
 	site: SiteKey
@@ -22,7 +23,7 @@ const bodyBySite = {
 } satisfies Record<SiteKey, ComponentType>
 
 export const LandingPage = async ({ site }: LandingPageProps) => {
-	const host = await getCurrentHost()
+	const host = (await headers()).get('host')
 	const Body = bodyBySite[site]
 
 	return (

@@ -2,15 +2,18 @@ import { SiGithub } from '@icons-pack/react-simple-icons'
 import { RootProvider } from 'fumadocs-ui/provider/next'
 import { Building2, Info } from 'lucide-react'
 import { type Metadata } from 'next'
+import { headers } from 'next/headers'
 import Image from 'next/image'
 import Link from 'next/link'
 import { type ReactNode } from 'react'
 
 import { baseHost, siteConfigs, siteOrder } from '@/content/site'
-import { getCurrentHost, getSiteHref } from '@/lib/routing'
+import { getSiteFromHost, getSiteHref } from '@/lib/routing'
 
 import './globals.css'
+
 import ssuLogo from '../../../../docs/images/logo/ssu.webp'
+import suuLogo from '../../../../docs/images/logo/suu.webp'
 
 export const metadata = {
 	metadataBase: new URL(`https://${baseHost}`),
@@ -26,7 +29,8 @@ export const metadata = {
 } satisfies Metadata
 
 export default async ({ children }: Readonly<{ children: ReactNode }>) => {
-	const host = await getCurrentHost()
+	const host = (await headers()).get('host')
+	const site = getSiteFromHost(host)
 
 	return (
 		<html lang='zh-Hans' suppressHydrationWarning>
@@ -43,7 +47,13 @@ export default async ({ children }: Readonly<{ children: ReactNode }>) => {
 									<Link
 										className='btn btn-ghost hover:bg-primary/12 gap-3 px-2 text-base'
 										href={getSiteHref('main', '/', host)}>
-										<Image src={ssuLogo} width={32} height={32} alt='ShiroSU Logo' className='rounded-md' />
+										<Image
+											src={site === 'utils' ? suuLogo : ssuLogo}
+											width={32}
+											height={32}
+											alt='ShiroSU Logo'
+											className='rounded-md'
+										/>
 										<span className='font-semibold'>ShiroSU</span>
 									</Link>
 								</div>

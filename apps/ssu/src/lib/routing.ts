@@ -44,5 +44,3 @@ export const getSiteHref = (target: SiteKey, pathname = '/', currentHost?: strin
 	const targetHost = prefix ? `${prefix}.${baseHost}` : baseHost
 	return `${protocol}://${targetHost}${normalizedPath}`
 }
-
-export const getCurrentHost = async () => (await headers()).get('host')
