@@ -8,3 +8,40 @@
 <Callout title='项目独立性'>
   **ShiroSU 系列** 中的任何项目都不是某一个知名项目的分支，每一个项目都是由 **回忆溢出工作组** 的开发组成员联合开发的
 </Callout>
+
+---
+
+<GraphView
+  nodes={[
+    { id: 'ssu', text: 'ShiroSU 系列', description: '系列整体', url: '/' },
+    { id: 'ssu-main', text: 'ShiroSU 主线', description: '主线项目', url: '/' },
+    { id: 'ssu-sub', text: 'ShiroSU 支线', description: '子项目', url: '/about' },
+    { id: 'ssu-newtech', text: 'ShiroSU NT', description: '原生 root 实现', url: '/newtech' },
+    { id: 'ssu-compat', text: 'ShiroSU Compat', description: '多功能 root 管理器', url: '/compat' },
+    { id: 'ssu-s', text: 'SSUS', description: 'Systemless 挂载系统', url: '/about' },
+    { id: 'ssu-modbld', text: 'ShiroSU 模块构建工具', description: '模块构建工具', url: '/about' },
+    { id: 'suu', text: '苏柚', description: '姊妹项目', url: '/utils' },
+    //
+    { id: 'dev', text: '核心维护者', description: '回忆溢出工作组中的核心开发者', url: 'https://oom-wg.dev/developers' },
+    { id: 'dev-fy', text: '枫莹', description: 'AI 支持', url: 'https://fengying.xin' },
+    { id: 'dev-shiro', text: '白彩恋', description: '系列主创 & 核心维护', url: 'https://shiror.ren' },
+    { id: 'dev-yume', text: '梦璃酱', description: '前端维护', url: 'https://yumeyuka.moe' },
+    { id: 'dev-linso', text: 'Linso', description: '高价值开发者', url: 'https://linso.pro' }
+  ]}
+  links={[
+    { source: 'ssu', target: 'ssu-main' },
+    { source: 'ssu', target: 'ssu-sub' },
+    { source: 'ssu-main', target: 'ssu-newtech' },
+    { source: 'ssu-main', target: 'ssu-compat' },
+    { source: 'ssu-sub', target: 'ssu-s' },
+    { source: 'ssu-sub', target: 'ssu-modbld' },
+    { source: 'ssu', target: 'suu' },
+    //
+    { source: 'dev', target: 'ssu' },
+    { source: 'dev', target: 'dev-fy' },
+    { source: 'dev', target: 'dev-shiro' },
+    { source: 'dev', target: 'dev-yume' },
+    { source: 'dev', target: 'dev-linso' },
+    { source: 'dev-fy', target: 'dev-shiro' }
+  ]}
+/>

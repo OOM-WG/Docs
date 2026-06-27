@@ -44,7 +44,16 @@ export type ProjectCard = {
 	icon: LucideIcon
 }
 
+export type GithubRepo = {
+	owner: string
+	repo: string
+}
+
 export const baseHost = 'shirosu.my.id'
+
+export const projects = ['newtech', 'compat', 'utils'] as const satisfies readonly Exclude<SiteKey, 'main'>[]
+
+export const siteOrder = ['main', 'newtech', 'compat', 'utils'] satisfies readonly SiteKey[] as readonly SiteKey[]
 
 export const siteConfigs = {
 	main: {
@@ -84,7 +93,7 @@ export const siteConfigs = {
 			},
 			{
 				title: '完整功能',
-				description: '权能管理支持白名单授予 root 与黑名单卸载挂载，也有完整的模块系统实现',
+				description: '权能管理支持白名单授予 root 与黑名单卸载挂载；模块系统基于 KernelSU 元模块设计实现',
 				icon: Blocks
 			},
 			{
@@ -179,9 +188,7 @@ export const projectCards = [
 		description: siteConfigs.utils.description,
 		icon: FolderCog
 	}
-] satisfies ProjectCard[]
-
-export const siteOrder = ['main', 'newtech', 'compat', 'utils'] satisfies SiteKey[] as SiteKey[]
+] satisfies ProjectCard[] as ProjectCard[]
 
 export const docsLinks = {
 	main: 'https://oom-wg.dev/ssu',
@@ -190,9 +197,21 @@ export const docsLinks = {
 	utils: 'https://oom-wg.dev/suu'
 } satisfies Record<SiteKey, string> as Record<SiteKey, string>
 
-export const githubLinks = {
-	main: 'https://github.com/OOM-WG/ShiroSU',
-	compat: 'https://github.com/OOM-WG/ShiroSU',
-	newtech: 'https://github.com/OOM-WG/ShiroSU',
-	utils: 'https://github.com/OOM-WG/ShiroSU-Utils'
-} satisfies Record<SiteKey, string> as Record<SiteKey, string>
+export const githubRepos = {
+	main: {
+		owner: 'OOM-WG',
+		repo: 'ShiroSU'
+	},
+	compat: {
+		owner: 'OOM-WG',
+		repo: 'ShiroSU'
+	},
+	newtech: {
+		owner: 'OOM-WG',
+		repo: 'ShiroSU'
+	},
+	utils: {
+		owner: 'OOM-WG',
+		repo: 'ShiroSU-Utils'
+	}
+} satisfies Record<SiteKey, GithubRepo> as Record<SiteKey, GithubRepo>

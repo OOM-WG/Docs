@@ -13,18 +13,21 @@
 	},
 	"dependencies": {
 		"@icons-pack/react-simple-icons": "^13.13.0",
-		"fumadocs-core": "^16.10.5",
-		"fumadocs-ui": "^16.10.5",
+		"d3-force": "^3.0.0",
+		"fumadocs-core": "^16.10.6",
+		"fumadocs-ui": "^16.10.6",
 		"lucide-react": "^1.21.0",
 		"next": "^16.2.9",
 		"react": "^19.2.7",
-		"react-dom": "^19.2.7"
+		"react-dom": "^19.2.7",
+		"react-force-graph-2d": "^1.29.1"
 	},
 	"devDependencies": {
 		"@fontsource/ubuntu-sans": "^5.2.10",
 		"@mdx-js/loader": "^3.1.1",
 		"@next/mdx": "^16.2.9",
 		"@tailwindcss/postcss": "^4.3.1",
+		"@types/d3-force": "^3.0.10",
 		"@types/mdx": "^2.0.14",
 		"@types/node": "^26.0.1",
 		"@types/react": "^19.2.17",

@@ -12,9 +12,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { type ComponentPropsWithoutRef } from 'react'
 
-import { SiteLink } from '@/components/site-link'
-
+import { GraphView } from './graph-view'
 import ImageZoom from './image-zoom'
+import { SiteLink } from './site-link'
 
 export const mdxComponents = {
 	SiteLink,
@@ -28,6 +28,7 @@ export const mdxComponents = {
 	),
 	...FilesWidgets,
 	GithubInfo,
+	GraphView,
 	Image,
 	ImageZoom,
 	img: props => <ImageZoom {...(props as any)} />,

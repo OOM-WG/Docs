@@ -9,4 +9,4 @@ export default () =>
 			allow: '/'
 		},
 		sitemap: `https://${baseHost}/sitemap.xml`
-	}) satisfies MetadataRoute.Robots as MetadataRoute.Robots
+	}) satisfies MetadataRoute.Robots

@@ -1,4 +1,4 @@
-import { SiGithub } from '@icons-pack/react-simple-icons'
+import { GithubInfo } from 'fumadocs-ui/components/github-info'
 import { ArrowRight, BookOpen, House } from 'lucide-react'
 import { headers } from 'next/headers'
 import Link from 'next/link'
@@ -8,7 +8,7 @@ import CompatBody from '@/content/body/compat.mdx'
 import MainBody from '@/content/body/main.mdx'
 import NewTechBody from '@/content/body/newtech.mdx'
 import UtilsBody from '@/content/body/utils.mdx'
-import { docsLinks, githubLinks, projectCards, siteConfigs, type SiteKey } from '@/content/site'
+import { docsLinks, githubRepos, projectCards, siteConfigs, type SiteKey } from '@/content/site'
 import { getSiteHref } from '@/lib/routing'
 
 type LandingPageProps = {
@@ -74,6 +74,7 @@ const MainHero = ({ host }: { host: string | null }) => {
 
 const ProjectHero = ({ site, host }: { site: Exclude<SiteKey, 'main'>; host: string | null }) => {
 	const config = siteConfigs[site]
+	const githubRepo = githubRepos[site]
 
 	return (
 		<section className='mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-7xl content-center gap-10 px-7 py-16 sm:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-16 xl:px-20'>
@@ -81,7 +82,7 @@ const ProjectHero = ({ site, host }: { site: Exclude<SiteKey, 'main'>; host: str
 				<p className='text-primary mb-4 text-sm font-semibold tracking-[0.22em] uppercase'>{config.hero.eyebrow}</p>
 				<h1 className='max-w-4xl text-5xl leading-tight font-black sm:text-6xl'>{config.hero.title}</h1>
 				<p className='text-base-content/72 mt-6 max-w-2xl text-lg leading-8'>{config.hero.lead}</p>
-				<div className='mt-8 flex flex-wrap gap-3' data-nosnippet>
+				<div className='mt-8 flex flex-wrap items-center gap-3' data-nosnippet>
 					<Link className='btn btn-primary gap-2' href={docsLinks[site]} target='_blank'>
 						<BookOpen size={18} />
 						查看文档
@@ -90,14 +91,7 @@ const ProjectHero = ({ site, host }: { site: Exclude<SiteKey, 'main'>; host: str
 						<House size={18} />
 						返回主站
 					</Link>
-					<Link
-						className='btn btn-ghost hover:bg-primary/12 gap-2'
-						href={githubLinks[site]}
-						rel='noreferrer noopener'
-						target='_blank'>
-						<SiGithub size={18} />
-						GitHub
-					</Link>
+					<GithubInfo owner={githubRepo.owner} repo={githubRepo.repo} />
 				</div>
 			</div>
 			<div className='grid gap-4'>

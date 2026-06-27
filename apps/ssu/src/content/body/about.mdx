@@ -6,6 +6,29 @@
 <SiteLink site='utils'>**ShiroSU Utils**</SiteLink>
 则作为**姊妹项目**而存在，同时系列里也有着一些**子项目**、**衍生项目**等存在
 
+## 子项目
+
+**ShiroSU 系列** 除了几个核心项目外，还有些小项目也同样参与发展
+
+<Cards>
+  <Card title='ShiroSU Systemless' href='https://oom-wg.dev/ssu/nt/dev/module/ssus'>
+    简称 **SSUS**，是有**自身运行时**的 **Systemless 挂载系统**，可内置于 **ShiroSU NT** 模块系统
+    <></>
+    也可作为 **KernelSU 元模块** 使用，并且支持在 **Magisk** 上使用
+  </Card>
+  <Card title='ShiroSU 模块构建工具' href='https://oom-wg.dev/ssu/nt/dev/module/builder'>
+    支持 **ShiroSU NT** 自身特性与**其他 root 实现**设计的模块构建工具
+  </Card>
+</Cards>
+
+## 了解更多
+
+import { Users } from 'lucide-react'
+
+<Card icon={<Users />} title='交流反馈' href='https://oom-wg.dev/join'>
+  除了官方文档外，也可以选择加入官方交流渠道来了解更多相关信息
+</Card>
+
 ### 主要项目历程
 
 <Tabs items={['ShiroSU NT & ShiroSU Compat', 'ShiroSU Utils']}>
@@ -17,7 +40,7 @@
 
 > 更名的原因是域名 `sakit.in` 是印度域名，不实名认证无法使用，故更名并使用域名 `shiror.ren`
 
-**@白彩恋** 先完成了 Systemless 部分（即 **SSUS**，**ShiroSU NT** 功能的一部分），随后开始 **ShiroSU Compat** 的开发
+**@白彩恋** 先完成了 **SSUS**，随后开始 **ShiroSU Compat** 的开发
 
 #### 发展
 
@@ -33,7 +56,7 @@
 
 于 `2026-3-2` 实现 root 部分，于 `2026-5-29` 完整实现模块系统，至此 **ShiroSU** 双线均开发完毕
 
-在此期间，**@梦璃酱** 于 `2026-5-19` 参与 Systemless 元模块与原生 root 开发，主要负责前端部分
+在此期间，**@梦璃酱** 于 `2026-5-19` 参与 **SSUS** 元模块与 **ShiroSU NT** 开发，主要负责前端部分
 
 #### 图标
 
@@ -83,9 +106,3 @@
 
 </Tab>
 </Tabs>
-
-import { Users } from 'lucide-react'
-
-<Card icon={<Users />} title='交流反馈' href='https://oom-wg.dev/join'>
-  除了官方文档外，也可以选择加入官方交流渠道来了解更多相关信息
-</Card>
