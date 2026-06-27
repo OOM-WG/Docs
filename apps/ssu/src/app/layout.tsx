@@ -64,7 +64,7 @@ export default async ({ children }: Readonly<{ children: ReactNode }>) => {
 										</Link>
 									))}
 								</nav>
-								<div className='navbar-end gap-2'>
+								<div className='navbar-end gap-2' data-nosnippet>
 									<Link className='btn btn-ghost btn-sm hover:bg-primary/12 gap-2' href={getSiteHref('main', '/about', host)}>
 										<Info size={16} />
 										<span className='max-[460px]:hidden'>关于</span>
@@ -85,7 +85,7 @@ export default async ({ children }: Readonly<{ children: ReactNode }>) => {
 							</div>
 						</header>
 						<div className='flex flex-1 flex-col'>{children}</div>
-						<footer className='border-base-content/10 bg-base-100/70 border-t'>
+						<footer className='border-base-content/10 bg-base-100/70 border-t' data-nosnippet>
 							<div className='text-base-content/60 mx-auto flex w-full max-w-7xl flex-col gap-2 px-5 py-8 text-sm sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12 xl:px-14'>
 								<p>&copy; SSU Developers (OOM WG)</p>
 								<p>

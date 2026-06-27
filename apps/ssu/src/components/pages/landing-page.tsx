@@ -60,7 +60,7 @@ const MainHero = ({ host }: { host: string | null }) => {
 							</div>
 							<h2 className='text-xl font-black'>{project.title}</h2>
 							<p className='text-base-content/70 mt-3 leading-7'>{project.description}</p>
-							<div className='text-primary mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold'>
+							<div className='text-primary mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold' data-nosnippet>
 								进入页面
 								<ArrowRight size={16} className='transition group-hover:translate-x-1' />
 							</div>
@@ -81,7 +81,7 @@ const ProjectHero = ({ site, host }: { site: Exclude<SiteKey, 'main'>; host: str
 				<p className='text-primary mb-4 text-sm font-semibold tracking-[0.22em] uppercase'>{config.hero.eyebrow}</p>
 				<h1 className='max-w-4xl text-5xl leading-tight font-black sm:text-6xl'>{config.hero.title}</h1>
 				<p className='text-base-content/72 mt-6 max-w-2xl text-lg leading-8'>{config.hero.lead}</p>
-				<div className='mt-8 flex flex-wrap gap-3'>
+				<div className='mt-8 flex flex-wrap gap-3' data-nosnippet>
 					<Link className='btn btn-primary gap-2' href={docsLinks[site]} target='_blank'>
 						<BookOpen size={18} />
 						查看文档
