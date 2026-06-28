@@ -27,7 +27,7 @@ icon: message-circle-question-mark
 > 大部分设备均有序列号，仅当明确知晓当前设备无序列号时才可使用回退密码 `SSU-PASSWD`
 >
 > <br />
-> 部分机型在系统设置里的序列号并不准确，可通过电脑使用 adb/fastboot 二次确认
+> 部分机型在系统设置里的序列号并不准确，可通过电脑使用 `adb`/`fastboot` 二次确认
 
 ### 为什么电脑上无法连接手机 IP？
 
@@ -38,7 +38,7 @@ icon: message-circle-question-mark
 
 ### 为什么部分浏览器无法连接后端？
 
-> 部分浏览器例如 Firefox、Safari 默认拦截 https/http 混合协议，推荐使用 **Chromium 内核**的浏览器
+> 部分浏览器例如 Firefox、Safari 默认拦截 `https`/`http` 混合协议，推荐使用 **Chromium 内核**的浏览器
 
 ### 为什么开启被隐藏权能的应用后无法连接后端？
 
@@ -46,3 +46,10 @@ icon: message-circle-question-mark
 >
 > <br />
 > 所以尽量不要对后台长期运行的应用隐藏权能，并且也不要对需要隐藏权能的应用允许自启动
+
+### 为什么部分脚本无法执行，仅有在使用额外环境（例如 _MT终端扩展包_）时才可执行？
+
+> 此类脚本可能涉及硬编码搜索 `busybox` 路径来使用系统环境不存在的命令
+>
+> <br />
+> 所以此问题由脚本自身写法导致，没有办法解决
