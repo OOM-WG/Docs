@@ -168,7 +168,7 @@
 													"ssu/nt/dev/module/builder",
 													"ssu/nt/dev/root",
 													{
-														"group": "API 参考",
+														"group": "HTTP API",
 														"icon": "rss",
 														"openapi": {
 															"source": "apis/ssu/openapi.yml",
