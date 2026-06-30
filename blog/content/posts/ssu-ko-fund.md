@@ -1,14 +1,15 @@
 ---
 title: ShiroSU 内核提权部分讲解
 description: ShiroSU 内核部分原理
-keywords: [回忆溢出工作组, ShiroSU, SSU, Android 开发, root, 内核, C-C++]
+author: Linso
+published: 2025-07-04
+tags: [回忆溢出工作组, ShiroSU, SSU, Android 开发, root, 内核, C-C++]
+category: ShiroSU
 ---
 
-import { Avatar, LinsoAvatar } from '/snippets/avatars.jsx'
-
-<LinsoAvatar date='2025 年 7 月 4 日 星期五' />
-
-<Danger>此文章所有内容均已弃用</Danger>
+:::caution
+此文章所有内容均已弃用
+:::
 
 > SSU 内核是 SSU 的一部分，但其并非 SSU 的主要定位，其将会作为可选内容而存在
 
@@ -46,7 +47,7 @@ flowchart TD
 
 ### 核心提权逻辑
 
-<Tip>**伪代码，并非实际逻辑**</Tip>
+> **伪代码，并非实际逻辑**
 
 ```c
 struct cred *cred = (struct cred *)__task_cred(current);
@@ -88,7 +89,7 @@ if (cred->group_info) {
 
 ### SELinux 绕过机制
 
-<Tip>**伪代码，并非实际逻辑**</Tip>
+> **伪代码，并非实际逻辑**
 
 ```c
 // avc_denied kretprobe handler
@@ -110,7 +111,7 @@ if (current->real_cred->uid.val == /* 白名单 UID */) {
 
 ### 能力检查绕过
 
-<Tip>**伪代码，并非实际逻辑**</Tip>
+> **伪代码，并非实际逻辑**
 
 ```c
 // cap_capable kretprobe handler
@@ -134,7 +135,7 @@ if (current->real_cred->uid.val == /* 白名单 UID */) {
 - 通过 `kprobe` 注入 `sys_execve` (具体地址名称需要依内核版本以及架构而定)，监控进程执行 `su`
 - 检测到执行 `su` 时，自动调用提权函数实现提权为 `root`
 
-<Tip>**伪代码，并非实际逻辑**</Tip>
+> **伪代码，并非实际逻辑**
 
 ```c
 char buf[128] = {0};
@@ -152,7 +153,4 @@ if (!strcmp(buf, "/system/bin/su")) {
 
 ## 声明
 
-<Tip>
 本文章所展示的代码为 ShiroSU 内核的部分**伪代码**，**并非实际代码**，**与实际代码会有出入**，**伪代码仅供参考**
-
-</Tip>

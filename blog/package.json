@@ -1,0 +1,15 @@
+{
+	"name": "oom-blog",
+	"private": true,
+	"license": "File-to-Downloader",
+	"author": "OOM WG",
+	"type": "module",
+	"scripts": {
+		"predev": "bun scripts/prepare.mts",
+		"dev": "pnpm --dir .workdir exec astro dev",
+		"prebuild": "bun scripts/prepare.mts",
+		"build": "pnpm --dir .workdir exec astro build && pnpm --dir .workdir exec pagefind --site dist",
+		"preview": "pnpm --dir .workdir exec astro preview",
+		"check": "pnpm --dir .workdir exec astro check"
+	}
+}

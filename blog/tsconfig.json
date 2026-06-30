@@ -1,0 +1,10 @@
+{
+	"extends": "./vendor/mizuki/tsconfig.json",
+	"compilerOptions": {
+		"types": ["node"],
+		"paths": {
+			"@/*": ["./vendor/mizuki/src/*"]
+		}
+	},
+	"include": ["configs/**/*", "scripts/**/*", "vendor/mizuki/src/types/**/*"]
+}

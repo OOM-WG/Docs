@@ -1,22 +1,11 @@
 ---
 title: '四周目(总结): SukiSU Ultra 的种种问题'
-sidebarTitle: 总结 SukiSU 中的种种问题
 description: SukiSU Ultra 小事很多，大事不少，如此“令人瞩目”？
-keywords: [SukiSU Ultra, root, 内核, Android 开发, C-C++, Kotlin, Shell]
+author: 白彩恋
+published: 2025-12-26
+tags: [SukiSU Ultra, root, 内核, Android 开发, C-C++, Kotlin, Shell]
+category: GO4
 ---
-
-import { Avatar, ShiroAvatar } from '/snippets/avatars.jsx'
-
-<ShiroAvatar date='2025 年 12 月 26 日 星期五' />
-
-> 各周目合集:
->
-> - [一周目](go4-sukisu-ultra)
-> - [二周目](go4-sukisu-ultra-2)
-> - [三周目](go4-sukisu-ultra-3)
-> - [四周目(总结)](go4-sukisu-ultra-4)
->
-> [历史渊源](oow-timeline#sukisu-ultra-%E5%B0%8F%E5%9B%A2%E4%BD%93)
 
 ## 前言
 
@@ -46,14 +35,11 @@ SukiSU Ultra 的 **GitHub 文档**、**网站文档** 长期并立，谁也没�
 
 看着难受，实际上内容也并不对，中英双语的内容很多都不对应，如果在部分页面切换语言，将直接 **`404`**
 
-<Note>
-实际上这是因为我们的成员帮忙修复了部分问题，但是**只修改了中文部分**
-
-然而文档的主要维护者是印度人，他**并没有同步跟进**英文部分，而是自顾自地写其他内容
-
-这就导致了中英文**互相都有缺失**的情况
-
-</Note>
+> 实际上这是因为我们的成员帮忙修复了部分问题，但是**只修改了中文部分**
+>
+> 然而文档的主要维护者是印度人，他**并没有同步跟进**英文部分，而是自顾自地写其他内容
+>
+> 这就导致了中英文**互相都有缺失**的情况
 
 效果抽象，实际的质量当然也是好不了，
 乱写 `css` 样式不说，**就连 `node_modules` 都能推送上去**，具体是个什么能力大概也都清楚了

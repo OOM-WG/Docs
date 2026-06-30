@@ -1,12 +1,11 @@
 ---
 title: 此地三两事
 description: 这里究竟发生了什么？
-keywords: [AI, root, 模块, Android 开发, 刷机, SukiSU Ultra, Shell]
+author: 白彩恋
+published: 2025-07-28
+tags: [AI, root, 模块, Android 开发, 刷机, SukiSU Ultra, Shell]
+category: GO4
 ---
-
-import { Avatar, ShiroAvatar } from '/snippets/avatars.jsx'
-
-<ShiroAvatar date='2025 年 7 月 28 日 星期一' />
 
 ## 何人做作？何人知晓？
 

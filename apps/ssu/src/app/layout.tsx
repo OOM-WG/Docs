@@ -35,6 +35,8 @@ export default async ({ children }: Readonly<{ children: ReactNode }>) => {
 	return (
 		<html lang='zh-Hans' suppressHydrationWarning>
 			<head>
+				<script defer src='https://☁️.ja7.top/🍥.js?ms=xf0q5hpejz' />
+
 				<link rel='preconnect' href='https://fonts.googleapis.cn' />
 				<link rel='preconnect' href='https://fonts.gstatic.cn' crossOrigin='' />
 			</head>

@@ -54,8 +54,8 @@
 	},
 	"redirects": [
 		{
-			"source": "/posts/:path*",
-			"destination": "/blog/:path*"
+			"source": "/blog/:path*",
+			"destination": "https://770414.xyz/posts/:path*"
 		}
 	],
 	"errors": {
@@ -107,26 +107,6 @@
 								"group": "简介",
 								"icon": "book-open",
 								"pages": ["index", "developers", "projects", "projects-ext"]
-							},
-							{
-								"group": "回忆篇章",
-								"icon": "calendar",
-								"pages": [
-									"blog/ssu-0-1-1-beta",
-									"blog/vps-network",
-									"blog/ssu-nt",
-									"blog/go4-sukisu-ultra-4",
-									"blog/go4-sukisu-ultra-3",
-									"blog/oow-timeline",
-									"blog/shell-obf-enc",
-									"blog/go4-sukisu-ultra-2",
-									"blog/oow-dev-ref",
-									"blog/ai-for-root",
-									"blog/go4-mi-oplusrm-sukisu",
-									"blog/ssu-ko-fund",
-									"blog/go4-sukisu-ultra",
-									"blog/suu-for-data-opt"
-								]
 							}
 						]
 					},

@@ -1,13 +1,11 @@
 ---
 title: Shell 混淆加密：解释型语言的安全防护
-sidebarTitle: Shell 混淆加密
 description: 何为安全？如何防护？最终的走向是什么？
-keywords: [开发, 安全, 混淆, 加固, Shell, 脚本]
+author: 白彩恋
+published: 2025-09-06
+tags: [开发, 安全, 混淆, 加固, Shell, 脚本]
+category: 开发
 ---
-
-import { Avatar, ShiroAvatar } from '/snippets/avatars.jsx'
-
-<ShiroAvatar date='2025 年 9 月 6 日 星期六' />
 
 ## 前言
 
@@ -15,7 +13,7 @@ Shell 作为有举足轻重地位的解释型语言，安全防护必然是少�
 
 ## 常见混淆加密方案
 
-<Note>过于简单或过于复杂的不在此提起</Note>
+> 过于简单或过于复杂的不在此提起
 
 ### 明文混淆加密
 
@@ -98,7 +96,7 @@ Shell 作为有举足轻重地位的解释型语言，安全防护必然是少�
 
 #### 玉龙加密
 
-<Note>有这么个东西，但是我没有看到有谁在用，但也说说吧，它还叫什么 XXC 加密？</Note>
+> 有这么个东西，但是我没有看到有谁在用，但也说说吧，它还叫什么 XXC 加密？
 
 本质也较为简单，实现的代码极为低劣，处理过程极其抽象
 
@@ -127,7 +125,7 @@ Shell 作为有举足轻重地位的解释型语言，安全防护必然是少�
 
 ## 进阶混淆加密方案
 
-<Note>只提大概方向，不提具体实现</Note>
+> 只提大概方向，不提具体实现
 
 ### 进阶混淆加密大纲
 
@@ -140,7 +138,7 @@ Shell 作为有举足轻重地位的解释型语言，安全防护必然是少�
 
 明文实际上**非常不安全**，因为执行完全受到执行者的掌控，所以只能做到尽可能地降低可读性，这里以 AW 加密举例
 
-<Note>外层壳</Note>
+> 外层壳
 
 ```shell
 `:|echo 4L0B|tr 0-9A-Z a-z` <<- zako\ desu\ ne \
@@ -160,7 +158,7 @@ Shell 作为有举足轻重地位的解释型语言，安全防护必然是少�
 zako desu ne
 ```
 
-<Note>中层壳</Note>
+> 中层壳
 
 ```shell
 __urusai_...=0 <<-sukui\ you\ no\ nai\ hentai `:|echo|sed -E s\ .\*\ MDSvqy==\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|tr a-zA-Z A-Za-z|base64 -d|sed -E s\ \(.\)\(.\)\ \\\\\2\\\\\1\ g` while\ :\;do\ __urusai_...=\$\(\(__urusai_...+1\)\)\;case\ \$__urusai_...\ in\ 3\)echo\ "\"\``:|echo|sed -E s\ .\*\ wy0n\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|tr a-zA-Z A-Za-z|base64 -d|sed -E s\ \(.\)\(.\)\ \\\\\2\\\\\1\ g`|tr a-zA-Z A-Za-z|sed -E s\ \(.\)\(.\)\(.\)\(.\)\ \\\\\4\\\\\2\\\\\1\\\\\3\ g|`:|echo|sed -E s\ .\*\ wyLjZC2qslKb\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|tr a-zA-Z A-Za-z|base64 -d|sed -E s\ \(.\)\(.\)\ \\\\\2\\\\\1\ g`|`:|echo|sed -E s\ .\*\ MEHj3y=q\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|tr a-zA-Z A-Za-z|base64 -d|sed -E s\ \(.\)\(.\)\ \\\\\2\\\\\1\ g`\`\""\;__urusai_...=\$?\;break\;\;\$__urusai_...\)`:|echo|sed -E s\ .\*\ MDSvqy==\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|tr a-zA-Z A-Za-z|base64 -d|sed -E s\ \(.\)\(.\)\ \\\\\2\\\\\1\ g`\ $(:|echo|sed -E s\ .\*\ S4ihaaaaaacawZoaRqdmrbdmi6HRD4aw0fmkMywp8/FhbNSA1jGQRVAC2DKlrYKHuFgH2S9TH77mdGtAKuHaNHsfkQGEHNAgrmB7hOIFv9obvBYzs/jF0RWrPa/+hxmv8Ut+lTDFDrfDVSpaZ1MGL+8PNIghFBKK9nhApqb7gQs3aqaM=a=a\ \;s\ \(.\)\(.\)\(.\)\(.\)\ \\\4\\\2\\\1\\\3\ g\;q|tr a-zA-Z A-Za-z|`:|echo|sed -E s\ .\*\ wyLjZC2qslKb\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|tr a-zA-Z A-Za-z|base64 -d|sed -E s\ \(.\)\(.\)\ \\\\\2\\\\\1\ g`|`:|echo|sed -E s\ .\*\ 3y0Pqy==\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|tr a-zA-Z A-Za-z|base64 -d|sed -E s\ \(.\)\(.\)\ \\\\\2\\\\\1\ g`|sed -E s\ \(.\)\(.\)\ \\\2\\\1\ g)\;\;esac\;done\;\(exit\ \$__urusai_...\)
@@ -168,7 +166,7 @@ __urusai_...=0 <<-sukui\ you\ no\ nai\ hentai `:|echo|sed -E s\ .\*\ MDSvqy==\ \
 sukui you no nai hentai
 ```
 
-<Note>内层壳（由于换行非常影响可读性，故已去除）</Note>
+> 内层壳（由于换行非常影响可读性，故已去除）
 
 ```shell
 <<-zako-no-kuse-ni `:|echo|sed -E s\ .\*\ 566716c6\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|xxd -r -p` `:|echo|sed -E s\ .\*\ 566716c6\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|xxd -r -p` "\"\``:|echo|sed -E s\ .\*\ 361647\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|xxd -r -p`|sed -E s\ \(.\)\(.\)\ \\\\\2\\\\\1\ g\;s\ \\\\\^\ =\ g|tr a-zA-Z A-Za-z|tr -d @%^|`:|echo|sed -E s\ .\*\ 26163756634302d246\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|xxd -r -p`|`:|echo|sed -E s\ .\*\ a7361647\ \;s\ \(.\)\(.\)\ \\\2\\\1\ g\;q|xxd -r -p`\`\""
@@ -190,11 +188,11 @@ AW 加密主要实现了**多层壳**、**低可读性**、**反调试**，由�
 
 这种方案并不保险，不过要增加强度，增强反调试策略、验证解释器/指令真实性、混淆封装指令、分隔处理后的源码、添加伪源码即可，就目前的强度而言，拿来做案例绰绰有余
 
-<Note>更强的内容自然是机密</Note>
+> 更强的内容自然是机密
 
 ### 可执行进阶混淆加密
 
-<Note>由于强度偏高，不提供实际案例</Note>
+> 由于强度偏高，不提供实际案例
 
 #### 外置解释器方案
 
@@ -206,8 +204,8 @@ AW 加密主要实现了**多层壳**、**低可读性**、**反调试**，由�
 
 都做到这个地步了，要做的就是**反调试**和**防内存**了，要**去掉解释器内一切可能暴露源码的内容**
 
-<Note>当然，**有混淆加密的编译器**、**静态编译**、**符号剥离**同样也**相当重要**</Note>
+> 当然，**有混淆加密的编译器**、**静态编译**、**符号剥离**同样也**相当重要**
 
 ## 总结
 
-<Note>能别写解释型语言就别写解释型语言啊！</Note>
+> 能别写解释型语言就别写解释型语言啊！

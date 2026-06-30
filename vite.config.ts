@@ -37,6 +37,6 @@ export default defineConfig({
 		sortImports: true,
 		sortTailwindcss: true,
 		trailingComma: 'none',
-		ignorePatterns: ['*-lock.*', '*.lock']
+		ignorePatterns: ['*-lock.*', '*.lock', '**/vendor/**']
 	}
 })

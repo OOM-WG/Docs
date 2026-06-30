@@ -1,12 +1,11 @@
 ---
 title: 如何挽救被侵犯的存储空间？
 description: 苏柚是如何解决存储空间所面临的困境的？
-tags: [回忆溢出工作组, 苏柚, SUU, Android 开发, root, adb, DeviceOwner, 设备所有者, 存储空间, 文件整理, 文件清理, 文件重定向]
+author: 白彩恋
+published: 2025-05-23
+tags: [回忆溢出工作组, 苏柚, SUU, Android 开发, Xposed, root, adb, DeviceOwner, 存储空间, 文件整理, 文件清理, 文件重定向]
+category: ShiroSU
 ---
-
-import { Avatar, ShiroAvatar } from '/snippets/avatars.jsx'
-
-<ShiroAvatar date='2025 年 5 月 23 日 星期五' />
 
 > **此文案并非以文章为目的而编写**
 

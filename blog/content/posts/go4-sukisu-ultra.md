@@ -1,32 +1,21 @@
 ---
 title: SukiSU Ultra 源码里的逆天操作
-sidebarTitle: SukiSU 源码里的逆天操作
 description: SukiSU Ultra 究竟是一个什么样的项目？
-keywords: [SukiSU Ultra, root, Android 开发, Kotlin, Shell]
+author: 白彩恋
+published: 2025-06-30
+tags: [SukiSU Ultra, root, Android 开发, Kotlin, Shell]
+category: GO4
 ---
-
-import { Avatar, ShiroAvatar } from '/snippets/avatars.jsx'
-
-<ShiroAvatar date='2025 年 6 月 30 日 星期一' />
-
-> 各周目合集:
->
-> - [一周目](go4-sukisu-ultra)
-> - [二周目](go4-sukisu-ultra-2)
-> - [三周目](go4-sukisu-ultra-3)
-> - [四周目(总结)](go4-sukisu-ultra-4)
->
-> [历史渊源](oow-timeline#sukisu-ultra-%E5%B0%8F%E5%9B%A2%E4%BD%93)
 
 ## 前言
 
-SukiSU Ultra，一个名字抽象、包名抽象、作者抽象、用户抽象的在 GitHub 上有超过 **2K Stars** 的 KernelSU Fork 抽象项目，其中的代码质量更是抽象到极致。
+SukiSU Ultra，一个名字抽象、包名抽象、作者抽象、用户抽象的在 GitHub 上有超过 **2K Stars** 的 KernelSU Fork 抽象项目，其中的代码质量更是抽象到极致
 
-让人很难接受，居然是 “Suki” “SU”，还要加 “Ultra” 这么个莫名其妙的后缀，这分明就是要害了 root，给 KernelSU 这个巧克力蛋糕上浇💩。
+让人很难接受，居然是 “Suki” “SU”，还要加 “Ultra” 这么个莫名其妙的后缀，这分明就是要害了 root，给 KernelSU 这个巧克力蛋糕上浇💩
 
 ## 抽象源码大合集
 
-> 部分问题已被回忆溢出修复，但是 SukiSU Ultra 的根病无法治愈
+> 部分问题已被我们修复，但是 SukiSU Ultra 的根病无法治愈
 
 SukiSU Ultra 的包名已经很抽象了，`com.sukisu.ultra`、`io.sukisu.ultra`以及`zako.zako.zako`，图标还是个表情包，看来写 SukiSU Ultra 的和用 SukiSU Ultra 的都是纯贬低意的”杂鱼“
 
@@ -133,9 +122,9 @@ public static void CopyFileTo(String path, String target) {
 }
 ```
 
-SukiSU Ultra 在不断刷新我对低劣代码的认知，我是真的第一次遇到检测文件存在用`file`然后判断有没有报错`No such file or directory`的。
+SukiSU Ultra 在不断刷新我对低劣代码的认知，我是真的第一次遇到检测文件存在用`file`然后判断有没有报错`No such file or directory`的
 
-都是 root 管理器了，还在用 shell 来检测文件复制文件，还是通过这种莫名其妙的方法，很难想象是怎么写出来的，我怎么写也想不到用`file`来检测，顶多想到`test -f ...`、`[ -f ... ]`、`[[ -f ... ]]`这些东西。
+都是 root 管理器了，还在用 shell 来检测文件复制文件，还是通过这种莫名其妙的方法，很难想象是怎么写出来的，我怎么写也想不到用`file`来检测，顶多想到`test -f ...`、`[ -f ... ]`、`[[ -f ... ]]`这些东西
 
 > 甚至可以发现这个代码的逻辑是反的
 
@@ -158,7 +147,7 @@ public static void tryToInstall() {
 }
 ```
 
-硬编码 + shell 调用，没什么好说的。
+硬编码 + shell 调用，没什么好说的
 
 ```kotlin Kernels.kt expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/Kernels.kt
@@ -261,23 +250,23 @@ private fun StringBuilder.generateCleanupResidueSection() {
 }
 ```
 
-由于这一整个文件写的全都是垃圾，就只挑一部分说。
+由于这一整个文件写的全都是垃圾，就只挑一部分说
 
-缩进嘛，就挺抽象的。
+缩进嘛，就挺抽象的
 
-首当其冲的是路径硬编码，不用多说。
+首当其冲的是路径硬编码，不用多说
 
-让人难以理解的是`listOf()`的大小也要硬编码，你但凡调用一下它的属性呢？
+让人难以理解的是 `listOf()` 的大小也要硬编码，你但凡调用一下它的属性呢？
 
-还写个残留清理功能，纯属没活硬整，连 DNA 都删上了，而且还删 cgroup 节点，完全就是没有任何 Android 内核相关常识。
+还写个残留清理功能，纯属没活硬整，连 DNA 都删上了，而且还删 cgroup 节点，完全就是没有任何 Android 内核相关常识
 
-让人最难以理解的是`${'$'}`，看到这个东西的时候我脑子都要炸掉了，整个脑子里都是骂人的话，这个东西究竟是不是人类写出来的？我感觉连类人生物都算不上。
+让人最难以理解的是 `${'$'}`，看到这个东西的时候我脑子都要炸掉了，整个脑子里都是骂人的话，这个东西究竟是不是人类写出来的？我感觉连类人生物都算不上
 
-说他不好吧，他还知道用单引号包裹，只取`Char`类型。
+说他不好吧，他还知道用单引号包裹，只取 `Char` 类型
 
-但是呢，`${'$'}`这种写法到底是什么神人写法，实用性为 0 而且纯纯给代码凑字数，而且`${'$'}`和`\$`混用，写这么多转义就不能用一下`$$`吗？
+但是呢，`${'$'}` 这种写法到底是什么神人写法，实用性为 0 而且纯纯给代码凑字数，而且 `${'$'}` 和 `\$` 混用，写这么多转义就不能用一下 `$$` 吗？
 
-<Tip>更让人难评的是这么多 shell 代码就非得塞在 kotlin 代码里面，搞个单独的文件很难吗？跟某位模块作者一样难评</Tip>
+> 更让人难评的是这么多 shell 代码就非得塞在 kotlin 代码里面，搞个单独的文件很难吗？跟某位模块/官改作者一样难评
 
 ```kotlin SuSFSManager.kt expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/SuSFSManager.kt
@@ -356,11 +345,11 @@ private suspend fun removeMagiskModule(): Boolean = withContext(Dispatchers.IO) 
 }
 ```
 
-真就是演都不演了，在 KernelSU 里面整上 Magisk 了。
+真就是演都不演了，在 KernelSU 里面整上 Magisk 了
 
-首当其冲的仍然是硬编码。
+首当其冲的仍然是硬编码
 
-而且已经把 kotlin 当 shell 辅助工具玩了，干脆改名成 ShellSU 得了。
+而且已经把 kotlin 当 shell 辅助工具玩了，干脆改名成 ShellSU 得了
 
 ```kotlin backupModules.kt expandable icon="code"
 suspend fun backupModules(context: Context, snackBarHost: SnackbarHostState, uri: Uri) {
@@ -561,11 +550,11 @@ private fun reboot() {
 }
 ```
 
-真就是演都不演了，硬编码、`Runtime.getRuntime().exec()`滥用、`su -c`滥用、shell 滥用轮着来。
+真就是演都不演了，硬编码、`Runtime.getRuntime().exec()` 滥用、`su -c` 滥用、shell 滥用轮着来
 
-要是说`${'$'}`是我见过的最抽象的 kotlin 写法，那么`> /proc/self/fd/1`就是我见过的最抽象的 shell 写法。
+要是说 `${'$'}` 是我见过的最抽象的 kotlin 写法，那么 `> /proc/self/fd/1` 就是我见过的最抽象的 shell 写法
 
-能想到`> /proc/self/fd/1`的已经离人非常远了，可能会想到`&>1`，但是要不想想默认输出走的是哪呢？
+能想到 `> /proc/self/fd/1` 的已经离人非常远了，可能会想到 `&>1` ，但是要不想想默认输出走的是哪呢？
 
 ```kotlin KsuCli.kt expandable icon="code"
 // https://github.com/SukiSU-Ultra/SukiSU-Ultra/blob/main/manager/app/src/main/java/com/sukisu/ultra/ui/util/KsuCli.kt

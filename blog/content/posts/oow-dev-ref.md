@@ -1,12 +1,11 @@
 ---
 title: 回忆溢出开发参考
 description: 在团队项目中，我们应该如何保持一致性？
-keywords: [回忆溢出工作组, 团队开发, C-C++, Dart, FVV, Go, Kotlin, Shell, Git, 代码规范]
+author: 白彩恋
+published: 2025-08-22
+tags: [回忆溢出工作组, 团队开发, C-C++, Dart, FVV, Go, Kotlin, Rust, Shell, Git, 代码规范]
+category: 开发
 ---
-
-import { Avatar, ShiroAvatar } from '/snippets/avatars.jsx'
-
-<ShiroAvatar date='2025 年 8 月 22 日 星期五' />
 
 ## 前言
 
@@ -14,7 +13,9 @@ import { Avatar, ShiroAvatar } from '/snippets/avatars.jsx'
 
 ## 多语言方针
 
-首先要实现例如 **0 Rust**、**0 Java** 等，尽可能不去写**非常用语言**，把语言限制在 `C/C++`、`Dart`、`Go`、`Kotlin` 几种内，也要尽可能不去写 `Shell`
+首先要实现例如 **0 Python**、**0 Java** 等，尽可能不去写**非常用语言**
+
+把语言限制在 `C/C++`、`Dart`、`Go`、`Kotlin`、`Rust` 几种内，也要尽可能不去写 `Shell`
 
 写配置文件时也要尽可能使用 `FVV`，`FVV` 作为一个重点项目，虽然仍不完善，但使用它是十分必要的
 
@@ -26,14 +27,13 @@ import { Avatar, ShiroAvatar } from '/snippets/avatars.jsx'
 
 为了确保一致性，统一值/函数/类等命名是比较必要的，下面大概说说
 
-<Note>
-部分语言可能会冲突，可以适当"入乡随俗"
+> 部分语言可能会冲突，可以适当"入乡随俗"
+>
+> `Go` 的公开定义注意大写
 
-`Go` 的公开定义注意大写
+命名时应当**简写但不能过简**，避免任何直接的 `i`、`j` 等单字母命名，而是使用 `idx` 或与用途相关的名字
 
-</Note>
-
-命名时应当**简写但不能过简**，避免任何直接的 `i`、`j` 等单字母命名，而是使用`idx`或与用途相关的名字
+> 仅用一个词时可以写为 `target`、`index`，组合时可写为 `tgt_idx`
 
 但是写公开定义时，应当注重可读性，尽量不简写，除非实在是太长
 
@@ -51,7 +51,7 @@ int const user_id = 114514;
 
 #### 命名规则
 
-<Note>公开定义应当注重可读性，可以不遵从此规则</Note>
+> 公开定义应当注重可读性，可以不遵从此规则
 
 - **全局**: 以 `gl` 开头
 - **循环当前**: 以 `idx` 开头
@@ -111,10 +111,10 @@ class CppClass
 
 ```c
 // 类函数宏定义使用函数规则
-#define gMacroFunc(/*...*/)
+#define glMacroFunc(/*...*/)
 
 // 常量宏定义使用全大写下划线命名
-#define J_PKG_NAME "dev.oom_wg"
+#define PKG_NAME "dev.oom_wg"
 ```
 
 ### 总体指南
@@ -199,7 +199,11 @@ HelloYa = <...>
 
 ### Go
 
-暂无
+在编写 Go 时需要尽量利用好语法特性，一次性变量可直接写在 `if` 里使用，兜底写在 `defer`，以及善用**字段标签**特性等
+
+#### 编译
+
+编译时用 [garble](https://github.com/burrowers/garble) 是比较重要的，毕竟 Go 的体积是比较大的，能小一点就小一点
 
 ### Kotlin
 
@@ -456,34 +460,88 @@ list.firstNotNullOfOrNull { it.takeIf { /*...*/ } }?.let {
 }
 ```
 
-##### 包名
+### Rust
 
-在开发回忆溢出的项目时，应当以作用而使用不同的包名
+Rust 在代码风格上就能有比较大的差异，在细节上把各处都明确好是很有必要的
 
-<Note>所有包名均应使用已有实际控制权的域名</Note>
+在 workspace 应该配置好 lint 规则，默认使用 clippy 进行检查，并且多开规则并按需禁用，很多优化方法通过 lint 就能发现了
 
-###### JVM 包名
+:::tip
+很多优化例如 **链式调用** 等都可以通过 lint 来获得更好的写法，所以这里就不再提了
+:::
 
-- `xyz.770995`: 全局值或拓展函数
-- `dev.oom_wg`: 活动包名
-- `download.fileto`: 涉及第三方且大部分依靠第三方的内容、持久化内容
-- `id.my.plus`: 辅助性内容
-- `ren.shiror`: 软件包名或入口包名
-- `work.200ok`: 涉及第三方且大部分依靠第一方的内容
-- `work.niggergo`: 对入口、全局或 UI 有辅助性的内容
-- `zip.latestfile`: 对 UI 起决定性的内容
+#### 错误忽略
 
-`ren.shiror` 包名与 `dev.oom_wg` 包名的内容应当不包含过多代码，而是调用其他包名的函数
+在错误忽略时，用 `.ok()` 忽略 `Result` 错误而不使用 `let _ =`，避免在视觉上与常规的变量定义造成混淆
 
-###### Native 包名
+#### 兜底策略
 
-- `dev.oom_wg`: 第一方内容
+在兜底时避免写 `let _guard =` 这种不使用的变量来等它自动 `drop`
 
-###### 子包名
+应该写嵌套函数，给壳函数传递 `FnOnce` 来执行主要逻辑，在壳函数里完成兜底
 
-- `oom`: 通用
-- `ssu`: ShiroSU
-- `suu`: ShiroSU Utils
+如果是复杂值，也可以包装一个类型为它写一个 `Drop` 更方便
+
+#### 善用类型推导
+
+Rust 的类型推导是比较优秀的，它能够通过上下文使用来推断出合适的类型，所以以下场景用起来都可以不声明类型:
+
+```rust
+// 通过赋值类型推导定义类型
+let mut value;
+value = 114514;
+
+// 通过传入类型推导定义类型
+let mut values = vec![];
+values.push((value, value));
+
+// 通过定义类型推导返回类型
+let values = values.collect::<Vec<(_, _)>>();
+```
+
+如果类型无法推导出来，也应该尽量把类型传给函数而不是 `let`
+
+#### 简化使用
+
+在定义变量时可以使用 `vec![]` 来代替 `Vec::new()`
+
+在转换值时也可以把 `to_xxx()`/`into_xxx()` 改为 `into()` 来自动推导
+
+#### match 使用
+
+Rust 的 `match` 在一些方面不如其他语言方便，所以使用频率会较低，不过在匹配非 `enum` 值的类型时也可以用用:
+
+```rust
+match () {
+    () if value.is_a() => { /* ... */ }
+    () if value.is_b() => { /* ... */ }
+    () => unreachable!()
+}
+```
+
+#### let 语法
+
+在定义一次性变量或者必要变量时，通过 `if let` 与 `let else` 两个语法来简化逻辑是很必要的，前者减少行数，后者展平嵌套
+
+#### feature 使用
+
+一般来说 **nightly** 工具链用的比较多，一些比较实用的 feature 例如 `try` 都可以打开来用用
+
+不过毕竟只是 feature，难免有些欠缺，只能说是有点用才去开
+
+#### 三方 crate 使用
+
+Rust 的标准库在大部分情况下已经足够丰富，很多老代码在部分地方都可以把三方 crate 换为标准库（例如 `lazy_static` 换成 `LazyLock` 等）
+
+不过有些地方仍然需要三方 crate 来辅助，例如使用 `anyhow` 来兼容不同 `Error` 类型（不过当 `Error` 类型一致时，应当避免用它）
+
+`camino` 提供的 UTF8 路径类型能够很好地避免标准库路径类型转换成 UTF8 字符串时的额外判断，也能比较方便地直接拿它对 UTF8 字符串进行操作
+
+`const_format` 能在宏定义中使用已有常量来拼接常量，能简化一些硬编码
+
+`rustix`/`nix` 之类的能在 Unix 平台上提供很多标准库没有的函数，不过还是应当优先使用标准库的 Unix 函数，没有的再去用三方 crate 的
+
+> 对于类型，标准库基本上都已经标了废弃，应当优先使用 `libc`/`linux-raw-sys` 的而不是复制标准库定义，因为很多类型在不同平台/架构上都有差异
 
 ### Shell
 

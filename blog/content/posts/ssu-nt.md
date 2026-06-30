@@ -1,13 +1,11 @@
 ---
 title: 真正的现代 root 方案 —— ShiroSU
-sidebarTitle: 现代化 root —— SSU
 description: ShiroSU 将怎样带来完全不一样的 root 方式？
-keywords: [回忆溢出工作组, ShiroSU, SSU, Android 开发, root, C-C++]
+author: 白彩恋
+published: 2026-02-19
+tags: [回忆溢出工作组, ShiroSU, SSU, Android 开发, root]
+category: ShiroSU
 ---
-
-import { Avatar, ShiroAvatar } from '/snippets/avatars.jsx'
-
-<ShiroAvatar date='2026 年 2 月 19 日 星期四' />
 
 ## 前言
 

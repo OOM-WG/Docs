@@ -5,19 +5,22 @@
 	"author": "OOM WG",
 	"workspaces": [
 		"apps/*",
+		"blog",
 		"docs",
 		"nav"
 	],
 	"type": "module",
 	"scripts": {
 		"docs:dev": "bun run --cwd docs dev",
+		"blog:dev": "bun run --cwd blog dev",
+		"blog:build": "bun run --cwd blog build",
+		"blog:preview": "bun run --cwd blog preview",
 		"ssu:dev": "bun run --cwd apps/ssu dev",
 		"ssu:build": "bun run --cwd apps/ssu build",
 		"ssu:start": "bun run --cwd apps/ssu start",
 		"nav:dev": "bun run --cwd nav dev",
 		"nav:build": "bun run --cwd nav build",
 		"nav:preview": "bun run --cwd nav preview",
-		"prepare": "vp config",
 		"check": "vp check",
 		"lint": "vp lint && stylelint '**/src/**/*.{css,astro}'",
 		"format": "vp fmt"

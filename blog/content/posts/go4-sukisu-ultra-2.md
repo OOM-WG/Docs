@@ -1,22 +1,11 @@
 ---
 title: '二周目: SukiSU Ultra 项目中的逆天操作'
-sidebarTitle: SukiSU 项目中的逆天操作
 description: SukiSU Ultra 为何如此千疮百孔？
-keywords: [SukiSU Ultra, root, Android 开发, C-C++]
+author: 白彩恋
+published: 2025-08-29
+tags: [SukiSU Ultra, root, Android 开发, C-C++]
+category: GO4
 ---
-
-import { Avatar, ShiroAvatar } from '/snippets/avatars.jsx'
-
-<ShiroAvatar date='2025 年 8 月 29 日 星期五' />
-
-> 各周目合集:
->
-> - [一周目](go4-sukisu-ultra)
-> - [二周目](go4-sukisu-ultra-2)
-> - [三周目](go4-sukisu-ultra-3)
-> - [四周目(总结)](go4-sukisu-ultra-4)
->
-> [历史渊源](oow-timeline#sukisu-ultra-%E5%B0%8F%E5%9B%A2%E4%BD%93)
 
 ## 前言
 
@@ -26,17 +15,14 @@ SukiSU Ultra 在 [v3.1.9 的一次提交](https://github.com/SukiSU-Ultra/SukiSU
 
 一个可以说是团队项目的东西还要放到[个人仓库](https://github.com/Lama3L9R/zakosign)，也不知道是怎么想的，在哪都没有写哪来的，非得让人自己找？
 
-```plaintext
+```txt
 libzakosign.so: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dynamically linked, with debug_info, not stripped
 ```
 
-<Note>
-虽然在此处并没有涉及，但是还是要稍微提一下
-
-部分对 C/C++ 一无所知的"开发者"往往会构建出 **未剥离符号**、**依赖 C++共享库**的"神仙"产物，
-归根结底是因为"开发者"连构建都不知道怎么构建导致的
-
-</Note>
+> 虽然在此处并没有涉及，但是还是要稍微提一下
+>
+> 部分对 C/C++ 一无所知的"开发者"往往会构建出 **未剥离符号**、**依赖 C++共享库**的"神仙"产物，
+> 归根结底是因为"开发者"连构建都不知道怎么构建导致的
 
 没有具体说明，一开始也没有找到源码，还能怎么办呢？只能逆向一下了
 
@@ -54,10 +40,9 @@ libzakosign.so: ELF 64-bit LSB shared object, ARM aarch64, version 1 (SYSV), dyn
 
 ## 模块验证具体内容
 
-<Tip>
+:::tip
 以下代码均为逆向出的**伪代码**，**不等同于源码**，但**与源码较为相似**，因为逆向后才找到源码，故伪代码也同样保留
-
-</Tip>
+:::
 
 把这个 arm64 的 `libzakosign.so` 逆向后，真的非常令人感到莫名其妙，一直用莫名其妙这个词是因为这些东西真的令人非常疑惑，下面就大概看看吧
 
@@ -869,7 +854,7 @@ X509_STORE **zako_trustchain_new()
 
 一个还在**测试**的东西却被直接添加到了**正式版**中，而且还**没有任何说明**，也不知道作者脑子里是怎么想的
 
-<Note> 没有任何一个地方标注是测试。测试？Releases？这两个东西是可以出现在一起的吗？</Note>
+> 没有任何一个地方标注是测试。测试？Releases？这两个东西是可以出现在一起的吗？
 
 ## 深入
 
@@ -879,7 +864,7 @@ X509_STORE **zako_trustchain_new()
 
 zakosign 通过一个平台写一套代码并且还写了一堆莫名其妙的封装来实现“**跨平台**”，而不是直接使用跨平台函数
 
-<Note> 跨平台了吗？如跨</Note>
+> 跨平台了吗？如跨
 
 这种做法带来的很明显的感觉就是**水平不足带来的自以为是**，**常识缺乏还要强行解释**，让人完全理解他想要做什么，但是让人琢磨不透他究竟是在什么状态下能写出如此代码
 

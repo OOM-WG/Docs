@@ -1,0 +1,4 @@
+[submodule "blog/vendor/mizuki"]
+path = blog/vendor/mizuki
+url = https://github.com/LyraVoid/Mizuki.git
+branch = master
