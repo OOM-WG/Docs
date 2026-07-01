@@ -8,6 +8,6 @@
 		"dev": "mint dev"
 	},
 	"devDependencies": {
-		"mint": "^4.2.651"
+		"mint": "^4.2.656"
 	}
 }

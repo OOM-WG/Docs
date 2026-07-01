@@ -1,6 +1,6 @@
 import { type Metadata, type MetadataRoute } from 'next'
 
-import { docsLinks, baseHost, siteConfigs, siteOrder, type SiteKey } from '@/content/site'
+import { baseHost, siteConfigs, siteOrder, type SiteKey } from '@/content/site'
 
 export const canonicalFor = (site: SiteKey, pathname = '/') => {
 	const prefix = siteConfigs[site].hostPrefix
@@ -39,14 +39,12 @@ export const sitemapEntries = () =>
 	[
 		...siteOrder.map(site => ({
 			url: canonicalFor(site),
-			lastModified: new Date()
+			lastModified: new Date(),
+			priority: 1
 		})),
 		{
 			url: canonicalFor('main', '/about'),
-			lastModified: new Date()
-		},
-		...siteOrder.map(site => ({
-			url: docsLinks[site],
-			lastModified: new Date()
-		}))
+			lastModified: new Date(),
+			priority: 0.99
+		}
 	] satisfies MetadataRoute.Sitemap as MetadataRoute.Sitemap
