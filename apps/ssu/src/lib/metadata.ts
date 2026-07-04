@@ -3,18 +3,17 @@ import { type Metadata, type MetadataRoute } from 'next'
 import { baseHost, siteConfigs, siteOrder, type SiteKey } from '@/content/site'
 
 export const canonicalFor = (site: SiteKey, pathname = '/') => {
-	const prefix = siteConfigs[site].hostPrefix
-	const host = prefix ? `${prefix}.${baseHost}` : baseHost
-	const normalizedPath = pathname.startsWith('/') ? pathname : `/${pathname}`
-
-	return `https://${host}${normalizedPath}`
+	const host = site === 'main' ? baseHost : `${siteConfigs[site].key}.${baseHost}`
+	return `https://${host}${pathname.startsWith('/') ? pathname : `/${pathname}`}`
 }
 
 export const pageMetadata = (site: SiteKey, options: { absoluteTitle?: boolean } = {}) => {
 	const config = siteConfigs[site]
+	const siteName = site === 'main' ? `${config.name}` : `ShiroSU ${config.name}`
+	const fullName = `${siteName} - ${config.summary}`
 
 	return {
-		title: options.absoluteTitle ? { absolute: config.label } : config.label,
+		title: options.absoluteTitle ? { absolute: fullName } : fullName,
 		description: config.description,
 		keywords: config.keywords,
 		alternates: {
@@ -23,13 +22,13 @@ export const pageMetadata = (site: SiteKey, options: { absoluteTitle?: boolean }
 		openGraph: {
 			type: 'website',
 			url: canonicalFor(site),
-			title: config.label,
+			title: siteName,
 			description: config.description,
 			siteName: 'ShiroSU'
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: config.label,
+			title: siteName,
 			description: config.description
 		}
 	} satisfies Metadata

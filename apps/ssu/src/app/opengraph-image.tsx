@@ -1,5 +1,3 @@
-/* eslint-disable next/no-img-element */
-
 import { headers } from 'next/headers'
 import { ImageResponse } from 'next/og'
 
@@ -50,7 +48,7 @@ export default async () => {
 					<img src={logoSrc} width={68} height={68} />
 				</div>
 				<div style={{ display: 'flex', flexDirection: 'column' }}>
-					<div style={{ fontSize: 34, fontWeight: 800 }}>{config.title}</div>
+					<div style={{ fontSize: 34, fontWeight: 800 }}>{config.shortTitle}</div>
 					<div
 						style={{
 							color: '#7b5222',
@@ -60,8 +58,10 @@ export default async () => {
 				</div>
 			</div>
 			<div style={{ display: 'flex', flexDirection: 'column' }}>
-				<div style={{ color: '#8d5f27', fontSize: 30, fontWeight: 800, marginBottom: 22 }}>{config.hero.eyebrow}</div>
-				<div style={{ fontSize: 74, lineHeight: 1.04, fontWeight: 900, maxWidth: 940 }}>{config.label}</div>
+				<div style={{ color: '#8d5f27', fontSize: 30, fontWeight: 800, marginBottom: 22 }}>{config.summary}</div>
+				<div style={{ fontSize: 74, lineHeight: 1.04, fontWeight: 900, maxWidth: 940 }}>
+					{config.key === 'main' ? config.name : `ShiroSU ${config.name}`}
+				</div>
 				<div style={{ fontSize: 30, lineHeight: 1.35, color: '#60462c', maxWidth: 940, marginTop: 28 }}>
 					{config.description}
 				</div>

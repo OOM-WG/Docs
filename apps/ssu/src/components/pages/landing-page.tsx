@@ -42,9 +42,9 @@ const MainHero = ({ host }: { host: string | null }) => {
 	return (
 		<section className='mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-7xl flex-col justify-center gap-10 px-7 py-16 sm:px-10 lg:px-16 xl:px-20'>
 			<div className='max-w-4xl'>
-				<p className='text-primary mb-4 text-sm font-semibold tracking-[0.22em] uppercase'>{config.hero.eyebrow}</p>
-				<h1 className='text-5xl leading-tight font-black sm:text-6xl'>{config.hero.title}</h1>
-				<p className='text-base-content/72 mt-6 max-w-3xl text-lg leading-8'>{config.hero.lead}</p>
+				<p className='text-primary mb-4 text-sm font-semibold tracking-[0.22em] uppercase'>{config.summary}</p>
+				<h1 className='text-5xl leading-tight font-black sm:text-6xl'>{config.hero.title ?? config.name}</h1>
+				<p className='text-base-content/72 mt-6 max-w-3xl text-lg leading-8'>{config.hero.description}</p>
 			</div>
 			<div className='grid gap-4 md:grid-cols-3'>
 				{projectCards.map(project => {
@@ -79,9 +79,13 @@ const ProjectHero = ({ site, host }: { site: Exclude<SiteKey, 'main'>; host: str
 	return (
 		<section className='mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-7xl content-center gap-10 px-7 py-16 sm:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-16 xl:px-20'>
 			<div>
-				<p className='text-primary mb-4 text-sm font-semibold tracking-[0.22em] uppercase'>{config.hero.eyebrow}</p>
-				<h1 className='max-w-4xl text-5xl leading-tight font-black sm:text-6xl'>{config.hero.title}</h1>
-				<p className='text-base-content/72 mt-6 max-w-2xl text-lg leading-8'>{config.hero.lead}</p>
+				<p className='text-primary mb-4 text-sm font-semibold tracking-[0.22em] uppercase' data-nosnippet>
+					{config.summary}
+				</p>
+				<h1 className='max-w-4xl text-5xl leading-tight font-black sm:text-6xl' data-nosnippet>
+					{config.hero.title ?? `ShiroSU ${config.name}`}
+				</h1>
+				<p className='text-base-content/72 mt-6 max-w-2xl text-lg leading-8'>{config.hero.description}</p>
 				<div className='mt-8 flex flex-wrap items-center gap-3' data-nosnippet>
 					<Link className='btn btn-primary gap-2' href={docsLinks[site]} target='_blank'>
 						<BookOpen size={18} />

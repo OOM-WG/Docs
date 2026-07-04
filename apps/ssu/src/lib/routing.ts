@@ -33,14 +33,12 @@ export const getSiteHref = (target: SiteKey, pathname = '/', currentHost?: strin
 		host === '0.0.0.0'
 
 	if (isLocal) {
-		const basePath = siteConfigs[target].devPath
+		const basePath = `/${siteConfigs[target].key}`
 		if (target === 'main') return normalizedPath
 		if (normalizedPath === '/') return basePath
 		return `${basePath}${normalizedPath}`
 	}
 
-	const prefix = siteConfigs[target].hostPrefix
-	const protocol = 'https'
-	const targetHost = prefix ? `${prefix}.${baseHost}` : baseHost
-	return `${protocol}://${targetHost}${normalizedPath}`
+	const targetHost = target === 'main' ? baseHost : `${siteConfigs[target].key}.${baseHost}`
+	return `https://${targetHost}${normalizedPath}`
 }
