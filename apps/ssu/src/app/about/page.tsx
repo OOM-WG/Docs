@@ -1,13 +1,34 @@
+import { type Metadata } from 'next'
+
 import AboutBody from '@/content/body/about.mdx'
-import { canonicalFor } from '@/lib/metadata'
+import { canonicalFor, pageMetadata } from '@/lib/metadata'
+
+const baseMetadata = pageMetadata('main')
+const pageInfo = {
+	title: '关于 ShiroSU 系列',
+	description: 'ShiroSU 系列的相关说明',
+	canonical: canonicalFor('main', '/about')
+}
 
 export const metadata = {
-	title: '关于',
-	description: 'ShiroSU 系列的相关说明',
+	...baseMetadata,
+	title: pageInfo.title,
+	description: pageInfo.description,
 	alternates: {
-		canonical: canonicalFor('main', '/about')
+		canonical: pageInfo.canonical
+	},
+	openGraph: {
+		...baseMetadata.openGraph,
+		title: pageInfo.title,
+		description: pageInfo.description,
+		url: pageInfo.canonical
+	},
+	twitter: {
+		...baseMetadata.twitter,
+		description: pageInfo.description,
+		title: pageInfo.title
 	}
-}
+} satisfies Metadata
 
 export default () => (
 	<main className='mx-auto flex w-full max-w-6xl flex-1 flex-col px-5 py-16 sm:px-8 lg:px-12'>

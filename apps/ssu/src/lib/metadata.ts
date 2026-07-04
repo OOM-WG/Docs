@@ -7,31 +7,74 @@ export const canonicalFor = (site: SiteKey, pathname = '/') => {
 	return `https://${host}${pathname.startsWith('/') ? pathname : `/${pathname}`}`
 }
 
-export const pageMetadata = (site: SiteKey, options: { absoluteTitle?: boolean } = {}) => {
+export const pageMetadata = (site: SiteKey) => {
 	const config = siteConfigs[site]
-	const siteName = site === 'main' ? `${config.name}` : `ShiroSU ${config.name}`
-	const fullName = `${siteName} - ${config.summary}`
+	const pageName = site === 'main' ? `${config.name}` : `ShiroSU ${config.name}`
+	const fullName = `${pageName} - ${config.summary}`
 
 	return {
-		title: options.absoluteTitle ? { absolute: fullName } : fullName,
+		title: fullName,
 		description: config.description,
+		applicationName: 'ShiroSU',
+		authors: [
+			{ name: 'OOM WG', url: 'https://oom-wg.dev' },
+			{ name: 'FengYing', url: 'https://fengying.xin' },
+			{ name: 'ShIroRRen', url: 'https://shiror.ren' },
+			{ name: 'YumeYuka', url: 'https://yumeyuka.moe' },
+			{ name: 'Linso', url: 'https://linso.pro' }
+		],
 		keywords: config.keywords,
+		creator: 'OOM WG',
+		publisher: 'OOM WG',
+		robots: {
+			index: true,
+			follow: true,
+			googleBot: {
+				index: true,
+				follow: true
+			}
+		},
 		alternates: {
 			canonical: canonicalFor(site)
 		},
 		openGraph: {
 			type: 'website',
-			url: canonicalFor(site),
-			title: siteName,
+			title: pageName,
 			description: config.description,
-			siteName: 'ShiroSU'
+			siteName: 'ShiroSU',
+			url: canonicalFor(site)
 		},
 		twitter: {
 			card: 'summary_large_image',
-			title: siteName,
-			description: config.description
+			description: config.description,
+			title: pageName
+		},
+		appLinks: {
+			android: [
+				{
+					package: 'ren.shiror.su',
+					url: 'https://compat.shirosu.my.id',
+					app_name: 'ShiroSU Compat'
+				},
+				{
+					package: 'ren.shiror.su.utils',
+					url: 'https://utils.shirosu.my.id',
+					app_name: 'ShiroSU Utils'
+				}
+			],
+			windows: [
+				{
+					url: 'https://utils.shirosu.my.id',
+					app_name: 'ShiroSU Utils'
+				}
+			],
+			web: [
+				{
+					url: 'https://su.shiror.ren'
+				}
+			]
 		}
-	} satisfies Metadata
+	} satisfies Metadata as Metadata
 }
 
 export const sitemapEntries = () =>

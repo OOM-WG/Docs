@@ -67,7 +67,7 @@ export default async () => {
 				</div>
 			</div>
 			<div style={{ display: 'flex', justifyContent: 'space-between', color: '#7b5222', fontSize: 24 }}>
-				<div>回忆溢出工作组</div>
+				<div>OOM WG</div>
 				<div>ShiroSU</div>
 			</div>
 		</div>,

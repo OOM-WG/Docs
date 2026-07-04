@@ -2,7 +2,7 @@ import { SiGithub } from '@icons-pack/react-simple-icons'
 import { NextProvider } from 'fumadocs-core/framework/next'
 import { RootProvider } from 'fumadocs-ui/provider/next'
 import { Building2, Info } from 'lucide-react'
-import { type Metadata } from 'next'
+import { type Metadata, type Viewport } from 'next'
 import { headers } from 'next/headers'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -18,16 +18,16 @@ import suuLogo from '../../../../docs/images/logo/suu.webp'
 
 export const metadata = {
 	metadataBase: new URL(`https://${baseHost}`),
-	title: {
-		default: 'ShiroSU',
-		template: '%s | ShiroSU'
-	},
 	verification: {
 		other: {
 			'baidu-site-verification': 'codeva-nXvaJYt4E0'
 		}
 	}
 } satisfies Metadata
+
+export const viewport = {
+	themeColor: '#e6be8a'
+} satisfies Viewport
 
 export default async ({ children }: Readonly<{ children: ReactNode }>) => {
 	const host = (await headers()).get('host')
