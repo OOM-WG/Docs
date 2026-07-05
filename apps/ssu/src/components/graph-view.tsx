@@ -2,8 +2,12 @@
 
 import { forceCollide, forceLink, forceManyBody } from 'd3-force'
 import { useRouter } from 'fumadocs-core/framework'
+import { useLocale } from 'next-intl'
 import { lazy, Suspense, type RefObject, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import type { ForceGraphMethods, ForceGraphProps, LinkObject, NodeObject } from 'react-force-graph-2d'
+
+import { type Locale } from '@/i18n/routing'
+import { isExternalHref, localizeInternalHref } from '@/lib/locale-path'
 
 export interface Graph {
 	links: GraphViewLink[]
@@ -76,6 +80,7 @@ const ClientOnly = ({
 	const graphRef = useRef<ForceGraphMethods<any, any> | undefined>(undefined)
 	const hoveredRef = useRef<GraphNode | null>(null)
 	const initialFitRef = useRef(false)
+	const locale = useLocale() as Locale
 	const router = useRouter()
 	const [size, setSize] = useState({ height: 0, width: 0 })
 	const [tooltip, setTooltip] = useState<{ x: number; y: number; content: string } | null>(null)
@@ -105,7 +110,8 @@ const ClientOnly = ({
 			const coords = graph.graph2ScreenCoords(node.x, node.y)
 			if (!isFiniteNumber(coords.x) || !isFiniteNumber(coords.y)) return setTooltip(null)
 
-			setTooltip({ x: coords.x + 4, y: coords.y + 4, content: node.description ?? 'No description' })
+			if (!node.description) return setTooltip(null)
+			setTooltip({ x: coords.x + 4, y: coords.y + 4, content: node.description })
 		} else setTooltip(null)
 	}
 
@@ -149,8 +155,8 @@ const ClientOnly = ({
 	}
 
 	const enrichedGraph = useMemo(() => {
-		const nodes: GraphNode[] = graph.nodes.map(node => ({ ...node }))
-		const links: GraphLink[] = graph.links.map(link => ({ ...link }))
+		const nodes = graph.nodes.map(node => ({ ...node })) as GraphNode[]
+		const links = graph.links.map(link => ({ ...link })) as GraphLink[]
 
 		for (const node of nodes)
 			node.neighbors = links.flatMap(link => {
@@ -199,8 +205,8 @@ const ClientOnly = ({
 					onNodeClick={node => {
 						const graphNode = node as GraphNode
 						if (!graphNode.url) return
-						if (/^(https?:)?\/\//.test(graphNode.url)) return window.open(graphNode.url, '_blank')
-						void router.push(graphNode.url)
+						if (isExternalHref(graphNode.url)) return window.open(graphNode.url, '_blank')
+						void router.push(localizeInternalHref(graphNode.url, locale))
 					}}
 					onNodeHover={node => handleNodeHover(node as GraphNode | null)}
 					onEngineStop={fitInitialView}

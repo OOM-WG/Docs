@@ -12,9 +12,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { type ComponentPropsWithoutRef } from 'react'
 
-import { GraphView } from './graph-view'
-import ImageZoom from './image-zoom'
-import { SiteLink } from './site-link'
+import { GraphView } from '@/components/graph-view'
+import ImageZoom from '@/components/image-zoom'
+import { SiteLink } from '@/components/site-link'
 
 export const mdxComponents = {
 	SiteLink,

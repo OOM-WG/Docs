@@ -3,7 +3,7 @@ import { defineConfig } from 'vite-plus'
 export default defineConfig({
 	staged: { '*': 'vp check --fix' },
 	lint: {
-		ignorePatterns: ['docs/**'],
+		ignorePatterns: ['docs/**', '**/vendor/**'],
 		options: {
 			typeAware: true,
 			typeCheck: false

@@ -1,20 +1,40 @@
 import { type Metadata, type MetadataRoute } from 'next'
 
-import { baseHost, siteConfigs, siteOrder, type SiteKey } from '@/content/site'
+import { baseHost, getContent, getSiteConfigs, siteOrder, type SiteKey } from '@/content/site'
+import { locales, type Locale } from '@/i18n/routing'
 
-export const canonicalFor = (site: SiteKey, pathname = '/') => {
-	const host = site === 'main' ? baseHost : `${siteConfigs[site].key}.${baseHost}`
-	return `https://${host}${pathname.startsWith('/') ? pathname : `/${pathname}`}`
-}
+import { localizePathname } from './locale-path'
 
-export const pageMetadata = (site: SiteKey) => {
-	const config = siteConfigs[site]
+const siteHostFor = (site: SiteKey) => (site === 'main' ? baseHost : `${site}.${baseHost}`)
+
+export const canonicalFor = (site: SiteKey, locale: Locale, pathname = '/') =>
+	`https://${siteHostFor(site)}${localizePathname(pathname, locale)}`
+
+export const languageAlternatesFor = (site: SiteKey, pathname = '/') =>
+	Object.fromEntries([
+		...locales.map(locale => [locale, canonicalFor(site, locale, pathname)] as const),
+		['x-default', canonicalFor(site, 'zh-Hans', pathname)] as const
+	]) as NonNullable<NonNullable<MetadataRoute.Sitemap[number]['alternates']>['languages']>
+
+export const pageMetadata = (
+	site: SiteKey,
+	locale: Locale,
+	pathname = '/',
+	override: {
+		title?: string
+		description?: string
+	} = {}
+) => {
+	const config = getSiteConfigs(locale)[site]
 	const pageName = site === 'main' ? `${config.name}` : `ShiroSU ${config.name}`
-	const fullName = `${pageName} - ${config.summary}`
+	const title = override.title ?? `${pageName} - ${config.summary}`
+	const description = override.description ?? config.description
+	const canonical = canonicalFor(site, locale, pathname)
 
 	return {
-		title: fullName,
-		description: config.description,
+		metadataBase: new URL(`https://${baseHost}`),
+		title,
+		description,
 		applicationName: 'ShiroSU',
 		authors: [
 			{ name: 'OOM WG', url: 'https://oom-wg.dev' },
@@ -35,19 +55,20 @@ export const pageMetadata = (site: SiteKey) => {
 			}
 		},
 		alternates: {
-			canonical: canonicalFor(site)
+			canonical,
+			languages: languageAlternatesFor(site, pathname)
 		},
 		openGraph: {
 			type: 'website',
-			title: pageName,
-			description: config.description,
+			title: override.title ?? pageName,
+			description,
 			siteName: 'ShiroSU',
-			url: canonicalFor(site)
+			url: canonical
 		},
 		twitter: {
 			card: 'summary_large_image',
-			description: config.description,
-			title: pageName
+			description,
+			title: override.title ?? pageName
 		},
 		appLinks: {
 			android: [
@@ -77,16 +98,40 @@ export const pageMetadata = (site: SiteKey) => {
 	} satisfies Metadata as Metadata
 }
 
-export const sitemapEntries = () =>
-	[
+export const aboutMetadata = (locale: Locale) => {
+	const about = getContent(locale).about
+	return pageMetadata('main', locale, '/about', {
+		title: about.title,
+		description: about.description
+	})
+}
+
+export const sitemapEntries = () => {
+	const lastModified = new Date()
+	const routes = [
 		...siteOrder.map(site => ({
-			url: canonicalFor(site),
-			lastModified: new Date(),
+			site,
+			pathname: '/',
 			priority: 1
 		})),
 		{
-			url: canonicalFor('main', '/about'),
-			lastModified: new Date(),
+			site: 'main',
+			pathname: '/about',
 			priority: 0.99
 		}
-	] satisfies MetadataRoute.Sitemap as MetadataRoute.Sitemap
+	] satisfies { pathname: string; priority: number; site: SiteKey }[]
+
+	return routes.flatMap(route =>
+		locales.map(
+			locale =>
+				({
+					url: canonicalFor(route.site, locale, route.pathname),
+					lastModified,
+					priority: route.priority,
+					alternates: {
+						languages: languageAlternatesFor(route.site, route.pathname)
+					}
+				}) satisfies MetadataRoute.Sitemap[number]
+		)
+	) as MetadataRoute.Sitemap
+}

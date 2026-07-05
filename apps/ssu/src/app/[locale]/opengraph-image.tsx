@@ -1,8 +1,9 @@
 import { headers } from 'next/headers'
 import { ImageResponse } from 'next/og'
 
-import { baseHost, siteConfigs } from '@/content/site'
+import { baseHost, getSiteConfigs } from '@/content/site'
 import { ssuIconBase64, suuIconBase64, ubuntuSansBoldBase64, ubuntuSansRegularBase64 } from '@/generated'
+import { getLocaleFromParams } from '@/i18n/locale'
 import { base64ToArrayBuffer } from '@/lib/base64'
 import { getSiteFromHost } from '@/lib/routing'
 
@@ -13,11 +14,14 @@ export const size = {
 
 export const contentType = 'image/png'
 
+export const alt = 'ShiroSU'
+
 const regularFont = base64ToArrayBuffer(ubuntuSansRegularBase64)
 const boldFont = base64ToArrayBuffer(ubuntuSansBoldBase64)
 
-export default async () => {
-	const config = siteConfigs[getSiteFromHost((await headers()).get('host'))]
+export default async ({ params }: { params: Promise<{ locale: string }> }) => {
+	const locale = getLocaleFromParams((await params).locale)
+	const config = getSiteConfigs(locale)[getSiteFromHost((await headers()).get('host'))]
 	const logoSrc = `data:image/png;base64,${config.key === 'utils' ? suuIconBase64 : ssuIconBase64}`
 
 	return new ImageResponse(

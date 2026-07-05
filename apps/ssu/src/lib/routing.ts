@@ -1,6 +1,9 @@
 import { headers } from 'next/headers'
 
-import { baseHost, siteConfigs, type SiteKey } from '@/content/site'
+import { baseHost, getSiteConfigs, type SiteKey } from '@/content/site'
+import { defaultLocale, type Locale } from '@/i18n/routing'
+
+import { localizePathname, normalizePathname } from './locale-path'
 
 export const getSiteFromHost = (hostname: string | null | undefined): SiteKey => {
 	switch (hostname?.split(':')[0]?.toLowerCase().split('.')[0]) {
@@ -21,8 +24,9 @@ export const getCurrentSite = async (defaultSite: SiteKey = 'main') => {
 	return site === 'main' ? defaultSite : site
 }
 
-export const getSiteHref = (target: SiteKey, pathname = '/', currentHost?: string | null) => {
-	const normalizedPath = pathname.startsWith('/') ? pathname : `/${pathname}`
+export const getSiteHref = (target: SiteKey, locale: Locale = defaultLocale, pathname = '/', currentHost?: string | null) => {
+	const normalizedPath = normalizePathname(pathname)
+	const localizedPath = localizePathname(normalizedPath, locale)
 	const host = currentHost?.split(':')[0]?.toLowerCase()
 	const isLocal =
 		!host ||
@@ -32,13 +36,13 @@ export const getSiteHref = (target: SiteKey, pathname = '/', currentHost?: strin
 		host.startsWith('192.168.') ||
 		host === '0.0.0.0'
 
+	const config = getSiteConfigs(locale)
 	if (isLocal) {
-		const basePath = `/${siteConfigs[target].key}`
-		if (target === 'main') return normalizedPath
-		if (normalizedPath === '/') return basePath
-		return `${basePath}${normalizedPath}`
+		if (target === 'main') return localizedPath
+		const sitePath = `/${config[target].key}${normalizedPath === '/' ? '' : normalizedPath}`
+		return localizePathname(sitePath, locale)
+	} else {
+		const targetHost = target === 'main' ? baseHost : `${config[target].key}.${baseHost}`
+		return `//${targetHost}${localizedPath}`
 	}
-
-	const targetHost = target === 'main' ? baseHost : `${siteConfigs[target].key}.${baseHost}`
-	return `https://${targetHost}${normalizedPath}`
 }

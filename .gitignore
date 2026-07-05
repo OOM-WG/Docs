@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 .vite-hooks/
+.playwright-cli/
 
 *-lock.*
 *.lock
