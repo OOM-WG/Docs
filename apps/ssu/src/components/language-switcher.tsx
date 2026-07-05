@@ -20,6 +20,7 @@ export const LanguageSwitcher = ({ label }: { label: string }) => {
 	const router = useRouter()
 	const searchParams = useSearchParams()
 	const [isPending, startTransition] = useTransition()
+	const currentLocaleLabel = localeLabels[locale]
 	const href = useMemo<SwitcherHref>(() => {
 		const query = {} as Record<string, string | string[]>
 
@@ -39,11 +40,11 @@ export const LanguageSwitcher = ({ label }: { label: string }) => {
 				type='button'
 				tabIndex={0}
 				className='btn btn-ghost btn-sm text-primary hover:bg-primary/12 shrink-0 gap-2 whitespace-nowrap'
-				aria-label={label}
+				aria-label={`${label}: ${currentLocaleLabel}`}
 				aria-haspopup='menu'
 				title={label}>
 				<Languages size={16} />
-				<span className='hidden whitespace-nowrap min-[860px]:inline'>{localeLabels[locale]}</span>
+				<span className='hidden whitespace-nowrap min-[860px]:inline'>{currentLocaleLabel}</span>
 			</button>
 			<ul
 				tabIndex={0}

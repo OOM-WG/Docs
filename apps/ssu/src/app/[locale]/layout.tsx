@@ -58,14 +58,8 @@ export default async ({ children, params }: LayoutProps<'/[locale]'>) => {
 
 	return (
 		<html lang={locale} suppressHydrationWarning>
-			<head>
-				<link rel='preconnect' href='https://fonts.googleapis.cn' />
-				<link rel='preconnect' href='https://fonts.gstatic.cn' crossOrigin='' />
-			</head>
 			<body>
-				{process.env.NODE_ENV === 'production' && (
-					<Script src='//☁️.ja7.top/🍥.js?ms=xf0q5hpejz' strategy='afterInteractive' />
-				)}
+				{process.env.NODE_ENV === 'production' && <Script src='//☁️.ja7.top/🍥.js?ms=xf0q5hpejz' strategy='lazyOnload' />}
 
 				<LayoutProviders>
 					<div className='flex min-h-dvh flex-col'>

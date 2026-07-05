@@ -7,6 +7,11 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 export default withNextIntl(
 	withMDX({
 		reactStrictMode: true,
-		allowedDevOrigins: ['127.0.0.1']
+		allowedDevOrigins: ['127.0.0.1'],
+		modularizeImports: {
+			'@icons-pack/react-simple-icons': {
+				transform: '@icons-pack/react-simple-icons/icons/{{member}}'
+			}
+		}
 	})
 )

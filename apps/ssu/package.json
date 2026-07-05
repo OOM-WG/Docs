@@ -24,6 +24,8 @@
 		"react-force-graph-2d": "^1.29.1"
 	},
 	"devDependencies": {
+		"@fontsource-variable/jetbrains-mono": "^5.2.8",
+		"@fontsource-variable/ubuntu-sans": "^5.2.10",
 		"@fontsource/ubuntu-sans": "^5.2.10",
 		"@mdx-js/loader": "^3.1.1",
 		"@next/mdx": "^16.2.10",

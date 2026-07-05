@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.cn/css2?family=Ubuntu+Sans:wght@100..800&family=JetBrains+Mono:wght@100..800&display=swap');
+@import '@fontsource-variable/ubuntu-sans';
+@import '@fontsource-variable/jetbrains-mono';
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/vitepress.css';
 @import 'fumadocs-ui/css/preset.css';
@@ -30,8 +31,9 @@
 }
 
 @theme {
-	--font-sans: 'Ubuntu Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
-	--font-mono: 'JetBrains Mono', ui-monospace, monospace, ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--font-sans: 'Ubuntu Sans Variable', 'Ubuntu Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--font-mono:
+		'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace, ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -74,7 +76,7 @@
 	--color-fd-popover: var(--color-base-100);
 	--color-fd-popover-foreground: var(--color-base-content);
 	--color-fd-muted: color-mix(in oklab, var(--color-base-200) 92%, var(--color-primary));
-	--color-fd-muted-foreground: color-mix(in oklab, var(--color-base-content) 72%, transparent);
+	--color-fd-muted-foreground: color-mix(in oklab, var(--color-base-content) 80%, transparent);
 	--color-fd-secondary: color-mix(in oklab, var(--color-base-200) 86%, var(--color-primary));
 	--color-fd-secondary-foreground: var(--color-base-content);
 	--color-fd-accent: color-mix(in oklab, var(--color-primary) 16%, var(--color-base-100));

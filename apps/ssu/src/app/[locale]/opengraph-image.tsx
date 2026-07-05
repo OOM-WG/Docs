@@ -19,7 +19,7 @@ export const alt = 'ShiroSU'
 const regularFont = base64ToArrayBuffer(ubuntuSansRegularBase64)
 const boldFont = base64ToArrayBuffer(ubuntuSansBoldBase64)
 
-export default async ({ params }: { params: Promise<{ locale: string }> }) => {
+export default async ({ params }: PageProps<'/[locale]'>) => {
 	const locale = getLocaleFromParams((await params).locale)
 	const config = getSiteConfigs(locale)[getSiteFromHost((await headers()).get('host'))]
 	const logoSrc = `data:image/png;base64,${config.key === 'utils' ? suuIconBase64 : ssuIconBase64}`
