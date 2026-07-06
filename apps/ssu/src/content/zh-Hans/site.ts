@@ -21,8 +21,8 @@ const siteConfigs = {
 		key: 'newtech',
 		name: 'NewTech',
 		shortTitle: 'SSU NT',
-		summary: '原生 root 实现',
-		description: 'ShiroSU 原生 root 实现，兼顾安全性与便利性',
+		summary: '自由互联的 root 实现',
+		description: '以安全性与便利性为先的 root 实现，WebUI 管理方式让互联更自由',
 		keywords: ['ShiroSU NewTech', 'SSU NT', 'ShiroSU root', 'SSU root'],
 		hero: {
 			description: '纯用户态低侵入性 root 实现，采用 WebUI 管理结合白名单机制实现高隐蔽性设计'

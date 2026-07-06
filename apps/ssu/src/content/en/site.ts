@@ -22,8 +22,9 @@ const siteConfigs = {
 		key: 'newtech',
 		name: 'NewTech',
 		shortTitle: 'SSU NT',
-		summary: 'Native root implementation',
-		description: 'A native root implementation for ShiroSU that balances security and convenience',
+		summary: 'Root implementation with open connectivity',
+		description:
+			'A root implementation that puts security and convenience first, with WebUI management for more flexible connectivity',
 		keywords: ['ShiroSU NewTech', 'SSU NT', 'ShiroSU root', 'SSU root'],
 		hero: {
 			description:
