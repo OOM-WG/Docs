@@ -1,0 +1,16 @@
+semi: false
+singleQuote: true
+jsxSingleQuote: true
+trailingComma: none
+bracketSameLine: true
+arrowParens: avoid
+
+astroAllowShorthand: true
+
+plugins:
+  - prettier-plugin-astro
+
+overrides:
+  - files: '*.astro'
+    options:
+      parser: astro

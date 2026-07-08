@@ -66,9 +66,7 @@ const MainHero = ({ host, locale }: { host: string | null; locale: Locale }) => 
 				<p className='text-primary mb-4 text-sm font-semibold tracking-[0.22em] uppercase' data-nosnippet>
 					{config.summary}
 				</p>
-				<h1 className='text-5xl leading-tight font-black sm:text-6xl' data-nosnippet>
-					{config.hero.title ?? config.name}
-				</h1>
+				<h1 className='text-5xl leading-tight font-black sm:text-6xl'>{config.hero.title ?? config.name}</h1>
 				<p className='text-base-content/72 mt-6 max-w-3xl text-lg leading-8'>{config.hero.description}</p>
 			</div>
 			<ul className='m-0 grid list-none gap-4 p-0 md:grid-cols-3'>

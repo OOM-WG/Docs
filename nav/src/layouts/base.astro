@@ -1,10 +1,12 @@
 ---
 import '../styles/global.css'
-import { SiteFrame } from '@/components/site-frame'
 import { SEO } from 'astro-seo'
+import { navItems } from '@/data/links'
 import oowLogo from '../../../docs/images/logo/oow.webp'
 
 const { title = '200OK Working', description = '回忆溢出工作组网址导航' } = Astro.props
+const canonical = new URL(Astro.url.pathname, Astro.site).toString()
+const logoUrl = new URL(oowLogo.src, Astro.site).toString()
 ---
 
 <!doctype html>
@@ -16,45 +18,81 @@ const { title = '200OK Working', description = '回忆溢出工作组网址导�
 		{import.meta.env.PROD && <script is:inline defer src='//☁️.ja7.top/🍥.js?ms=xf0r704j54' />}
 
 		<SEO
-			title={title}
-			description={description}
-			canonical={new URL(Astro.url.pathname, Astro.site).toString()}
+			{title}
+			{description}
+			{canonical}
 			openGraph={{
 				basic: {
 					title,
 					type: 'website',
-					image: new URL(oowLogo.src, Astro.site).toString(),
-					url: new URL(Astro.url.pathname, Astro.site).toString(),
+					image: logoUrl,
+					url: canonical
 				},
 				optional: {
 					description,
 					siteName: '200OK Working',
-					locale: 'zh_CN',
+					locale: 'zh_CN'
 				},
 				image: {
-					alt: title,
-				},
+					alt: title
+				}
 			}}
 			twitter={{
 				card: 'summary_large_image',
 				title,
 				description,
-				image: new URL(oowLogo.src, Astro.site).toString(),
-				imageAlt: title,
+				image: logoUrl,
+				imageAlt: title
 			}}
 			extend={{
-				link: [{ rel: 'icon', href: new URL(oowLogo.src, Astro.site).toString() }],
+				link: [{ rel: 'icon', href: logoUrl }],
 				meta: [
 					{ name: 'keywords', content: '回忆溢出工作组, OutOfMemories WorkGroup, OOM WG, 200OK Work' },
 
-					{ name: 'baidu-site-verification', content: 'codeva-MLfhcKd29r' },
-				],
+					{ name: 'baidu-site-verification', content: 'codeva-MLfhcKd29r' }
+				]
 			}}
 		/>
 	</head>
 	<body>
-		<SiteFrame logoSrc={oowLogo.src}>
-			<slot />
-		</SiteFrame>
+		<div class='flex min-h-dvh flex-col'>
+			<header class='border-base-content/10 bg-base-100/88 sticky top-0 z-40 border-b backdrop-blur'>
+				<div class='navbar mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12 xl:px-14'>
+					<div class='navbar-start'>
+						<a class='btn btn-ghost hover:bg-primary/12 gap-3 px-2 text-base' href='/'>
+							<img class='h-8 w-8 rounded-md' src={oowLogo.src} alt='200OK Logo' />
+							<span class='font-semibold'>200OK Working</span>
+						</a>
+					</div>
+					<nav class='navbar-end gap-2' data-nosnippet>
+						{
+							navItems.map(item => (
+								<a class='btn btn-ghost btn-sm hover:bg-primary/12' href={item.url} target='_blank'>
+									{item.item}
+								</a>
+							))
+						}
+					</nav>
+				</div>
+			</header>
+			<div class='flex flex-1 flex-col'>
+				<slot />
+			</div>
+			<footer class='border-base-content/10 bg-base-100/70 border-t' data-nosnippet>
+				<div
+					class='text-base-content/60 mx-auto flex w-full max-w-7xl flex-col gap-2 px-5 py-8 text-sm sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12 xl:px-14'>
+					<p>&copy; 回忆溢出工作组</p>
+					<p>
+						<a
+							class='link-hover link'
+							href='https://icp.gov.moe/?keyword=20234488'
+							rel='noreferrer noopener'
+							target='_blank'>
+							萌ICP备20234488号
+						</a>
+					</p>
+				</div>
+			</footer>
+		</div>
 	</body>
 </html>

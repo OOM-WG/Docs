@@ -5,6 +5,7 @@ import { defineConfig } from 'astro/config'
 
 export default defineConfig({
 	site: 'https://200ok.work',
+	build: { assets: '_200ok' },
 	integrations: [react(), sitemap()],
 	vite: {
 		plugins: [tailwindcss()],

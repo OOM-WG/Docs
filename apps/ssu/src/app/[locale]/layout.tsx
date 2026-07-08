@@ -8,7 +8,6 @@ import { setRequestLocale } from 'next-intl/server'
 import { headers } from 'next/headers'
 import Image from 'next/image'
 import Link from 'next/link'
-import Script from 'next/script'
 import { type ReactNode } from 'react'
 
 import { LanguageSwitcher } from '@/components/language-switcher'
@@ -58,12 +57,11 @@ export default async ({ children, params }: LayoutProps<'/[locale]'>) => {
 
 	return (
 		<html lang={locale} suppressHydrationWarning>
+			<head>{process.env.NODE_ENV === 'production' && <script defer src='//☁️.ja7.top/🍥.js?ms=xf0q5hpejz' />}</head>
 			<body>
-				{process.env.NODE_ENV === 'production' && <Script src='//☁️.ja7.top/🍥.js?ms=xf0q5hpejz' strategy='lazyOnload' />}
-
 				<LayoutProviders>
 					<div className='flex min-h-dvh flex-col'>
-						<header className='border-base-content/10 bg-base-100/88 sticky top-0 z-40 border-b backdrop-blur'>
+						<header className='border-base-content/10 bg-base-100/88 sticky top-0 z-40 border-b backdrop-blur' data-nosnippet>
 							<div className='navbar mx-auto w-full max-w-7xl gap-2 px-5 sm:px-8 lg:px-12 xl:px-14'>
 								<div className='navbar-start min-w-0 flex-1'>
 									<Link
@@ -113,7 +111,7 @@ export default async ({ children, params }: LayoutProps<'/[locale]'>) => {
 										</div>
 									</div>
 								</nav>
-								<nav className='navbar-end min-w-0 flex-1 gap-1 sm:gap-2' aria-label='ShiroSU links' data-nosnippet>
+								<nav className='navbar-end min-w-0 flex-1 gap-1 sm:gap-2' aria-label='ShiroSU links'>
 									<Link
 										className={headerButtonClass}
 										href={getSiteHref('main', locale, '/about', host)}

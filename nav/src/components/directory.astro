@@ -1,0 +1,58 @@
+---
+import { Code2, LinkIcon, Users } from 'lucide-react'
+
+import LinkCard from '@/components/link-card.astro'
+import { navSections, orgLinks } from '@/data/links'
+
+const sectionIcons = {
+	link: LinkIcon,
+	code: Code2,
+	users: Users
+} as const
+
+const sections = navSections.map(section => ({
+	...section,
+	Icon: sectionIcons[section.icon]
+}))
+---
+
+<div class='space-y-14'>
+	{
+		sections.map(section => (
+			<section id={section.slug} class='scroll-mt-24'>
+				<div class='mb-5 flex items-start gap-4'>
+					<div class='bg-primary/12 text-primary rounded-lg p-3'>
+						<section.Icon size={22} />
+					</div>
+					<div>
+						<h2 class='text-2xl font-black'>{section.taxonomy}</h2>
+						<p class='text-base-content/62 mt-2 leading-7'>{section.description}</p>
+					</div>
+				</div>
+				<div class='space-y-6'>
+					{section.list.map(group => (
+						<div>
+							<div class='mb-3 flex items-center gap-2'>
+								<div class='badge badge-outline border-primary/40 bg-primary/10 text-primary'>
+									{group.term}
+								</div>
+							</div>
+							<div class='grid gap-4 sm:grid-cols-2 xl:grid-cols-3'>
+								{group.links.map(link => (
+									<LinkCard link={link} />
+								))}
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+		))
+	}
+
+	<section id='organization' class='scroll-mt-24'>
+		<h2 class='mb-4 text-2xl font-black'>组织账号</h2>
+		<div class='grid gap-4 sm:grid-cols-2 xl:grid-cols-3'>
+			{orgLinks.map(link => <LinkCard link={link} />)}
+		</div>
+	</section>
+</div>
