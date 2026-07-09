@@ -5,15 +5,24 @@ import Link from 'next/link'
 import { type ComponentType, type ReactNode } from 'react'
 
 import EnCompatBody from '@/content/en/compat.mdx'
+import EnFetcherBody from '@/content/en/fetcher.mdx'
+import EnFlasherBody from '@/content/en/flasher.mdx'
+import EnLibraryBody from '@/content/en/library.mdx'
 import EnMainBody from '@/content/en/main.mdx'
 import EnNewTechBody from '@/content/en/newtech.mdx'
 import EnUtilsBody from '@/content/en/utils.mdx'
 import { docsLinks, getContent, githubRepos, type SiteKey } from '@/content/site'
 import ZhHansCompatBody from '@/content/zh-Hans/compat.mdx'
+import ZhHansFetcherBody from '@/content/zh-Hans/fetcher.mdx'
+import ZhHansFlasherBody from '@/content/zh-Hans/flasher.mdx'
+import ZhHansLibraryBody from '@/content/zh-Hans/library.mdx'
 import ZhHansMainBody from '@/content/zh-Hans/main.mdx'
 import ZhHansNewTechBody from '@/content/zh-Hans/newtech.mdx'
 import ZhHansUtilsBody from '@/content/zh-Hans/utils.mdx'
 import ZhHantCompatBody from '@/content/zh-Hant/compat.mdx'
+import ZhHantFetcherBody from '@/content/zh-Hant/fetcher.mdx'
+import ZhHantFlasherBody from '@/content/zh-Hant/flasher.mdx'
+import ZhHantLibraryBody from '@/content/zh-Hant/library.mdx'
 import ZhHantMainBody from '@/content/zh-Hant/main.mdx'
 import ZhHantNewTechBody from '@/content/zh-Hant/newtech.mdx'
 import ZhHantUtilsBody from '@/content/zh-Hant/utils.mdx'
@@ -25,18 +34,27 @@ const bodyByLocale = {
 		main: ZhHansMainBody,
 		compat: ZhHansCompatBody,
 		newtech: ZhHansNewTechBody,
+		flasher: ZhHansFlasherBody,
+		fetcher: ZhHansFetcherBody,
+		library: ZhHansLibraryBody,
 		utils: ZhHansUtilsBody
 	},
 	'zh-Hant': {
 		main: ZhHantMainBody,
 		compat: ZhHantCompatBody,
 		newtech: ZhHantNewTechBody,
+		flasher: ZhHantFlasherBody,
+		fetcher: ZhHantFetcherBody,
+		library: ZhHantLibraryBody,
 		utils: ZhHantUtilsBody
 	},
 	en: {
 		main: EnMainBody,
 		compat: EnCompatBody,
 		newtech: EnNewTechBody,
+		flasher: EnFlasherBody,
+		fetcher: EnFetcherBody,
+		library: EnLibraryBody,
 		utils: EnUtilsBody
 	}
 } satisfies Record<Locale, Record<SiteKey, ComponentType>>

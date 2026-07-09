@@ -1,7 +1,24 @@
-import { AppWindow, Blocks, DatabaseZap, EyeOff, FolderCog, Layers, Link, PackageOpen, Router, ShieldCog } from 'lucide-react'
+import {
+	AppWindow,
+	Blocks,
+	DatabaseZap,
+	EyeOff,
+	FolderCog,
+	Gauge,
+	Layers,
+	Link,
+	MonitorSmartphone,
+	PackageOpen,
+	Router,
+	ShieldCog,
+	Toolbox,
+	Usb,
+	Wrench
+} from 'lucide-react'
 
 import type { LocaleContent, ProjectCard, SiteConfig, SiteKey } from '../site'
-import { about } from './about'
+import { content as AboutContent } from './about'
+import { content as SecurityContent } from './security'
 
 const siteConfigs = {
 	main: {
@@ -30,7 +47,8 @@ const siteConfigs = {
 		features: [
 			{
 				title: '網頁互聯',
-				description: '透過網頁管理器管理 root，前後端分離讓區域網互聯成為自然能力',
+				description:
+					'透過網頁管理器管理 root，前後端分離讓區域網互聯成為自然能力；瀏覽器 PWA 特性可直接將網頁安裝至裝置，易用易更新',
 				icon: AppWindow
 			},
 			{
@@ -72,6 +90,74 @@ const siteConfigs = {
 				icon: Link
 			}
 		]
+	},
+	flasher: {
+		key: 'flasher',
+		name: 'Flasher',
+		shortTitle: 'SSU Flash',
+		summary: '免安裝網頁刷機工具',
+		description: '透過 WebUSB 實現的網頁刷機工具，僅需瀏覽器即可即刻刷機！',
+		keywords: ['ShiroSU Flasher', 'SSU Flash', 'ShiroSU 網頁刷機', 'SSU 網頁刷機'],
+		hero: {
+			description: '（開發中）透過 Chromium 內核的 WebUSB 特性連接裝置，在網頁上即可輕鬆刷機！'
+		},
+		features: [
+			{
+				title: 'WebUSB 連線',
+				description: '無需在本機安裝 adb 或 fastboot 程式，透過瀏覽器即可連接裝置（仍需安裝驅動程式）',
+				icon: Usb
+			},
+			{
+				title: '豐富功能',
+				description: '可透過 adb 或 fastboot 連接裝置，支援解鎖、刷機等常用功能',
+				icon: Toolbox
+			},
+			{
+				title: '易用網頁',
+				description: '瀏覽器 PWA 特性可直接將網頁安裝至裝置，易用易更新',
+				icon: AppWindow
+			}
+		]
+	},
+	fetcher: {
+		key: 'fetcher',
+		name: 'Fetcher',
+		shortTitle: 'SSU Fetch',
+		summary: '輕量裝置資訊取得工具',
+		description: '以 Rust no_std 為核心的裝置資訊取得工具，可透過命令列執行或作為函式庫使用',
+		keywords: ['ShiroSU Fetcher', 'SSU Fetch', 'ShiroSU 資訊取得', 'SSU 資訊取得'],
+		hero: {
+			description: '（開發中）追求輕量、底層的裝置資訊取得工具，專注於展示或偵錯用途'
+		},
+		features: [
+			{
+				title: '輕量與效能',
+				description: '核心程式碼採用 Rust no_std 編寫，讓體積更輕量、執行更有效能',
+				icon: Gauge
+			},
+			{
+				title: '多平台適配',
+				description: '針對各個平台力所能及地取得資訊，也有對 Android 進行深度適配',
+				icon: MonitorSmartphone
+			},
+			{
+				title: '多用途',
+				description: '支援日常透過命令列展示資訊，也可作為函式庫在必要時收集偵錯資訊',
+				icon: Wrench
+			}
+		]
+	},
+	library: {
+		key: 'library',
+		name: 'Library',
+		shortTitle: 'SSU Lib',
+		summary: 'root 接入封裝庫',
+		description: '主要針對 root 實現的封裝庫，簡化部分接入流程',
+		keywords: ['ShiroSU Library', 'SSU Lib'],
+		hero: {
+			description: '（開發中）Android Kotlin 函式庫，專注於 root 接入封裝'
+		},
+		features: []
 	},
 	utils: {
 		key: 'utils',
@@ -119,6 +205,24 @@ const projectCards = [
 		icon: Layers
 	},
 	{
+		site: 'flasher',
+		title: 'ShiroSU Flasher',
+		description: siteConfigs.flasher.description,
+		icon: Usb
+	},
+	{
+		site: 'fetcher',
+		title: 'ShiroSU Fetcher',
+		description: siteConfigs.fetcher.description,
+		icon: Gauge
+	},
+	{
+		site: 'library',
+		title: 'ShiroSU Library',
+		description: siteConfigs.library.description,
+		icon: PackageOpen
+	},
+	{
 		site: 'utils',
 		title: 'ShiroSU Utils (蘇柚)',
 		description: siteConfigs.utils.description,
@@ -127,13 +231,14 @@ const projectCards = [
 ] satisfies ProjectCard[] as ProjectCard[]
 
 export const content = {
-	about,
+	about: AboutContent,
+	security: SecurityContent,
 	projectCards,
 	siteConfigs,
 	ui: {
 		nav: {
 			about: '關於',
-			organization: '組織',
+			security: '安全聲明',
 			projects: '項目',
 			language: '語言'
 		},

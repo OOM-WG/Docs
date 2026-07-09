@@ -1,7 +1,6 @@
-import { SiGithub } from '@icons-pack/react-simple-icons'
 import { NextProvider } from 'fumadocs-core/framework/next'
 import { RootProvider } from 'fumadocs-ui/provider/next'
-import { Building2, ChevronDown, Info } from 'lucide-react'
+import { ChevronDown, Info, ShieldCheck } from 'lucide-react'
 import { type Metadata, type Viewport } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
@@ -122,23 +121,11 @@ export default async ({ children, params }: LayoutProps<'/[locale]'>) => {
 									</Link>
 									<Link
 										className={headerButtonClass}
-										href='https://oom-wg.dev/'
-										target='_blank'
-										rel='noreferrer noopener'
-										aria-label={ui.nav.organization}
-										title={ui.nav.organization}>
-										<Building2 size={16} />
-										<span className={headerButtonLabelClass}>{ui.nav.organization}</span>
-									</Link>
-									<Link
-										className={headerButtonClass}
-										href='https://github.com/OOM-WG'
-										rel='noreferrer noopener'
-										target='_blank'
-										aria-label='GitHub'
-										title='GitHub'>
-										<SiGithub size={16} />
-										<span className={headerButtonLabelClass}>GitHub</span>
+										href={getSiteHref('main', locale, '/security', host)}
+										aria-label={ui.nav.security}
+										title={ui.nav.security}>
+										<ShieldCheck size={16} />
+										<span className={headerButtonLabelClass}>{ui.nav.security}</span>
 									</Link>
 									<LanguageSwitcher label={ui.nav.language} />
 								</nav>
@@ -147,7 +134,13 @@ export default async ({ children, params }: LayoutProps<'/[locale]'>) => {
 						<div className='flex flex-1 flex-col'>{children}</div>
 						<footer className='border-base-content/10 bg-base-100/70 border-t' data-nosnippet>
 							<div className='text-base-content/60 mx-auto flex w-full max-w-7xl flex-col gap-2 px-5 py-8 text-sm sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12 xl:px-14'>
-								<p>&copy; SSU Developers (OOM WG)</p>
+								<p>
+									&copy; SSU Developers (
+									<Link className='link-hover link' href='https://oom-wg.dev/' target='_blank'>
+										OOM WG
+									</Link>
+									)
+								</p>
 								<p>
 									Licensed under the{' '}
 									<Link className='link-hover link' href='https://license.fileto.download/'>

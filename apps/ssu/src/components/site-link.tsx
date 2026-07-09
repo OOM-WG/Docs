@@ -8,8 +8,8 @@ import { Link, type Locale } from '@/i18n/routing'
 import { isExternalHref, normalizePathname } from '@/lib/locale-path'
 import { getSiteFromHost, getSiteHref } from '@/lib/routing'
 
-const sitePathFor = (site: SiteKey, path: string) => {
-	const normalizedPath = normalizePathname(path)
+const sitePathFor = (site: SiteKey, pathname: string) => {
+	const normalizedPath = normalizePathname(pathname)
 	if (site === 'main') return normalizedPath
 	return `/${site}${normalizedPath === '/' ? '' : normalizedPath}`
 }

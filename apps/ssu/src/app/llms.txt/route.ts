@@ -21,6 +21,7 @@ const llmsMd = () => {
 	const mainConfig = getSiteConfigs('en').main
 	const homepage = `https://${baseHost}/en`
 	const about = `https://${baseHost}/en/about`
+	const security = `https://${baseHost}/en/security`
 
 	return [
 		'# ShiroSU Series',
@@ -37,6 +38,7 @@ const llmsMd = () => {
 		'',
 		`- [Homepage](${homepage}): Main entry for the ShiroSU Series website`,
 		`- [About](${about}): Overview, background and project history for the ShiroSU Series`,
+		`- [Security](${security}): Security statement for the ShiroSU Series`,
 		`- [Documentation](${docsLinks['main']}): Official documentation`,
 		'',
 		'## Projects',

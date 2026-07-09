@@ -9,9 +9,18 @@ export const getSiteFromHost = (hostname: string | null | undefined): SiteKey =>
 	switch (hostname?.split(':')[0]?.toLowerCase().split('.')[0]) {
 		case 'compat':
 			return 'compat'
-		case 'newtech':
 		case 'nt':
+		case 'newtech':
 			return 'newtech'
+		case 'flash':
+		case 'flasher':
+			return 'flasher'
+		case 'fetch':
+		case 'fetcher':
+			return 'fetcher'
+		case 'lib':
+		case 'library':
+			return 'library'
 		case 'utils':
 			return 'utils'
 		default:

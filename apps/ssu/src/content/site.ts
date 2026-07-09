@@ -6,7 +6,7 @@ import { content as enContent } from './en/site'
 import { content as zhHansContent } from './zh-Hans/site'
 import { content as zhHantContent } from './zh-Hant/site'
 
-export type SiteKey = 'main' | 'compat' | 'newtech' | 'utils'
+export type SiteKey = 'main' | 'compat' | 'newtech' | 'flasher' | 'fetcher' | 'library' | 'utils'
 
 export type SiteFeature = {
 	title: string
@@ -41,8 +41,7 @@ export type GithubRepo = {
 	repo: string
 }
 
-export type AboutContent = {
-	eyebrow: string
+export type PageContent = {
 	title: string
 	description: string
 }
@@ -50,7 +49,7 @@ export type AboutContent = {
 export type UiContent = {
 	nav: {
 		about: string
-		organization: string
+		security: string
 		projects: string
 		language: string
 	}
@@ -63,7 +62,8 @@ export type UiContent = {
 }
 
 export type LocaleContent = {
-	about: AboutContent
+	about: PageContent
+	security: PageContent
 	projectCards: ProjectCard[]
 	siteConfigs: Record<SiteKey, SiteConfig>
 	ui: UiContent
@@ -71,14 +71,28 @@ export type LocaleContent = {
 
 export const baseHost = 'shirosu.my.id'
 
-export const projects = ['newtech', 'compat', 'utils'] as const satisfies readonly Exclude<SiteKey, 'main'>[]
+export const projects = ['newtech', 'compat', 'flasher', 'fetcher', 'library', 'utils'] as const satisfies readonly Exclude<
+	SiteKey,
+	'main'
+>[]
 
-export const siteOrder = ['main', 'newtech', 'compat', 'utils'] satisfies readonly SiteKey[] as readonly SiteKey[]
+export const siteOrder = [
+	'main',
+	'newtech',
+	'compat',
+	'flasher',
+	'fetcher',
+	'library',
+	'utils'
+] satisfies readonly SiteKey[] as readonly SiteKey[]
 
 export const docsLinks = {
 	main: 'https://oom-wg.dev/ssu',
 	compat: 'https://oom-wg.dev/ssu/compat',
 	newtech: 'https://oom-wg.dev/ssu/nt',
+	flasher: 'https://oom-wg.dev/ssu',
+	fetcher: 'https://oom-wg.dev/ssu',
+	library: 'https://oom-wg.dev/ssu',
 	utils: 'https://oom-wg.dev/suu'
 } satisfies Record<SiteKey, string> as Record<SiteKey, string>
 
@@ -88,6 +102,18 @@ export const githubRepos = {
 		repo: 'ShiroSU'
 	},
 	newtech: {
+		owner: 'OOM-WG',
+		repo: 'ShiroSU'
+	},
+	flasher: {
+		owner: 'OOM-WG',
+		repo: 'ShiroSU'
+	},
+	fetcher: {
+		owner: 'OOM-WG',
+		repo: 'ShiroSU'
+	},
+	library: {
 		owner: 'OOM-WG',
 		repo: 'ShiroSU'
 	},

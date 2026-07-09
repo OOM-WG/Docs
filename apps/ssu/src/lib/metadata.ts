@@ -1,6 +1,6 @@
 import { type Metadata, type MetadataRoute } from 'next'
 
-import { baseHost, getContent, getSiteConfigs, siteOrder, type SiteKey } from '@/content/site'
+import { baseHost, getSiteConfigs, siteOrder, type SiteKey } from '@/content/site'
 import { locales, type Locale } from '@/i18n/routing'
 
 import { localizePathname } from './locale-path'
@@ -16,7 +16,7 @@ export const languageAlternatesFor = (site: SiteKey, pathname = '/') =>
 		['x-default', canonicalFor(site, 'zh-Hans', pathname)] as const
 	]) as NonNullable<NonNullable<MetadataRoute.Sitemap[number]['alternates']>['languages']>
 
-export const pageMetadata = (
+export const siteMetadata = (
 	site: SiteKey,
 	locale: Locale,
 	pathname = '/',
@@ -98,13 +98,8 @@ export const pageMetadata = (
 	} satisfies Metadata as Metadata
 }
 
-export const aboutMetadata = (locale: Locale) => {
-	const about = getContent(locale).about
-	return pageMetadata('main', locale, '/about', {
-		title: about.title,
-		description: about.description
-	})
-}
+export const pageMetadata = (locale: Locale, pathname: string, title: string, description: string) =>
+	siteMetadata('main', locale, `/${pathname}`, { title, description })
 
 export const sitemapEntries = () => {
 	const lastModified = new Date()
@@ -118,6 +113,11 @@ export const sitemapEntries = () => {
 			site: 'main',
 			pathname: '/about',
 			priority: 0.99
+		},
+		{
+			site: 'main',
+			pathname: '/security',
+			priority: 0.88
 		}
 	] satisfies { pathname: string; priority: number; site: SiteKey }[]
 

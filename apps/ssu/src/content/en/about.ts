@@ -1,7 +1,6 @@
-import type { AboutContent } from '../site'
+import { type PageContent } from '../site'
 
-export const about = {
-	eyebrow: 'About',
+export const content = {
 	title: 'About the ShiroSU Series',
 	description: 'Notes about the ShiroSU Series'
-} satisfies AboutContent
+} satisfies PageContent

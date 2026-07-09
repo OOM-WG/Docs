@@ -3,8 +3,8 @@ import { getLocaleFromParams } from '@/i18n/locale'
 import { siteMetadata } from '@/lib/metadata'
 
 export const generateMetadata = async ({ params }: PageProps<'/[locale]'>) =>
-	siteMetadata('utils', getLocaleFromParams((await params).locale))
+	siteMetadata('library', getLocaleFromParams((await params).locale))
 
 export default async ({ params }: PageProps<'/[locale]'>) => (
-	<LandingPage site='utils' locale={getLocaleFromParams((await params).locale)} />
+	<LandingPage site='library' locale={getLocaleFromParams((await params).locale)} />
 )

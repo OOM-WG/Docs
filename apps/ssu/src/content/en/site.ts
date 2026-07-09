@@ -1,7 +1,24 @@
-import { AppWindow, Blocks, DatabaseZap, EyeOff, FolderCog, Layers, Link, PackageOpen, Router, ShieldCog } from 'lucide-react'
+import {
+	AppWindow,
+	Blocks,
+	DatabaseZap,
+	EyeOff,
+	FolderCog,
+	Gauge,
+	Layers,
+	Link,
+	MonitorSmartphone,
+	PackageOpen,
+	Router,
+	ShieldCog,
+	Toolbox,
+	Usb,
+	Wrench
+} from 'lucide-react'
 
 import type { LocaleContent, ProjectCard, SiteConfig, SiteKey } from '../site'
-import { about } from './about'
+import { content as AboutContent } from './about'
+import { content as SecurityContent } from './security'
 
 const siteConfigs = {
 	main: {
@@ -34,7 +51,7 @@ const siteConfigs = {
 			{
 				title: 'Web connectivity',
 				description:
-					'Manage root through a web manager, with frontend and backend separation making LAN access straightforward',
+					'Manage root through a web manager, with frontend and backend separation making LAN access straightforward; Browser PWA support lets the page be installed on a device, keeping it easy to use and update',
 				icon: AppWindow
 			},
 			{
@@ -79,6 +96,78 @@ const siteConfigs = {
 				icon: Link
 			}
 		]
+	},
+	flasher: {
+		key: 'flasher',
+		name: 'Flasher',
+		shortTitle: 'SSU Flash',
+		summary: 'Install-free web flasher',
+		description: 'A WebUSB-based web flashing tool that lets you flash devices directly from the browser',
+		keywords: ['ShiroSU Flasher', 'SSU Flash', 'ShiroSU web flashing', 'SSU web flashing'],
+		hero: {
+			description:
+				'(In development) Connect devices through WebUSB in Chromium-based browsers and flash them directly from the web'
+		},
+		features: [
+			{
+				title: 'WebUSB connection',
+				description:
+					'Connect devices from the browser without local adb or fastboot binaries, while device drivers are still required',
+				icon: Usb
+			},
+			{
+				title: 'Rich feature set',
+				description: 'Connect through adb or fastboot, with support for common actions such as unlocking and flashing',
+				icon: Toolbox
+			},
+			{
+				title: 'Easy web app',
+				description: 'Browser PWA support lets the page be installed on a device, keeping it easy to use and update',
+				icon: AppWindow
+			}
+		]
+	},
+	fetcher: {
+		key: 'fetcher',
+		name: 'Fetcher',
+		shortTitle: 'SSU Fetch',
+		summary: 'Lightweight device information fetcher',
+		description: 'A Rust no_std based device information fetcher that can run from the command line or be used as a library',
+		keywords: ['ShiroSU Fetcher', 'SSU Fetch', 'ShiroSU device information', 'SSU device information'],
+		hero: {
+			description:
+				'(In development) A lightweight, low-level device information fetcher focused on display and debugging use cases'
+		},
+		features: [
+			{
+				title: 'Lightweight and fast',
+				description: 'The core is written in Rust no_std for a leaner footprint and predictable performance',
+				icon: Gauge
+			},
+			{
+				title: 'Multi-platform adaptation',
+				description: 'Collects what each platform can provide, with deeper Android-specific support',
+				icon: MonitorSmartphone
+			},
+			{
+				title: 'Multiple uses',
+				description:
+					'Can display information from the command line in daily use, or be used as a library to gather debug information when needed',
+				icon: Wrench
+			}
+		]
+	},
+	library: {
+		key: 'library',
+		name: 'Library',
+		shortTitle: 'SSU Lib',
+		summary: 'Root integration wrapper library',
+		description: 'A wrapper library mainly for root implementations, simplifying parts of the integration process',
+		keywords: ['ShiroSU Library', 'SSU Lib'],
+		hero: {
+			description: '(In development) An Android Kotlin library focused on wrapping root integration'
+		},
+		features: []
 	},
 	utils: {
 		key: 'utils',
@@ -130,6 +219,24 @@ const projectCards = [
 		icon: Layers
 	},
 	{
+		site: 'flasher',
+		title: 'ShiroSU Flasher',
+		description: siteConfigs.flasher.description,
+		icon: Usb
+	},
+	{
+		site: 'fetcher',
+		title: 'ShiroSU Fetcher',
+		description: siteConfigs.fetcher.description,
+		icon: Gauge
+	},
+	{
+		site: 'library',
+		title: 'ShiroSU Library',
+		description: siteConfigs.library.description,
+		icon: PackageOpen
+	},
+	{
 		site: 'utils',
 		title: 'ShiroSU Utils',
 		description: siteConfigs.utils.description,
@@ -138,13 +245,14 @@ const projectCards = [
 ] satisfies ProjectCard[] as ProjectCard[]
 
 export const content = {
-	about,
+	about: AboutContent,
+	security: SecurityContent,
 	projectCards,
 	siteConfigs,
 	ui: {
 		nav: {
 			about: 'About',
-			organization: 'Organization',
+			security: 'Security',
 			projects: 'Projects',
 			language: 'Language'
 		},
