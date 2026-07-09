@@ -22,6 +22,10 @@ const getProjectRedirect = (req: NextRequest) => {
 	const url = req.nextUrl.clone()
 	const host = req.headers.get('host')?.split(':')[0]?.toLowerCase()
 	if (!host) return null
+	if (host === `static.${baseHost}`) {
+		url.hostname = baseHost
+		return NextResponse.redirect(url, 301)
+	}
 	if (host !== baseHost && !host.endsWith(`.${baseHost}`)) return null
 
 	const { locale, project, rest } = splitPath(url.pathname)
@@ -31,7 +35,7 @@ const getProjectRedirect = (req: NextRequest) => {
 	if (host === baseHost || host === projectHost) {
 		url.hostname = projectHost
 		url.pathname = localizePathname(`/${rest.join('/')}`, locale ?? defaultLocale)
-		return NextResponse.redirect(url, 308)
+		return NextResponse.redirect(url, 301)
 	}
 
 	return null
@@ -40,5 +44,5 @@ const getProjectRedirect = (req: NextRequest) => {
 export const proxy = (req: NextRequest) => getProjectRedirect(req) ?? handleI18nRouting(req)
 
 export const config = {
-	matcher: ['/((?!api|_next|_vercel|icon|.*\\..*).*)']
+	matcher: ['/((?!api|_next|_vercel|icon|opengraph-image|.*\\..*).*)']
 }
