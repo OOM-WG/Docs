@@ -1,5 +1,6 @@
 @import '@fontsource-variable/ubuntu-sans';
 @import '@fontsource-variable/jetbrains-mono';
+@import '@chinese-fonts/hcqyt/dist/ChillRoundFRegular/result.css';
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/vitepress.css';
 @import 'fumadocs-ui/css/preset.css';
@@ -31,7 +32,7 @@
 }
 
 @theme {
-	--font-sans: 'Ubuntu Sans Variable', 'Ubuntu Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--font-sans: 'Ubuntu Sans Variable', 'Ubuntu Sans', 寒蝉全圆体, ui-sans-serif, system-ui, -apple-system, sans-serif;
 	--font-mono:
 		'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace, ui-sans-serif, system-ui, -apple-system, sans-serif;
 }

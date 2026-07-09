@@ -12,6 +12,7 @@
 		"typecheck": "bun run assets && tsc --noEmit"
 	},
 	"dependencies": {
+		"@chinese-fonts/hcqyt": "^2.0.0",
 		"@icons-pack/react-simple-icons": "^13.13.0",
 		"d3-force": "^3.0.0",
 		"fumadocs-core": "^16.11.1",
