@@ -26,8 +26,9 @@
 		"format": "vp fmt && prettier --write 'nav/**/*.astro'"
 	},
 	"devDependencies": {
+		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
 		"postcss-html": "^1.8.1",
-		"prettier": "^3.9.4",
+		"prettier": "^3.9.5",
 		"prettier-plugin-astro": "^0.14.1",
 		"stylelint": "^17.14.0",
 		"stylelint-config-astro": "^2.0.0",
