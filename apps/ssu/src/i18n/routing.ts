@@ -14,7 +14,8 @@ export const localeLabels = {
 export const routing = defineRouting({
 	locales,
 	defaultLocale,
-	localePrefix: 'as-needed'
+	localePrefix: 'as-needed',
+	localeDetection: false
 })
 
 export const isLocale = (locale?: string): locale is Locale => (locales as readonly string[]).includes(locale ?? '')
