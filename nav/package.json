@@ -6,8 +6,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "astro dev",
-		"build": "astro check && astro build",
+		"build": "astro build",
 		"preview": "astro preview",
+		"prepare": "astro sync",
 		"typecheck": "astro check"
 	},
 	"dependencies": {
