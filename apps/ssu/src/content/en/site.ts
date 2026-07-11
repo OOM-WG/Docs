@@ -16,25 +16,24 @@ import {
 	Wrench
 } from 'lucide-react'
 
-import type { LocaleContent, ProjectCard, SiteConfig, SiteKey } from '../site'
+import type { LocaleContent, MainConfig, ProjectCard, ProjectConfig, ProjectKey } from '../site'
 import { content as AboutContent } from './about'
 import { content as SecurityContent } from './security'
 
-const siteConfigs = {
-	main: {
-		key: 'main',
-		name: 'ShiroSU Series',
-		shortName: 'SSU',
-		shortTitle: 'SSU',
-		summary: 'Improving the Android experience',
-		description: 'A series of projects built to improve the Android experience',
-		keywords: ['ShiroSU', 'SSU', 'Android', 'root', 'flashing', 'tinkering'],
-		hero: {
-			description:
-				'A family of root utilities and Android tinkering tools that makes each project easier to use and the overall experience more complete'
-		},
-		features: []
-	},
+const mainConfig = {
+	name: 'ShiroSU Series',
+	shortName: 'SSU',
+	shortTitle: 'SSU',
+	summary: 'Improving the Android experience',
+	description: 'A series of projects built to improve the Android experience',
+	keywords: ['ShiroSU', 'SSU', 'Android', 'root', 'flashing', 'tinkering'],
+	hero: {
+		description:
+			'A family of root utilities and Android tinkering tools that makes each project easier to use and the overall experience more complete'
+	}
+} satisfies MainConfig
+
+const projectConfigs = {
 	newtech: {
 		key: 'newtech',
 		name: 'NewTech',
@@ -46,6 +45,11 @@ const siteConfigs = {
 		hero: {
 			description:
 				'A low-intrusion userspace root implementation with WebUI management and a whitelist mechanism for strong concealment'
+		},
+		jsonLd: {
+			type: 'WebApplication',
+			applicationCategory: 'SecurityApplication',
+			operatingSystem: 'Android'
 		},
 		features: [
 			{
@@ -78,6 +82,11 @@ const siteConfigs = {
 		hero: {
 			description:
 				'Privilege and module management for multiple root implementations, keeping the experience consistent across them'
+		},
+		jsonLd: {
+			type: 'SoftwareApplication',
+			applicationCategory: 'SecurityApplication',
+			operatingSystem: 'Android'
 		},
 		features: [
 			{
@@ -182,6 +191,11 @@ const siteConfigs = {
 			description:
 				'A multi-platform toolkit covering multiple permission levels and broader Android tinkering scenarios with small utilities'
 		},
+		jsonLd: {
+			type: 'SoftwareApplication',
+			applicationCategory: 'UtilitiesApplication',
+			operatingSystem: 'Android'
+		},
 		features: [
 			{
 				title: 'Multiple permission levels',
@@ -203,43 +217,43 @@ const siteConfigs = {
 			}
 		]
 	}
-} satisfies Record<SiteKey, SiteConfig> as Record<SiteKey, SiteConfig>
+} satisfies Record<ProjectKey, ProjectConfig> as Record<ProjectKey, ProjectConfig>
 
 const projectCards = [
 	{
-		site: 'newtech',
+		project: 'newtech',
 		title: 'ShiroSU NewTech',
-		description: siteConfigs.newtech.description,
+		description: projectConfigs.newtech.description,
 		icon: Router
 	},
 	{
-		site: 'compat',
+		project: 'compat',
 		title: 'ShiroSU Compat',
-		description: siteConfigs.compat.description,
+		description: projectConfigs.compat.description,
 		icon: Layers
 	},
 	{
-		site: 'flasher',
+		project: 'flasher',
 		title: 'ShiroSU Flasher',
-		description: siteConfigs.flasher.description,
+		description: projectConfigs.flasher.description,
 		icon: Usb
 	},
 	{
-		site: 'fetcher',
+		project: 'fetcher',
 		title: 'ShiroSU Fetcher',
-		description: siteConfigs.fetcher.description,
+		description: projectConfigs.fetcher.description,
 		icon: Gauge
 	},
 	{
-		site: 'library',
+		project: 'library',
 		title: 'ShiroSU Library',
-		description: siteConfigs.library.description,
+		description: projectConfigs.library.description,
 		icon: PackageOpen
 	},
 	{
-		site: 'utils',
+		project: 'utils',
 		title: 'ShiroSU Utils',
-		description: siteConfigs.utils.description,
+		description: projectConfigs.utils.description,
 		icon: FolderCog
 	}
 ] satisfies ProjectCard[] as ProjectCard[]
@@ -248,7 +262,8 @@ export const content = {
 	about: AboutContent,
 	security: SecurityContent,
 	projectCards,
-	siteConfigs,
+	mainConfig,
+	projectConfigs,
 	ui: {
 		nav: {
 			about: 'About',

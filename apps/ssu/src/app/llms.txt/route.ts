@@ -1,24 +1,24 @@
-import { baseHost, docsLinks, getSiteConfigs, githubRepos, projects, type SiteKey } from '@/content/site'
+import { type ProjectKey, baseHost, docsLinks, getContent, githubRepos, projects } from '@/content/site'
 
 export const dynamic = 'force-static'
 
-const projectLinksFor = (site: Exclude<SiteKey, 'main'>) => {
-	const config = getSiteConfigs('en')[site]
-	const repo = githubRepos[site]
+const projectLinksFor = (project: ProjectKey) => {
+	const config = getContent('en').projectConfigs[project]
+	const repo = githubRepos[project]
 
 	return [
 		`### ShiroSU ${config.name}`,
 		'',
 		`> ${config.description}`,
 		'',
-		`- [Homepage](https://${site}.${baseHost}/en): Project official website entry`,
-		`- [Documentation](${docsLinks[site]}): Project official documentation`,
+		`- [Homepage](https://${baseHost}/en/${project}): Project official website entry`,
+		`- [Documentation](${docsLinks[project]}): Project official documentation`,
 		`- [GitHub](https://github.com/${repo.owner}/${repo.repo}): Project GitHub repo`
 	].join('\n')
 }
 
 const llmsMd = () => {
-	const mainConfig = getSiteConfigs('en').main
+	const mainConfig = getContent('en').mainConfig
 	const homepage = `https://${baseHost}/en`
 	const about = `https://${baseHost}/en/about`
 	const security = `https://${baseHost}/en/security`

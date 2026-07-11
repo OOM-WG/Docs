@@ -14,10 +14,10 @@ import { type ComponentPropsWithoutRef } from 'react'
 
 import { GraphView } from '@/components/graph-view'
 import ImageZoom from '@/components/image-zoom'
-import { SiteLink } from '@/components/site-link'
+import { Link as LocalizedLink } from '@/i18n/routing'
 
 export const mdxComponents = {
-	SiteLink,
+	LocalizedLink,
 	...defaultMdxComponents,
 	...AccordionWidgets,
 	...CodeBlockWidgets,

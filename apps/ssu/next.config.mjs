@@ -6,9 +6,6 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
 
 export default withNextIntl(
 	withMDX({
-		assetPrefix: process.env.NODE_ENV === 'production' ? '//static.shirosu.my.id' : undefined,
-		crossOrigin: 'anonymous',
-		images: { unoptimized: true },
 		reactStrictMode: true,
 		allowedDevOrigins: ['127.0.0.1'],
 		experimental: {

@@ -1,5 +1,7 @@
+import { hasLocale } from 'next-intl'
 import { createNavigation } from 'next-intl/navigation'
 import { defineRouting } from 'next-intl/routing'
+import { notFound } from 'next/navigation'
 
 export const locales = ['zh-Hans', 'zh-Hant', 'en'] as const
 export type Locale = (typeof locales)[number]
@@ -21,3 +23,5 @@ export const routing = defineRouting({
 export const isLocale = (locale?: string): locale is Locale => (locales as readonly string[]).includes(locale ?? '')
 
 export const { Link, redirect, usePathname, useRouter } = createNavigation(routing)
+
+export const getLocaleFromParams = (locale: string) => (hasLocale(routing.locales, locale) ? locale : notFound())

@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import { useMemo, useTransition } from 'react'
 
-import { localeLabels, locales, type Locale, usePathname, useRouter } from '@/i18n/routing'
+import { type Locale, localeLabels, locales, usePathname, useRouter } from '@/i18n/routing'
 
 type SwitcherHref = Parameters<ReturnType<typeof useRouter>['replace']>[0]
 

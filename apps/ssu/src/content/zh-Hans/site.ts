@@ -16,24 +16,23 @@ import {
 	Wrench
 } from 'lucide-react'
 
-import type { LocaleContent, ProjectCard, SiteConfig, SiteKey } from '../site'
+import type { LocaleContent, MainConfig, ProjectCard, ProjectConfig, ProjectKey } from '../site'
 import { content as AboutContent } from './about'
 import { content as SecurityContent } from './security'
 
-const siteConfigs = {
-	main: {
-		key: 'main',
-		name: 'ShiroSU 系列',
-		shortName: 'SSU',
-		shortTitle: 'SSU',
-		summary: '助力 Android 使用体验提升',
-		description: '致力于 Android 使用体验提升的系列项目',
-		keywords: ['ShiroSU', 'SSU', 'ShiroSU 官网', 'SSU 官网', 'Android', 'root', '刷机', '玩机'],
-		hero: {
-			description: '以系列中各个项目提供更易上手的 root 使用方式或玩机工具，让 Android 玩机体验更完整'
-		},
-		features: []
-	},
+const mainConfig = {
+	name: 'ShiroSU 系列',
+	shortName: 'SSU',
+	shortTitle: 'SSU',
+	summary: '助力 Android 使用体验提升',
+	description: '致力于 Android 使用体验提升的系列项目',
+	keywords: ['ShiroSU', 'SSU', 'ShiroSU 官网', 'SSU 官网', 'Android', 'root', '刷机', '玩机'],
+	hero: {
+		description: '以系列中各个项目提供更易上手的 root 使用方式或玩机工具，让 Android 玩机体验更完整'
+	}
+} satisfies MainConfig
+
+const projectConfigs = {
 	newtech: {
 		key: 'newtech',
 		name: 'NewTech',
@@ -43,6 +42,11 @@ const siteConfigs = {
 		keywords: ['ShiroSU NewTech', 'SSU NT', 'ShiroSU root', 'SSU root'],
 		hero: {
 			description: '纯用户态低侵入性 root 实现，采用 WebUI 管理结合白名单机制实现高隐蔽性设计'
+		},
+		jsonLd: {
+			type: 'WebApplication',
+			applicationCategory: 'SecurityApplication',
+			operatingSystem: 'Android'
 		},
 		features: [
 			{
@@ -72,6 +76,11 @@ const siteConfigs = {
 		keywords: ['ShiroSU Compat', 'SSU Compat', 'ShiroSU 管理器', 'SSU 管理器'],
 		hero: {
 			description: '面向多种 root 实现提供权能与模块管理，在多种 root 实现间始终保持一致性体验'
+		},
+		jsonLd: {
+			type: 'SoftwareApplication',
+			applicationCategory: 'SecurityApplication',
+			operatingSystem: 'Android'
 		},
 		features: [
 			{
@@ -171,6 +180,11 @@ const siteConfigs = {
 			title: '苏柚 / SUU',
 			description: '以多权限、多平台和小工具集合覆盖更广泛的 Android 玩机场景，让各场景下的 Android 玩机都能更进一步'
 		},
+		jsonLd: {
+			type: 'SoftwareApplication',
+			applicationCategory: 'UtilitiesApplication',
+			operatingSystem: 'Android'
+		},
 		features: [
 			{
 				title: '多权限覆盖',
@@ -189,43 +203,43 @@ const siteConfigs = {
 			}
 		]
 	}
-} satisfies Record<SiteKey, SiteConfig> as Record<SiteKey, SiteConfig>
+} satisfies Record<ProjectKey, ProjectConfig> as Record<ProjectKey, ProjectConfig>
 
 const projectCards = [
 	{
-		site: 'newtech',
+		project: 'newtech',
 		title: 'ShiroSU NewTech',
-		description: siteConfigs.newtech.description,
+		description: projectConfigs.newtech.description,
 		icon: Router
 	},
 	{
-		site: 'compat',
+		project: 'compat',
 		title: 'ShiroSU Compat',
-		description: siteConfigs.compat.description,
+		description: projectConfigs.compat.description,
 		icon: Layers
 	},
 	{
-		site: 'flasher',
+		project: 'flasher',
 		title: 'ShiroSU Flasher',
-		description: siteConfigs.flasher.description,
+		description: projectConfigs.flasher.description,
 		icon: Usb
 	},
 	{
-		site: 'fetcher',
+		project: 'fetcher',
 		title: 'ShiroSU Fetcher',
-		description: siteConfigs.fetcher.description,
+		description: projectConfigs.fetcher.description,
 		icon: Gauge
 	},
 	{
-		site: 'library',
+		project: 'library',
 		title: 'ShiroSU Library',
-		description: siteConfigs.library.description,
+		description: projectConfigs.library.description,
 		icon: PackageOpen
 	},
 	{
-		site: 'utils',
+		project: 'utils',
 		title: 'ShiroSU Utils (苏柚)',
-		description: siteConfigs.utils.description,
+		description: projectConfigs.utils.description,
 		icon: FolderCog
 	}
 ] satisfies ProjectCard[] as ProjectCard[]
@@ -234,7 +248,8 @@ export const content = {
 	about: AboutContent,
 	security: SecurityContent,
 	projectCards,
-	siteConfigs,
+	mainConfig,
+	projectConfigs,
 	ui: {
 		nav: {
 			about: '关于',

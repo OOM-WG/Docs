@@ -23,7 +23,7 @@
 		"nav:preview": "bun run --cwd nav preview",
 		"check": "vp check",
 		"lint": "vp lint && stylelint '**/src/**/*.{css,astro}'",
-		"format": "vp fmt && prettier --write 'nav/**/*.astro'"
+		"format": "prettier --write '**/*{mdx,js,jsx,ts,tsx,astro}' && vp fmt"
 	},
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "^6.0.2",

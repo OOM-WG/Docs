@@ -3,7 +3,7 @@
 import { forceCollide, forceLink, forceManyBody } from 'd3-force'
 import { useRouter } from 'fumadocs-core/framework'
 import { useLocale } from 'next-intl'
-import { lazy, type RefObject, useEffect, useMemo, useRef, useState } from 'react'
+import { type RefObject, lazy, useEffect, useMemo, useRef, useState } from 'react'
 import type { ForceGraphMethods, ForceGraphProps, LinkObject, NodeObject } from 'react-force-graph-2d'
 
 import { type Locale } from '@/i18n/routing'

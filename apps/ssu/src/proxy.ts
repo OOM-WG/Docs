@@ -1,48 +1,36 @@
 import createMiddleware from 'next-intl/middleware'
-import { NextResponse, type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
-import { baseHost, projects } from '@/content/site'
-import { defaultLocale, isLocale, routing } from '@/i18n/routing'
-import { localizePathname } from '@/lib/locale-path'
+import { baseHost, isProject } from '@/content/site'
+import { isLocale, routing } from '@/i18n/routing'
 
 const handleI18nRouting = createMiddleware(routing)
 
-const splitPath = (pathname: string) => {
+const getLocaleByPath = (pathname: string) => {
 	const segments = pathname.split('/').filter(Boolean)
 	const first = segments[0]
 	const locale = isLocale(first) ? first : null
-	const projectIndex = locale ? 1 : 0
-	const project = segments[projectIndex]
-	const rest = segments.slice(projectIndex + 1)
-
-	return { locale, project, rest }
+	return { locale, isRoot: segments.length === (locale ? 1 : 0) }
 }
 
 const getProjectRedirect = (req: NextRequest) => {
 	const url = req.nextUrl.clone()
 	const host = req.headers.get('host')?.split(':')[0]?.toLowerCase()
-	if (!host) return null
-	if (host === `static.${baseHost}`) {
-		url.hostname = baseHost
-		return NextResponse.redirect(url, 301)
-	}
-	if (host !== baseHost && !host.endsWith(`.${baseHost}`)) return null
+	if (!host?.endsWith(`.${baseHost}`)) return null
 
-	const { locale, project, rest } = splitPath(url.pathname)
-	if (!project || !(projects as readonly string[]).includes(project)) return null
+	const project = host.slice(0, -`.${baseHost}`.length)
+	if (!isProject(project)) return null
 
-	const projectHost = `${project}.${baseHost}`
-	if (host === baseHost || host === projectHost) {
-		url.hostname = projectHost
-		url.pathname = localizePathname(`/${rest.join('/')}`, locale ?? defaultLocale)
-		return NextResponse.redirect(url, 301)
-	}
-
-	return null
+	const { locale, isRoot } = getLocaleByPath(url.pathname)
+	url.hostname = baseHost
+	if (isRoot) {
+		url.pathname = locale ? `/${locale}/${project}` : `/${project}`
+		return NextResponse.redirect(url, 307)
+	} else return NextResponse.redirect(url, 308)
 }
 
 export const proxy = (req: NextRequest) => getProjectRedirect(req) ?? handleI18nRouting(req)
 
 export const config = {
-	matcher: ['/((?!api|_next|_vercel|icon|opengraph-image|.*\\..*).*)']
+	matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { lazy, Suspense, useMemo, useRef, useSyncExternalStore } from 'react'
+import { Suspense, lazy, useMemo, useRef, useSyncExternalStore } from 'react'
 
 export interface Graph {
 	links: GraphViewLink[]

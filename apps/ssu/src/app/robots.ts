@@ -1,6 +1,6 @@
 import { type MetadataRoute } from 'next'
 
-import { baseHost } from '@/content/site'
+import { baseHost as host } from '@/content/site'
 
 export default () =>
 	({
@@ -8,5 +8,6 @@ export default () =>
 			userAgent: '*',
 			allow: '/'
 		},
-		sitemap: `https://${baseHost}/sitemap.xml`
+		host,
+		sitemap: `https://${host}/sitemap.xml`
 	}) satisfies MetadataRoute.Robots

@@ -1,4 +1,4 @@
-import { defaultLocale, isLocale, type Locale } from '@/i18n/routing'
+import { type Locale, defaultLocale, isLocale } from '@/i18n/routing'
 
 export const getLocalePrefix = (locale: Locale) => (locale === defaultLocale ? '' : `/${locale}`)
 

@@ -1,12 +1,15 @@
 import { type LucideIcon } from 'lucide-react'
+import { notFound } from 'next/navigation'
+import type { SoftwareApplication } from 'schema-dts'
 
-import { defaultLocale, isLocale, type Locale } from '@/i18n/routing'
+import { type Locale, defaultLocale, isLocale } from '@/i18n/routing'
 
 import { content as enContent } from './en/site'
 import { content as zhHansContent } from './zh-Hans/site'
 import { content as zhHantContent } from './zh-Hant/site'
 
 export type SiteKey = 'main' | 'compat' | 'newtech' | 'flasher' | 'fetcher' | 'library' | 'utils'
+export type ProjectKey = Exclude<SiteKey, 'main'>
 
 export type SiteFeature = {
 	title: string
@@ -14,8 +17,13 @@ export type SiteFeature = {
 	icon: LucideIcon
 }
 
+export type JsonLdConfig = {
+	type: SoftwareApplication['@type']
+	applicationCategory: SoftwareApplication['applicationCategory']
+	operatingSystem: SoftwareApplication['operatingSystem']
+}
+
 export type SiteConfig = {
-	key: SiteKey
 	name: string
 	shortName?: string
 	shortTitle: string
@@ -26,11 +34,18 @@ export type SiteConfig = {
 		title?: string
 		description: string
 	}
+	jsonLd?: JsonLdConfig
+}
+
+export type MainConfig = SiteConfig
+
+export type ProjectConfig = SiteConfig & {
+	key: ProjectKey
 	features: SiteFeature[]
 }
 
 export type ProjectCard = {
-	site: Exclude<SiteKey, 'main'>
+	project: ProjectKey
 	title: string
 	description: string
 	icon: LucideIcon
@@ -65,26 +80,25 @@ export type LocaleContent = {
 	about: PageContent
 	security: PageContent
 	projectCards: ProjectCard[]
-	siteConfigs: Record<SiteKey, SiteConfig>
+	mainConfig: MainConfig
+	projectConfigs: Record<ProjectKey, ProjectConfig>
 	ui: UiContent
 }
 
 export const baseHost = 'shirosu.my.id'
 
-export const projects = ['newtech', 'compat', 'flasher', 'fetcher', 'library', 'utils'] as const satisfies readonly Exclude<
-	SiteKey,
-	'main'
->[]
-
-export const siteOrder = [
-	'main',
+export const projects = [
 	'newtech',
 	'compat',
 	'flasher',
 	'fetcher',
 	'library',
 	'utils'
-] satisfies readonly SiteKey[] as readonly SiteKey[]
+] as const satisfies readonly ProjectKey[]
+
+export const isProject = (project: string): project is ProjectKey => (projects as readonly string[]).includes(project)
+
+export const projectName = (config: ProjectConfig) => `ShiroSU ${config.name}`
 
 export const docsLinks = {
 	main: 'https://oom-wg.dev/ssu',
@@ -121,7 +135,7 @@ export const githubRepos = {
 		owner: 'OOM-WG',
 		repo: 'ShiroSU-Utils'
 	}
-} satisfies Record<Exclude<SiteKey, 'main'>, GithubRepo> as Record<Exclude<SiteKey, 'main'>, GithubRepo>
+} satisfies Record<ProjectKey, GithubRepo> as Record<ProjectKey, GithubRepo>
 
 export const contentByLocale = {
 	'zh-Hans': zhHansContent,
@@ -131,6 +145,10 @@ export const contentByLocale = {
 
 export const getContent = (locale: Locale = defaultLocale) => contentByLocale[isLocale(locale) ? locale : defaultLocale]
 
-export const getSiteConfigs = (locale: Locale = defaultLocale) => getContent(locale).siteConfigs
+export const getMainConfig = (locale: Locale = defaultLocale) => getContent(locale).mainConfig
+
+export const getProjectConfigs = (locale: Locale = defaultLocale) => getContent(locale).projectConfigs
 
 export const getProjectCards = (locale: Locale = defaultLocale) => getContent(locale).projectCards
+
+export const getProjectFromParams = (project: string) => (isProject(project) ? project : notFound())
