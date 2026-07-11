@@ -1,6 +1,3 @@
-@import '@fontsource-variable/ubuntu-sans';
-@import '@fontsource-variable/jetbrains-mono';
-@import '@chinese-fonts/hcqyt/dist/ChillRoundFRegular/result.css';
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/vitepress.css';
 @import 'fumadocs-ui/css/preset.css';

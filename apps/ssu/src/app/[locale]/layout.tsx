@@ -9,13 +9,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { type ReactNode } from 'react'
 
+import { DeferredFonts } from '@/components/deferred-fonts'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { baseHost, getContent, projects } from '@/content/site'
 import { getLocaleFromParams } from '@/i18n/locale'
 import { routing } from '@/i18n/routing'
 import { getSiteFromHost, getSiteHref } from '@/lib/routing'
 
-import '../globals.css'
+import '@/styles/globals.css'
 
 import ssuLogo from '../../../../../docs/images/logo/ssu.webp'
 import suuLogo from '../../../../../docs/images/logo/suu.webp'
@@ -57,6 +58,7 @@ export default async ({ children, params }: LayoutProps<'/[locale]'>) => {
 	return (
 		<html lang={locale} suppressHydrationWarning>
 			<head>{process.env.NODE_ENV === 'production' && <script defer src='//☁️.ja7.top/🍥.js?ms=xf0q5hpejz' />}</head>
+			<DeferredFonts />
 			<body>
 				<LayoutProviders>
 					<div className='flex min-h-dvh flex-col'>
