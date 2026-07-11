@@ -62,7 +62,7 @@ export default async ({ children, params }: LayoutProps<'/[locale]'>) => {
 			<body>
 				<LayoutProviders>
 					<div className='flex min-h-dvh flex-col'>
-						<header className='border-base-content/10 bg-base-100/88 sticky top-0 z-40 border-b backdrop-blur' data-nosnippet>
+						<header className='border-base-content/10 bg-base-100/88 sticky top-0 z-40 border-b backdrop-blur'>
 							<div className='navbar mx-auto w-full max-w-7xl gap-2 px-5 sm:px-8 lg:px-12 xl:px-14'>
 								<div className='navbar-start min-w-0 flex-1'>
 									<Link

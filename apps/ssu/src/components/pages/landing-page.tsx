@@ -121,7 +121,7 @@ const ProjectHero = ({ site, host, locale }: { site: Exclude<SiteKey, 'main'>; h
 				<p className='text-primary mb-4 text-sm font-semibold tracking-[0.22em] uppercase' data-nosnippet>
 					{config.summary}
 				</p>
-				<h1 className='max-w-4xl text-5xl leading-tight font-black sm:text-6xl' data-nosnippet>
+				<h1 className='max-w-4xl text-5xl leading-tight font-black sm:text-6xl'>
 					{config.hero.title ?? `ShiroSU ${config.name}`}
 				</h1>
 				<p className='text-base-content/72 mt-6 max-w-2xl text-lg leading-8'>{config.hero.description}</p>

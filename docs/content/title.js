@@ -14,29 +14,31 @@
 			document.querySelectorAll('img.nav-logo').forEach(img => (img.src = '/images/logo/oow.webp'))
 			document.querySelectorAll("link[rel*='icon']").forEach(link => {
 				link.href = '/images/logo/oow.ico'
-				link.type = 'image/x-icon'
+				link.removeAttribute('type')
 				link.removeAttribute('sizes')
 			})
 		}
+
+		const oow = '回忆溢出工作组'
+		if (!document.title.endsWith(` - ${oow}`)) return
 		for (const config of projects)
 			if (window.location.pathname.startsWith(config.path)) {
-				if (document.title.endsWith(` - ${config.name}`)) return
-				const oow = '回忆溢出工作组'
-				if (document.title.includes(` - ${oow}`)) {
-					document.title = document.title.replace(` - ${oow}`, ` - ${config.name}`)
-					if (!config.icon) {
-						set_default()
-						return
-					}
-					const icon = `/images/logo/${config.icon}`
-					document.querySelectorAll('img.nav-logo').forEach(img => (img.src = `${icon}.webp`))
-					document.querySelectorAll("link[rel*='icon']").forEach(link => {
-						link.href = `${icon}.ico`
-						link.type = 'image/x-icon'
-						link.removeAttribute('sizes')
-					})
+				document.title =
+					window.location.pathname === config.path
+						? `${config.name} - ${document.title.replace(` - ${oow}`, '')}`
+						: document.title.replace(` - ${oow}`, ` - ${config.name}`)
+				if (!config.icon) {
+					set_default()
 					return
 				}
+				const icon = `/images/logo/${config.icon}`
+				document.querySelectorAll('img.nav-logo').forEach(img => (img.src = `${icon}.webp`))
+				document.querySelectorAll("link[rel*='icon']").forEach(link => {
+					link.href = `${icon}.ico`
+					link.removeAttribute('type')
+					link.removeAttribute('sizes')
+				})
+				return
 			}
 		set_default()
 	}
