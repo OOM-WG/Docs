@@ -58,7 +58,7 @@ export default async function BaseLayout({
 				/>
 				<DeferredFonts />
 
-				{process.env.NODE_ENV === 'production' && <script defer src='//☁️.ja7.top/🍥.js?ms=xf0q5hpejz' />}
+				{process.env.NODE_ENV === 'production' && <script defer src='//☁.gal.tf/🍥.js?ms=xf0q5hpejz' />}
 			</head>
 
 			<body>

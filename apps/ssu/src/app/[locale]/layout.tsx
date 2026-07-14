@@ -9,7 +9,7 @@ export const metadata = {
 	metadataBase: new URL(`https://${baseHost}`),
 	verification: {
 		other: {
-			'baidu-site-verification': 'codeva-nXvaJYt4E0'
+			'baidu-site-verification': 'codeva-nXglycuJb6'
 		}
 	}
 } satisfies Metadata

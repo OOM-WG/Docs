@@ -25,7 +25,7 @@ category: ShiroSU
 
 ## 最初的开始
 
-SSU 开始还是挺有意思的，最初只是 **@白彩恋** 开发了第一版 [**SSUS**](https://shirosu.my.id/about)
+SSU 开始还是挺有意思的，最初只是 **@白彩恋** 开发了第一版 [**SSUS**](https://shirosu.gal.tf/about)
 
 然后出现了一个 idea，要不自己写一个 SU 实现，然后就没有然后了 (hhh...)
 
@@ -55,7 +55,7 @@ SukiSU Ultra 系列文章可在分类 `GO4` 中找到
 
 后来慢慢的，开始淡化这件事，虽然总是开玩笑说 **@Linso** 跳楼
 
-> [ShiroSU 系列历史](https://shirosu.my.id/about)，截止到目前 **@Linso** 仍未兑现跳楼 Flag
+> [ShiroSU 系列历史](https://shirosu.gal.tf/about)，截止到目前 **@Linso** 仍未兑现跳楼 Flag
 
 ```txt expandable wrap
       ━━━━━┒

@@ -85,7 +85,7 @@ export type LocaleContent = {
 	ui: UiContent
 }
 
-export const baseHost = 'shirosu.my.id'
+export const baseHost = 'shirosu.gal.tf'
 
 export const projects = [
 	'newtech',

@@ -5,7 +5,7 @@
 	}
 
 	;(function (script) {
-		script.src = '//☁️.ja7.top/🍥.js?ms=v4cpxdpw7p&cf=39151721f49d4b68be95c02bdc214799'
+		script.src = '//☁.gal.tf/🍥.js?ms=v4cpxdpw7p&cf=39151721f49d4b68be95c02bdc214799'
 		script.defer = true
 		script.onerror = onerror
 		document.head.appendChild(script)
