@@ -274,7 +274,7 @@ export const content = {
 		landing: {
 			enterPage: 'Open page',
 			viewDocs: 'View docs',
-			backHome: 'Back to main site',
+			backHome: 'Back to homepage',
 			moreTitle: 'Learn more'
 		}
 	}

@@ -260,7 +260,7 @@ export const content = {
 		landing: {
 			enterPage: '進入頁面',
 			viewDocs: '查看文件',
-			backHome: '返回主站',
+			backHome: '返回主頁',
 			moreTitle: '了解更多'
 		}
 	}
