@@ -19,6 +19,7 @@ import {
 import type { LocaleContent, MainConfig, ProjectCard, ProjectConfig, ProjectKey } from '../site'
 import { content as AboutContent } from './about'
 import { content as SecurityContent } from './security'
+import { content as WhyShiroSUContent } from './why-shirosu'
 
 const mainConfig = {
 	name: 'ShiroSU Series',
@@ -261,6 +262,7 @@ const projectCards = [
 export const content = {
 	about: AboutContent,
 	security: SecurityContent,
+	whyShiroSU: WhyShiroSUContent,
 	projectCards,
 	mainConfig,
 	projectConfigs,
@@ -275,7 +277,8 @@ export const content = {
 			enterPage: 'Open page',
 			viewDocs: 'View docs',
 			backHome: 'Back to homepage',
-			moreTitle: 'Learn more'
+			moreTitle: 'Learn more',
+			whyChoose: 'Why choose?'
 		}
 	}
 } satisfies LocaleContent

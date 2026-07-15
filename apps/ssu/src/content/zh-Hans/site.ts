@@ -19,6 +19,7 @@ import {
 import type { LocaleContent, MainConfig, ProjectCard, ProjectConfig, ProjectKey } from '../site'
 import { content as AboutContent } from './about'
 import { content as SecurityContent } from './security'
+import { content as WhyShiroSUContent } from './why-shirosu'
 
 const mainConfig = {
 	name: 'ShiroSU 系列',
@@ -247,6 +248,7 @@ const projectCards = [
 export const content = {
 	about: AboutContent,
 	security: SecurityContent,
+	whyShiroSU: WhyShiroSUContent,
 	projectCards,
 	mainConfig,
 	projectConfigs,
@@ -261,7 +263,8 @@ export const content = {
 			enterPage: '进入页面',
 			viewDocs: '查看文档',
 			backHome: '返回主页',
-			moreTitle: '了解更多'
+			moreTitle: '了解更多',
+			whyChoose: '为何选择？'
 		}
 	}
 } satisfies LocaleContent

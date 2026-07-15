@@ -73,12 +73,14 @@ export type UiContent = {
 		viewDocs: string
 		backHome: string
 		moreTitle: string
+		whyChoose: string
 	}
 }
 
 export type LocaleContent = {
 	about: PageContent
 	security: PageContent
+	whyShiroSU: PageContent
 	projectCards: ProjectCard[]
 	mainConfig: MainConfig
 	projectConfigs: Record<ProjectKey, ProjectConfig>

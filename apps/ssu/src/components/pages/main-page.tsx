@@ -27,7 +27,16 @@ export const MainPage = ({ locale }: { locale: Locale }) => {
 					<p className='text-primary mb-4 text-sm font-semibold tracking-[0.22em] uppercase' data-nosnippet>
 						{config.summary}
 					</p>
-					<h1 className='text-5xl leading-tight font-black sm:text-6xl'>{config.name}</h1>
+					<div className='flex flex-wrap items-end gap-x-2 gap-y-1'>
+						<h1 className='text-5xl leading-tight font-black sm:text-6xl'>{config.name}</h1>
+						<Link
+							className='btn btn-ghost btn-sm text-primary hover:bg-primary/12 mb-1 shrink-0 whitespace-nowrap'
+							href='/why-shirosu'
+							title={ui.landing.whyChoose}
+							data-nosnippet>
+							{ui.landing.whyChoose}
+						</Link>
+					</div>
 					<p className='text-base-content/72 mt-6 max-w-3xl text-lg leading-8'>{config.hero.description}</p>
 				</div>
 				<ul className='m-0 grid list-none gap-4 p-0 md:grid-cols-3'>
