@@ -1,6 +1,6 @@
 import type { AggregateRating, Graph, ItemList, Offer, Organization, SoftwareApplication } from 'schema-dts'
 
-import { type ProjectConfig, type ProjectKey, githubRepos, projectName, projects } from '@/content/site'
+import { type ProjectConfig, type ProjectKey, getProjectConfigs, githubRepos, projectName, projects } from '@/content/site'
 import { type Locale } from '@/i18n/routing'
 
 import { canonicalFor } from './metadata'
@@ -8,8 +8,20 @@ import { canonicalFor } from './metadata'
 const organization = {
 	'@type': 'Organization',
 	url: 'https://oom-wg.dev',
+	sameAs: ['https://github.com/OOM-WG', 'https://gitcode.com/OOM-WG'],
+	logo: 'https://oom-wg.dev/images/logo/oow.webp',
 	name: 'OOM WG',
-	description: 'OutOfMemories WorkGroup'
+	description: 'OutOfMemories WorkGroup',
+	email: 'oom@200ok.work',
+	contactPoint: {
+		'@type': 'ContactPoint',
+		email: 'oom@200ok.work'
+	},
+	numberOfEmployees: {
+		'@type': 'QuantitativeValue',
+		minValue: 6,
+		maxValue: 12
+	}
 } satisfies Organization
 
 const graphFor = (...nodes: Graph['@graph']) =>
@@ -42,10 +54,12 @@ export const getGithubStars = async (project: ProjectKey) => {
 export const mainJsonLd = (locale: Locale) =>
 	graphFor({
 		'@type': 'ItemList',
+		name: 'ShiroSU Projects',
 		itemListElement: projects.map((project, index) => ({
 			'@type': 'ListItem',
-			position: index + 1,
-			url: canonicalFor(locale, `/${project}`)
+			name: projectName(getProjectConfigs(locale)[project]),
+			url: canonicalFor(locale, `/${project}`),
+			position: index + 1
 		}))
 	} satisfies ItemList)
 
