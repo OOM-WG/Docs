@@ -27,7 +27,7 @@ const mainConfig = {
 	shortTitle: 'SSU',
 	summary: 'Improving the Android experience',
 	description: 'A series of projects built to improve the Android experience',
-	keywords: ['ShiroSU', 'SSU', 'Android', 'root', 'flashing', 'tinkering'],
+	keywords: ['SakiSU', 'ShiroSU', 'SSU', 'Android', 'root', 'flashing', 'tinkering'],
 	hero: {
 		description:
 			'A family of root utilities and Android tinkering tools that makes each project easier to use and the overall experience more complete'

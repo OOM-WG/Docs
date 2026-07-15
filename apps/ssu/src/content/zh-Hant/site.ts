@@ -27,7 +27,7 @@ const mainConfig = {
 	shortTitle: 'SSU',
 	summary: '助力 Android 使用體驗提升',
 	description: '致力於 Android 使用體驗提升的系列項目',
-	keywords: ['ShiroSU', 'SSU', 'Android', 'root', '刷機', '玩機'],
+	keywords: ['SakiSU', 'ShiroSU', 'SSU', 'Android', 'root', '刷機', '玩機'],
 	hero: {
 		description: '以系列中各個項目提供更易上手的 root 使用方式或玩機工具，讓 Android 玩機體驗更完整'
 	}

@@ -27,6 +27,8 @@ const llmsMd = () => {
 		'# ShiroSU Series',
 		'',
 		`> ${mainConfig.description}`,
+		'>',
+		'> (formerly SakiSU / SakitinSU)',
 		'',
 		`**Official website**: [${baseHost}](${homepage})`,
 		'',
