@@ -40,13 +40,14 @@ const projectConfigs = {
 		shortTitle: 'SSU NT',
 		summary: '自由互联的 root 实现',
 		description: '以安全性与便利性为先的 root 实现，WebUI 管理方式让互联更自由',
-		keywords: ['ShiroSU NewTech', 'SSU NT', 'ShiroSU root', 'SSU root'],
+		keywords: ['ShiroSU NT', 'SSU NT', 'ShiroSU root', 'SSU root'],
 		hero: {
 			description: '纯用户态低侵入性 root 实现，采用 WebUI 管理结合白名单机制实现高隐蔽性设计'
 		},
 		jsonLd: {
-			type: 'WebApplication',
+			'@type': 'WebApplication',
 			applicationCategory: 'SecurityApplication',
+			applicationSubCategory: 'DeveloperApplication',
 			operatingSystem: 'Android'
 		},
 		features: [
@@ -79,8 +80,9 @@ const projectConfigs = {
 			description: '面向多种 root 实现提供权能与模块管理，在多种 root 实现间始终保持一致性体验'
 		},
 		jsonLd: {
-			type: 'SoftwareApplication',
+			'@type': 'MobileApplication',
 			applicationCategory: 'SecurityApplication',
+			applicationSubCategory: 'UtilitiesApplication',
 			operatingSystem: 'Android'
 		},
 		features: [
@@ -182,7 +184,7 @@ const projectConfigs = {
 			description: '以多权限、多平台和小工具集合覆盖更广泛的 Android 玩机场景，让各场景下的 Android 玩机都能更进一步'
 		},
 		jsonLd: {
-			type: 'SoftwareApplication',
+			'@type': 'SoftwareApplication',
 			applicationCategory: 'UtilitiesApplication',
 			operatingSystem: 'Android'
 		},

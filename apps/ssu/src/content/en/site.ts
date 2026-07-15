@@ -42,14 +42,15 @@ const projectConfigs = {
 		summary: 'Root implementation with open connectivity',
 		description:
 			'A root implementation that puts security and convenience first, with WebUI management for more flexible connectivity',
-		keywords: ['ShiroSU NewTech', 'SSU NT', 'ShiroSU root', 'SSU root'],
+		keywords: ['ShiroSU NT', 'SSU NT', 'ShiroSU root', 'SSU root'],
 		hero: {
 			description:
 				'A low-intrusion userspace root implementation with WebUI management and a whitelist mechanism for strong concealment'
 		},
 		jsonLd: {
-			type: 'WebApplication',
+			'@type': 'WebApplication',
 			applicationCategory: 'SecurityApplication',
+			applicationSubCategory: 'DeveloperApplication',
 			operatingSystem: 'Android'
 		},
 		features: [
@@ -85,8 +86,9 @@ const projectConfigs = {
 				'Privilege and module management for multiple root implementations, keeping the experience consistent across them'
 		},
 		jsonLd: {
-			type: 'SoftwareApplication',
+			'@type': 'MobileApplication',
 			applicationCategory: 'SecurityApplication',
+			applicationSubCategory: 'UtilitiesApplication',
 			operatingSystem: 'Android'
 		},
 		features: [
@@ -193,7 +195,7 @@ const projectConfigs = {
 				'A multi-platform toolkit covering multiple permission levels and broader Android tinkering scenarios with small utilities'
 		},
 		jsonLd: {
-			type: 'SoftwareApplication',
+			'@type': 'SoftwareApplication',
 			applicationCategory: 'UtilitiesApplication',
 			operatingSystem: 'Android'
 		},

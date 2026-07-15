@@ -1,6 +1,14 @@
 import type { AggregateRating, Graph, ItemList, Offer, Organization, SoftwareApplication } from 'schema-dts'
 
-import { type ProjectConfig, type ProjectKey, getProjectConfigs, githubRepos, projectName, projects } from '@/content/site'
+import {
+	type ProjectConfig,
+	type ProjectKey,
+	getMainConfig,
+	getProjectConfigs,
+	githubRepos,
+	projectName,
+	projects
+} from '@/content/site'
 import { type Locale } from '@/i18n/routing'
 
 import { canonicalFor } from './metadata'
@@ -54,7 +62,7 @@ export const getGithubStars = async (project: ProjectKey) => {
 export const mainJsonLd = (locale: Locale) =>
 	graphFor({
 		'@type': 'ItemList',
-		name: 'ShiroSU Projects',
+		name: getMainConfig(locale).name,
 		itemListElement: projects.map((project, index) => ({
 			'@type': 'ListItem',
 			name: projectName(getProjectConfigs(locale)[project]),
@@ -81,11 +89,9 @@ export const projectJsonLd = (config: ProjectConfig, stars: number) => {
 			} satisfies AggregateRating)
 		: undefined
 	return graphFor({
-		'@type': config.jsonLd.type,
+		...config.jsonLd,
 		name: projectName(config),
 		description: config.description,
-		applicationCategory: config.jsonLd.applicationCategory,
-		operatingSystem: config.jsonLd.operatingSystem,
 		offers: offer,
 		...(aggregateRating ? { aggregateRating } : {})
 	} satisfies SoftwareApplication)

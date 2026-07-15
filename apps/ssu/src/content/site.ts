@@ -17,12 +17,6 @@ export type SiteFeature = {
 	icon: LucideIcon
 }
 
-export type JsonLdConfig = {
-	type: SoftwareApplication['@type']
-	applicationCategory: SoftwareApplication['applicationCategory']
-	operatingSystem: SoftwareApplication['operatingSystem']
-}
-
 export type SiteConfig = {
 	name: string
 	shortName?: string
@@ -34,7 +28,7 @@ export type SiteConfig = {
 		title?: string
 		description: string
 	}
-	jsonLd?: JsonLdConfig
+	jsonLd?: SoftwareApplication
 }
 
 export type MainConfig = SiteConfig
