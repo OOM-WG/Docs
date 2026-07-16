@@ -120,6 +120,12 @@ const projectConfigs = {
 			description:
 				'(In development) Connect devices through WebUSB in Chromium-based browsers and flash them directly from the web'
 		},
+		jsonLd: {
+			'@type': 'WebApplication',
+			applicationCategory: 'UtilitiesApplication',
+			applicationSubCategory: 'DeveloperApplication',
+			operatingSystem: 'Web'
+		},
 		features: [
 			{
 				title: 'WebUSB connection',
@@ -149,6 +155,12 @@ const projectConfigs = {
 		hero: {
 			description:
 				'(In development) A lightweight, low-level device information fetcher focused on display and debugging use cases'
+		},
+		jsonLd: {
+			'@type': 'SoftwareApplication',
+			applicationCategory: 'UtilitiesApplication',
+			applicationSubCategory: 'DeveloperApplication',
+			operatingSystem: 'Any'
 		},
 		features: [
 			{

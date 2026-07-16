@@ -54,7 +54,10 @@ const metadataFor = (config: MainConfig | ProjectConfig, locale: Locale, pathnam
 		},
 		alternates: {
 			canonical,
-			languages: languageAlternatesFor(pathname)
+			languages: languageAlternatesFor(pathname),
+			types: {
+				'application/xml': '/sitemap.xml'
+			}
 		},
 		openGraph: {
 			type: 'website',
@@ -96,7 +99,19 @@ const metadataFor = (config: MainConfig | ProjectConfig, locale: Locale, pathnam
 	} satisfies Metadata as Metadata
 }
 
-export const mainMetadata = (locale: Locale) => metadataFor(getMainConfig(locale), locale)
+export const mainMetadata = (locale: Locale) => {
+	const metadata = metadataFor(getMainConfig(locale), locale)
+	return {
+		...metadata,
+		alternates: {
+			...metadata.alternates,
+			types: {
+				...metadata.alternates?.types,
+				'text/markdown': '/llms.txt'
+			}
+		}
+	} satisfies Metadata as Metadata
+}
 
 export const projectMetadata = (locale: Locale, project: ProjectKey) =>
 	metadataFor(getProjectConfigs(locale)[project], locale, `/${project}`)

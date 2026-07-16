@@ -113,6 +113,12 @@ const projectConfigs = {
 		hero: {
 			description: '（開發中）透過 Chromium 內核的 WebUSB 特性連接裝置，在網頁上即可輕鬆刷機！'
 		},
+		jsonLd: {
+			'@type': 'WebApplication',
+			applicationCategory: 'UtilitiesApplication',
+			applicationSubCategory: 'DeveloperApplication',
+			operatingSystem: 'Web'
+		},
 		features: [
 			{
 				title: 'WebUSB 連線',
@@ -140,6 +146,12 @@ const projectConfigs = {
 		keywords: ['ShiroSU Fetcher', 'SSU Fetch', 'ShiroSU 資訊取得', 'SSU 資訊取得'],
 		hero: {
 			description: '（開發中）追求輕量、底層的裝置資訊取得工具，專注於展示或偵錯用途'
+		},
+		jsonLd: {
+			'@type': 'SoftwareApplication',
+			applicationCategory: 'UtilitiesApplication',
+			applicationSubCategory: 'DeveloperApplication',
+			operatingSystem: 'Any'
 		},
 		features: [
 			{

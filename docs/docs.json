@@ -76,8 +76,14 @@
 		"metatags": {
 			"canonical": "https://oom-wg.dev",
 			"baidu-site-verification": "codeva-Y9T3t5qRxy",
-			"google-site-verification": "qUc0AiSgPtSvsWY4b0l4ySqHZl16AgoWND7UD_0LVfQ",
-			"og:image": "https://oom-wg.dev/images/logo/oom-wg.webp"
+			"google-site-verification": "qUc0AiSgPtSvsWY4b0l4ySqHZl16AgoWND7UD_0LVfQ"
+		},
+		"organization": {
+			"id": "https://oom-wg.dev/#organization",
+			"url": "https://oom-wg.dev",
+			"sameAs": ["https://github.com/OOM-WG", "https://gitcode.com/OOM-WG"],
+			"logo": "https://oom-wg.dev/images/logo/oow.webp",
+			"name": "OOM WG"
 		}
 	},
 	"navigation": {

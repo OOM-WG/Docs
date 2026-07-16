@@ -15,6 +15,7 @@ import { canonicalFor } from './metadata'
 
 const organization = {
 	'@type': 'Organization',
+	'@id': 'https://oom-wg.dev/#organization',
 	url: 'https://oom-wg.dev',
 	sameAs: ['https://github.com/OOM-WG', 'https://gitcode.com/OOM-WG'],
 	logo: 'https://oom-wg.dev/images/logo/oow.webp',
