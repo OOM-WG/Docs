@@ -53,17 +53,17 @@ export const navSections = [
 				links: withIcons([
 					{
 						title: 'ShiroSU',
-						url: 'https://oom-wg.dev/ssu',
+						url: 'https://shirosu.gal.tf/',
 						description: 'Android root 方案与管理工具'
 					},
 					{
 						title: '苏柚',
-						url: 'https://oom-wg.dev/suu',
+						url: 'https://shirosu.gal.tf/utils',
 						description: '多平台 Android 玩机工具'
 					},
 					{
 						title: 'YumeBox',
-						url: 'https://yumebox.oom-wg.dev/',
+						url: 'https://yumebox.gal.tf/',
 						description: '基于 mihomo 内核的开源 Android 客户端'
 					}
 				])
