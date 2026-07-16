@@ -5,8 +5,9 @@
 	"description": "致力于用编程创造美好回忆的组织",
 	"footer": {
 		"socials": {
-			"telegram": "https://t.me/OOM_WG",
+			"website": "https://770414.xyz",
 			"github": "https://github.com/OOM-WG",
+			"telegram": "https://t.me/OOM_WG",
 			"discord": "https://discord.gg/4HQ2DaqKX"
 		},
 		"links": [
@@ -48,11 +49,15 @@
 		"light": "#b4cce9",
 		"dark": "#4a5bab"
 	},
-	"fonts": { "family": "Ubuntu" },
+	"fonts": { "family": "Ubuntu Sans" },
 	"icons": {
 		"library": "lucide"
 	},
 	"redirects": [
+		{
+			"source": "/posts/:path*",
+			"destination": "https://770414.xyz/posts/:path*"
+		},
 		{
 			"source": "/blog/:path*",
 			"destination": "https://770414.xyz/posts/:path*"
@@ -69,7 +74,7 @@
 		"timestamp": true
 	},
 	"contextual": {
-		"options": ["copy", "view", "chatgpt", "claude", "perplexity"]
+		"options": ["copy", "view", "chatgpt", "claude", "grok", "aistudio"]
 	},
 	"seo": {
 		"indexing": "all",
@@ -89,7 +94,7 @@
 	"navigation": {
 		"languages": [
 			{
-				"language": "zh",
+				"language": "zh-Hans",
 				"global": {
 					"anchors": [
 						{
@@ -112,14 +117,19 @@
 							{
 								"group": "简介",
 								"icon": "book-open",
-								"pages": ["index", "developers", "projects", "projects-ext"]
+								"pages": ["index", "developers"]
+							},
+							{
+								"group": "项目",
+								"icon": "folder-code",
+								"pages": ["projects", "projects-ext", "dev"]
+							},
+							{
+								"group": "更多",
+								"icon": "circle-ellipsis",
+								"pages": ["blog"]
 							}
 						]
-					},
-					{
-						"product": "开发",
-						"icon": "folder-code",
-						"pages": ["dev/index"]
 					},
 					{
 						"product": "ShiroSU",
@@ -158,6 +168,14 @@
 														"icon": "rss",
 														"openapi": {
 															"source": "apis/ssu/openapi.yml",
+															"directory": "ssu/nt/dev/api/http"
+														}
+													},
+													{
+														"group": "WebSocket API",
+														"icon": "rss",
+														"asyncapi": {
+															"source": "apis/ssu/asyncapi.yml",
 															"directory": "ssu/nt/dev/api"
 														}
 													}

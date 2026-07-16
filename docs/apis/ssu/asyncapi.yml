@@ -1,0 +1,215 @@
+asyncapi: 3.0.0
+info:
+  title: ShiroSU WebSocket 接口
+  version: 1.0.0
+  description: |
+    `suu man --server` 运行服务所提供的 WebSocket 接口
+
+    所有 WebSocket 路径与其对应的 HTTP 路径相同
+
+    需要先通过 HTTP 请求 `POST /ws` 获取临时一次性票证，
+    再使用 `?ws={ticket}` 建立 WebSocket 连接
+
+servers:
+  superuser:
+    host: '{host}:{port}'
+    protocol: ws
+    pathname: /api/v1/superuser
+    description: ShiroSU 后端的本地或局域网地址
+    variables:
+      host:
+        default: 127.0.0.1
+      port:
+        default: '5355'
+    security:
+      - $ref: '#/components/securitySchemes/wsTicket'
+
+channels:
+  statusVersion:
+    address: /version
+    title: 版本心跳
+    summary: 每秒发送一次当前版本号，用于连接存活判断
+    description: 服务端每秒发送一条版本号文本信息
+    messages:
+      version:
+        $ref: '#/components/messages/VersionText'
+  moduleInstall:
+    address: /modules/install
+    title: 模块安装流
+    summary: 安装模块 ZIP 并转发安装输出
+    description: |
+      建立连接后后端执行模块安装
+
+      传入 `url` 查询参数时后端下载模块 ZIP，客户端不需要发送 ZIP 二进制
+
+      没有 `url` 查询参数时客户端必须先发送 ZIP 二进制消息，并以 `{"type":"uploadEnd"}` 结束上传
+
+      客户端可以发送文本信息或二进制消息作为进程标准输入
+
+      服务端以 JSON 文本信息返回标准输出、标准错误和退出状态，
+      错误会以 `exit` 消息返回，其中 `code` 可能是 HTTP 状态码
+    messages:
+      upload:
+        $ref: '#/components/messages/ModuleZipBinary'
+      uploadEnd:
+        $ref: '#/components/messages/ModuleUploadEnd'
+      stdio:
+        $ref: '#/components/messages/WsioStdio'
+      exit:
+        $ref: '#/components/messages/WsioExit'
+  moduleAction:
+    address: /modules/id/{mid}/action
+    title: 模块 action.sh 执行流
+    summary: 执行模块 `action.sh` 并转发标准输入输出与错误
+    description: |
+      建立连接后后端执行模块的 `action.sh`
+
+      客户端可以发送文本信息或二进制消息作为进程标准输入
+
+      服务端以 JSON 文本信息返回标准输出、标准错误和退出状态，
+      错误会以 `exit` 消息返回，其中 `code` 可能是 HTTP 状态码
+    parameters:
+      mid:
+        description: 模块 ID
+    messages:
+      inputText:
+        $ref: '#/components/messages/WsioInputText'
+      inputBinary:
+        $ref: '#/components/messages/WsioInputBinary'
+      stdio:
+        $ref: '#/components/messages/WsioStdio'
+      exit:
+        $ref: '#/components/messages/WsioExit'
+operations:
+  receiveStatusVersion:
+    action: receive
+    title: 接收版本心跳
+    summary: 每秒接收一次当前版本号文本
+    channel:
+      $ref: '#/channels/statusVersion'
+    messages:
+      - $ref: '#/channels/statusVersion/messages/version'
+  sendModuleInstallZip:
+    action: send
+    title: 发送模块安装包
+    summary: 未传入 `url` 时发送模块 ZIP 二进制并结束上传
+    channel:
+      $ref: '#/channels/moduleInstall'
+    messages:
+      - $ref: '#/channels/moduleInstall/messages/upload'
+      - $ref: '#/channels/moduleInstall/messages/uploadEnd'
+  receiveModuleInstallOutput:
+    action: receive
+    title: 接收模块安装输出
+    summary: 接收模块安装的标准输出、标准错误和退出状态
+    channel:
+      $ref: '#/channels/moduleInstall'
+    messages:
+      - $ref: '#/channels/moduleInstall/messages/stdio'
+      - $ref: '#/channels/moduleInstall/messages/exit'
+  runModuleAction:
+    action: receive
+    title: 接收模块 action.sh 输出
+    summary: 接收模块 `action.sh` 的标准输出、标准错误和退出状态
+    channel:
+      $ref: '#/channels/moduleAction'
+    messages:
+      - $ref: '#/channels/moduleAction/messages/stdio'
+      - $ref: '#/channels/moduleAction/messages/exit'
+  sendModuleActionInput:
+    action: send
+    title: 发送模块 action.sh 输入
+    summary: 向模块 `action.sh` 进程标准输入写入数据
+    channel:
+      $ref: '#/channels/moduleAction'
+    messages:
+      - $ref: '#/channels/moduleAction/messages/inputText'
+      - $ref: '#/channels/moduleAction/messages/inputBinary'
+components:
+  securitySchemes:
+    wsTicket:
+      type: httpApiKey
+      in: query
+      name: ws
+      description: 通过 HTTP 请求 `POST /ws` 返回的一次性票证
+  messages:
+    VersionText:
+      name: version
+      title: 版本号文本消息
+      summary: 当前运行的 ShiroSU 版本
+      contentType: text/plain
+      payload:
+        type: string
+        examples:
+          - 0.0.0-indev
+    WsioInputText:
+      name: input_text
+      title: 标准输入文本
+      summary: 写入进程标准输入的文本消息
+      contentType: text/plain
+      payload:
+        type: string
+    WsioInputBinary:
+      name: input_binary
+      title: 标准输入二进制
+      summary: 写入进程标准输入的二进制消息
+      contentType: application/octet-stream
+      payload:
+        type: string
+        format: binary
+    ModuleZipBinary:
+      name: module_zip_binary
+      title: 模块 ZIP 二进制
+      summary: 未传入 `url` 时写入模块安装包
+      contentType: application/zip
+      payload:
+        type: string
+        format: binary
+    ModuleUploadEnd:
+      name: module_upload_end
+      title: 模块 ZIP 上传结束
+      summary: 结束模块 ZIP 上传并开始安装
+      contentType: application/json
+      payload:
+        type: object
+        required:
+          - type
+        properties:
+          type:
+            type: string
+            const: uploadEnd
+    WsioStdio:
+      name: stdio
+      title: 标准输出或标准错误消息
+      summary: 进程输出
+      contentType: application/json
+      payload:
+        type: object
+        required:
+          - type
+        properties:
+          type:
+            type: string
+            const: stdio
+          stdout:
+            type: string
+          stderr:
+            type: string
+    WsioExit:
+      name: exit
+      title: 退出状态消息
+      summary: 进程退出状态
+      contentType: application/json
+      payload:
+        type: object
+        required:
+          - type
+        properties:
+          type:
+            type: string
+            const: exit
+          code:
+            type: integer
+            description: 进程退出码或安装前置错误的 HTTP 状态码
+          signal:
+            type: integer
