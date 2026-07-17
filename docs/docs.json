@@ -91,6 +91,11 @@
 			"name": "OOM WG"
 		}
 	},
+	"api": {
+		"playground": {
+			"proxy": false
+		}
+	},
 	"navigation": {
 		"languages": [
 			{
@@ -162,7 +167,6 @@
 													"ssu/nt/dev/module/index",
 													"ssu/nt/dev/module/ssus",
 													"ssu/nt/dev/module/builder",
-													"ssu/nt/dev/root",
 													{
 														"group": "HTTP API",
 														"icon": "rss",
