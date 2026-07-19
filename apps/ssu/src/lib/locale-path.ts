@@ -1,3 +1,4 @@
+import { baseHost } from '@/content/site'
 import { type Locale, defaultLocale, isLocale } from '@/i18n/routing'
 
 export const getLocalePrefix = (locale: Locale) => (locale === defaultLocale ? '' : `/${locale}`)
@@ -20,11 +21,7 @@ export const localizePathname = (pathname: string, locale: Locale) => {
 export const localizeInternalHref = (href: string, locale: Locale) => {
 	if (isExternalHref(href)) return href
 
-	const [pathnameWithHash = '', search = ''] = href.split('?')
-	const [pathname = '/', hash = ''] = pathnameWithHash.split('#')
-	const localizedPathname = localizePathname(pathname, locale)
-	const queryPart = search ? `?${search}` : ''
-	const hashPart = hash ? `#${hash}` : ''
-
-	return `${localizedPathname}${queryPart}${hashPart}`
+	const parsed = new URL(href, `https://${baseHost}`)
+	const hash = parsed.hash ? `#${parsed.hash.slice(1).split('#', 1)[0]}` : ''
+	return `${localizePathname(parsed.pathname, locale)}${parsed.search}${hash}`
 }

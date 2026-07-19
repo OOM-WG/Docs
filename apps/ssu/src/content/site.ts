@@ -1,5 +1,7 @@
+import type { GithubInfoProps } from 'fumadocs-ui/components/github-info'
 import { type LucideIcon } from 'lucide-react'
 import { notFound } from 'next/navigation'
+import { type ComponentType } from 'react'
 import type { SoftwareApplication } from 'schema-dts'
 
 import { type Locale, defaultLocale, isLocale } from '@/i18n/routing'
@@ -8,18 +10,19 @@ import { content as enContent } from './en/site'
 import { content as zhHansContent } from './zh-Hans/site'
 import { content as zhHantContent } from './zh-Hant/site'
 
-export type SiteKey = 'main' | 'compat' | 'newtech' | 'flasher' | 'fetcher' | 'library' | 'utils'
-export type ProjectKey = Exclude<SiteKey, 'main'>
+export type MainProject = 'fyl' | 'newtech' | 'compat' | 'utils'
+export type Subproject = 'flasher' | 'fetcher' | 'systemless' | 'modules-builder'
+export type ConfigKey = 'main' | MainProject | Subproject
+export type ProjectKey = Exclude<ConfigKey, 'main'>
 
-export type SiteFeature = {
+export type ProjectFeature = {
+	icon: LucideIcon
 	title: string
 	description: string
-	icon: LucideIcon
 }
 
-export type SiteConfig = {
+export type MainConfig = {
 	name: string
-	shortName?: string
 	shortTitle: string
 	summary: string
 	description: string
@@ -31,28 +34,24 @@ export type SiteConfig = {
 	jsonLd?: SoftwareApplication
 }
 
-export type MainConfig = SiteConfig
-
-export type ProjectConfig = SiteConfig & {
-	key: ProjectKey
-	features: SiteFeature[]
-}
-
-export type ProjectCard = {
-	project: ProjectKey
-	title: string
-	description: string
-	icon: LucideIcon
-}
-
-export type GithubRepo = {
-	owner: string
-	repo: string
-}
+export type ProjectConfig = MainConfig & { icon: LucideIcon } & (
+		| { key: MainProject; features: ProjectFeature[] }
+		| { key: ProjectKey }
+	)
 
 export type PageContent = {
 	title: string
 	description: string
+}
+
+export type PageKey = 'about' | 'security' | 'why-shirosu' | 'projects'
+export type MdxPageKey = Exclude<PageKey, 'projects'>
+export type BreadcrumbPath = '/' | '/projects' | '/about' | '/security' | '/why-shirosu'
+
+export type MdxContent = {
+	main: ComponentType
+	pages: Record<MdxPageKey, ComponentType>
+	projects: Record<ProjectKey, ComponentType>
 }
 
 export type UiContent = {
@@ -64,18 +63,35 @@ export type UiContent = {
 	}
 	landing: {
 		enterPage: string
+		viewProjects: string
 		viewDocs: string
 		backHome: string
 		moreTitle: string
 		whyChoose: string
 	}
+	projects: {
+		description: string
+		primaryTitle: string
+		primaryDescription: string
+		subTitle: string
+		subDescription: string
+	}
+	subproject: {
+		moreProjects: string
+		mainProjects: string
+		mainProjectsDescription: string
+		supportingProjects: string
+		supportingProjectsDescription: string
+	}
+	breadcrumbs: Record<BreadcrumbPath, string>
 }
 
 export type LocaleContent = {
-	about: PageContent
-	security: PageContent
-	whyShiroSU: PageContent
-	projectCards: ProjectCard[]
+	pages: Record<PageKey, PageContent>
+	mdx: MdxContent
+	components: {
+		graph: ComponentType
+	}
 	mainConfig: MainConfig
 	projectConfigs: Record<ProjectKey, ProjectConfig>
 	ui: UiContent
@@ -83,37 +99,44 @@ export type LocaleContent = {
 
 export const baseHost = 'shirosu.gal.tf'
 
-export const projects = [
-	'newtech',
-	'compat',
-	'flasher',
-	'fetcher',
-	'library',
-	'utils'
-] as const satisfies readonly ProjectKey[]
+export const mainProjects = ['fyl', 'newtech', 'compat', 'utils'] as const satisfies readonly MainProject[]
+export const subprojects = ['flasher', 'fetcher', 'systemless', 'modules-builder'] as const satisfies readonly Subproject[]
+export const projects = [...mainProjects, ...subprojects] as const satisfies readonly ProjectKey[]
 
+export const isMainProject = (project: string): project is MainProject => (mainProjects as readonly string[]).includes(project)
+export const isSubproject = (project: string): project is Subproject => (subprojects as readonly string[]).includes(project)
 export const isProject = (project: string): project is ProjectKey => (projects as readonly string[]).includes(project)
 
 export const projectName = (config: ProjectConfig) => `ShiroSU ${config.name}`
 
 export const docsLinks = {
 	main: 'https://oom-wg.dev/ssu',
-	compat: 'https://oom-wg.dev/ssu/compat',
+	fyl: 'https://oom-wg.dev/dev',
 	newtech: 'https://oom-wg.dev/ssu/nt',
+	compat: 'https://oom-wg.dev/ssu/compat',
+	utils: 'https://oom-wg.dev/suu',
 	flasher: 'https://oom-wg.dev/ssu',
 	fetcher: 'https://oom-wg.dev/ssu',
-	library: 'https://oom-wg.dev/ssu',
-	utils: 'https://oom-wg.dev/suu'
-} satisfies Record<SiteKey, string> as Record<SiteKey, string>
+	systemless: 'https://oom-wg.dev/ssu/nt/dev/module/ssus',
+	'modules-builder': 'https://oom-wg.dev/ssu/nt/dev/module/builder'
+} satisfies Record<ConfigKey, string> as Record<ConfigKey, string>
 
 export const githubRepos = {
-	compat: {
+	fyl: {
 		owner: 'OOM-WG',
-		repo: 'ShiroSU'
+		repo: 'ShiroSU-FYL'
 	},
 	newtech: {
 		owner: 'OOM-WG',
 		repo: 'ShiroSU'
+	},
+	compat: {
+		owner: 'OOM-WG',
+		repo: 'ShiroSU'
+	},
+	utils: {
+		owner: 'OOM-WG',
+		repo: 'ShiroSU-Utils'
 	},
 	flasher: {
 		owner: 'OOM-WG',
@@ -123,15 +146,15 @@ export const githubRepos = {
 		owner: 'OOM-WG',
 		repo: 'ShiroSU'
 	},
-	library: {
+	systemless: {
 		owner: 'OOM-WG',
 		repo: 'ShiroSU'
 	},
-	utils: {
+	'modules-builder': {
 		owner: 'OOM-WG',
-		repo: 'ShiroSU-Utils'
+		repo: 'ShiroSU-Modules-Builder'
 	}
-} satisfies Record<ProjectKey, GithubRepo> as Record<ProjectKey, GithubRepo>
+} satisfies Record<ProjectKey, GithubInfoProps> as Record<ProjectKey, GithubInfoProps>
 
 export const contentByLocale = {
 	'zh-Hans': zhHansContent,
@@ -144,7 +167,5 @@ export const getContent = (locale: Locale = defaultLocale) => contentByLocale[is
 export const getMainConfig = (locale: Locale = defaultLocale) => getContent(locale).mainConfig
 
 export const getProjectConfigs = (locale: Locale = defaultLocale) => getContent(locale).projectConfigs
-
-export const getProjectCards = (locale: Locale = defaultLocale) => getContent(locale).projectCards
 
 export const getProjectFromParams = (project: string) => (isProject(project) ? project : notFound())

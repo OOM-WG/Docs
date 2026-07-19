@@ -17,7 +17,7 @@
 		"d3-force": "^3.0.0",
 		"fumadocs-core": "^16.11.5",
 		"fumadocs-ui": "^16.11.5",
-		"lucide-react": "^1.24.0",
+		"lucide-react": "^1.25.0",
 		"next": "^16.2.10",
 		"next-intl": "^4.13.2",
 		"react": "^19.2.7",
@@ -30,7 +30,7 @@
 		"@fontsource/ubuntu-sans": "^5.2.10",
 		"@mdx-js/loader": "^3.1.1",
 		"@next/mdx": "^16.2.10",
-		"@tailwindcss/postcss": "^4.3.2",
+		"@tailwindcss/postcss": "^4.3.3",
 		"@types/d3-force": "^3.0.10",
 		"@types/mdx": "^2.0.14",
 		"@types/node": "^26.1.1",
@@ -39,7 +39,7 @@
 		"daisyui": "^5.6.18",
 		"fumadocs-mdx": "^15.2.0",
 		"schema-dts": "^2.0.0",
-		"tailwindcss": "^4.3.2",
+		"tailwindcss": "^4.3.3",
 		"typescript": "6.0.3"
 	}
 }

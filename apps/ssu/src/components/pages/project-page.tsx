@@ -1,66 +1,26 @@
 import { GithubInfo } from 'fumadocs-ui/components/github-info'
 import { BookOpen, House } from 'lucide-react'
 import Link from 'next/link'
-import { type ComponentType } from 'react'
 
-import EnCompatBody from '@/content/en/compat.mdx'
-import EnFetcherBody from '@/content/en/fetcher.mdx'
-import EnFlasherBody from '@/content/en/flasher.mdx'
-import EnLibraryBody from '@/content/en/library.mdx'
-import EnNewTechBody from '@/content/en/newtech.mdx'
-import EnUtilsBody from '@/content/en/utils.mdx'
-import { type ProjectKey, docsLinks, getContent, githubRepos, projectName } from '@/content/site'
-import ZhHansCompatBody from '@/content/zh-Hans/compat.mdx'
-import ZhHansFetcherBody from '@/content/zh-Hans/fetcher.mdx'
-import ZhHansFlasherBody from '@/content/zh-Hans/flasher.mdx'
-import ZhHansLibraryBody from '@/content/zh-Hans/library.mdx'
-import ZhHansNewTechBody from '@/content/zh-Hans/newtech.mdx'
-import ZhHansUtilsBody from '@/content/zh-Hans/utils.mdx'
-import ZhHantCompatBody from '@/content/zh-Hant/compat.mdx'
-import ZhHantFetcherBody from '@/content/zh-Hant/fetcher.mdx'
-import ZhHantFlasherBody from '@/content/zh-Hant/flasher.mdx'
-import ZhHantLibraryBody from '@/content/zh-Hant/library.mdx'
-import ZhHantNewTechBody from '@/content/zh-Hant/newtech.mdx'
-import ZhHantUtilsBody from '@/content/zh-Hant/utils.mdx'
+import { type MainProject, docsLinks, getContent, githubRepos, projectName } from '@/content/site'
 import { type Locale, Link as LocalizedLink } from '@/i18n/routing'
+import { getGithubStars, projectJsonLd } from '@/lib/structured-data'
 
+import { JsonLd } from '../json-ld'
 import { ContentSection } from './content-section'
 
-const bodyByLocale = {
-	'zh-Hans': {
-		compat: ZhHansCompatBody,
-		newtech: ZhHansNewTechBody,
-		flasher: ZhHansFlasherBody,
-		fetcher: ZhHansFetcherBody,
-		library: ZhHansLibraryBody,
-		utils: ZhHansUtilsBody
-	},
-	'zh-Hant': {
-		compat: ZhHantCompatBody,
-		newtech: ZhHantNewTechBody,
-		flasher: ZhHantFlasherBody,
-		fetcher: ZhHantFetcherBody,
-		library: ZhHantLibraryBody,
-		utils: ZhHantUtilsBody
-	},
-	en: {
-		compat: EnCompatBody,
-		newtech: EnNewTechBody,
-		flasher: EnFlasherBody,
-		fetcher: EnFetcherBody,
-		library: EnLibraryBody,
-		utils: EnUtilsBody
-	}
-} satisfies Record<Locale, Record<ProjectKey, ComponentType>>
-
-export const ProjectPage = async ({ locale, project }: { locale: Locale; project: ProjectKey }) => {
-	const { projectConfigs, ui } = getContent(locale)
+export const ProjectPage = async ({ locale, project }: { locale: Locale; project: MainProject }) => {
+	const { mdx, projectConfigs, ui } = getContent(locale)
 	const config = projectConfigs[project]
 	const githubRepo = githubRepos[project]
-	const Body = bodyByLocale[locale][project]
+	const Body = mdx.projects[project]
+	const features = 'features' in config ? config.features : []
+	const jsonLd = projectJsonLd(locale, project, await getGithubStars(project))
 
 	return (
 		<main className='flex flex-1 flex-col'>
+			<JsonLd data={jsonLd} />
+
 			<section className='mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-7xl content-center gap-10 px-7 py-16 sm:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-16 xl:px-20'>
 				<div>
 					<p className='text-primary mb-4 text-sm font-semibold tracking-[0.22em] uppercase' data-nosnippet>
@@ -83,7 +43,7 @@ export const ProjectPage = async ({ locale, project }: { locale: Locale; project
 					</nav>
 				</div>
 				<ul className='m-0 grid list-none gap-4 p-0'>
-					{config.features.map(feature => (
+					{features.map(feature => (
 						<li key={feature.title}>
 							<article className='border-base-content/10 bg-base-100/72 hover:border-primary/40 hover:bg-primary/10 rounded-xl border p-5 shadow-sm backdrop-blur transition-[background-color,border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_36px_color-mix(in_oklab,var(--color-primary)_18%,transparent)]'>
 								<div className='flex items-start gap-4'>

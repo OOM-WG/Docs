@@ -124,6 +124,7 @@ export const sitemapEntries = () => {
 	const routes = [
 		{ pathname: '/', priority: 1 },
 		...projects.map(project => ({ pathname: `/${project}`, priority: 1 })),
+		{ pathname: '/projects', priority: 0.88 },
 		{ pathname: '/about', priority: 0.88 },
 		{ pathname: '/why-shirosu', priority: 0.88 },
 		{ pathname: '/security', priority: 0.66 }

@@ -2,28 +2,37 @@ import {
 	AppWindow,
 	Blocks,
 	DatabaseZap,
+	Drill,
 	EyeOff,
 	FolderCog,
+	FolderSymlink,
 	Gauge,
+	Languages,
 	Layers,
 	Link,
-	MonitorSmartphone,
 	PackageOpen,
-	Router,
 	ShieldCog,
-	Toolbox,
-	Usb,
-	Wrench
+	ShieldCogCorner,
+	Usb
 } from 'lucide-react'
 
-import type { LocaleContent, MainConfig, ProjectCard, ProjectConfig, ProjectKey } from '../site'
-import { content as AboutContent } from './about'
-import { content as SecurityContent } from './security'
-import { content as WhyShiroSUContent } from './why-shirosu'
+import type { LocaleContent, MainConfig, ProjectConfig, ProjectKey } from '../site'
+import Graph from './graph'
+import AboutBody from './pages/about.mdx'
+import MainBody from './pages/main.mdx'
+import SecurityBody from './pages/security.mdx'
+import WhyShiroSUBody from './pages/why-shirosu.mdx'
+import CompatBody from './projects/compat.mdx'
+import FetcherBody from './projects/fetcher.mdx'
+import FlasherBody from './projects/flasher.mdx'
+import FylBody from './projects/fyl.mdx'
+import ModulesBuilderBody from './projects/modules-builder.mdx'
+import NewTechBody from './projects/newtech.mdx'
+import SystemlessBody from './projects/systemless.mdx'
+import UtilsBody from './projects/utils.mdx'
 
 const mainConfig = {
 	name: 'ShiroSU 系列',
-	shortName: 'SSU',
 	shortTitle: 'SSU',
 	summary: '助力 Android 使用体验提升',
 	description: '致力于 Android 使用体验提升的系列项目',
@@ -34,8 +43,34 @@ const mainConfig = {
 } satisfies MainConfig
 
 const projectConfigs = {
+	fyl: {
+		key: 'fyl',
+		icon: PackageOpen,
+		name: '萦莹恋',
+		shortTitle: 'SSU FYL',
+		summary: '跨平台多功能开发库',
+		description: '涵盖各种功能的开发库，专注于跨平台通用和 Android 深度适配',
+		keywords: ['ShiroSU 萦莹恋', 'SSU FYL', 'FVV', '多语言', 'Android', 'root', 'su'],
+		hero: {
+			description: '以多种子功能聚合的开发库，专注于跨平台通用与 Android 深度适配'
+		},
+		jsonLd: {
+			'@type': 'SoftwareApplication',
+			applicationCategory: 'DeveloperApplication',
+			applicationSubCategory: 'UtilitiesApplication',
+			operatingSystem: 'Any'
+		},
+		features: [
+			{
+				icon: Languages,
+				title: 'FYTxt - 多语言框架',
+				description: 'Kotlin 多语言框架，支持全平台并在性能与易用性上有着优秀表现'
+			}
+		]
+	},
 	newtech: {
 		key: 'newtech',
+		icon: ShieldCogCorner,
 		name: 'NewTech',
 		shortTitle: 'SSU NT',
 		summary: '自由互联的 root 实现',
@@ -52,25 +87,26 @@ const projectConfigs = {
 		},
 		features: [
 			{
+				icon: AppWindow,
 				title: '网页互联',
 				description:
-					'通过网页管理器管理 root，前后端分离让局域网互联成为自然能力；浏览器 PWA 特性可直接将管理器安装至设备，易用易更新',
-				icon: AppWindow
+					'通过网页管理器管理 root，前后端分离让局域网互联成为自然能力；浏览器 PWA 特性可直接将管理器安装至设备，易用易更新'
 			},
 			{
+				icon: Blocks,
 				title: '完整功能',
-				description: '权能管理支持白名单授予 root 与黑名单卸载挂载；模块系统基于 KernelSU 元模块设计实现',
-				icon: Blocks
+				description: '权能管理支持白名单授予 root 与黑名单卸载挂载；模块系统基于 KernelSU 元模块设计实现'
 			},
 			{
+				icon: EyeOff,
 				title: '高隐蔽性',
-				description: '原生 root 不泄露任何 SELinux 或挂载上下文，并可通过黑名单功能暂时断连端口',
-				icon: EyeOff
+				description: '原生 root 不泄露任何 SELinux 或挂载上下文，并可通过黑名单功能暂时断连端口'
 			}
 		]
 	},
 	compat: {
 		key: 'compat',
+		icon: Layers,
 		name: 'Compat',
 		shortTitle: 'SSU Compat',
 		summary: '多功能 root 管理器',
@@ -87,106 +123,26 @@ const projectConfigs = {
 		},
 		features: [
 			{
+				icon: ShieldCog,
 				title: '多种 root 实现适配',
-				description: '兼容 Magisk、KernelSU、APatch 等多种 root 实现',
-				icon: ShieldCog
+				description: '兼容 Magisk、KernelSU、APatch 等多种 root 实现'
 			},
 			{
+				icon: Layers,
 				title: '模块管理',
-				description: '支持一键处理模块，置顶模块或创建快捷方式等便利操作',
-				icon: Layers
+				description: '支持一键处理模块，置顶模块或创建快捷方式等便利操作'
 			},
 			{
+				icon: Link,
 				title: '更多功能',
-				description: '支持 Scheme 关联、模块信息拓展等更多功能增强使用体验',
-				icon: Link
+				description: '支持 Scheme 关联、模块信息拓展等更多功能增强使用体验'
 			}
 		]
-	},
-	flasher: {
-		key: 'flasher',
-		name: 'Flasher',
-		shortTitle: 'SSU Flash',
-		summary: '免安装网页刷机工具',
-		description: '通过 WebUSB 实现的网页刷机工具，仅需浏览器即可即刻刷机！',
-		keywords: ['ShiroSU Flasher', 'SSU Flash', 'ShiroSU 网页刷机', 'SSU 网页刷机'],
-		hero: {
-			description: '(开发中) 通过 Chromium 内核的 WebUSB 特性连接设备，在网页上即可轻松刷机！'
-		},
-		jsonLd: {
-			'@type': 'WebApplication',
-			applicationCategory: 'UtilitiesApplication',
-			applicationSubCategory: 'DeveloperApplication',
-			operatingSystem: 'Web'
-		},
-		features: [
-			{
-				title: 'WebUSB 连接',
-				description: '无需在本地安装 adb 或 fastboot 程序，通过浏览器即可连接设备（仍需安装驱动程序）',
-				icon: Usb
-			},
-			{
-				title: '丰富功能',
-				description: '可通过 adb 或 fastboot 连接设备，支持解锁、刷机等常用功能',
-				icon: Toolbox
-			},
-			{
-				title: '易用网页',
-				description: '浏览器 PWA 特性可直接将网页安装至设备，易用易更新',
-				icon: AppWindow
-			}
-		]
-	},
-	fetcher: {
-		key: 'fetcher',
-		name: 'Fetcher',
-		shortTitle: 'SSU Fetch',
-		summary: '轻量设备信息获取工具',
-		description: '以 Rust no_std 为核心的设备信息获取工具，可通过命令行运行或作为库使用',
-		keywords: ['ShiroSU Fetcher', 'SSU Fetch', 'ShiroSU 信息获取', 'SSU 信息获取'],
-		hero: {
-			description: '(开发中) 追求轻量、底层的设备信息获取工具，专注于展示或调试用途'
-		},
-		jsonLd: {
-			'@type': 'SoftwareApplication',
-			applicationCategory: 'UtilitiesApplication',
-			applicationSubCategory: 'DeveloperApplication',
-			operatingSystem: 'Any'
-		},
-		features: [
-			{
-				title: '轻量与性能',
-				description: '核心代码采用 Rust no_std 编写，让体积更轻量、运行更性能',
-				icon: Gauge
-			},
-			{
-				title: '多平台适配',
-				description: '针对各个平台力所能及地获取信息，也有对 Android 进行深度适配',
-				icon: MonitorSmartphone
-			},
-			{
-				title: '多用用途',
-				description: '支持日常通过命令行展示信息，也可作为库在必要时收集调试信息',
-				icon: Wrench
-			}
-		]
-	},
-	library: {
-		key: 'library',
-		name: 'Library',
-		shortTitle: 'SSU Lib',
-		summary: 'root 接入封装库',
-		description: '主要针对 root 实现的封装库，简化一些接入流程',
-		keywords: ['ShiroSU Library', 'SSU Lib'],
-		hero: {
-			description: '(开发中) Android Kotlin 库，专注于 root 接入封装'
-		},
-		features: []
 	},
 	utils: {
 		key: 'utils',
+		icon: FolderCog,
 		name: 'Utils (苏柚)',
-		shortName: 'SUU',
 		shortTitle: 'SUU',
 		summary: '多平台 Android 玩机工具',
 		description: '多平台 Android 玩机工具，覆盖多种权限使用场景',
@@ -202,68 +158,136 @@ const projectConfigs = {
 		},
 		features: [
 			{
+				icon: ShieldCog,
 				title: '多权限覆盖',
-				description: '普通权限、adb、DeviceOwner、root 与 Xposed 注入都可以驱动部分功能',
-				icon: ShieldCog
+				description: '普通权限、adb、DeviceOwner、root 与 Xposed 注入都可以驱动部分功能'
 			},
 			{
+				icon: DatabaseZap,
 				title: '存储优化',
-				description: '文件整理、清理、重定向，加以碎片整理与脏块回收，让设备存储更清晰',
-				icon: DatabaseZap
+				description: '文件整理、清理、重定向，加以碎片整理与脏块回收，让设备存储更清晰'
 			},
 			{
+				icon: PackageOpen,
 				title: '小功能集合',
-				description: '更多小功能集合更能轻松解乏，也可配合 Windows 版本扩展体验',
-				icon: PackageOpen
+				description: '更多小功能集合更能轻松解乏，也可配合 Windows 版本扩展体验'
 			}
 		]
+	},
+	flasher: {
+		key: 'flasher',
+		icon: Usb,
+		name: 'Flasher',
+		shortTitle: 'SSU Flash',
+		summary: '免安装网页刷机工具',
+		description: '通过 WebUSB 实现的网页刷机工具，仅需浏览器即可即刻刷机！',
+		keywords: ['ShiroSU Flasher', 'SSU Flash', 'ShiroSU 网页刷机', 'SSU 网页刷机'],
+		hero: {
+			description: '(开发中) 通过 Chromium 内核的 WebUSB 特性连接设备，在网页上即可轻松刷机！'
+		},
+		jsonLd: {
+			'@type': 'WebApplication',
+			applicationCategory: 'UtilitiesApplication',
+			applicationSubCategory: 'DeveloperApplication',
+			operatingSystem: 'Web'
+		}
+	},
+	fetcher: {
+		key: 'fetcher',
+		icon: Gauge,
+		name: 'Fetcher',
+		shortTitle: 'SSU Fetch',
+		summary: '轻量设备信息获取工具',
+		description: '以 Rust no_std 为核心的设备信息获取工具，可通过命令行运行或作为库使用',
+		keywords: ['ShiroSU Fetcher', 'SSU Fetch', 'ShiroSU 信息获取', 'SSU 信息获取'],
+		hero: {
+			description: '(开发中) 追求轻量、底层的设备信息获取工具，专注于展示或调试用途'
+		},
+		jsonLd: {
+			'@type': 'SoftwareApplication',
+			applicationCategory: 'UtilitiesApplication',
+			applicationSubCategory: 'DeveloperApplication',
+			operatingSystem: 'Any'
+		}
+	},
+	systemless: {
+		key: 'systemless',
+		icon: FolderSymlink,
+		name: 'Systemless',
+		shortTitle: 'SSUS',
+		summary: '高兼容通用 systemless 挂载系统',
+		description: '基于 bind mount 实现的拥有自身运行时的 systemless 挂载系统',
+		keywords: ['ShiroSU Systemless', 'SSUS', 'ShiroSU 元模块', 'SSU 元模块'],
+		hero: {
+			description: '拥有自身运行时的 systemless 挂载系统，动态分区判断使其有着优秀兼容性'
+		},
+		jsonLd: {
+			'@type': 'SoftwareApplication',
+			applicationCategory: 'DeveloperApplication',
+			applicationSubCategory: 'UtilitiesApplication',
+			operatingSystem: 'Android'
+		}
+	},
+	'modules-builder': {
+		key: 'modules-builder',
+		icon: Drill,
+		name: '模块构建工具',
+		shortTitle: 'SSU Mods Builder',
+		summary: '通用 root 模块构建工具',
+		description: '支持多种 root 实现特性的模块构建工具',
+		keywords: ['ShiroSU 模块', 'SSU 模块', 'root 模块'],
+		hero: {
+			description: '支持多种 root 实现特性并可与原生编译语言共同构建的模块构建工具'
+		},
+		jsonLd: {
+			'@type': 'SoftwareApplication',
+			applicationCategory: 'DeveloperApplication',
+			applicationSubCategory: 'UtilitiesApplication',
+			operatingSystem: 'Android'
+		}
 	}
 } satisfies Record<ProjectKey, ProjectConfig> as Record<ProjectKey, ProjectConfig>
 
-const projectCards = [
-	{
-		project: 'newtech',
-		title: 'ShiroSU NewTech',
-		description: projectConfigs.newtech.description,
-		icon: Router
-	},
-	{
-		project: 'compat',
-		title: 'ShiroSU Compat',
-		description: projectConfigs.compat.description,
-		icon: Layers
-	},
-	{
-		project: 'flasher',
-		title: 'ShiroSU Flasher',
-		description: projectConfigs.flasher.description,
-		icon: Usb
-	},
-	{
-		project: 'fetcher',
-		title: 'ShiroSU Fetcher',
-		description: projectConfigs.fetcher.description,
-		icon: Gauge
-	},
-	{
-		project: 'library',
-		title: 'ShiroSU Library',
-		description: projectConfigs.library.description,
-		icon: PackageOpen
-	},
-	{
-		project: 'utils',
-		title: 'ShiroSU Utils (苏柚)',
-		description: projectConfigs.utils.description,
-		icon: FolderCog
-	}
-] satisfies ProjectCard[] as ProjectCard[]
-
 export const content = {
-	about: AboutContent,
-	security: SecurityContent,
-	whyShiroSU: WhyShiroSUContent,
-	projectCards,
+	pages: {
+		about: {
+			title: '关于 ShiroSU 系列',
+			description: 'ShiroSU 系列的相关说明（原 SakiSU/SakitinSU）'
+		},
+		security: {
+			title: 'ShiroSU 系列安全声明',
+			description: '有关 ShiroSU 系列的安全性声明'
+		},
+		'why-shirosu': {
+			title: '为什么选择 ShiroSU？',
+			description: '在 Android root 生态中 ShiroSU 交出的答卷'
+		},
+		projects: {
+			title: 'ShiroSU 项目列表',
+			description: 'ShiroSU 系列中的主线项目与支线项目'
+		}
+	},
+	mdx: {
+		main: MainBody,
+		pages: {
+			about: AboutBody,
+			security: SecurityBody,
+			'why-shirosu': WhyShiroSUBody
+		},
+		projects: {
+			fyl: FylBody,
+			newtech: NewTechBody,
+			compat: CompatBody,
+			utils: UtilsBody,
+			flasher: FlasherBody,
+			fetcher: FetcherBody,
+			systemless: SystemlessBody,
+			'modules-builder': ModulesBuilderBody
+		}
+	},
+	components: {
+		graph: Graph
+	},
 	mainConfig,
 	projectConfigs,
 	ui: {
@@ -275,10 +299,32 @@ export const content = {
 		},
 		landing: {
 			enterPage: '进入页面',
+			viewProjects: '查看项目',
 			viewDocs: '查看文档',
 			backHome: '返回主页',
 			moreTitle: '了解更多',
 			whyChoose: '为何选择？'
+		},
+		projects: {
+			description: 'ShiroSU 系列由主线项目与支线项目组成，共同覆盖 Android 玩机的不同场景',
+			primaryTitle: '主线项目',
+			primaryDescription: 'ShiroSU 系列的核心项目，定义 ShiroSU 核心使用体验',
+			subTitle: '支线项目',
+			subDescription: '专注于各类场景能力的项目'
+		},
+		subproject: {
+			moreProjects: '更多项目',
+			mainProjects: '主线项目',
+			mainProjectsDescription: '查看系列中的核心项目',
+			supportingProjects: '支线项目',
+			supportingProjectsDescription: '浏览其他专注于特定场景的项目'
+		},
+		breadcrumbs: {
+			'/': '系列主页',
+			'/projects': '项目列表',
+			'/about': '关于系列',
+			'/security': '安全声明',
+			'/why-shirosu': '为何选择'
 		}
 	}
 } satisfies LocaleContent

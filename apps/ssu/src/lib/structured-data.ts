@@ -1,8 +1,9 @@
-import type { AggregateRating, Graph, ItemList, Offer, Organization, SoftwareApplication } from 'schema-dts'
+import type { AggregateRating, BreadcrumbList, Graph, ItemList, Offer, Organization, SoftwareApplication } from 'schema-dts'
 
 import {
-	type ProjectConfig,
+	type BreadcrumbPath,
 	type ProjectKey,
+	getContent,
 	getMainConfig,
 	getProjectConfigs,
 	githubRepos,
@@ -39,6 +40,30 @@ const graphFor = (...nodes: Graph['@graph']) =>
 		'@graph': [organization, ...nodes]
 	}) satisfies Graph
 
+type BreadcrumbEntry = {
+	name: string
+	pathname: string
+}
+
+const breadcrumbList = (locale: Locale, entries: BreadcrumbEntry[]) =>
+	({
+		'@type': 'BreadcrumbList',
+		itemListElement: entries.map((entry, index) => ({
+			'@type': 'ListItem',
+			item: canonicalFor(locale, entry.pathname),
+			name: entry.name,
+			position: index + 1
+		}))
+	}) satisfies BreadcrumbList
+
+const staticBreadcrumb = (locale: Locale, pathname: BreadcrumbPath) => {
+	const breadcrumbs = getContent(locale).ui.breadcrumbs
+	const entries = [{ name: breadcrumbs['/'], pathname: '/' }]
+	if (pathname !== '/') entries.push({ name: breadcrumbs[pathname], pathname })
+
+	return breadcrumbList(locale, entries)
+}
+
 export const getGithubStars = async (project: ProjectKey) => {
 	const repo = githubRepos[project]
 	const apiUrl = `https://api.github.com/repos/${repo.owner}/${repo.repo}`
@@ -60,22 +85,33 @@ export const getGithubStars = async (project: ProjectKey) => {
 	}
 }
 
-export const mainJsonLd = (locale: Locale) =>
-	graphFor({
-		'@type': 'ItemList',
-		name: getMainConfig(locale).name,
-		itemListElement: projects.map((project, index) => ({
-			'@type': 'ListItem',
-			name: projectName(getProjectConfigs(locale)[project]),
-			url: canonicalFor(locale, `/${project}`),
-			position: index + 1
-		}))
-	} satisfies ItemList)
+export const mainJsonLd = (locale: Locale, pathname: BreadcrumbPath) =>
+	graphFor(
+		{
+			'@type': 'ItemList',
+			name: getMainConfig(locale).name,
+			itemListElement: projects.map((project, index) => ({
+				'@type': 'ListItem',
+				name: projectName(getProjectConfigs(locale)[project]),
+				url: canonicalFor(locale, `/${project}`),
+				position: index + 1
+			}))
+		} satisfies ItemList,
+		staticBreadcrumb(locale, pathname)
+	)
 
-export const commonJsonLd = (_?: Locale) => graphFor()
+export const commonJsonLd = (locale: Locale, pathname: BreadcrumbPath) => graphFor(staticBreadcrumb(locale, pathname))
 
-export const projectJsonLd = (config: ProjectConfig, stars: number) => {
-	if (!config.jsonLd) return graphFor()
+export const projectJsonLd = (locale: Locale, project: ProjectKey, stars?: number | null) => {
+	const config = getProjectConfigs(locale)[project]
+	const breadcrumbs = getContent(locale).ui.breadcrumbs
+	const breadcrumb = breadcrumbList(locale, [
+		{ name: breadcrumbs['/'], pathname: '/' },
+		{ name: breadcrumbs['/projects'], pathname: '/projects' },
+		{ name: projectName(config), pathname: `/${project}` }
+	])
+
+	if (!config.jsonLd) return graphFor(breadcrumb)
 
 	const offer = {
 		'@type': 'Offer',
@@ -89,11 +125,14 @@ export const projectJsonLd = (config: ProjectConfig, stars: number) => {
 				ratingCount: stars
 			} satisfies AggregateRating)
 		: undefined
-	return graphFor({
-		...config.jsonLd,
-		name: projectName(config),
-		description: config.description,
-		offers: offer,
-		...(aggregateRating ? { aggregateRating } : {})
-	} satisfies SoftwareApplication)
+	return graphFor(
+		{
+			...config.jsonLd,
+			name: projectName(config),
+			description: config.description,
+			offers: offer,
+			...(aggregateRating ? { aggregateRating } : {})
+		} satisfies SoftwareApplication,
+		breadcrumb
+	)
 }
