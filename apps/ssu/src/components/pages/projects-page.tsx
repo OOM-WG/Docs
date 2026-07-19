@@ -34,9 +34,9 @@ export const ProjectsPage = ({ locale }: { locale: Locale }) => {
 							const config = projectConfigs[project]
 
 							return (
-								<li key={project}>
+								<li key={project} className='h-full'>
 									<Link
-										className='group border-base-content/10 bg-base-100/82 hover:border-primary/45 hover:bg-primary/10 flex min-h-64 flex-col rounded-xl border p-5 shadow-sm backdrop-blur transition-[background-color,border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:shadow-[0_18px_50px_color-mix(in_oklab,var(--color-primary)_22%,transparent)]'
+										className='group border-base-content/10 bg-base-100/82 hover:border-primary/45 hover:bg-primary/10 flex h-full min-h-64 flex-col rounded-xl border p-5 shadow-sm backdrop-blur transition-[background-color,border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:shadow-[0_18px_50px_color-mix(in_oklab,var(--color-primary)_22%,transparent)]'
 										href={`/${project}`}>
 										<div className='bg-primary/12 text-primary mb-5 flex h-12 w-12 items-center justify-center rounded-lg'>
 											<config.icon size={24} />

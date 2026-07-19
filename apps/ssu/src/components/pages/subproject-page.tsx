@@ -1,5 +1,5 @@
 import { GithubInfo } from 'fumadocs-ui/components/github-info'
-import { ArrowRight, BookOpen, House, Layers } from 'lucide-react'
+import { ArrowRight, BookOpen, GitBranchPlus, House, LandPlot } from 'lucide-react'
 import Link from 'next/link'
 
 import { type Subproject, docsLinks, getContent, githubRepos, projectName } from '@/content/site'
@@ -58,7 +58,7 @@ export const SubprojectPage = ({ locale, project }: { locale: Locale; project: S
 						className='group border-base-content/10 bg-base-100/72 hover:border-primary/45 hover:bg-primary/8 rounded-lg border p-5 transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5'
 						href={localizeInternalHref('/projects#main', locale)}>
 						<div className='text-primary mb-4'>
-							<Layers size={22} />
+							<LandPlot size={22} />
 						</div>
 						<div className='flex items-center justify-between gap-4'>
 							<h2 className='font-bold'>{copy.mainProjects}</h2>
@@ -70,7 +70,7 @@ export const SubprojectPage = ({ locale, project }: { locale: Locale; project: S
 						className='group border-base-content/10 bg-base-100/72 hover:border-primary/45 hover:bg-primary/8 rounded-lg border p-5 transition-[background-color,border-color,transform] duration-200 hover:-translate-y-0.5'
 						href={localizeInternalHref('/projects#sub', locale)}>
 						<div className='text-primary mb-4'>
-							<BookOpen size={22} />
+							<GitBranchPlus size={22} />
 						</div>
 						<div className='flex items-center justify-between gap-4'>
 							<h2 className='font-bold'>{copy.supportingProjects}</h2>

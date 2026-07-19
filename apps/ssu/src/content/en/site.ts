@@ -7,6 +7,7 @@ import {
 	FolderCog,
 	FolderSymlink,
 	Gauge,
+	Grid2x2Plus,
 	Languages,
 	Layers,
 	Link,
@@ -113,7 +114,7 @@ const projectConfigs = {
 	},
 	compat: {
 		key: 'compat',
-		icon: Layers,
+		icon: Grid2x2Plus,
 		name: 'Compat',
 		shortTitle: 'SSU Compat',
 		summary: 'Multi-purpose root manager',
