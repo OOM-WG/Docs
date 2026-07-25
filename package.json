@@ -28,14 +28,14 @@
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
 		"postcss-html": "^1.8.1",
-		"prettier": "^3.9.5",
+		"prettier": "^3.9.6",
 		"prettier-plugin-astro": "^0.14.1",
-		"stylelint": "^17.14.0",
+		"stylelint": "^17.14.1",
 		"stylelint-config-astro": "^2.0.0",
 		"stylelint-config-standard": "^40.0.0",
 		"stylelint-config-tailwindcss": "^1.0.1",
 		"stylelint-plugin-defensive-css": "^2.9.4",
 		"stylelint-plugin-logical-css": "^2.1.0",
-		"vite-plus": "^0.2.4"
+		"vite-plus": "^0.2.6"
 	}
 }
