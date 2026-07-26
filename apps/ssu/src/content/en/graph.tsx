@@ -7,7 +7,7 @@ export default () => (
 			{ id: 'ssu-main', text: 'ShiroSU mainline', description: 'Core projects', url: '/' },
 			{ id: 'ssu-sub', text: 'ShiroSU supporting line', description: 'Supporting projects', url: '/about' },
 			{ id: 'ssu-fyl', text: 'ShiroSU FYL', description: 'Cross-platform multifunction library', url: '/fyl' },
-			{ id: 'ssu-nt', text: 'ShiroSU NT', description: 'Native root implementation', url: '/newtech' },
+			{ id: 'ssu-nt', text: 'ShiroSU NT', description: 'root solution', url: '/newtech' },
 			{ id: 'ssu-compat', text: 'ShiroSU Compat', description: 'Multi-purpose root manager', url: '/compat' },
 			{ id: 'suu', text: 'SUU', description: 'Sister project', url: '/utils' },
 			{ id: 'ssu-flash', text: 'ShiroSU Flasher', description: 'Web flashing tool', url: '/flasher' },

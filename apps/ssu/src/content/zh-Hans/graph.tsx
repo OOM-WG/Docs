@@ -8,7 +8,7 @@ export default () => (
 			{ id: 'ssu-sub', text: 'ShiroSU 支线', description: '子项目', url: '/about' },
 			//
 			{ id: 'ssu-fyl', text: 'ShiroSU 萦莹恋', description: '跨平台多功能库', url: '/fyl' },
-			{ id: 'ssu-nt', text: 'ShiroSU NT', description: '原生 root 实现', url: '/newtech' },
+			{ id: 'ssu-nt', text: 'ShiroSU NT', description: 'root 方案', url: '/newtech' },
 			{ id: 'ssu-compat', text: 'ShiroSU Compat', description: '多功能 root 管理器', url: '/compat' },
 			{ id: 'suu', text: '苏柚', description: '姊妹项目', url: '/utils' },
 			//

@@ -7,7 +7,7 @@ export default () => (
 			{ id: 'ssu-main', text: 'ShiroSU 主線', description: '核心專案', url: '/' },
 			{ id: 'ssu-sub', text: 'ShiroSU 支線', description: '子專案', url: '/about' },
 			{ id: 'ssu-fyl', text: 'ShiroSU 縈瑩戀', description: '跨平台多功能庫', url: '/fyl' },
-			{ id: 'ssu-nt', text: 'ShiroSU NT', description: '原生 root 實現', url: '/newtech' },
+			{ id: 'ssu-nt', text: 'ShiroSU NT', description: 'root 解決方案', url: '/newtech' },
 			{ id: 'ssu-compat', text: 'ShiroSU Compat', description: '多功能 root 管理器', url: '/compat' },
 			{ id: 'suu', text: '蘇柚', description: '姊妹專案', url: '/utils' },
 			{ id: 'ssu-flash', text: 'ShiroSU Flasher', description: '網頁刷機工具', url: '/flasher' },
