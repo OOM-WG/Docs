@@ -104,7 +104,7 @@ export const navSections = [
 				links: withIcons([
 					{
 						title: '枫莹',
-						url: 'https://www.fengying.xin/'
+						url: 'https://fengying.xin/'
 					},
 					{
 						title: '白彩恋',
@@ -112,7 +112,7 @@ export const navSections = [
 					},
 					{
 						title: '梦璃酱',
-						url: 'https://www.yumeyuka.moe/'
+						url: 'https://yumeyuka.moe/'
 					},
 					{
 						title: 'Linso',

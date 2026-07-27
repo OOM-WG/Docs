@@ -25,7 +25,6 @@ import SecurityBody from './pages/security.mdx'
 import WhyShiroSUBody from './pages/why-shirosu.mdx'
 import CompatBody from './projects/compat.mdx'
 import FetcherBody from './projects/fetcher.mdx'
-import FlasherBody from './projects/flasher.mdx'
 import FylBody from './projects/fyl.mdx'
 import ModulesBuilderBody from './projects/modules-builder.mdx'
 import NewTechBody from './projects/newtech.mdx'
@@ -154,16 +153,16 @@ const projectConfigs = {
 		name: 'Utils (SUU)',
 		shortTitle: 'SUU',
 		summary: 'Multi-platform Android modding & tweaking utility',
-		description: 'A multi-platform Android tinkering toolkit covering multiple permission scenarios',
-		keywords: ['ShiroSU Utils', 'SUU'],
+		description: 'A multi-platform Android tinkering toolkit covering a broad range of use cases',
+		keywords: ['ShiroSU Utils', 'SUU', 'storage optimization', 'web flashing'],
 		hero: {
 			title: 'SUU',
-			description:
-				'A multi-platform toolkit covering multiple permission levels and broader Android tinkering scenarios with small utilities'
+			description: 'A multi-platform toolkit for broader Android tinkering scenarios across multiple permission levels'
 		},
 		jsonLd: {
 			'@type': 'SoftwareApplication',
 			applicationCategory: 'UtilitiesApplication',
+			applicationSubCategory: 'DeveloperApplication',
 			operatingSystem: 'Android'
 		},
 		features: [
@@ -171,7 +170,7 @@ const projectConfigs = {
 				icon: ShieldCog,
 				title: 'Multiple permission levels',
 				description:
-					'Standard permissions, adb, DeviceOwner, root, and Xposed injection can all drive parts of the feature set'
+					'Standard permissions, ADB, DeviceOwner, root, and Xposed injection can all drive parts of the feature set'
 			},
 			{
 				icon: DatabaseZap,
@@ -180,31 +179,12 @@ const projectConfigs = {
 					'File organization, cleanup, redirection, defragmentation and dirty block reclaim help keep device storage clearer'
 			},
 			{
-				icon: PackageOpen,
-				title: 'Small utilities',
+				icon: Usb,
+				title: 'Web flashing',
 				description:
-					'A collection of small utilities makes daily use easier, with Windows builds available to extend the experience'
+					'An install-free web flashing tool: flash directly with only a browser, without locally installing adb or fastboot'
 			}
 		]
-	},
-	flasher: {
-		key: 'flasher',
-		icon: Usb,
-		name: 'Flasher',
-		shortTitle: 'SSU Flash',
-		summary: 'Install-free web flasher',
-		description: 'A WebUSB-based web flashing tool that lets you flash devices directly from the browser',
-		keywords: ['ShiroSU Flasher', 'SSU Flash', 'ShiroSU web flashing', 'SSU web flashing'],
-		hero: {
-			description:
-				'(In development) Connect devices through WebUSB in Chromium-based browsers and flash them directly from the web'
-		},
-		jsonLd: {
-			'@type': 'WebApplication',
-			applicationCategory: 'UtilitiesApplication',
-			applicationSubCategory: 'DeveloperApplication',
-			operatingSystem: 'Web'
-		}
 	},
 	fetcher: {
 		key: 'fetcher',
@@ -296,7 +276,6 @@ export const content = {
 			newtech: NewTechBody,
 			compat: CompatBody,
 			utils: UtilsBody,
-			flasher: FlasherBody,
 			fetcher: FetcherBody,
 			systemless: SystemlessBody,
 			'modules-builder': ModulesBuilderBody

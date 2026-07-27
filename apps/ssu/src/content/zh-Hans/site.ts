@@ -25,7 +25,6 @@ import SecurityBody from './pages/security.mdx'
 import WhyShiroSUBody from './pages/why-shirosu.mdx'
 import CompatBody from './projects/compat.mdx'
 import FetcherBody from './projects/fetcher.mdx'
-import FlasherBody from './projects/flasher.mdx'
 import FylBody from './projects/fyl.mdx'
 import ModulesBuilderBody from './projects/modules-builder.mdx'
 import NewTechBody from './projects/newtech.mdx'
@@ -146,22 +145,23 @@ const projectConfigs = {
 		name: 'Utils (苏柚)',
 		shortTitle: 'SUU',
 		summary: '多平台 Android 玩机工具',
-		description: '多平台 Android 玩机工具，覆盖多种权限使用场景',
-		keywords: ['ShiroSU Utils', '苏柚', 'SUU'],
+		description: '多平台 Android 玩机工具，覆盖多种使用场景',
+		keywords: ['ShiroSU Utils', '苏柚', 'SUU', '存储优化', '网页刷机'],
 		hero: {
 			title: '苏柚 / SUU',
-			description: '以多权限、多平台和小工具集合覆盖更广泛的 Android 玩机场景，让各场景下的 Android 玩机都能更进一步'
+			description: '以多权限、多平台覆盖更广泛的 Android 玩机场景，让各场景下的 Android 玩机都能更进一步'
 		},
 		jsonLd: {
 			'@type': 'SoftwareApplication',
 			applicationCategory: 'UtilitiesApplication',
+			applicationSubCategory: 'DeveloperApplication',
 			operatingSystem: 'Android'
 		},
 		features: [
 			{
 				icon: ShieldCog,
 				title: '多权限覆盖',
-				description: '普通权限、adb、DeviceOwner、root 与 Xposed 注入都可以驱动部分功能'
+				description: '普通权限、ADB、DeviceOwner、root 与 Xposed 注入都可以驱动部分功能'
 			},
 			{
 				icon: DatabaseZap,
@@ -169,29 +169,11 @@ const projectConfigs = {
 				description: '文件整理、清理、重定向，加以碎片整理与脏块回收，让设备存储更清晰'
 			},
 			{
-				icon: PackageOpen,
-				title: '小功能集合',
-				description: '更多小功能集合更能轻松解乏，也可配合 Windows 版本扩展体验'
+				icon: Usb,
+				title: '网页刷机',
+				description: '免安装网页刷机工具，仅需浏览器即可即刻刷机，无需在本地额外安装 adb 或 fastboot 程序'
 			}
 		]
-	},
-	flasher: {
-		key: 'flasher',
-		icon: Usb,
-		name: 'Flasher',
-		shortTitle: 'SSU Flash',
-		summary: '免安装网页刷机工具',
-		description: '通过 WebUSB 实现的网页刷机工具，仅需浏览器即可即刻刷机！',
-		keywords: ['ShiroSU Flasher', 'SSU Flash', 'ShiroSU 网页刷机', 'SSU 网页刷机'],
-		hero: {
-			description: '(开发中) 通过 Chromium 内核的 WebUSB 特性连接设备，在网页上即可轻松刷机！'
-		},
-		jsonLd: {
-			'@type': 'WebApplication',
-			applicationCategory: 'UtilitiesApplication',
-			applicationSubCategory: 'DeveloperApplication',
-			operatingSystem: 'Web'
-		}
 	},
 	fetcher: {
 		key: 'fetcher',
@@ -280,7 +262,6 @@ export const content = {
 			newtech: NewTechBody,
 			compat: CompatBody,
 			utils: UtilsBody,
-			flasher: FlasherBody,
 			fetcher: FetcherBody,
 			systemless: SystemlessBody,
 			'modules-builder': ModulesBuilderBody

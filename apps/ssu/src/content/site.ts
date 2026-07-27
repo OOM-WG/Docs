@@ -11,7 +11,7 @@ import { content as zhHansContent } from './zh-Hans/site'
 import { content as zhHantContent } from './zh-Hant/site'
 
 export type MainProject = 'fyl' | 'newtech' | 'compat' | 'utils'
-export type Subproject = 'flasher' | 'fetcher' | 'systemless' | 'modules-builder'
+export type Subproject = 'fetcher' | 'systemless' | 'modules-builder'
 export type ConfigKey = 'main' | MainProject | Subproject
 export type ProjectKey = Exclude<ConfigKey, 'main'>
 
@@ -100,7 +100,7 @@ export type LocaleContent = {
 export const baseHost = 'shirosu.gal.tf'
 
 export const mainProjects = ['fyl', 'newtech', 'compat', 'utils'] as const satisfies readonly MainProject[]
-export const subprojects = ['flasher', 'fetcher', 'systemless', 'modules-builder'] as const satisfies readonly Subproject[]
+export const subprojects = ['fetcher', 'systemless', 'modules-builder'] as const satisfies readonly Subproject[]
 export const projects = [...mainProjects, ...subprojects] as const satisfies readonly ProjectKey[]
 
 export const isMainProject = (project: string): project is MainProject => (mainProjects as readonly string[]).includes(project)
@@ -115,7 +115,6 @@ export const docsLinks = {
 	newtech: 'https://oom-wg.dev/ssu/nt',
 	compat: 'https://oom-wg.dev/ssu/compat',
 	utils: 'https://oom-wg.dev/suu',
-	flasher: 'https://oom-wg.dev/ssu',
 	fetcher: 'https://oom-wg.dev/ssu',
 	systemless: 'https://oom-wg.dev/ssu/nt/dev/module/ssus',
 	'modules-builder': 'https://oom-wg.dev/ssu/nt/dev/module/builder'
@@ -137,10 +136,6 @@ export const githubRepos = {
 	utils: {
 		owner: 'OOM-WG',
 		repo: 'ShiroSU-Utils'
-	},
-	flasher: {
-		owner: 'OOM-WG',
-		repo: 'ShiroSU'
 	},
 	fetcher: {
 		owner: 'OOM-WG',

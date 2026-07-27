@@ -249,9 +249,9 @@
 								]
 							},
 							{
-								"dropdown": "Windows",
-								"icon": "monitor-smartphone",
-								"pages": ["suu/win/index"]
+								"dropdown": "WebUI",
+								"icon": "app-window",
+								"pages": ["suu/web/index"]
 							}
 						]
 					},
