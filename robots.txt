@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://200ok.work/sitemap-index.xml
+Host: 200ok.work
