@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import Image from 'next/image'
 import NextLink from 'next/link'
+import Script from 'next/script'
 import { type ReactNode, Suspense } from 'react'
 
 import { DeferredFonts } from '@/components/deferred-fonts'
@@ -45,7 +46,16 @@ export default function BaseLayout({
 			<head>
 				<DeferredFonts />
 
-				{process.env.NODE_ENV === 'production' && <script defer src='//☁.gal.tf/🍥.js?ms=xf0q5hpejz' />}
+				{process.env.NODE_ENV === 'production' && (
+					<>
+						<Script src='//☁.gal.tf/🍥.js?ms=xf0q5hpejz' strategy='afterInteractive' />
+						<Script
+							id='ttzz'
+							src='//lf1-cdn-tos.bytegoofy.com/goofy/ttzz/push.js?2affdf24df9ee3181a6c354e74e81c488dbaa108802bce516e46bda6ca694db0fd9a9dcb5ced4d7780eb6f3bbd089073c2a6d54440560d63862bbf4ec01bba3a'
+							strategy='afterInteractive'
+						/>
+					</>
+				)}
 			</head>
 
 			<body className='flex min-h-dvh flex-col'>
